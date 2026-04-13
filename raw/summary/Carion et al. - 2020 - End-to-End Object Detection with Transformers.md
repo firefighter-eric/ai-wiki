@@ -33,5 +33,6 @@ End-to-End Object Detection with Transformers Nicolas Carion⋆, Francisco Massa
 
 ## 关联页面
 
-- 主题：[传统CV](../topics/传统CV.md)
-- 综合：暂无
+- 主题：[目标检测](../../wiki/topics/目标检测.md)
+- 主题：[传统 CV](../../wiki/topics/传统%20CV.md)
+- 概念：[DETR](../../wiki/concepts/DETR.md)

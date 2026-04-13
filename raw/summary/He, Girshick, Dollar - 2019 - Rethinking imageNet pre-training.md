@@ -33,5 +33,6 @@ We report competitive results on object detection and in- stance segmentation on
 
 ## 关联页面
 
-- 主题：[Slide  理解与生成](../topics/Slide%20%20理解与生成.md)
-- 综合：暂无
+- 主题：[目标检测](../../wiki/topics/目标检测.md)
+- 主题：[传统 CV](../../wiki/topics/传统%20CV.md)
+- 概念：[Faster R-CNN](../../wiki/concepts/Faster%20R-CNN.md)

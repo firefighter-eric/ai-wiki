@@ -6,7 +6,22 @@
   "hideUnresolved": false,
   "showOrphans": true,
   "collapse-color-groups": false,
-  "colorGroups": [],
+  "colorGroups": [
+    {
+      "query": "path:wiki/topics",
+      "color": {
+        "a": 1,
+        "rgb": 6084196
+      }
+    },
+    {
+      "query": "path:wiki/concepts  ",
+      "color": {
+        "a": 1,
+        "rgb": 15068302
+      }
+    }
+  ],
   "collapse-display": true,
   "showArrow": false,
   "textFadeMultiplier": 0,
@@ -18,5 +33,5 @@
   "linkStrength": 1,
   "linkDistance": 276,
   "scale": 0.5888381832704279,
-  "close": true
+  "close": false
 }

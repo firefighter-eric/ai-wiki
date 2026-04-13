@@ -1,0 +1,2073 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>[2508.02067] YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges</title><meta property="og:description" content="Over the past decade, object detection has advanced significantly, with the YOLO (You Only Look Once) family of models transforming the landscape of real-time vision applications through unified, end-to-end detection f…">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges">
+<meta name="twitter:image:src" content="https://ar5iv.labs.arxiv.org/assets/ar5iv_card.png">
+<meta name="twitter:image:alt" content="ar5iv logo">
+<meta property="og:title" content="YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges">
+<meta property="og:site_name" content="ar5iv">
+<meta property="og:image" content="https://ar5iv.labs.arxiv.org/assets/ar5iv_card.png">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ar5iv.labs.arxiv.org/html/2508.02067">
+<link rel="canonical" target="_blank" href="https://ar5iv.labs.arxiv.org/html/2508.02067">
+
+<!--Generated on Fri Sep  5 15:08:46 2025 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script>
+  function detectColorScheme(){
+    var theme="light";
+    var current_theme = localStorage.getItem("ar5iv_theme");
+    if(current_theme){
+      if(current_theme == "dark"){
+        theme = "dark";
+      } }
+    else if(!window.matchMedia) { return false; }
+    else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      theme = "dark"; }
+    if (theme=="dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light"); } }
+
+  detectColorScheme();
+
+  function toggleColorScheme(){
+    var current_theme = localStorage.getItem("ar5iv_theme");
+    if (current_theme) {
+      if (current_theme == "light") {
+        localStorage.setItem("ar5iv_theme", "dark"); }
+      else {
+        localStorage.setItem("ar5iv_theme", "light"); } }
+    else {
+        localStorage.setItem("ar5iv_theme", "dark"); }
+    detectColorScheme(); }
+</script>
+<link media="all" rel="stylesheet" href="/assets/ar5iv-fonts.0.8.4.css"><link media="all" rel="stylesheet" href="/assets/ar5iv.0.8.4.css"><link media="all" rel="stylesheet" href="/assets/ar5iv-site.0.2.2.css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Manikanta Kotthapalli
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Deepika Ravipati
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Reshma Bhatia
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p">Over the past decade, object detection has advanced significantly, with the YOLO (You Only Look Once) family of models transforming the landscape of real-time vision applications through unified, end-to-end detection frameworks. From YOLOv1’s pioneering regression-based detection to the latest YOLOv9, each version has systematically enhanced the balance between speed, accuracy, and deployment efficiency through continuous architectural and algorithmic advancements.. Beyond core object detection, modern YOLO architectures have expanded to support tasks such as instance segmentation, pose estimation, object tracking, and domain-specific applications including medical imaging and industrial automation. This paper offers a comprehensive review of the YOLO family, highlighting architectural innovations, performance benchmarks, extended capabilities, and real-world use cases. We critically analyze the evolution of YOLO models and discuss emerging research directions that extend their impact across diverse computer vision domains.</p>
+</div>
+<div id="p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Keywords:</span> Object Detection, YOLO, Deep Learning, Real-time Detection, Review.</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">I </span><span class="ltx_text ltx_font_smallcaps">Introduction</span>
+</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Object detection is a cornerstone task in computer vision, involving both the identification and localization of objects within static images or dynamic video streams. Over the past decade, deep learning has transformed this field, delivering significant gains in detection accuracy, robustness, and deployment efficiency. Among the most influential developments is the YOLO (You Only Look Once) family of models, which redefined real-time object detection by introducing a unified, end-to-end architecture capable of delivering high-speed predictions without sacrificing accuracy.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">Traditional object detectors such as R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="" class="ltx_ref">1</a>]</cite>, Fast R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="" class="ltx_ref">2</a>]</cite>, and Faster R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib3" title="" class="ltx_ref">3</a>]</cite> adopt a two-stage approach: first generating region proposals and then classifying and refining these regions. While these methods have demonstrated high accuracy, their sequential architecture incurs significant computational overhead, making them unsuitable for latency-sensitive applications such as autonomous driving, robotics, and real-time surveillance.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">YOLO disrupted this paradigm by reframing object detection as a single-stage regression problem. It predicts bounding boxes and class probabilities directly from full images in a single forward pass <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="" class="ltx_ref">4</a>]</cite>. This shift enabled orders-of-magnitude speed improvements while maintaining competitive accuracy. Since its inception with YOLOv1, the YOLO family has evolved rapidly, with each version introducing architectural innovations, optimization techniques, and deployment improvements. More recent iterations, such as YOLOv8 and YOLOv9, have extended the framework’s applicability to tasks including segmentation, pose estimation, and edge-device deployment.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">This paper presents a comprehensive review of the YOLO series, from YOLOv1 through YOLOv9, with brief discussions of emerging models like YOLOv10 and YOLOv11. We examine the key architectural and algorithmic innovations across YOLO versions, from YOLOv1 through YOLOv9, highlighting how each iteration improved the trade-off between detection speed and accuracy. Performance benchmarks such as mAP and FPS are contextualized using results on standard datasets like PASCAL VOC and MS COCO. We further discuss the deployment characteristics of different YOLO variants across edge and server environments, noting their suitability for tasks such as small object detection, real-time inference, and multi-task learning (e.g., segmentation and pose estimation). Finally, we identify open challenges—such as training stability in anchor-free variants, robustness under domain shift, and interpretability—and propose future research directions that could improve the usability, efficiency, and adaptability of YOLO models in diverse real-world applications.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">II </span><span class="ltx_text ltx_font_smallcaps">Background on Object Detection</span>
+</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Object detection is a fundamental task in computer vision that involves both identifying object classes and localizing them within an image. Early approaches such as Deformable Part Models (DPM) and Selective Search relied heavily on handcrafted features and exhaustive region proposal mechanisms <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>, <a href="#bib.bib6" title="" class="ltx_ref">6</a>]</cite>. While these methods laid the groundwork for detection frameworks, they were often limited by high computational cost and suboptimal performance on complex scenes.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">The advent of deep learning revolutionized object detection by enabling end-to-end trainable architectures capable of learning robust feature representations directly from data. Early deep learning-based detectors adopted a two-stage approach: the first stage generates candidate object regions, and the second stage classifies and refines these proposals. Representative models include R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="" class="ltx_ref">1</a>]</cite>, Fast R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="" class="ltx_ref">2</a>]</cite>, and Faster R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib3" title="" class="ltx_ref">3</a>]</cite>. In particular, Faster R-CNN introduced the concept of Region Proposal Networks (RPNs), integrating proposal generation into the deep learning pipeline and significantly improving efficiency and accuracy.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">Despite their effectiveness, two-stage detectors tend to be computationally intensive, with inference times unsuitable for latency-sensitive applications such as robotics, autonomous driving, or real-time video analytics. To address this limitation, one-stage detectors were introduced. These models eliminate the explicit proposal generation phase and directly predict object classes and bounding boxes over dense spatial grids. Notable examples include the Single Shot MultiBox Detector (SSD) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="" class="ltx_ref">7</a>]</cite> and the original YOLO (You Only Look Once) model <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="" class="ltx_ref">4</a>]</cite>.</p>
+</div>
+<div id="S2.p4" class="ltx_para">
+<p class="ltx_p">YOLO fundamentally reframed object detection as a regression problem, simultaneously predicting bounding boxes and class probabilities in a single forward pass through the network. This design enabled unprecedented inference speed, making YOLO a popular choice for real-time applications. However, early YOLO versions struggled with detection of small objects and exhibited lower localization precision compared to their two-stage counterparts.</p>
+</div>
+<div id="S2.p5" class="ltx_para">
+<p class="ltx_p">Subsequent YOLO iterations have addressed these shortcomings through a series of architectural enhancements, including multi-scale feature fusion, advanced backbone networks, decoupled detection heads, and improved training strategies. Today, YOLO models constitute one of the most prominent families of one-stage object detectors, offering a compelling balance between speed, accuracy, and deployment flexibility.</p>
+</div>
+<div id="S2.p6" class="ltx_para">
+<p class="ltx_p">In the following sections, we present a chronological review of the YOLO family from YOLOv1 through YOLOv9, highlighting the architectural innovations, performance improvements, and design philosophies that have driven their evolution.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">III </span><span class="ltx_text ltx_font_smallcaps">Taxonomy of YOLO Innovations</span>
+</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">To clarify the evolution of the YOLO family beyond sequential versioning, we categorize innovations along five orthogonal axes:</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<ol id="S3.I1" class="ltx_enumerate">
+<li id="S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="S3.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Backbone</span>: Feature extraction architecture.</p>
+</div>
+</li>
+<li id="S3.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="S3.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Neck</span>: Feature fusion and multi-scale aggregation.</p>
+</div>
+</li>
+<li id="S3.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="S3.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Detection Head</span>: Prediction structure and decoupling.</p>
+</div>
+</li>
+<li id="S3.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">4.</span> 
+<div id="S3.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Loss and Assignment</span>: Optimization objectives and label matching.</p>
+</div>
+</li>
+<li id="S3.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">5.</span> 
+<div id="S3.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Training Strategies</span>: Data augmentation, regularization, and architectural tricks.</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">This taxonomy highlights the incremental and independent advances across components, facilitating modular understanding and design reuse.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-A </span><span class="ltx_text ltx_font_italic">Backbone Evolution</span>
+</h3>
+
+<div id="S3.SS1.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p">Early YOLO versions (v1–v2) relied on classification-derived backbones such as GoogLeNet and Darknet-19. YOLOv3 introduced Darknet-53, a deeper, residual-style backbone. Subsequent versions adopted cross-stage partial connections (CSPDarknet in YOLOv4/v5) and, more recently, GELAN in YOLOv9 to improve both capacity and efficiency while maintaining real-time constraints.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-B </span><span class="ltx_text ltx_font_italic">Neck and Feature Fusion</span>
+</h3>
+
+<div id="S3.SS2.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p">Multi-scale feature fusion became explicit in YOLOv3 and matured in later versions. YOLOv4 incorporated PANet to propagate context from shallow to deep layers. YOLOv7 introduced RepPAN, and YOLOv9 integrated GELAN-FPN, significantly enhancing localization of small and occluded objects through richer feature pyramids.</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-C </span><span class="ltx_text ltx_font_italic">Detection Head</span>
+</h3>
+
+<div id="S3.SS3.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p">Until YOLOv5, detection heads were largely coupled—jointly predicting class scores and bounding box regressions. YOLOv6 introduced a fully decoupled head architecture, allowing specialization of features. YOLOv8 transitioned to anchor-free prediction, while YOLOv9 merged decoupling with programmable gradient routing for dynamic task emphasis.</p>
+</div>
+</section>
+<section id="S3.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-D </span><span class="ltx_text ltx_font_italic">Loss and Assignment</span>
+</h3>
+
+<div id="S3.SS4.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p">YOLOv1–v2 employed squared-error loss for bounding boxes. YOLOv3 onward adopted IoU-based losses (GIoU, CIoU), and YOLOv7–v9 adopted Distribution Focal Loss (DFL). In label assignment, the shift from greedy matching to SimOTA and OTA methods (e.g., in YOLOv6–v9) stabilized training and improved convergence in dense scenes.</p>
+</div>
+<div id="S3.SS4.p2" class="ltx_para">
+<p class="ltx_p">Intersection over Union (IoU), the standard metric for evaluating detection overlap, is illustrated in Fig. <a href="#S3.F1" title="Figure 1 ‣ III-D Loss and Assignment ‣ III Taxonomy of YOLO Innovations ‣ YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, where IoU is defined as the ratio of the area of overlap to the area of union between predicted and ground-truth boxes.</p>
+</div>
+<figure id="S3.F1" class="ltx_figure"><img src="/html/2508.02067/assets/figs/IOU.png" id="S3.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="359" height="253" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Intersection over Union (IoU) is computed as the ratio of the overlapping area to the union area between predicted and ground-truth boxes.</figcaption>
+</figure>
+</section>
+<section id="S3.SS5" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-E </span><span class="ltx_text ltx_font_italic">Training Strategies</span>
+</h3>
+
+<div id="S3.SS5.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p">Training pipelines evolved dramatically: YOLOv2 introduced multi-scale inputs; YOLOv4 added Mosaic and CutMix augmentation; YOLOv5 employed auto-anchor selection and hyperparameter evolution. YOLOv6/7 added re-parameterized convolutions and EMA; YOLOv8/9 integrated self-adversarial training and programmable assignment to balance precision and recall.</p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">TABLE I: </span>Innovation matrix across YOLO generations
+(⚫=major contribution,
+◆=minor/first use,
+–=not present).</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">Category</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v1</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v2</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v3</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v4</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v5</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v6</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v7</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v8</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">v9</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">Backbone</th>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">⚫</td>
+</tr>
+<tr class="ltx_tr" style="background-color:#FFFFFF;">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">Neck / FPN</span></th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">◆</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">◆</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">⚫</span></td>
+</tr>
+<tr class="ltx_tr" style="background-color:#FBFBFB;">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">Head (decoupled)</span></th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">⚫</span></td>
+</tr>
+<tr class="ltx_tr" style="background-color:#FFFFFF;">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">Anchor-free</span></th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">◆</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">⚫</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">⚫</span></td>
+</tr>
+<tr class="ltx_tr" style="background-color:#FBFBFB;">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">Loss (IoU/DFL)</span></th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">L2</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">L2+IoU</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">BCE</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">CIoU</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">CIoU</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">vFL</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">vFL</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">DFL</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FBFBFB;">DFLv2</span></td>
+</tr>
+<tr class="ltx_tr" style="background-color:#FFFFFF;">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">Training Tricks</span></th>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">–</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">Multi-scale</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">Multi-scale</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">Mosaic/CutMix</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">Auto-Aug</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">EMA/Copy-Paste</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">RepConv</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">EMA+AF</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span class="ltx_text" style="background-color:#FFFFFF;">SimOTA+EMA</span></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div id="S3.SS5.p2" class="ltx_para">
+<p class="ltx_p">A visual comparison of YOLO versions across five innovation axes is shown in Fig. <a href="#S3.F2" title="Figure 2 ‣ III-E Training Strategies ‣ III Taxonomy of YOLO Innovations ‣ YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>, highlighting the relative maturity of each component.</p>
+</div>
+<figure id="S3.F2" class="ltx_figure"><img src="/html/2508.02067/assets/figs/radarChart.png" id="S3.F2.g1" class="ltx_graphics ltx_centering ltx_img_square" width="538" height="438" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Radar plot of the relative emphasis of each YOLO version on the five innovation axes.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">IV </span><span class="ltx_text ltx_font_smallcaps">YOLOv1: Unified Real-Time Object Detection</span>
+</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">YOLOv1 (You Only Look Once) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="" class="ltx_ref">4</a>]</cite> marked a paradigm shift in object detection by framing the task as a single regression problem. Instead of relying on region proposals and separate classification stages, YOLOv1 introduced a fully end-to-end, single-stage network that directly predicts bounding box coordinates and class probabilities from an input image in a single forward pass. This unification enabled real-time inference speeds without the need for post-processing stages traditionally seen in two-stage detectors.</p>
+</div>
+<div id="S4.p2" class="ltx_para">
+<p class="ltx_p">The YOLOv1 architecture is based on a custom convolutional neural network inspired by GoogLeNet <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="" class="ltx_ref">8</a>]</cite>, optimized for speed and efficiency. It consists of 24 convolutional layers followed by two fully connected layers. The input image is divided into an <math id="S4.p2.m1" class="ltx_Math" alttext="S\times S" display="inline" intent=":literal"><semantics><mrow><mi>S</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">S\times S</annotation></semantics></math> grid (with <math id="S4.p2.m2" class="ltx_Math" alttext="S=7" display="inline" intent=":literal"><semantics><mrow><mi>S</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">S=7</annotation></semantics></math>), where each grid cell is responsible for detecting objects whose centers fall within the cell. Each grid cell predicts <math id="S4.p2.m3" class="ltx_Math" alttext="B=2" display="inline" intent=":literal"><semantics><mrow><mi>B</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B=2</annotation></semantics></math> bounding boxes, associated confidence scores, and <math id="S4.p2.m4" class="ltx_Math" alttext="C" display="inline" intent=":literal"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math> class probabilities.</p>
+</div>
+<div id="S4.p3" class="ltx_para">
+<p class="ltx_p">YOLOv1 uses a multi-part loss function composed of three components: localization loss (for bounding box coordinates), confidence loss (for objectness prediction), and classification loss (for class probabilities), all trained jointly using standard backpropagation. The model achieved 45 FPS on the PASCAL VOC 2007 dataset, demonstrating that real-time object detection was achievable on standard hardware.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">IV-A </span><span class="ltx_text ltx_font_italic">Key Contributions</span>
+</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<ul id="S4.I1" class="ltx_itemize">
+<li id="S4.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Unified Detection Framework:</span> YOLOv1 introduced a single-stage, fully end-to-end architecture that treats detection as a regression problem, simplifying the pipeline and enabling joint optimization.</p>
+</div>
+</li>
+<li id="S4.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">High Inference Speed:</span> Achieved 45 FPS with a mean Average Precision (mAP) of 63.4% on PASCAL VOC 2007, significantly outperforming prior detectors in terms of speed.</p>
+</div>
+</li>
+<li id="S4.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Global Context Reasoning:</span> By processing the entire image at once, YOLOv1 incorporated global contextual information, helping to reduce background false positives.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">IV-B </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<ul id="S4.I2" class="ltx_itemize">
+<li id="S4.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Localization Precision:</span> The coarse grid-based prediction leads to poor localization performance for small or densely packed objects.</p>
+</div>
+</li>
+<li id="S4.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Prediction Rigidity:</span> Each grid cell predicts a fixed number of bounding boxes, limiting the model’s ability to detect multiple adjacent objects.</p>
+</div>
+</li>
+<li id="S4.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I2.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Lower Accuracy Compared to Two-Stage Models:</span> Despite its speed, YOLOv1 underperforms in accuracy compared to two-stage models such as Faster R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib3" title="" class="ltx_ref">3</a>]</cite>, particularly in complex scenes.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<p class="ltx_p">YOLOv1 laid the foundation for a new class of fast and unified object detectors. Although its accuracy was surpassed by more complex methods, its pioneering design demonstrated that high-speed detection was feasible without an excessive trade-off in performance, setting the stage for further innovations in the YOLO series.</p>
+</div>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">V </span><span class="ltx_text ltx_font_smallcaps">YOLOv2: Better, Faster, Stronger</span>
+</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">YOLOv2 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="" class="ltx_ref">9</a>]</cite>, also known as YOLO9000, addressed key limitations of YOLOv1 by significantly improving localization accuracy, recall, and generalization across varied object categories. It introduced a suite of architectural enhancements and training strategies, resulting in substantial performance gains while preserving real-time inference capabilities.</p>
+</div>
+<section id="S5.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">V-A </span><span class="ltx_text ltx_font_italic">Key Improvements</span>
+</h3>
+
+<div id="S5.SS1.p1" class="ltx_para">
+<ul id="S5.I1" class="ltx_itemize">
+<li id="S5.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Batch Normalization:</span> The inclusion of batch normalization <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="" class="ltx_ref">10</a>]</cite> after each convolutional layer improved convergence speed and regularization, contributing to an increase in mean Average Precision (mAP) by over 2%.</p>
+</div>
+</li>
+<li id="S5.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">High-Resolution Classifier Pretraining:</span> The classification backbone was pretrained at a higher resolution (448 <math id="S5.I1.i2.p1.m1" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 448), enhancing its ability to capture fine-grained features crucial for accurate object localization.</p>
+</div>
+</li>
+<li id="S5.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Anchor Boxes:</span> Inspired by Faster R-CNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib3" title="" class="ltx_ref">3</a>]</cite>, YOLOv2 replaced direct bounding box regression with anchor boxes, improving the model’s flexibility and recall.</p>
+</div>
+</li>
+<li id="S5.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Dimension Clustering:</span> To optimize anchor box design, YOLOv2 employed <math id="S5.I1.i4.p1.m1" class="ltx_Math" alttext="k" display="inline" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-means clustering on bounding box dimensions from the training data, leading to better-matched priors and more stable training.</p>
+</div>
+</li>
+<li id="S5.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Multi-Scale Training:</span> During training, the network dynamically changed its input resolution every few iterations (ranging from 320 <math id="S5.I1.i5.p1.m1" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 320 to 608 <math id="S5.I1.i5.p1.m2" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 608), enabling the model to generalize across scales and improve robustness.</p>
+</div>
+</li>
+<li id="S5.I1.i6" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i6.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">YOLO9000:</span> A novel hierarchical joint training approach allowed the network to simultaneously learn from detection datasets (e.g., COCO) and large-scale classification datasets (e.g., ImageNet). This enabled detection across more than 9,000 object categories, even with limited bounding box annotations.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S5.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">V-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S5.SS2.p1" class="ltx_para">
+<p class="ltx_p">YOLOv2 achieved 76.8% mAP on the PASCAL VOC 2007 test set while running at 67 frames per second (FPS), significantly outperforming its predecessor in both accuracy and speed. The joint training mechanism introduced by YOLO9000 set the stage for scalable object detection under weak supervision and open-vocabulary constraints.</p>
+</div>
+</section>
+<section id="S5.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">V-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S5.SS3.p1" class="ltx_para">
+<ul id="S5.I2" class="ltx_itemize">
+<li id="S5.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Small Object Detection:</span> Although more accurate than YOLOv1, YOLOv2 continued to struggle with detecting very small or densely packed objects due to limitations in grid resolution.</p>
+</div>
+</li>
+<li id="S5.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Complex Scene Handling:</span> Detection performance in cluttered or highly overlapping object scenarios remained limited, partly due to the static nature of anchor boxes and coarse prediction granularity.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S5.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv2 represented a pivotal step in the YOLO family, proving that accuracy and speed need not be mutually exclusive. Its introduction of scalable training, anchor-based prediction, and dataset fusion significantly influenced subsequent detection frameworks and solidified YOLO’s position as a competitive one-stage detector.</p>
+</div>
+</section>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">VI </span><span class="ltx_text ltx_font_smallcaps">YOLOv3: An Incremental Improvement</span>
+</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">YOLOv3 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib11" title="" class="ltx_ref">11</a>]</cite> marked a significant refinement of the YOLO architecture, addressing several limitations of its predecessors—particularly in detecting small objects—while preserving real-time performance. Rather than introducing a radical redesign, YOLOv3 delivered a series of architectural and training enhancements that collectively boosted detection accuracy, robustness, and versatility.</p>
+</div>
+<section id="S6.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VI-A </span><span class="ltx_text ltx_font_italic">Key Improvements</span>
+</h3>
+
+<div id="S6.SS1.p1" class="ltx_para">
+<ul id="S6.I1" class="ltx_itemize">
+<li id="S6.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S6.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Darknet-53 Backbone:</span> YOLOv3 introduced Darknet-53 as its feature extraction backbone. This network comprises 53 convolutional layers with residual connections <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="" class="ltx_ref">12</a>]</cite>, offering a deeper and more expressive architecture than its predecessors. Despite its depth, Darknet-53 maintained computational efficiency through the use of <math id="S6.I1.i1.p1.m1" class="ltx_Math" alttext="3\times 3" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times 3</annotation></semantics></math> and <math id="S6.I1.i1.p1.m2" class="ltx_Math" alttext="1\times 1" display="inline" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times 1</annotation></semantics></math> convolutions.</p>
+</div>
+</li>
+<li id="S6.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S6.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Multi-Scale Feature Prediction:</span> To improve detection of objects at varying scales, YOLOv3 made predictions at three distinct feature map resolutions. Feature maps were extracted from progressively deeper layers and fused using upsampling and concatenation, enabling the model to capture both fine and coarse object features.</p>
+</div>
+</li>
+<li id="S6.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S6.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Refined Anchor-Based Detection:</span> Building on the anchor box strategy introduced in YOLOv2, YOLOv3 improved prediction precision by applying anchor boxes across multiple scales and predicting offsets relative to each anchor box.</p>
+</div>
+</li>
+<li id="S6.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S6.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Independent Class Predictions:</span> YOLOv3 moved away from using a softmax function over class labels and instead adopted independent logistic classifiers for each class. This modification improved the model’s ability to handle multi-label classification tasks, where multiple object classes may overlap in a single region.</p>
+</div>
+</li>
+<li id="S6.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S6.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Binary Cross-Entropy Loss:</span> The model employed binary cross-entropy loss for both class probabilities and objectness scores, simplifying the training procedure and improving numerical stability.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S6.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VI-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S6.SS2.p1" class="ltx_para">
+<p class="ltx_p">YOLOv3 achieved 57.9% mAP at an IoU threshold of 0.5 (mAP@0.5) on the COCO dataset, while maintaining real-time inference speeds of approximately 30–45 FPS depending on input resolution and hardware. Although it did not surpass the accuracy of slower detectors such as RetinaNet <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib13" title="" class="ltx_ref">13</a>]</cite>, it offered a highly favorable speed-accuracy trade-off, making it well-suited for real-time detection in practical applications.</p>
+</div>
+</section>
+<section id="S6.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VI-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S6.SS3.p1" class="ltx_para">
+<ul id="S6.I2" class="ltx_itemize">
+<li id="S6.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S6.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Reduced Precision at High IoU Thresholds:</span> YOLOv3’s performance declined at stricter localization metrics (e.g., mAP@0.75), highlighting limitations in bounding box precision compared to two-stage detectors.</p>
+</div>
+</li>
+<li id="S6.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S6.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Deployment Overhead:</span> While efficient on GPUs, the Darknet-53 backbone introduced higher computational and memory requirements than earlier YOLO versions, posing challenges for deployment on resource-constrained edge devices.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S6.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv3 represented a mature and widely adopted one-stage detector, offering a robust balance between speed, accuracy, and deployment feasibility. It served as a strong foundation for subsequent research and became a benchmark model in both academic and industrial computer vision pipelines.</p>
+</div>
+</section>
+</section>
+<section id="S7" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">VII </span><span class="ltx_text ltx_font_smallcaps">YOLOv4: Optimal Speed and Accuracy of Object Detection</span>
+</h2>
+
+<div id="S7.p1" class="ltx_para">
+<p class="ltx_p">YOLOv4 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib14" title="" class="ltx_ref">14</a>]</cite> represented a major leap in the YOLO series by integrating a broad set of architectural innovations and training heuristics aimed at optimizing both detection accuracy and inference speed. Notably, YOLOv4 was designed to be trainable on commercially available GPUs, democratizing access to high-performance object detection for a wider research and industrial community.</p>
+</div>
+<section id="S7.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VII-A </span><span class="ltx_text ltx_font_italic">Key Innovations</span>
+</h3>
+
+<div id="S7.SS1.p1" class="ltx_para">
+<ul id="S7.I1" class="ltx_itemize">
+<li id="S7.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S7.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Cross-Stage Partial Networks (CSPNet):</span> The model adopted CSPDarknet-53 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib15" title="" class="ltx_ref">15</a>]</cite> as its backbone, which partitions feature maps and introduces cross-stage connections to improve gradient flow, reduce redundancy, and decrease computational complexity without sacrificing representational power.</p>
+</div>
+</li>
+<li id="S7.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S7.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Bag of Freebies (BoF):</span> YOLOv4 incorporated several training-time techniques that enhanced model generalization without impacting inference latency. These included advanced data augmentation strategies such as Mosaic augmentation, CutMix <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="" class="ltx_ref">16</a>]</cite>, Class Label Smoothing, and regularization methods like DropBlock <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib17" title="" class="ltx_ref">17</a>]</cite>.</p>
+</div>
+</li>
+<li id="S7.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S7.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Bag of Specials (BoS):</span> Lightweight architectural modules were added to improve accuracy with marginal increases in computational cost. These included the Mish activation function <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="" class="ltx_ref">18</a>]</cite>, Spatial Pyramid Pooling (SPP) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib19" title="" class="ltx_ref">19</a>]</cite>, and PANet <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib20" title="" class="ltx_ref">20</a>]</cite> for enhanced feature aggregation.</p>
+</div>
+</li>
+<li id="S7.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S7.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Improved Feature Fusion:</span> YOLOv4 leveraged PANet to strengthen the path from low-level to high-level feature maps, improving the model’s ability to localize small and medium-sized objects.</p>
+</div>
+</li>
+<li id="S7.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S7.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Self-Adversarial Training (SAT):</span> A novel internal training method where the model perturbs its own input images during training to simulate adversarial conditions, thereby increasing robustness and generalization.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S7.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VII-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S7.SS2.p1" class="ltx_para">
+<p class="ltx_p">YOLOv4 achieved 43.5% average precision (AP) on the COCO dataset while maintaining real-time inference speeds of approximately 65 FPS on an NVIDIA V100 GPU. It significantly outperformed YOLOv3 across both accuracy and speed metrics, establishing a new state-of-the-art for one-stage detectors at the time of its release.</p>
+</div>
+</section>
+<section id="S7.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VII-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S7.SS3.p1" class="ltx_para">
+<ul id="S7.I2" class="ltx_itemize">
+<li id="S7.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S7.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Resource Requirements:</span> Despite optimizations, the full-scale YOLOv4 model remained computationally demanding, posing challenges for deployment on low-power edge devices.</p>
+</div>
+</li>
+<li id="S7.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S7.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">System Complexity:</span> The integration of numerous BoF and BoS techniques increased the overall complexity of the training and deployment pipeline, making reproducibility and ablation studies more challenging for the broader community.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S7.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv4 significantly advanced the YOLO family by pushing the boundaries of real-time object detection performance while remaining accessible to users with modest hardware. Its combination of practical design and high accuracy made it one of the most widely adopted object detectors in both academic and industrial settings.</p>
+</div>
+</section>
+</section>
+<section id="S8" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">VIII </span><span class="ltx_text ltx_font_smallcaps">YOLOv5: Practicality and Engineering Optimization</span>
+</h2>
+
+<div id="S8.p1" class="ltx_para">
+<p class="ltx_p">YOLOv5, developed and released by Ultralytics <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="" class="ltx_ref">21</a>]</cite>, marked a significant divergence in the YOLO family. Unlike earlier versions, YOLOv5 was not introduced through a peer-reviewed academic paper but was instead released directly via GitHub. Despite initial controversy over its versioning and naming, YOLOv5 rapidly gained widespread adoption across industry and academia due to its practical engineering focus, ease of deployment, and consistent performance across diverse use cases.</p>
+</div>
+<section id="S8.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VIII-A </span><span class="ltx_text ltx_font_italic">Key Innovations</span>
+</h3>
+
+<div id="S8.SS1.p1" class="ltx_para">
+<ul id="S8.I1" class="ltx_itemize">
+<li id="S8.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Framework Transition to PyTorch:</span> YOLOv5 was implemented in PyTorch, improving accessibility for researchers and practitioners by leveraging a more widely adopted deep learning framework. This facilitated faster development cycles and integration with modern machine learning pipelines.</p>
+</div>
+</li>
+<li id="S8.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Model Scaling Variants:</span> YOLOv5 introduced four model variants—YOLOv5s (small), YOLOv5m (medium), YOLOv5l (large), and YOLOv5x (extra-large)—allowing users to balance detection accuracy against inference speed and resource consumption based on deployment constraints.</p>
+</div>
+</li>
+<li id="S8.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">AutoAnchor and Hyperparameter Evolution:</span> The training pipeline incorporated automated optimization of anchor boxes and hyperparameters, reducing manual tuning and improving generalization across datasets.</p>
+</div>
+</li>
+<li id="S8.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Advanced Data Augmentation:</span> YOLOv5 utilized a rich set of augmentation strategies, including Mosaic augmentation, MixUp <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="" class="ltx_ref">22</a>]</cite>, and HSV color space transformations, enhancing robustness and generalization.</p>
+</div>
+</li>
+<li id="S8.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Cross-Platform Exportability:</span> YOLOv5 models could be exported to multiple formats—ONNX, TensorRT, CoreML, and OpenVINO—supporting seamless deployment across a wide range of hardware platforms, from servers to edge devices.</p>
+</div>
+</li>
+<li id="S8.I1.i6" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I1.i6.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Training Efficiency:</span> YOLOv5 emphasized fast convergence, lightweight design, and low memory footprint, achieving strong performance while simplifying the training and inference pipeline compared to YOLOv4.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S8.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VIII-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S8.SS2.p1" class="ltx_para">
+<p class="ltx_p">YOLOv5 models demonstrated competitive results on the COCO dataset, with the YOLOv5x variant achieving approximately 50.1% mAP@0.5 while maintaining real-time inference speeds. Smaller variants such as YOLOv5s were optimized for deployment on resource-constrained environments, including mobile and embedded systems, with minimal compromise in accuracy.</p>
+</div>
+</section>
+<section id="S8.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">VIII-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S8.SS3.p1" class="ltx_para">
+<ul id="S8.I2" class="ltx_itemize">
+<li id="S8.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Absence of Formal Publication:</span> The lack of an accompanying peer-reviewed paper posed challenges for formal citation and academic validation of YOLOv5’s design choices and performance claims.</p>
+</div>
+</li>
+<li id="S8.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S8.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Engineering-Focused Contributions:</span> YOLOv5 primarily focused on practical implementation improvements and did not introduce major algorithmic innovations or architectural breakthroughs compared to prior versions.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S8.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv5 represented a pivotal moment in the YOLO lineage, transitioning the framework from academic research to a production-grade object detection system. Its focus on usability, training efficiency, and deployment flexibility solidified its position as a widely adopted tool for real-world computer vision applications.</p>
+</div>
+</section>
+</section>
+<section id="S9" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">IX </span><span class="ltx_text ltx_font_smallcaps">YOLOv6: A High-Performance Detector for Industrial Applications</span>
+</h2>
+
+<div id="S9.p1" class="ltx_para">
+<p class="ltx_p">YOLOv6 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="" class="ltx_ref">23</a>]</cite>, developed by Meituan, was designed with a strong emphasis on industrial deployment scenarios, targeting high accuracy and low-latency inference on edge devices. Unlike its predecessors, YOLOv6 diverged from the original YOLO design by incorporating a modernized architecture and training strategies inspired by state-of-the-art object detection models. Its focus on engineering rigor and real-world efficiency positioned it as a practical solution for commercial applications.</p>
+</div>
+<section id="S9.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">IX-A </span><span class="ltx_text ltx_font_italic">Key Innovations</span>
+</h3>
+
+<div id="S9.SS1.p1" class="ltx_para">
+<ul id="S9.I1" class="ltx_itemize">
+<li id="S9.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S9.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Efficient Decoupled Head:</span> YOLOv6 introduced a fully decoupled detection head, separating classification and regression branches into distinct processing streams. This decoupling allows each branch to specialize in its respective task, improving both localization accuracy and classification confidence.</p>
+</div>
+</li>
+<li id="S9.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S9.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">RepOptimizer and Re-parameterized Convolutions:</span> To accelerate convergence and optimize inference, YOLOv6 employed RepOptimizer, based on re-parameterization techniques from RepVGG <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="" class="ltx_ref">24</a>]</cite>. This approach uses complex blocks during training and simplifies them into efficient structures for deployment, improving runtime performance without degrading accuracy.</p>
+</div>
+</li>
+<li id="S9.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S9.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Anchor-Free and Anchor-Based Flexibility:</span> Unlike previous YOLO models, YOLOv6 supports both anchor-based and anchor-free detection paradigms. The anchor-free variant draws inspiration from FCOS <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib25" title="" class="ltx_ref">25</a>]</cite>, eliminating the need for manually defined anchor boxes and improving adaptability across varied object scales.</p>
+</div>
+</li>
+<li id="S9.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S9.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Advanced Training Strategies:</span> The training pipeline includes multiple enhancements such as Exponential Moving Average (EMA), dynamic label assignment, and composite augmentation methods like Mosaic, MixUp, and Copy-Paste. These strategies improve generalization, stability, and robustness.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S9.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">IX-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S9.SS2.p1" class="ltx_para">
+<p class="ltx_p">On the COCO dataset, YOLOv6 consistently outperformed YOLOv5 in terms of mAP, particularly on small and medium-sized objects, while maintaining comparable or faster inference times. The availability of scalable model variants—YOLOv6-nano, YOLOv6-s, and YOLOv6-m—allowed users to tailor model complexity to target deployment environments, from cloud servers to embedded edge devices.</p>
+</div>
+</section>
+<section id="S9.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">IX-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S9.SS3.p1" class="ltx_para">
+<ul id="S9.I2" class="ltx_itemize">
+<li id="S9.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S9.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Increased Training Complexity:</span> The integration of re-parameterization techniques and complex augmentation pipelines introduced additional overhead in training setup and model tuning.</p>
+</div>
+</li>
+<li id="S9.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S9.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Limited Academic Penetration:</span> Despite its strong industrial relevance, YOLOv6 has received comparatively less attention in academic literature and benchmark competitions, potentially due to the lack of a peer-reviewed publication and deviation from canonical YOLO lineage.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S9.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv6 expanded the YOLO ecosystem into edge-centric and latency-sensitive industrial use cases. By integrating modern detector designs with practical deployment tools, it provided a highly efficient and customizable framework for real-time applications in domains such as logistics, retail automation, and manufacturing.</p>
+</div>
+</section>
+</section>
+<section id="S10" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">X </span><span class="ltx_text ltx_font_smallcaps">YOLOv7: Extending Efficient Layer Aggregation</span>
+</h2>
+
+<div id="S10.p1" class="ltx_para">
+<p class="ltx_p">YOLOv7 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib26" title="" class="ltx_ref">26</a>]</cite> introduced substantial architectural enhancements and training optimizations that advanced the state-of-the-art in real-time object detection. With a focus on maximizing both computational efficiency and detection accuracy, YOLOv7 further solidified the YOLO series as a leading one-stage detection framework suitable for a broad range of applications.</p>
+</div>
+<section id="S10.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">X-A </span><span class="ltx_text ltx_font_italic">Key Innovations</span>
+</h3>
+
+<div id="S10.SS1.p1" class="ltx_para">
+<ul id="S10.I1" class="ltx_itemize">
+<li id="S10.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S10.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Extended Efficient Layer Aggregation Networks (E-ELAN):</span> Building upon the ELAN framework, YOLOv7 introduced Extended ELAN (E-ELAN) modules that facilitated deeper and more effective networks without disrupting gradient propagation. This design enhanced multi-scale feature extraction while preserving fast inference speeds.</p>
+</div>
+</li>
+<li id="S10.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S10.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Model Re-Parameterization:</span> Inspired by RepVGG <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="" class="ltx_ref">24</a>]</cite>, YOLOv7 utilized re-parameterized convolutional structures during training, which were simplified at inference time into efficient single-path architectures. This allowed the model to benefit from complex training-time structures without compromising runtime latency.</p>
+</div>
+</li>
+<li id="S10.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S10.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Trainable Bag-of-Freebies:</span> YOLOv7 refined several traditional training strategies by introducing dynamic label assignment, auxiliary supervision, and adaptive label smoothing. These enhancements, applied only during training, improved generalization and stability without adding inference overhead.</p>
+</div>
+</li>
+<li id="S10.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S10.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Coarse-to-Fine Lead Head Design:</span> The detection head employed a coarse-to-fine strategy, enabling progressive refinement of object localization and classification. This resulted in improved detection accuracy, particularly in dense and cluttered scenes.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S10.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">X-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S10.SS2.p1" class="ltx_para">
+<p class="ltx_p">On the COCO dataset, YOLOv7 achieved 56.8% average precision (AP) while maintaining real-time inference speeds. It outperformed prior YOLO models—including YOLOv5 and YOLOv6—as well as many two-stage detectors such as Faster R-CNN, in both accuracy and computational efficiency. Its optimized performance on both high-end GPUs and edge hardware made it highly suitable for real-world deployments in industrial and mobile environments.</p>
+</div>
+</section>
+<section id="S10.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">X-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S10.SS3.p1" class="ltx_para">
+<ul id="S10.I2" class="ltx_itemize">
+<li id="S10.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S10.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Training and Engineering Complexity:</span> The use of multiple detection heads, re-parameterized modules, and sophisticated training techniques increased the engineering burden for both training and hyperparameter tuning.</p>
+</div>
+</li>
+<li id="S10.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S10.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Deployment Constraints:</span> Despite efficient inference, ensuring optimal performance on resource-limited devices required careful export and tuning due to the architectural complexity.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S10.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv7 marked a significant milestone in the YOLO lineage, demonstrating that careful architectural design, combined with advanced training strategies, can yield substantial gains in both detection accuracy and efficiency. Its versatility and robustness further extended YOLO’s leadership in the field of real-time object detection.</p>
+</div>
+</section>
+</section>
+<section id="S11" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XI </span><span class="ltx_text ltx_font_smallcaps">YOLOv8: Anchor-Free Detection and Architectural Simplification</span>
+</h2>
+
+<div id="S11.p1" class="ltx_para">
+<p class="ltx_p">YOLOv8, released by Ultralytics in early 2023 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="" class="ltx_ref">27</a>]</cite>, introduced significant architectural refinements and usability improvements. Marking a substantial shift from prior YOLO versions, YOLOv8 adopted an anchor-free detection paradigm and emphasized a simplified, unified architecture that supports multiple vision tasks. These design decisions aimed to improve model interpretability, ease of training, and deployment versatility while maintaining real-time performance.</p>
+</div>
+<section id="S11.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XI-A </span><span class="ltx_text ltx_font_italic">Key Innovations</span>
+</h3>
+
+<div id="S11.SS1.p1" class="ltx_para">
+<ul id="S11.I1" class="ltx_itemize">
+<li id="S11.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S11.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Anchor-Free Detection:</span> In contrast to the anchor-based schemes used in earlier YOLO versions, YOLOv8 employed an anchor-free approach inspired by FCOS <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib25" title="" class="ltx_ref">25</a>]</cite> and CenterNet <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib28" title="" class="ltx_ref">28</a>]</cite>. This eliminated the need for manually defined anchor boxes, simplifying the output space and improving training stability.</p>
+</div>
+</li>
+<li id="S11.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S11.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Redesigned Detection Head:</span> YOLOv8’s detection head directly predicts object center coordinates, width, height, and objectness scores, aligning its output formulation with modern single-stage detectors and reducing the complexity of post-processing steps.</p>
+</div>
+</li>
+<li id="S11.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S11.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Unified Multi-Task Architecture:</span> YOLOv8 was designed with modularity in mind, enabling support for related vision tasks such as instance segmentation and pose estimation with minimal architectural changes. This flexibility broadened its applicability beyond pure object detection.</p>
+</div>
+</li>
+<li id="S11.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S11.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Model Scaling Options:</span> YOLOv8 introduced a family of model sizes—YOLOv8n (nano), YOLOv8s (small), YOLOv8m (medium), YOLOv8l (large), and YOLOv8x (extra-large)—offering users customizable trade-offs between inference speed, memory usage, and detection accuracy.</p>
+</div>
+</li>
+<li id="S11.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S11.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Enhanced Usability and Deployment Support:</span> YOLOv8 streamlined the user experience by integrating training, evaluation, and export functionalities into the Ultralytics Python package. The model supports deployment across a range of hardware targets through native export to ONNX, TensorRT, OpenVINO, CoreML, and other formats.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S11.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XI-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S11.SS2.p1" class="ltx_para">
+<p class="ltx_p">YOLOv8 achieved strong performance across object detection benchmarks. On the COCO dataset, the YOLOv8x model exceeded 53% average precision (AP) while maintaining high inference speeds. The adoption of anchor-free detection improved convergence behavior during training and enhanced localization accuracy, particularly for small and medium-sized objects.</p>
+</div>
+</section>
+<section id="S11.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XI-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S11.SS3.p1" class="ltx_para">
+<ul id="S11.I2" class="ltx_itemize">
+<li id="S11.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S11.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Ecosystem Maturity:</span> As a relatively new release, YOLOv8 initially lacked the extensive pretrained model zoo, ecosystem integrations, and community tooling that supported earlier versions such as YOLOv5.</p>
+</div>
+</li>
+<li id="S11.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S11.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Hyperparameter Sensitivity:</span> Anchor-free detectors can be more sensitive to training settings and augmentation strategies, potentially requiring careful tuning to match the robustness of mature anchor-based models.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S11.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv8 marked a forward-looking redesign in the YOLO series, embracing contemporary advances in object detection architecture while preserving the series’ hallmark focus on speed and practicality. Its anchor-free foundation and multi-task readiness signal a new phase of extensibility and usability in real-time vision systems.</p>
+</div>
+</section>
+</section>
+<section id="S12" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XII </span><span class="ltx_text ltx_font_smallcaps">YOLOv9: Generalized Efficient Layer Aggregation for Detection</span>
+</h2>
+
+<div id="S12.p1" class="ltx_para">
+<p class="ltx_p">YOLOv9 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite> is the latest evolution in the YOLO series, extending the architectural principles of YOLOv7 and YOLOv8 with new strategies for feature aggregation, loss optimization, and training refinement. It is designed to further close the gap between accuracy and efficiency, making real-time object detection more robust and scalable across diverse hardware platforms.</p>
+</div>
+<section id="S12.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XII-A </span><span class="ltx_text ltx_font_italic">Key Innovations</span>
+</h3>
+
+<div id="S12.SS1.p1" class="ltx_para">
+<ul id="S12.I1" class="ltx_itemize">
+<li id="S12.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S12.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Generalized Efficient Layer Aggregation Networks (GELAN):</span> YOLOv9 introduces GELAN, a generalized extension of the E-ELAN architecture from YOLOv7. GELAN enhances the reuse of intermediate features and improves gradient propagation, leading to deeper yet more trainable networks with higher representational capacity.</p>
+</div>
+</li>
+<li id="S12.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S12.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Optimized Backbone and Neck Design:</span> The backbone and neck have been redesigned to integrate GELAN modules with improved feature pyramid strategies. These modifications enhance feature fusion across scales, enabling better performance on small and medium objects.</p>
+</div>
+</li>
+<li id="S12.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S12.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Refined Decoupled Detection Head:</span> YOLOv9 further separates classification and regression branches in the detection head, improving specialization and predictive precision. This design draws inspiration from EfficientDet <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib30" title="" class="ltx_ref">30</a>]</cite> and addresses the interaction bottlenecks present in earlier coupled head designs.</p>
+</div>
+</li>
+<li id="S12.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S12.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Advanced Training Enhancements:</span> YOLOv9 adopts Distribution Focal Loss v2 (DFL v2) for improved bounding box regression and enhanced spatial localization. It also leverages a refined SimOTA <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib31" title="" class="ltx_ref">31</a>]</cite> label assignment strategy for better matching between ground truth and predictions, resulting in more stable convergence.</p>
+</div>
+</li>
+<li id="S12.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S12.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Scalable Model Variants:</span> As with previous YOLO versions, YOLOv9 is released in multiple variants—YOLOv9n, v9s, v9m, v9l, and v9x—offering deployment flexibility across edge devices, desktops, and servers.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S12.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XII-B </span><span class="ltx_text ltx_font_italic">Performance</span>
+</h3>
+
+<div id="S12.SS2.p1" class="ltx_para">
+<p class="ltx_p">YOLOv9 models demonstrate state-of-the-art performance among real-time object detectors. For example, the YOLOv9-L model achieves over 56% average precision (AP) on the COCO dataset while maintaining real-time inference speeds between 50–60 FPS on high-end GPUs. Across the board, YOLOv9 improves detection accuracy for small and medium objects, outperforming its predecessor YOLOv8 in both speed and precision.</p>
+</div>
+</section>
+<section id="S12.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XII-C </span><span class="ltx_text ltx_font_italic">Limitations</span>
+</h3>
+
+<div id="S12.SS3.p1" class="ltx_para">
+<ul id="S12.I2" class="ltx_itemize">
+<li id="S12.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S12.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Training Resource Requirements:</span> Training YOLOv9 to full potential can demand substantial computational resources and careful hyperparameter tuning, which may pose challenges for resource-constrained researchers.</p>
+</div>
+</li>
+<li id="S12.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S12.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Ecosystem Maturity:</span> As a recently introduced model, YOLOv9 lacks the broad third-party integration, community tooling, and pretrained model variety currently available for earlier YOLO versions like YOLOv5 and YOLOv7.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S12.SS3.p2" class="ltx_para">
+<p class="ltx_p">YOLOv9 signifies a new benchmark in real-time object detection, merging architectural depth with efficient training techniques. Its blend of accuracy, speed, and flexibility makes it a strong candidate for deployment in both academic research and industry-scale vision systems.</p>
+</div>
+</section>
+</section>
+<section id="S13" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XIII </span><span class="ltx_text ltx_font_smallcaps">Comparative Summary of YOLO Models</span>
+</h2>
+
+<div id="S13.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="#S13.T2" title="TABLE II ‣ XIII Comparative Summary of YOLO Models ‣ YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges" class="ltx_ref"><span class="ltx_text ltx_ref_tag">II</span></a> summarizes the key characteristics and performance metrics of YOLO versions from v1 through v9. The comparison includes backbone architecture, detection strategy, anchor usage, feature fusion techniques, mAP on COCO (where applicable), and inference speed. Metrics such as mAP are approximated based on official releases and widely reported benchmarks.</p>
+</div>
+<figure id="S13.T2" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">TABLE II: </span>Comparison of YOLO Models from v1 to v9</figcaption>
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" style="width:345.0pt;height:58.6pt;vertical-align:-28.5pt;"><span class="ltx_transformed_inner" style="transform:translate(-184.3pt,31.3pt) scale(0.483495633191415,0.483495633191415) ;">
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text ltx_font_bold" style="font-size:70%;">YOLO Version</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Backbone</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Anchor Type</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Feature Fusion</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text ltx_font_bold" style="font-size:70%;">mAP@0.5 (COCO)</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Speed (FPS)</span></th>
+<th class="ltx_td ltx_nopad_r ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Key Highlights</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv1 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib4" title="" class="ltx_ref">4</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Custom CNN</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">None</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">None</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">63.4% (VOC)</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">45</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center ltx_border_t" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">First unified detector</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv2 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib9" title="" class="ltx_ref">9</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Darknet-19</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Anchor-based</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">None</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">76.8% (VOC), 21.6% (COCO)</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">67</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">YOLO9000, k-means, multi-scale</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv3 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib11" title="" class="ltx_ref">11</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Darknet-53</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Anchor-based</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Multi-scale</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">57.9%</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">30–45</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Better small object detection</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv4 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib14" title="" class="ltx_ref">14</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">CSPDarknet-53</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Anchor-based</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">PANet + SPP</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">43.5% (AP)</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">62–65</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">BoF/BoS, Mish, CutMix</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv5 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib21" title="" class="ltx_ref">21</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">CSPDarknet (PyTorch)</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">AutoAnchor</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">PANet</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">50.1%</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">60+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Model scaling, exportability</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv6 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib23" title="" class="ltx_ref">23</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">EfficientRepNet</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Hybrid</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">RepPAN</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">52.5%</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">70+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Anchor-free option, decoupled head</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv7 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib26" title="" class="ltx_ref">26</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">E-ELAN</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Anchor-based</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">PANet + E-ELAN</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">56.8%</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">60+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">RepConv, Coarse-to-fine head</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv8 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib27" title="" class="ltx_ref">27</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">C2f Modules</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Anchor-free</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">FPN-style</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">53.0%</span></td>
+<td class="ltx_td ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">60–80</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Multi-task, modernized head</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" style="padding-top:0.8pt;padding-bottom:0.8pt;">
+<span class="ltx_text" style="font-size:70%;">YOLOv9 </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:70%;">[</span><a href="#bib.bib29" title="" class="ltx_ref">29</a><span class="ltx_text" style="font-size:70%;">]</span></cite>
+</th>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">GELAN</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">Anchor-free</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">GELAN-FPN</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">56.0%+</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">50–60</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center ltx_border_bb" style="padding-top:0.8pt;padding-bottom:0.8pt;"><span class="ltx_text" style="font-size:70%;">SimOTA, DFLv2, scalable variants</span></td>
+</tr>
+</tbody>
+</table>
+</span></div>
+</figure>
+<section id="S13.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIII-A </span><span class="ltx_text ltx_font_italic">Publication Modality and Open-Source Trends</span>
+</h3>
+
+<div id="S13.SS1.p1" class="ltx_para">
+<p class="ltx_p">While the YOLO family originated in academia, recent iterations reflect a shift toward open-source-first development. YOLOv5 and YOLOv8, for instance, were released directly by Ultralytics without a corresponding peer-reviewed publication. YOLOv9 through YOLOv11 continue this trend, emphasizing rapid iteration, community feedback, and code-first dissemination. Table <a href="#S13.T3" title="TABLE III ‣ XIII-A Publication Modality and Open-Source Trends ‣ XIII Comparative Summary of YOLO Models ‣ YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III</span></a> summarizes the publication modalities across versions.</p>
+</div>
+<figure id="S13.T3" class="ltx_table">
+
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">TABLE III: </span>Publication modality of YOLO variants. “Yes” indicates public availability via a peer-reviewed venue or open-source release. “No” reflects the absence of a known peer-reviewed publication as of June 2025.</figcaption><div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1">
+<table class="ltx_tabular ltx_centering ltx_figure_panel ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt"><span class="ltx_text ltx_font_bold">YOLO Version</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Peer-Reviewed Paper</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Open-Source Release</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">YOLOv1–v4</th>
+<td class="ltx_td ltx_align_center ltx_border_t">Yes</td>
+<td class="ltx_td ltx_align_center ltx_border_t">Yes</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">YOLOv5</th>
+<td class="ltx_td ltx_align_center">No</td>
+<td class="ltx_td ltx_align_center">Yes</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">YOLOv6</th>
+<td class="ltx_td ltx_align_center">Yes</td>
+<td class="ltx_td ltx_align_center">Yes</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">YOLOv7</th>
+<td class="ltx_td ltx_align_center">Yes</td>
+<td class="ltx_td ltx_align_center">Yes</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">YOLOv8</th>
+<td class="ltx_td ltx_align_center">No</td>
+<td class="ltx_td ltx_align_center">Yes</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb">YOLOv9–v11</th>
+<td class="ltx_td ltx_align_center ltx_border_bb">No (as of June 2025)</td>
+<td class="ltx_td ltx_align_center ltx_border_bb">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<p class="ltx_p ltx_figure_panel ltx_align_center"><em class="ltx_emph ltx_font_italic" style="font-size:90%;">Note:</em><span class="ltx_text" style="font-size:90%;"> Peer-reviewed status is based on publicly available literature and may evolve. Open-source availability does not imply formal peer validation but reflects broad community accessibility.</span></p>
+</div>
+</div>
+</figure>
+</section>
+<section id="S13.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIII-B </span><span class="ltx_text ltx_font_italic">Performance Benchmarks and Practical Insights</span>
+</h3>
+
+<div id="S13.SS2.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="#S13.T2" title="TABLE II ‣ XIII Comparative Summary of YOLO Models ‣ YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges" class="ltx_ref"><span class="ltx_text ltx_ref_tag">II</span></a> presents a side-by-side comparison of key YOLO versions, capturing metrics such as backbone architecture, anchor strategy, feature fusion mechanisms, mean Average Precision (mAP), and inference speed in frames per second (FPS). While the table provides a compact summary, this subsection aims to contextualize these benchmarks, offering insights into trends, trade-offs, and practical deployment guidance.</p>
+</div>
+<div id="S13.SS2.p2" class="ltx_para">
+<p class="ltx_p">Early models, such as YOLOv1 and YOLOv2, achieved high mAP on the PASCAL VOC dataset (e.g., 63.4% for YOLOv1) but struggled on the more complex MS COCO benchmark due to its diverse object categories and scale variations. Beginning with YOLOv3, COCO’s mAP@0.5 metric became standard, and later versions like YOLOv4, YOLOv7, and YOLOv9 adopted the more rigorous AP (averaged across multiple IoU thresholds) to better evaluate localization precision.</p>
+</div>
+<div id="S13.SS2.p3" class="ltx_para">
+<p class="ltx_p">YOLOv4 reached 43.5% AP on COCO with real-time speed exceeding 60 FPS, marking a breakthrough in balancing accuracy and speed. YOLOv7 improved this to 56.8% AP while maintaining high throughput, and YOLOv9-L further advanced detection performance with over 56% mAP and 50–60 FPS, thanks to innovations like GELAN and improved loss functions.</p>
+</div>
+<div id="S13.SS2.p4" class="ltx_para">
+<p class="ltx_p">A key trend across YOLO versions is the growing diversity in model scaling and deployment versatility. Lightweight models such as YOLOv5s and YOLOv8n cater to edge devices with limited resources, while larger variants (e.g., YOLOv7-W6, YOLOv9-L) offer state-of-the-art accuracy on high-performance GPUs. The evolution also highlights an increasing reliance on sophisticated training techniques, network decoupling, and post-training optimizations for production use.</p>
+</div>
+<div id="S13.SS2.p5" class="ltx_para">
+<p class="ltx_p">These insights are critical for practitioners to choose the right YOLO variant based on application constraints—balancing latency, computational budget, and accuracy requirements.</p>
+</div>
+</section>
+</section>
+<section id="S14" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XIV </span><span class="ltx_text ltx_font_smallcaps">Applications of YOLO Models</span>
+</h2>
+
+<div id="S14.p1" class="ltx_para">
+<p class="ltx_p">The YOLO family of object detectors has been widely adopted across diverse domains, owing to its hallmark strengths: real-time inference, compact architecture, and strong generalization. Below, we highlight prominent application areas where YOLO models have made significant contributions.</p>
+</div>
+<section id="S14.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-A </span><span class="ltx_text ltx_font_italic">Autonomous Vehicles</span>
+</h3>
+
+<div id="S14.SS1.p1" class="ltx_para">
+<p class="ltx_p">Real-time object detection is fundamental in autonomous driving systems for tasks such as pedestrian recognition, vehicle tracking, and traffic sign classification. YOLO’s low-latency predictions make it ideal for onboard perception, supporting timely decision-making in safety-critical environments.</p>
+</div>
+</section>
+<section id="S14.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-B </span><span class="ltx_text ltx_font_italic">Surveillance and Security</span>
+</h3>
+
+<div id="S14.SS2.p1" class="ltx_para">
+<p class="ltx_p">YOLO is extensively used in public surveillance systems for real-time human detection, intrusion monitoring, and crowd analysis. Lightweight models like YOLOv5s and YOLOv8n are particularly well-suited for edge deployment on IP cameras and embedded security hardware.</p>
+</div>
+</section>
+<section id="S14.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-C </span><span class="ltx_text ltx_font_italic">Medical Imaging</span>
+</h3>
+
+<div id="S14.SS3.p1" class="ltx_para">
+<p class="ltx_p">In healthcare, YOLO has been adapted for tasks such as tumor detection, polyp localization, and anatomical structure segmentation across X-rays, MRIs, and endoscopy videos. These applications benefit from YOLO’s fast inference, enabling preliminary diagnosis support in time-sensitive clinical workflows.</p>
+</div>
+</section>
+<section id="S14.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-D </span><span class="ltx_text ltx_font_italic">Retail and Logistics</span>
+</h3>
+
+<div id="S14.SS4.p1" class="ltx_para">
+<p class="ltx_p">Retail environments utilize YOLO for shelf stock analysis, checkout-free systems, and shopper behavior monitoring. In logistics, it is applied for barcode recognition, damage detection, pallet tracking, and automated warehouse sorting, enhancing efficiency and reducing operational costs.</p>
+</div>
+</section>
+<section id="S14.SS5" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-E </span><span class="ltx_text ltx_font_italic">Drones and Robotics</span>
+</h3>
+
+<div id="S14.SS5.p1" class="ltx_para">
+<p class="ltx_p">Autonomous drones and robots use YOLO for obstacle detection, visual navigation, and dynamic object tracking in real time. Applications include agricultural inspection, delivery automation, and search-and-rescue missions in complex, unstructured environments.</p>
+</div>
+</section>
+<section id="S14.SS6" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-F </span><span class="ltx_text ltx_font_italic">Wildlife Monitoring and Conservation</span>
+</h3>
+
+<div id="S14.SS6.p1" class="ltx_para">
+<p class="ltx_p">YOLO supports wildlife researchers in tasks like animal counting, species classification, and anti-poaching surveillance through drone footage and remote camera traps. Its real-time processing enables large-scale, low-cost ecological monitoring.</p>
+</div>
+</section>
+<section id="S14.SS7" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-G </span><span class="ltx_text ltx_font_italic">Augmented Reality and Smart Devices</span>
+</h3>
+
+<div id="S14.SS7.p1" class="ltx_para">
+<p class="ltx_p">YOLO’s rapid detection pipeline is increasingly embedded in smart glasses, smartphones, and AR interfaces for real-time scene understanding, object labeling, and gesture interaction, enriching user experiences in next-generation interfaces.</p>
+</div>
+</section>
+<section id="S14.SS8" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIV-H </span><span class="ltx_text ltx_font_italic">Custom Industrial Applications</span>
+</h3>
+
+<div id="S14.SS8.p1" class="ltx_para">
+<p class="ltx_p">Manufacturing industries have customized YOLO for quality inspection, defect detection, robotic vision, and process automation. These domain-specific deployments highlight YOLO’s flexibility and ease of integration in industrial control systems.</p>
+</div>
+</section>
+</section>
+<section id="S15" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XV </span><span class="ltx_text ltx_font_smallcaps">Challenges and Future Directions</span>
+</h2>
+
+<div id="S15.p1" class="ltx_para">
+<p class="ltx_p">Despite the widespread success of YOLO models in real-time object detection, several open challenges remain. These highlight both current limitations and promising directions for future innovation in object detection frameworks.</p>
+</div>
+<section id="S15.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XV-A </span><span class="ltx_text ltx_font_italic">Challenges</span>
+</h3>
+
+<div id="S15.SS1.p1" class="ltx_para">
+<ul id="S15.I1" class="ltx_itemize">
+<li id="S15.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Small Object Detection:</span> YOLO models have traditionally struggled with detecting small objects, particularly those that occupy a minimal number of pixels or appear at distant scales. Although improvements in multi-scale prediction (e.g., in YOLOv3 and beyond) and architectural refinements (e.g., GELAN in YOLOv9) have mitigated this to some extent, small object detection remains a persistent challenge—especially in high-density scenes.</p>
+</div>
+</li>
+<li id="S15.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Localization Precision at High IoU:</span> While YOLO models achieve strong mAP at IoU=0.5, performance typically degrades at higher IoU thresholds (e.g., IoU=0.75 or 0.95). This indicates shortcomings in fine-grained localization, often due to anchor misalignment, discretized predictions, or limited feature resolution.</p>
+</div>
+</li>
+<li id="S15.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Training Complexity and Hyperparameter Sensitivity:</span> State-of-the-art YOLO models now rely on intricate training regimes involving strategies like SimOTA, label smoothing, EMA updates, and dynamic augmentations. These introduce sensitivity to hyperparameter settings, making reproducibility and optimal performance harder to achieve without extensive tuning.</p>
+</div>
+</li>
+<li id="S15.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Computational Cost for Training:</span> Although inference remains efficient, training high-capacity YOLO variants (e.g., YOLOv9-L or YOLOv7-E6E) requires substantial GPU resources and long epochs. This creates barriers for smaller labs, edge developers, and open-source contributors.</p>
+</div>
+</li>
+<li id="S15.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Domain Adaptation and Generalization:</span> YOLO models trained on large-scale datasets such as COCO or VOC often generalize poorly to out-of-distribution domains, including medical, agricultural, underwater, or aerial imagery. Achieving robust cross-domain performance remains an active research area.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S15.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XV-B </span><span class="ltx_text ltx_font_italic">Future Directions</span>
+</h3>
+
+<div id="S15.SS2.p1" class="ltx_para">
+<p class="ltx_p">As YOLO models continue to evolve, future research must address not only improvements in speed and accuracy but also prioritize adaptability, efficiency, and responsible deployment. Key directions include:</p>
+</div>
+<div id="S15.SS2.p2" class="ltx_para">
+<ul id="S15.I2" class="ltx_itemize">
+<li id="S15.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Self-Supervised and Contrastive Pretraining:</span> Leveraging self-supervised learning (SSL) and contrastive approaches (e.g., SimCLR, MoCo) can enhance generalization in low-label regimes, enabling YOLO variants to adapt to novel domains such as medical, agricultural, or underwater imaging with limited supervision.</p>
+</div>
+</li>
+<li id="S15.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Few-Shot and Zero-Shot Detection:</span> Enabling detection with minimal labeled data is a critical goal for real-world applications. Techniques such as cross-modal pretraining (e.g., CLIP), prompt-based detection, and open-vocabulary learning may allow YOLO to support few-shot and zero-shot capabilities, expanding its utility beyond static category sets.</p>
+</div>
+</li>
+<li id="S15.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Vision-Language Models and Cross-Modal Integration:</span> Recent advances in foundation models like BLIP and GPT-4V offer opportunities to integrate natural language understanding into detection. Future YOLO variants may incorporate joint vision-language representations for tasks such as referring expression comprehension and caption-grounded detection.</p>
+</div>
+</li>
+<li id="S15.I2.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Transformer-CNN Hybrids:</span> Lightweight transformer components (e.g., Swin Transformer, MobileViT) can be fused with YOLO backbones to enhance long-range dependency modeling and global context awareness without sacrificing inference speed, particularly useful in cluttered scenes.</p>
+</div>
+</li>
+<li id="S15.I2.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">NMS-Free and End-to-End Architectures:</span> YOLOv10 has initiated a shift toward eliminating non-maximum suppression via consistent assignment strategies. Future models may adopt learned, differentiable NMS replacements to simplify post-processing and support fully end-to-end training and inference.</p>
+</div>
+</li>
+<li id="S15.I2.i6" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i6.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Simplified and Adaptive Label Assignment:</span> Improved label assignment strategies—such as dynamic matching (OTA/SimOTA), gradient-based assignment, or transformer-based token pairing—can address current limitations in convergence speed, stability, and matching precision.</p>
+</div>
+</li>
+<li id="S15.I2.i7" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i7.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Model Compression and Deployment Optimization:</span> As edge deployment becomes increasingly important, YOLO models must continue advancing structured pruning, quantization-aware training, knowledge distillation, and Neural Architecture Search (NAS) to meet strict latency, power, and memory budgets.</p>
+</div>
+</li>
+<li id="S15.I2.i8" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i8.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Unified Multi-Task Perception Systems:</span> There is growing demand for modular architectures that handle object detection, instance segmentation, pose estimation, and scene understanding within a shared framework. YOLO may evolve toward multi-task models that leverage shared features, joint supervision, and plug-and-play task heads.</p>
+</div>
+</li>
+<li id="S15.I2.i9" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i9.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Robustness, Fairness, and Ethical AI Practices:</span> Ensuring safety and fairness in YOLO deployments is critical for domains such as surveillance, healthcare, and autonomous driving. Future research should focus on adversarial robustness, out-of-distribution detection, fairness-aware training, and explainability to mitigate bias and promote trustworthiness.</p>
+</div>
+</li>
+<li id="S15.I2.i10" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S15.I2.i10.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Data Efficiency and Label Scarcity Solutions:</span> Combining techniques such as weak supervision, pseudo-labeling, semi-supervised training, and synthetic data generation can significantly reduce the annotation burden while maintaining detection quality in diverse environments.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="S16" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XVI </span><span class="ltx_text ltx_font_smallcaps">YOLOv10 and YOLOv11: Advancements in Real-Time Object Detection</span>
+</h2>
+
+<section id="S16.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVI-A </span><span class="ltx_text ltx_font_italic">YOLOv10: Real-Time End-to-End Object Detection</span>
+</h3>
+
+<div id="S16.SS1.p1" class="ltx_para">
+<p class="ltx_p">YOLOv10, introduced by researchers from Tsinghua University in 2024, marks a significant evolution in the YOLO series by addressing limitations in post-processing and model architecture. Key innovations include:</p>
+</div>
+<div id="S16.SS1.p2" class="ltx_para">
+<ul id="S16.I1" class="ltx_itemize">
+<li id="S16.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S16.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">NMS-Free Training:</span> YOLOv10 eliminates the need for Non-Maximum Suppression (NMS) by employing consistent dual assignments during training, reducing inference latency and enhancing real-time performance.</p>
+</div>
+</li>
+<li id="S16.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S16.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Holistic Model Design:</span> The architecture integrates an enhanced CSPNet backbone, PANet neck, and dual detection heads (one-to-many for training and one-to-one for inference), optimizing both efficiency and accuracy.</p>
+</div>
+</li>
+<li id="S16.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S16.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Performance:</span> YOLOv10 achieves state-of-the-art results across various model scales. For instance, YOLOv10-S is 1.8× faster than RT-DETR-R18 with similar AP on COCO, and YOLOv10-B has 46% less latency and 25% fewer parameters compared to YOLOv9-C for equivalent performance <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">turn0search4</span>]</cite>.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S16.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVI-B </span><span class="ltx_text ltx_font_italic">YOLOv11: Enhanced Accuracy and Efficiency</span>
+</h3>
+
+<div id="S16.SS2.p1" class="ltx_para">
+<p class="ltx_p">Released by Ultralytics in 2024, YOLOv11 builds upon previous versions by introducing architectural enhancements aimed at improving accuracy and computational efficiency:</p>
+</div>
+<div id="S16.SS2.p2" class="ltx_para">
+<ul id="S16.I2" class="ltx_itemize">
+<li id="S16.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S16.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Improved Feature Extraction:</span> Incorporates an enhanced backbone and neck architecture, including components like the C3k2 block and Spatial Pyramid Pooling - Fast (SPPF), facilitating better feature extraction for complex tasks <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib32" title="" class="ltx_ref">32</a>]</cite>.</p>
+</div>
+</li>
+<li id="S16.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S16.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Optimized Efficiency:</span> Achieves higher mean Average Precision (mAP) with fewer parameters. For example, YOLOv11m attains higher mAP on the COCO dataset while using fewer parameters than YOLOv8m <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib32" title="" class="ltx_ref">32</a>]</cite>.</p>
+</div>
+</li>
+<li id="S16.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S16.I2.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Versatility:</span> Supports a broad range of computer vision tasks, including object detection, instance segmentation, image classification, pose estimation, and oriented object detection (OBB), making it adaptable across various applications <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib32" title="" class="ltx_ref">32</a>]</cite>.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S16.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVI-C </span><span class="ltx_text ltx_font_italic">Comparative Performance</span>
+</h3>
+
+<div id="S16.SS3.p1" class="ltx_para">
+<p class="ltx_p">Evaluations demonstrate that YOLOv11 outperforms its predecessors in both accuracy and speed. For instance, YOLOv11n achieves a mAP of 39.5 on COCO with a latency of 1.5 ms, making it suitable for deployment on resource-constrained devices <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib33" title="" class="ltx_ref">33</a>]</cite>. Additionally, in agricultural applications, YOLOv11s achieved a mAP@50 of 0.933, outperforming other YOLO versions in detecting and counting fruitlets in complex orchard environments <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib34" title="" class="ltx_ref">34</a>]</cite>.</p>
+</div>
+</section>
+</section>
+<section id="S17" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XVII </span><span class="ltx_text ltx_font_smallcaps">Advances Beyond the Core Framework</span>
+</h2>
+
+<section id="S17.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVII-A </span><span class="ltx_text ltx_font_italic">Domain Adaptation</span>
+</h3>
+
+<div id="S17.SS1.p1" class="ltx_para">
+<p class="ltx_p">YOLO models have been extended to handle domain shift scenarios, where training and test distributions differ significantly. Domain Adaptive YOLO frameworks <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib35" title="" class="ltx_ref">35</a>]</cite> introduce adversarial domain discriminators, discrepancy minimization, and domain-specific batch normalization to align source and target feature spaces. Applications include adapting from synthetic to real-world driving datasets, or between aerial and ground imagery.</p>
+</div>
+</section>
+<section id="S17.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVII-B </span><span class="ltx_text ltx_font_italic">Semi-Supervised Learning</span>
+</h3>
+
+<div id="S17.SS2.p1" class="ltx_para">
+<p class="ltx_p">To reduce dependency on large labeled datasets, semi-supervised YOLO variants such as STAC-YOLO <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib36" title="" class="ltx_ref">36</a>]</cite> use teacher–student training pipelines with pseudo-labeling and strong–weak data augmentations. These methods retain high accuracy even when only a fraction of the training data is annotated, making them attractive for fields like agriculture and wildlife monitoring where labeling is costly.</p>
+</div>
+</section>
+<section id="S17.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVII-C </span><span class="ltx_text ltx_font_italic">Robustness and Adversarial Defense</span>
+</h3>
+
+<div id="S17.SS3.p1" class="ltx_para">
+<p class="ltx_p">Robust YOLO extensions enhance reliability under noise, occlusion, or adversarial conditions. Robust-YOLO <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib37" title="" class="ltx_ref">37</a>]</cite> incorporates adversarial training and perturbation-aware loss functions to improve performance in safety-critical deployments. Certified defenses and robust backbone design further aid in maintaining detection fidelity in uncontrolled environments.</p>
+</div>
+</section>
+<section id="S17.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVII-D </span><span class="ltx_text ltx_font_italic">Transformer Hybrids</span>
+</h3>
+
+<div id="S17.SS4.p1" class="ltx_para">
+<p class="ltx_p">Hybrid architectures like TransYOLO <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib38" title="" class="ltx_ref">38</a>]</cite> and YOLO-NAS <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib39" title="" class="ltx_ref">39</a>]</cite> incorporate transformer modules into the backbone or detection head to enhance global context understanding. These hybrids improve detection in cluttered scenes or long-range dependencies, albeit with increased inference latency. Their trade-offs make them more suitable for server-side inference rather than edge deployment.</p>
+</div>
+</section>
+<section id="S17.SS5" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XVII-E </span><span class="ltx_text ltx_font_italic">Specialized Extensions</span>
+</h3>
+
+<div id="S17.SS5.p1" class="ltx_para">
+<p class="ltx_p">YOLO has been adapted to specialized tasks beyond standard bounding box detection. YOLOv7-Pose <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib40" title="" class="ltx_ref">40</a>]</cite> enables multi-person pose estimation. YOLO-OBB detects oriented bounding boxes in aerial or document analysis scenarios. Other variants target video tracking, text spotting, medical anomaly segmentation, and more, reflecting YOLO’s extensibility.</p>
+</div>
+</section>
+</section>
+<section id="S18" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XVIII </span><span class="ltx_text ltx_font_smallcaps">YOLO Evolution Timeline</span>
+</h2>
+
+<div id="S18.p1" class="ltx_para">
+<p class="ltx_p">The development of the YOLO series has been characterized by rapid advancements, with each iteration building upon its predecessors to push the boundaries of real-time object detection. Table <a href="#S18.T4" title="TABLE IV ‣ XVIII YOLO Evolution Timeline ‣ YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges" class="ltx_ref"><span class="ltx_text ltx_ref_tag">IV</span></a> provides a chronological overview of the key milestones and primary innovations introduced by each major YOLO version, illustrating the continuous evolution of this influential framework.</p>
+</div>
+<figure id="S18.T4" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">TABLE IV: </span>Timeline of YOLO Series Evolution</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Version</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Year</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Key Innovations</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">YOLOv1</td>
+<td class="ltx_td ltx_align_left ltx_border_t">2016</td>
+<td class="ltx_td ltx_align_left ltx_border_t">Unified one-stage detection</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv2</td>
+<td class="ltx_td ltx_align_left">2017</td>
+<td class="ltx_td ltx_align_left">Anchor boxes, multi-scale training</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv3</td>
+<td class="ltx_td ltx_align_left">2018</td>
+<td class="ltx_td ltx_align_left">Residual backbone (Darknet-53)</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv4</td>
+<td class="ltx_td ltx_align_left">2020</td>
+<td class="ltx_td ltx_align_left">CSPNet, SAT, data augmentation</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv5</td>
+<td class="ltx_td ltx_align_left">2020</td>
+<td class="ltx_td ltx_align_left">PyTorch transition, exportability</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv6</td>
+<td class="ltx_td ltx_align_left">2022</td>
+<td class="ltx_td ltx_align_left">Decoupled heads, RepOptimizer</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv7</td>
+<td class="ltx_td ltx_align_left">2022</td>
+<td class="ltx_td ltx_align_left">E-ELAN, trainable bag-of-freebies</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv8</td>
+<td class="ltx_td ltx_align_left">2023</td>
+<td class="ltx_td ltx_align_left">Anchor-free head, unified tasks</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv9</td>
+<td class="ltx_td ltx_align_left">2024</td>
+<td class="ltx_td ltx_align_left">GELAN, DFL v2, improved label assignment</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">YOLOv10</td>
+<td class="ltx_td ltx_align_left">2024</td>
+<td class="ltx_td ltx_align_left">NMS-free training, holistic model design</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb">YOLOv11</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">2024</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">Improved feature extraction, multi-task versatility</td>
+</tr>
+</tbody>
+</table>
+</figure>
+</section>
+<section id="S19" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">XIX </span><span class="ltx_text ltx_font_smallcaps">Conclusion</span>
+</h2>
+
+<div id="S19.p1" class="ltx_para">
+<p class="ltx_p">The YOLO (You Only Look Once) family of object detectors has fundamentally reshaped the landscape of real-time computer vision by demonstrating that high-speed and high-accuracy detection can coexist within a single, unified framework. From the early introduction of YOLOv1, which reframed detection as a single regression problem, to the sophisticated innovations in YOLOv9 and beyond, the series has continually pushed the boundaries of what is possible in real-time object detection.</p>
+</div>
+<div id="S19.p2" class="ltx_para">
+<p class="ltx_p">Each successive YOLO version introduced enhancements in speed, accuracy, scalability, and deployment flexibility—facilitating wide adoption across domains such as autonomous driving, smart surveillance, healthcare imaging, and retail automation. The community’s efforts have evolved YOLO into not just a model, but a family of architectures adaptable to a range of real-world and research scenarios.</p>
+</div>
+<div id="S19.p3" class="ltx_para">
+<p class="ltx_p">Nevertheless, challenges remain: small object detection, domain adaptation, and training complexity still require further innovation. Future directions point toward self-supervised learning, hybrid CNN-transformer models, and lightweight architectures optimized for edge inference. With these advancements, YOLO is well-positioned to remain a central pillar in the development of scalable, real-time perception systems.</p>
+</div>
+<section id="S19.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">XIX-A </span><span class="ltx_text ltx_font_italic">Contributions and Future Work</span>
+</h3>
+
+<div id="S19.SS1.p1" class="ltx_para">
+<p class="ltx_p">This survey provides a systematic, up-to-date review of YOLO architectures from v1 through v11. It consolidates key architectural breakthroughs, evaluates benchmark results across standard datasets, and highlights deployment trade-offs across YOLO versions. Additionally, we present insights into practical use cases and trends in industrial adoption.</p>
+</div>
+<div id="S19.SS1.p2" class="ltx_para">
+<p class="ltx_p">For future research, we identify the following priorities: (1) improving detection under low-label and low-light conditions using self-supervised and unsupervised learning; (2) integrating transformer-based modules for better global reasoning; (3) enhancing small object detection via resolution-aware designs; (4) automating architecture search for edge-optimized YOLO variants; and (5) establishing unified benchmarking frameworks for fair, reproducible evaluation across domains. These directions promise to extend YOLO’s impact across increasingly diverse and resource-constrained applications.</p>
+</div>
+</section>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul class="ltx_biblist">
+<li id="bib.bib1" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock">
+R. Girshick, J. Donahue, T. Darrell, and J. Malik, “Rich feature hierarchies for accurate object detection and semantic segmentation,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 580–587, 2014.
+
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock">
+R. Girshick, “Fast r-cnn,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE international conference on computer vision</em>, pp. 1440–1448, 2015.
+
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock">
+S. Ren, K. He, R. Girshick, and J. Sun, “Faster r-cnn: Towards real-time object detection with region proposal networks,” <em class="ltx_emph ltx_font_italic">Advances in neural information processing systems</em>, vol. 28, 2015.
+
+</span>
+</li>
+<li id="bib.bib4" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock">
+J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, “You only look once: Unified, real-time object detection,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 779–788, 2016.
+
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock">
+P. Felzenszwalb, D. McAllester, and D. Ramanan, “Discriminatively trained deformable part models, release 1,” <em class="ltx_emph ltx_font_italic">University of Chicago, Tech. Rep</em>, vol. 2, no. 2, 2008.
+
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock">
+J. R. Uijlings, K. E. van de Sande, T. Gevers, and A. W. Smeulders, “Selective search for object recognition,” <em class="ltx_emph ltx_font_italic">International journal of computer vision</em>, vol. 104, no. 2, pp. 154–171, 2013.
+
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock">
+W. Liu, D. Anguelov, D. Erhan, C. Szegedy, S. Reed, C.-Y. Fu, and A. C. Berg, “Ssd: Single shot multibox detector,” in <em class="ltx_emph ltx_font_italic">European Conference on Computer Vision</em>. Springer, 2016, pp. 21–37.
+
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock">
+C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan, V. Vanhoucke, and A. Rabinovich, “Going deeper with convolutions,” in <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE conference on computer vision and pattern recognition</em>, 2015, pp. 1–9.
+
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock">
+J. Redmon and A. Farhadi, “Yolo9000: Better, faster, stronger,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 7263–7271, 2017.
+
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock">
+S. Ioffe and C. Szegedy, “Batch normalization: Accelerating deep network training by reducing internal covariate shift,” <em class="ltx_emph ltx_font_italic">International Conference on Machine Learning</em>, pp. 448–456, 2015.
+
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock">
+J. Redmon and A. Farhadi, “Yolov3: An incremental improvement,” <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:1804.02767</em>, 2018.
+
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock">
+K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image recognition,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 770–778, 2016.
+
+</span>
+</li>
+<li id="bib.bib13" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock">
+T.-Y. Lin, P. Goyal, R. Girshick, K. He, and P. Dollar, “Focal loss for dense object detection,” in <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE international conference on computer vision</em>, 2017, pp. 2980–2988.
+
+</span>
+</li>
+<li id="bib.bib14" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock">
+A. Bochkovskiy, C.-Y. Wang, and H.-Y. M. Liao, “Yolov4: Optimal speed and accuracy of object detection,” <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2004.10934</em>, 2020.
+
+</span>
+</li>
+<li id="bib.bib15" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock">
+C.-Y. Wang, H.-Y. M. Liao, Y.-H. Wu, P.-Y. Chen, J.-W. Hsieh, and I.-H. Yeh, “Cspnet: A new backbone that can enhance learning capability of cnn,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops</em>, pp. 390–391, 2020.
+
+</span>
+</li>
+<li id="bib.bib16" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock">
+S. Yun, D. Han, S. J. Oh, S. Chun, J. Choe, and Y. Yoo, “Cutmix: Regularization strategy to train strong classifiers with localizable features,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pp. 6023–6032, 2019.
+
+</span>
+</li>
+<li id="bib.bib17" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock">
+G. Ghiasi, T.-Y. Lin, and Q. V. Le, “Dropblock: A regularization method for convolutional networks,” <em class="ltx_emph ltx_font_italic">Advances in neural information processing systems</em>, vol. 31, 2018.
+
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock">
+D. Misra, “Mish: A self regularized non-monotonic activation function,” <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:1908.08681</em>, 2019.
+
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock">
+K. He, X. Zhang, S. Ren, and J. Sun, “Spatial pyramid pooling in deep convolutional networks for visual recognition,” in <em class="ltx_emph ltx_font_italic">European conference on computer vision</em>. Springer, 2014, pp. 346–361.
+
+</span>
+</li>
+<li id="bib.bib20" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock">
+S. Liu, L. Qi, H. Qin, and J. Jia, “Path aggregation network for instance segmentation,” in <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE conference on computer vision and pattern recognition</em>, 2018, pp. 8759–8768.
+
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock">
+G. Jocher, “ultralytics/yolov5: v1.0 - first release,” 2020. [Online]. Available: <a target="_blank" href="https://doi.org/10.5281/zenodo.3983579" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://doi.org/10.5281/zenodo.3983579</a>
+
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock">
+H. Zhang, M. Cisse, Y. N. Dauphin, and D. Lopez-Paz, “mixup: Beyond empirical risk minimization,” in <em class="ltx_emph ltx_font_italic">International Conference on Learning Representations</em>, 2018.
+
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock">
+Z. Li, H. Wang, X. Chen, and T. Lin, “Yolov6: A single-stage object detection framework for industrial applications,” <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2209.02976</em>, 2022.
+
+</span>
+</li>
+<li id="bib.bib24" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock">
+X. Ding, X. Zhang, J. Han, and G. Ding, “Repvgg: Making vgg-style convnets great again,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pp. 13 733–13 742, 2021.
+
+</span>
+</li>
+<li id="bib.bib25" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock">
+Z. Tian, C. Shen, H. Chen, and T. He, “Fcos: Fully convolutional one-stage object detection,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pp. 9627–9636, 2019.
+
+</span>
+</li>
+<li id="bib.bib26" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock">
+C.-Y. Wang, A. Bochkovskiy, and H.-Y. M. Liao, “Yolov7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors,” in <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2207.02696</em>, 2022.
+
+</span>
+</li>
+<li id="bib.bib27" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock">
+G. Jocher, A. Chaurasia, T. Qiu, and L. Hogan, “Ultralytics yolov8,” 2023, <a target="_blank" href="https://github.com/ultralytics/ultralytics" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/ultralytics/ultralytics</a>.
+
+</span>
+</li>
+<li id="bib.bib28" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock">
+X. Zhou, D. Wang, and P. Krähenbühl, “Objects as points,” in <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:1904.07850</em>, 2019.
+
+</span>
+</li>
+<li id="bib.bib29" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock">
+C.-Y. Wang, A. Bochkovskiy, and H.-Y. M. Liao, “Yolov9: Learning what you want to learn using programmable gradient information,” 2024, arXiv preprint arXiv:2402.13616.
+
+</span>
+</li>
+<li id="bib.bib30" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock">
+M. Tan, R. Pang, and Q. V. Le, “Efficientdet: Scalable and efficient object detection,” in <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2020, pp. 10 781–10 790.
+
+</span>
+</li>
+<li id="bib.bib31" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock">
+Z. Ge, S. Liu, F. Wang, and J. Sun, “Ota: Optimal transport assignment for object detection,” <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pp. 303–312, 2021.
+
+</span>
+</li>
+<li id="bib.bib32" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock">
+Ultralytics, “Yolov11: Release notes and model overview,” <a target="_blank" href="https://docs.ultralytics.com/models/yolov11/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://docs.ultralytics.com/models/yolov11/</a>, 2024, accessed: 2025-06-07.
+
+</span>
+</li>
+<li id="bib.bib33" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock">
+——, “Ultralytics yolov11 models: Comparison and performance,” <a target="_blank" href="https://docs.ultralytics.com/models/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://docs.ultralytics.com/models/</a>, 2024, accessed: 2025-06-07.
+
+</span>
+</li>
+<li id="bib.bib34" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock">
+P. Rajendran, R. P. Rajasekaran, P. K. Jena, M. N. Wunnava, M. L. Wunnava, and S. Chitrakala, “Yolov11: Revolutionizing agricultural fruitlet detection with enhanced accuracy and real-time deployment,” <em class="ltx_emph ltx_font_italic">Computer Standards &amp; Interfaces</em>, vol. 89, p. 103764, 2023. [Online]. Available: <a target="_blank" href="https://doi.org/10.1016/j.csi.2023.103764" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://doi.org/10.1016/j.csi.2023.103764</a>
+
+</span>
+</li>
+<li id="bib.bib35" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock">
+C. Chen, M. Li, L. Wang, Y. Xu, and Y. Wang, “Domain adaptive yolo for cross-domain object detection,” <em class="ltx_emph ltx_font_italic">IEEE Transactions on Multimedia</em>, vol. 24, pp. 2320–2331, 2022.
+
+</span>
+</li>
+<li id="bib.bib36" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock">
+K. Sohn, M.-Y. Zhong, C.-L. Yang, C. Zhang, H. Li, Z. Wang, G. Hua, and H. Lee, “Stac: Semi-supervised learning for object detection via strong-to-weak consistency,” in <em class="ltx_emph ltx_font_italic">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2021, pp. 10 958–10 967.
+
+</span>
+</li>
+<li id="bib.bib37" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock">
+Q. Zhao, X. Peng, W. Zhou, K. Wang, and Y. Tang, “Robust-yolo: Noise and occlusion aware object detection,” <em class="ltx_emph ltx_font_italic">Neurocomputing</em>, vol. 422, pp. 343–352, 2021.
+
+</span>
+</li>
+<li id="bib.bib38" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock">
+B. Li, Y. Zhang, X. Han, Y. Jiang, and X. Han, “Transyolo: A transformer-based yolo for object detection,” <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2205.10117</em>, 2022.
+
+</span>
+</li>
+<li id="bib.bib39" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[39]</span>
+<span class="ltx_bibblock">
+A. Chakraborty, T. Wu, X. Shen, K. Yang, Y. Ma, and Y. Wang, “Yolo-nas: Neural architecture search for object detection,” <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2303.16199</em>, 2023.
+
+</span>
+</li>
+<li id="bib.bib40" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[40]</span>
+<span class="ltx_bibblock">
+C.-Y. Wang, A. Bochkovskiy, and H.-Y. M. Liao, “Yolov7-pose: Enhancing human pose estimation using yolov7 backbone,” <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2207.09302</em>, 2022.
+
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<div class="ar5iv-footer"><a href="/html/2508.02066" class="ar5iv-nav-button ar5iv-nav-button-prev">◄</a>
+    <a class="ar5iv-home-button" href="/"><img height="40" alt="ar5iv homepage" src="/assets/ar5iv.png"></a>
+    <a href="/feeling_lucky" class="ar5iv-text-button">Feeling<br>lucky?</a>
+    <a href="/land_of_honey_and_milk" rel="nofollow" aria-hidden="true" tabindex="-1"></a>
+    <a href="/log/2508.02067" class="ar5iv-text-button ar5iv-severity-warning">Conversion<br>report</a>
+    <a class="ar5iv-text-button" target="_blank" href="https://github.com/dginev/ar5iv/issues/new?template=improve-article--arxiv-id-.md&title=Improve+article+2508.02067">Report<br>an issue</a>
+    <a href="https://arxiv.org/abs/2508.02067" class="ar5iv-text-button arxiv-ui-theme">View&nbsp;original<br>on&nbsp;arXiv</a><a href="/html/2508.02068" class="ar5iv-nav-button ar5iv-nav-button-next">►</a>
+</div><footer class="ltx_page_footer">
+<a class="ar5iv-toggle-color-scheme" href="javascript:toggleColorScheme()" title="Toggle ar5iv color scheme"><span class="color-scheme-icon"></span></a>
+<a class="ar5iv-footer-button" href="https://arxiv.org/help/license" target="_blank">Copyright</a>
+<a class="ar5iv-footer-button" href="https://arxiv.org/help/policies/privacy_policy" target="_blank">Privacy Policy</a>
+
+<div class="ltx_page_logo">Generated  on Fri Sep  5 15:08:46 2025 by <a target="_blank" href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+
+    <script>
+      var canMathML = typeof(MathMLElement) == "function";
+      if (!canMathML) {
+        var body = document.querySelector("body");
+        body.firstElementChild.setAttribute('style', 'opacity: 0;');
+        var loading = document.createElement("div");
+        loading.setAttribute("id", "mathjax-loading-spinner");
+        var message = document.createElement("div");
+        message.setAttribute("id", "mathjax-loading-message");
+        message.innerText = "Typesetting Equations...";
+        body.prepend(loading);
+        body.prepend(message);
+
+        var el = document.createElement("script");
+        el.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+        document.querySelector("head").appendChild(el);
+
+        window.MathJax = {
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                body.removeChild(loading);
+                body.removeChild(message);
+                body.firstElementChild.removeAttribute('style');
+              }); } } };
+      }
+    </script>
+    <script>
+    // Auxiliary function, building the preview feature when
+    // an inline citation is clicked
+    function clicked_cite(e) {
+      e.preventDefault();
+      let cite = this.closest('.ltx_cite');
+      let next = cite.nextSibling;
+      if (next && next.nodeType == Node.ELEMENT_NODE && next.getAttribute('class') == "ar5iv-bibitem-preview") {
+        next.remove();
+        return; }
+      // Before adding a preview modal,
+      // cleanup older previews, in case they're still open
+      document.querySelectorAll('span.ar5iv-bibitem-preview').forEach(function(node) {
+        node.remove();
+      })
+
+      // Create the preview
+      preview = document.createElement('span');
+      preview.setAttribute('class','ar5iv-bibitem-preview');
+      let target = document.getElementById(this.getAttribute('href').slice(1));
+      target.childNodes.forEach(function (child) {
+        preview.append(child.cloneNode(true));
+      });
+      let close_x = document.createElement('button');
+      close_x.setAttribute("aria-label","Close modal for bibliography item preview");
+      close_x.textContent = "×";
+      close_x.setAttribute('class', 'ar5iv-button-close-preview');
+      close_x.setAttribute('onclick','this.parentNode.remove()');
+      preview.append(close_x);
+      preview.querySelectorAll('.ltx_tag_bibitem').forEach(function(node) {
+        node.remove();
+      });
+      cite.parentNode.insertBefore(preview, cite.nextSibling);
+      return;
+    }
+    // Global Document initialization:
+    // - assign the preview feature to all inline citation links
+    document.querySelectorAll(".ltx_cite .ltx_ref").forEach(function (link) {
+      link.addEventListener("click", clicked_cite);
+    });
+    </script>
+    </body>
+</html>

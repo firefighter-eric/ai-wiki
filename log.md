@@ -2,6 +2,58 @@
 
 本页是 LLM Wiki 的追加式操作日志。
 
+## [2026-04-13] ingest | 新增目标检测 topic
+
+涉及页面：
+
+- [目标检测](./wiki/topics/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B.md)
+- [传统 CV](./wiki/topics/%E4%BC%A0%E7%BB%9F%20CV.md)
+- [Faster R-CNN](./wiki/concepts/Faster%20R-CNN.md)
+- [DETR](./wiki/concepts/DETR.md)
+- [Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks](./raw/summary/Ren%20et%20al.%20-%202015%20-%20Faster%20R-CNN%20Towards%20Real-Time%20Object%20Detection%20with%20Region%20Proposal%20Networks.md)
+- [index](./index.md)
+
+关键变更：
+
+- 新增 `Faster R-CNN` 原始来源，补齐 `raw/pdfs/`、`raw/html/`、`raw/text/` 与精修版 `raw/summary/`
+- 新建 `目标检测` 正式 topic，按 `proposal-based -> set prediction -> 实时化 -> 混合 assignment` 组织检测主线
+- 新增 `Faster R-CNN` 与 `DETR` 两个 concept 页，作为检测 topic 的稳定导航节点
+- 更新 `传统 CV`，将目标检测从总览页中的并列分支拆为独立 topic，并保留与视觉总线的关系
+- 更新根级 `index.md`，补 summary 计数、新来源记录、topic 导航与 concept 导航
+
+后续建议：
+
+- 继续补 `YOLO`、`RetinaNet`、`Deformable DETR`、`DINO` 等关键来源，避免当前 topic 仍偏向 `Faster R-CNN / DETR` 双主线
+- 若后续证据足够，可新增 `two-stage vs one-stage vs end-to-end detection` 比较页
+
+## [2026-04-13] ingest | 扩展目标检测中的 YOLO 全系列
+
+涉及页面：
+
+- [目标检测](./wiki/topics/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B.md)
+- [YOLO](./wiki/concepts/YOLO.md)
+- [Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection](./raw/summary/Redmon%20et%20al.%20-%202015%20-%20You%20Only%20Look%20Once%20Unified%20Real-Time%20Object%20Detection.md)
+- [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](./raw/summary/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)
+- [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](./raw/summary/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)
+- [Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection](./raw/summary/Bochkovskiy,%20Wang,%20Liao%20-%202020%20-%20YOLOv4%20Optimal%20Speed%20and%20Accuracy%20of%20Object%20Detection.md)
+- [Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection](./raw/summary/Wang%20et%20al.%20-%202024%20-%20YOLOv10%20Real-Time%20End-to-End%20Object%20Detection.md)
+- [Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond](./raw/summary/Chen%20et%20al.%20-%202025%20-%20A%20Comprehensive%20Survey%20of%20YOLO%20From%20YOLOv1%20to%20YOLO11%20and%20Beyond.md)
+- [Ultralytics - 2026 - Ultralytics YOLO Docs Home](./raw/summary/Ultralytics%20-%202026%20-%20Ultralytics%20YOLO%20Docs%20Home.md)
+- [index](./index.md)
+
+关键变更：
+
+- 新增 7 个 `YOLO` 相关来源页，并补齐对应 `raw/pdfs/`、`raw/html/`、`raw/text/`
+- 新建 `YOLO` 概念页，作为 one-stage 检测家族从 `YOLOv1` 到 `YOLO26` 的总入口
+- 重写 `目标检测` 中的主线分层，把 `YOLO` 从旁支对照对象提升为正式 one-stage 主线
+- 在 topic 中明确区分：`YOLOv1-v4` 的 classic one-stage 演化、`YOLOv5-v9` 的综述级脉络、`YOLOv10` 的 `NMS-free` 新阶段，以及截至 `2026-04-13` 官方 `YOLO11 / YOLO26` 状态
+- 更新根级 `index.md` 的 summary 计数、传统 CV 分组记录与 concept 导航
+
+后续建议：
+
+- 继续补 `YOLOv5`、`YOLOv7`、`YOLOv8`、`YOLOv9` 的原始论文或官方技术说明，减少当前对综述与官方首页的依赖
+- 后续可新增 `YOLO vs DETR vs Faster R-CNN` 比较页，专门整理三条检测路线在接口、监督、后处理与部署上的差异
+
 ## [2026-04-12] ingest | 扩展 LLM RL 方法谱系
 
 涉及页面：
