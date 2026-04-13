@@ -619,3 +619,14 @@
 - 将一批原本仍停留在批量抽取状态的来源页升级为可复用的结构化 summary
 - 使 `AI 智能问答与智能客服` topic 的 FAQ、检索、对齐、工具调用与安全护栏层都能明确回溯到 `raw/summary`
 - 统一把这些来源的关联页面接回该 topic，而不是继续停留在不准确的自动归类结果
+
+## [2026-04-13] query | 将新增 topic 必须先保留原始文件写入 AGENTS
+
+涉及页面：
+
+- 更新 [AGENTS](./AGENTS.md)
+
+关键变更：
+
+- 在 ingest 的 topic 补充规则中明确：新增 topic 若使用新材料，必须先确认 `raw/html` 或 `raw/pdfs` 中已保留原始文件
+- 若原始 HTML / PDF 缺失，先下载原始文件，再生成 `raw/text` 与 `raw/summary`，最后再纳入正式 topic
