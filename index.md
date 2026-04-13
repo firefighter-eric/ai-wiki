@@ -233,6 +233,7 @@
 - [传统 CV](传统%20CV.md)：围绕视觉 Transformer、检测、OCR 与文档理解组织非 LLM 中心的视觉主线。
 - [LLM 预训练](LLM%20预训练.md)：围绕 dense scaling、compute-optimal、开放模型家族与 MoE 组织 LLM 预训练主线。
 - [LLM RL](./wiki/topics/LLM%20RL.md)：围绕 RLHF、偏好优化分支与 reasoning-oriented RL 组织 LLM 后训练中的强化学习路线。
+- [AI 智能问答与智能客服](./wiki/topics/AI%20%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E4%B8%8E%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D.md)：围绕 FAQ 检索、多轮对话、知识增强生成、偏好对齐、安全护栏与工具调用组织 AI 问答与客服研究主题。
 - [Slide 理解与生成](Slide%20理解与生成.md)：围绕 slide 的多模态理解、设计评测、编辑式生成与跨页 coherence 组织正式 topic。
 - [LLM 基础脉络](./wiki/topics/LLM%20基础脉络.md)：以三段式主线串联规模化预训练、compute-optimal 修正与 post-training 对齐。
 - [Scaling 与 compute-optimal training](./wiki/topics/Scaling%20与%20compute-optimal%20training.md)：聚焦从 GPT-3 式规模扩张到 Chinchilla 式预算重配的训练规律主题。

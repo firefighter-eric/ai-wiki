@@ -564,3 +564,58 @@
 
 - 可继续按同一主题补入 `ALBERT`、`ELECTRA`、`DeBERTa`、`MPNet`、`DistilBERT` 的 summary 与 concept，逐步把当前“代表性分层”升级成更完整家族图谱
 - 若后续需要回答“哪类 BERT 适合 embedding / reranking / multilingual / extractive QA”，可单独再建 comparison 页承接
+
+## [2026-04-13] query | 对客服问题做一个 topic，加入很多篇论文分析
+
+涉及页面：
+
+- 新增正式 topic [客服问题](./wiki/topics/%E5%AE%A2%E6%9C%8D%E9%97%AE%E9%A2%98.md)
+- 更新 [index](./index.md)
+
+关键变更：
+
+- 新建“客服问题”正式 topic，把知识库中分散的 FAQ 检索、多轮对话、Dense Retrieval、instruction tuning、RLHF、DPO、护栏模型与工具调用来源收束成一条客服系统主线
+- 在 topic 中显式区分 FAQ 检索、多轮上下文建模、知识增强生成、行为对齐、工具调用与安全门控六层，而不是把客服问题简化成“聊天机器人”
+- 将 `Sakata 2019`、`Vlasov 2019`、`Karpukhin 2020`、`Oğuz 2021`、`Wei 2021`、`Iyer 2022`、`Ouyang 2022`、`Liang 2022`、`Rafailov 2023`、`Schick 2023`、`Inan 2023`、`PIKE-RAG` 逐篇写入主线分析与证据基础
+- 明确标出当前 topic 的证据边界：现有来源足以支撑“AI 客服系统分层”这一正式结构，但对工单闭环、人工转接策略和业务指标仍缺少更直接 summary 支撑
+
+## [2026-04-13] query | 主要是和 AI 有关的智能问答、智能客服
+
+涉及页面：
+
+- 新增正式 topic [AI 智能问答与智能客服](./wiki/topics/AI%20%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E4%B8%8E%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D.md)
+- 更新 [index](./index.md)
+
+关键变更：
+
+- 将原“客服问题”正式 topic 收紧为更准确的 `AI 智能问答与智能客服`，明确本页主轴是问答系统、客服机器人与 LLM support assistant，而不是泛客服管理问题
+- 在正式页中把问题表述统一调整为智能问答 / 智能客服口径，使 FAQ 检索、RAG、指令微调、偏好优化、工具调用与安全护栏都围绕 AI assistant 主线展开
+
+## [2026-04-13] query | 清理旧入口，遵守 AGENTS 新要求
+
+涉及页面：
+
+- 删除旧入口 `wiki/topics/客服问题.md`
+- 保留正式 topic [AI 智能问答与智能客服](./wiki/topics/AI%20%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E4%B8%8E%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D.md)
+
+关键变更：
+
+- 按新要求清理旧入口文件，不再保留兼容跳转页
+- 仓库中关于该主题的唯一正式入口改为 `AI 智能问答与智能客服`
+
+## [2026-04-13] ingest | AI 智能问答与智能客服补 raw summary 基座
+
+涉及页面：
+
+- 更新 `raw/summary/Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance.md`
+- 更新 `raw/summary/Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering.md`
+- 更新 `raw/summary/Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval.md`
+- 更新 `raw/summary/Ouyang et al. - 2022 - Training language models to follow instructions with human feedback.md`
+- 更新 `raw/summary/Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools.md`
+- 更新 `raw/summary/Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations.md`
+
+关键变更：
+
+- 将一批原本仍停留在批量抽取状态的来源页升级为可复用的结构化 summary
+- 使 `AI 智能问答与智能客服` topic 的 FAQ、检索、对齐、工具调用与安全护栏层都能明确回溯到 `raw/summary`
+- 统一把这些来源的关联页面接回该 topic，而不是继续停留在不准确的自动归类结果
