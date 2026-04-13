@@ -179,8 +179,10 @@
       "bases:新建数据库": false
     }
   },
-  "active": "874a9549300d3987",
+  "active": "480eb0ac36fb781c",
   "lastOpenFiles": [
+    "未命名.base",
+    "未命名.canvas",
     "wiki/concepts/YOLO.md",
     "raw/summary/Ultralytics - 2026 - Ultralytics YOLO Docs Home.md",
     "raw/summary/Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond.md",
@@ -216,9 +218,7 @@
     "wiki/authors/机构分析.md",
     "wiki/concepts/Switch Transformer.md",
     "raw/text/Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks.md",
-    "wiki/topics/传统 CV.md",
     "未命名 1.canvas",
-    "未命名.canvas",
     "未命名 2.canvas"
   ]
 }
