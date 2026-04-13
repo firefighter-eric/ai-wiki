@@ -4,34 +4,32 @@
 
 - 类型：论文 / 技术报告
 - 原始文件：../../raw/pdfs/Vaswani et al. - 2017 - Attention is all you need.pdf
+- 原始 HTML：../../raw/html/Vaswani et al. - 2017 - Attention is all you need.html
 - 全文文本：../../raw/text/Vaswani et al. - 2017 - Attention is all you need.md
 - 作者：Vaswani et al.
 - 年份：2017
-- 状态：已抽取全文，待精读
+- 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要
+## 自动抽取摘要或人工摘要
 
-The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring signiﬁcantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English- to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
+这篇论文的决定性意义不只是提出 `Transformer`，而是把“标准全连接自注意力”确立为序列建模的默认骨架：所有 token 两两交互，依靠 `scaled dot-product attention`、`multi-head attention` 与位置编码取代 RNN/CNN 的主导角色。后续大量 attention 变体基本都以本文的 `O(n^2)` 全注意力为参照物，要么试图近似它、稀疏化它，要么在不改变其语义的前提下优化实现。
 
 ## 关键事实
 
-- 已存在可读全文文本，可直接从 `raw/text/Vaswani et al. - 2017 - Attention is all you need.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 论文将标准 attention 明确定义为 `softmax(QK^T / sqrt(d_k)) V` 的缩放点积形式，并把它作为 Transformer 的核心算子。
+- `multi-head attention` 的作用不是简单并行重复，而是让模型在不同子空间、不同位置关系上同时建模依赖。
+- 编码器使用双向 self-attention，解码器使用带因果 mask 的 self-attention，说明“attention 变体”从一开始就同时包含双向与自回归两类用法。
+- 本文的全连接 attention 具有全局感受野和强表达力，但时间与显存开销都随序列长度呈二次增长，后续高效 attention 工作几乎都围绕这一瓶颈展开。
+- 从知识组织角度看，`standard attention` 不是“十多种 attention 中的一种小变体”，而是后续线性、稀疏、低秩、IO-aware 与 KV-cache 优化路线的共同基线。
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 本文解决的是 2017 年的序列建模与并行训练问题，不等于今天超长上下文与推理系统里的最优 attention 实现。
+- 论文没有直接解决长上下文成本问题；后续很多工作实际上是在保留其建模接口的前提下，分别牺牲精确性、连接模式或硬件通用性来换效率。
+- 当前 summary 聚焦其作为 attention 主线起点的地位，未细拆机器翻译实验与位置编码后续分支。
 
 ## 关联页面
 
-- 主题：[传统NLP](../topics/传统NLP.md)
-- 综合：暂无
+- 主题：[注意力机制 Attention](../../wiki/topics/注意力机制%20Attention.md)
+- 主题：[LLM 基础脉络](../../wiki/topics/LLM%20基础脉络.md)
+- 概念：[Transformer](../../wiki/concepts/Transformer.md)

@@ -7,31 +7,28 @@
 - 全文文本：../../raw/text/Unknown - 2024 - DeepSeek-V3 Technical Report.md
 - 作者：Unknown
 - 年份：2024
-- 状态：已抽取全文，待精读
+- 状态：已基于现有全文整理
 
-## 自动抽取摘要
+## 自动抽取摘要或人工摘要
 
-We present DeepSeek-V3, a strong Mixture-of-Experts (MoE) language model with 671B total parameters with 37B activated for each token. To achieve efficient inference and cost-effective training, DeepSeek-V3 adopts Multi-head Latent Attention (MLA) and DeepSeekMoE architec- tures, which were thoroughly validated in DeepSeek-V2. Furthermore, DeepSeek-V3 pioneers an auxiliary-loss-free strategy for load balancing and sets a multi-token prediction training objective for stronger performance. We pre-train DeepSeek-V3 on 14.8 trillion diverse and high-quality tokens, followed by Supervised Fine-Tuning and Reinforcement Learning stages to fully harness its capabilities. Comprehensive evaluations reveal that DeepSeek-V3 outperforms other open-source models and achieves performance comparable to leading closed-source models. Despite its excellent performance, DeepSeek-V3 requires only 2.788M H800 GPU hours for its full training. In addition, its training process is remarkably stable. Throughout the entire training process, we did not experience any irrecoverable loss spikes or perform any rollbacks. The model checkpoints are available at https://github.com/deepseek-ai/DeepSeek-V3. MMLU-Pro (EM) GPQA-Diamond (Pass@1) MATH 500 (EM) AIME 2024 (Pass@1) Codeforces (Percentile) SWE-bench Verified (Resolved) 0 20 40 60 80 100 Accuracy / Percentile (%) 75.9 59.1 90.2 39.2 51.6 42.0 66.2 41.3 74.7 16.7 35.6 22.6 71.6 49.0 80.0 23.3 24.8 23.8 73.3 51.1 73.8 23.3 25.3 24.5 72.6 49.9 74.6 9.3 23.6 38.8 78.0 65.0 78.3 16.0 20.3 50.8 DeepSeek-V3 DeepSeek-V2.5 Qwen2.5-72B-Inst Llama-3.1-405B-Inst GPT-4o-0513 Claude-3.5-Sonnet-1022 Figure 1 | Benchmark performance of DeepSeek-V3 and its counterparts. Contents
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
+对 attention 主线而言，`DeepSeek-V3` 的关键价值不是它整体 benchmark，而是它把 `Multi-head Latent Attention (MLA)` 作为现代大模型中的实际架构选择。`MLA` 的目标不是近似 full attention 的连接图，而是通过对 `K/V` 做低秩联合压缩来显著缩小推理阶段 `KV cache`，从而在长上下文和大模型推理中降低内存与带宽压力。
 
 ## 关键事实
 
-- 已存在可读全文文本，可直接从 `raw/text/Unknown - 2024 - DeepSeek-V3 Technical Report.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 报告明确指出 `DeepSeek-V3` 采用 `Multi-head Latent Attention (MLA)` 以提升推理效率。
+- `MLA` 的核心是对 attention 的 `K/V` 做低秩联合压缩，并在生成时只缓存压缩后的 latent 表示与少量额外向量，而不是缓存完整多头 `K/V`。
+- 该路线关注的主要瓶颈是 `KV cache` 与推理带宽，而不是训练阶段的 `O(n^2)` attention matrix 本身。
+- 与 `MQA / GQA` 一样，`MLA` 属于“在不放弃多 query head 的前提下压缩推理状态”的现代 LLM attention 工程路线，但压缩手段更激进。
+- 在当前 topic 里，`MLA` 适合作为“KV-cache / 推理态优化 attention”分支的代表，而不是标准长序列 efficient attention 文献的直接替代。
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 当前 summary 只提炼 `MLA` 与 attention 相关部分，不覆盖 `DeepSeekMoE`、负载均衡与多 token prediction 等其他主线。
+- 由于现有来源页作者字段仍为 `Unknown`，作者元数据尚未标准化；但不影响其作为 attention 架构证据使用。
+- `MLA` 的细节沿袭自 `DeepSeek-V2` 相关路线，若后续要写独立 concept，仍建议补更直接的原始来源。
 
 ## 关联页面
 
-- 主题：[LLM预训练](../topics/LLM预训练.md)
-- 综合：暂无
+- 主题：[注意力机制 Attention](../../wiki/topics/注意力机制%20Attention.md)
+- 主题：[LLM 预训练](../../wiki/topics/LLM%20预训练.md)
+- 概念：[DeepSeek](../../wiki/concepts/DeepSeek.md)

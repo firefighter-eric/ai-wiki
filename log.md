@@ -2,6 +2,40 @@
 
 本页是 LLM Wiki 的追加式操作日志。
 
+## [2026-04-13] ingest | 新增注意力机制 Attention topic
+
+涉及页面：
+
+- [注意力机制 Attention](./wiki/topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)
+- [FlashAttention](./wiki/concepts/FlashAttention.md)
+- [Grouped-Query Attention](./wiki/concepts/Grouped-Query%20Attention.md)
+- [Transformer](./wiki/concepts/Transformer.md)
+- [Vaswani et al. - 2017 - Attention is all you need](./raw/summary/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md)
+- [Shazeer - 2019 - Fast Transformer Decoding One Write-Head is All You Need](./raw/summary/Shazeer%20-%202019%20-%20Fast%20Transformer%20Decoding%20One%20Write-Head%20is%20All%20You%20Need.md)
+- [Kitaev, Kaiser, Levskaya - 2020 - Reformer The Efficient Transformer](./raw/summary/Kitaev,%20Kaiser,%20Levskaya%20-%202020%20-%20Reformer%20The%20Efficient%20Transformer.md)
+- [Beltagy, Peters, Cohan - 2020 - Longformer The Long-Document Transformer](./raw/summary/Beltagy,%20Peters,%20Cohan%20-%202020%20-%20Longformer%20The%20Long-Document%20Transformer.md)
+- [Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity](./raw/summary/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md)
+- [Zaheer et al. - 2020 - Big bird Transformers for longer sequences](./raw/summary/Zaheer%20et%20al.%20-%202020%20-%20Big%20bird%20Transformers%20for%20longer%20sequences.md)
+- [Choromanski et al. - 2021 - Rethinking Attention with Performers](./raw/summary/Choromanski%20et%20al.%20-%202021%20-%20Rethinking%20Attention%20with%20Performers.md)
+- [Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention](./raw/summary/Xiong%20et%20al.%20-%202021%20-%20Nystr%C3%B6mformer%20A%20Nystrom-Based%20Algorithm%20for%20Approximating%20Self-Attention.md)
+- [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](./raw/summary/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)
+- [Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](./raw/summary/Ainslie%20et%20al.%20-%202023%20-%20GQA%20Training%20Generalized%20Multi-Query%20Transformer%20Models%20from%20Multi-Head%20Checkpoints.md)
+- [Unknown - 2024 - DeepSeek-V3 Technical Report](./raw/summary/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
+- [index](./index.md)
+
+关键变更：
+
+- 新增 8 篇 attention 相关原始来源，并补齐对应 `raw/pdfs/`、`raw/html/`、`raw/text/` 与精修版 `raw/summary/`
+- 精修 `Attention Is All You Need`、`BigBird` 与 `DeepSeek-V3` 的 summary，使其可直接支撑 attention topic 中的标准 attention、混合稀疏 attention 与 `MLA` 路线
+- 新建正式 topic《注意力机制 Attention》，按“标准全连接 attention -> 长序列稀疏化 -> 线性/低秩近似 -> `KV cache` 优化 -> 实现级优化”组织主线
+- 新增 `FlashAttention` 与 `Grouped-Query Attention` 两个 concept 页，分别承接 exact attention 的系统优化路线与 `MHA / MQA / GQA` 的推理解码折中路线
+- 更新 `Transformer` 概念页与根级 `index.md`，把 attention topic 接入主导航，并把 summary 总数更新为 `207`
+
+后续建议：
+
+- 若后续继续扩展 attention 主线，可优先补 `cross-attention`、`RoPE / ALiBi`、`Hybrid Attention` 与 `DeepSeek-V2 MLA` 的更直接来源
+- 若希望把“长序列 efficient attention”与“解码态 `KV cache` 优化”进一步拆开，可新增比较页，避免当前 topic 继续变得过宽
+
 ## [2026-04-13] ingest | 新增目标检测 topic
 
 涉及页面：

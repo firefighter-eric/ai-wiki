@@ -11,7 +11,20 @@
 
 ## Summary
 
-- 当前已批量 ingest 199 篇 summary 页，按候选主题分组如下。
+- 当前已批量 ingest 207 篇 summary 页，按候选主题分组如下。
+
+### Attention / Transformer
+
+- [Vaswani et al. - 2017 - Attention is all you need](./raw/summary/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md)：标准 `scaled dot-product attention` 与 `multi-head attention` 的基线来源。
+- [Shazeer - 2019 - Fast Transformer Decoding One Write-Head is All You Need](./raw/summary/Shazeer%20-%202019%20-%20Fast%20Transformer%20Decoding%20One%20Write-Head%20is%20All%20You%20Need.md)：`MQA` 通过共享 `K/V` 降低自回归解码的缓存与带宽成本。
+- [Kitaev, Kaiser, Levskaya - 2020 - Reformer The Efficient Transformer](./raw/summary/Kitaev,%20Kaiser,%20Levskaya%20-%202020%20-%20Reformer%20The%20Efficient%20Transformer.md)：`Reformer` 代表基于 `LSH attention` 的哈希稀疏长序列路线。
+- [Beltagy, Peters, Cohan - 2020 - Longformer The Long-Document Transformer](./raw/summary/Beltagy,%20Peters,%20Cohan%20-%202020%20-%20Longformer%20The%20Long-Document%20Transformer.md)：`Longformer` 以局部窗口加全局 token 处理长文档 attention。
+- [Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity](./raw/summary/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md)：`Linformer` 代表低秩投影式线性 attention。
+- [Zaheer et al. - 2020 - Big bird Transformers for longer sequences](./raw/summary/Zaheer%20et%20al.%20-%202020%20-%20Big%20bird%20Transformers%20for%20longer%20sequences.md)：`BigBird` 用 `global + local + random` 混合稀疏模式扩展长上下文。
+- [Choromanski et al. - 2021 - Rethinking Attention with Performers](./raw/summary/Choromanski%20et%20al.%20-%202021%20-%20Rethinking%20Attention%20with%20Performers.md)：`Performer` 用 `FAVOR+` 近似 softmax attention，实现核函数式线性化。
+- [Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention](./raw/summary/Xiong%20et%20al.%20-%202021%20-%20Nystr%C3%B6mformer%20A%20Nystrom-Based%20Algorithm%20for%20Approximating%20Self-Attention.md)：`Nyströmformer` 代表 landmark / Nyström 近似 attention。
+- [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](./raw/summary/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)：`FlashAttention` 以 IO-aware kernel 重写 exact attention 的执行方式。
+- [Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](./raw/summary/Ainslie%20et%20al.%20-%202023%20-%20GQA%20Training%20Generalized%20Multi-Query%20Transformer%20Models%20from%20Multi-Head%20Checkpoints.md)：`GQA` 在 `MHA` 与 `MQA` 之间提供更平衡的 `KV cache` 结构折中。
 
 ### LLM预训练
 
@@ -235,6 +248,7 @@
 - [Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation](./raw/summary/Zuo%20et%20al.%20-%202022%20-%20MoEBERT%20from%20BERT%20to%20Mixture-of-Experts%20via%20Importance-Guided%20Adaptation.md)：Pre-trained language models have demon- strated superior performance i...
 ## Topics
 
+- [注意力机制 Attention](./wiki/topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)：围绕标准 attention、稀疏 / 线性近似、`KV cache` 优化与 `FlashAttention` 组织 attention 变体主线。
 - [BERT类双向Transformer语言模型](./wiki/topics/BERT%E7%B1%BB%E5%8F%8C%E5%90%91Transformer%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)：围绕 BERT、RoBERTa、SpanBERT、句向量化与多语言编码器组织类 BERT 家族的正式 topic。
 - [传统 NLP](传统%20NLP.md)：围绕编码器预训练、句向量、检索与摘要组织传统 NLP 的方法脉络。
 - [传统 CV](传统%20CV.md)：围绕视觉 Transformer、OCR 与文档理解组织非 LLM 中心的视觉总览主线。
@@ -289,6 +303,8 @@
 - [mT5](./wiki/concepts/mT5.md)：承接多语言 text-to-text 预训练路线的概念页。
 - [XLM-R](./wiki/concepts/XLM-R.md)：承接跨语言编码器预训练路线的概念页。
 - [Transformer](./wiki/concepts/Transformer.md)：承接注意力架构底层主线的概念页。
+- [FlashAttention](./wiki/concepts/FlashAttention.md)：承接 exact attention 的 IO-aware 实现优化路线。
+- [Grouped-Query Attention](./wiki/concepts/Grouped-Query%20Attention.md)：承接 `MHA -> MQA -> GQA` 的推理解码 `KV cache` 折中路线。
 - [ViT](./wiki/concepts/ViT.md)：承接视觉 Transformer 主线的概念页。
 - [Faster R-CNN](./wiki/concepts/Faster%20R-CNN.md)：承接 proposal-based 两阶段目标检测标准范式的概念页。
 - [YOLO](./wiki/concepts/YOLO.md)：承接 one-stage 实时检测家族从 `YOLOv1` 到 `YOLO26` 的总入口。

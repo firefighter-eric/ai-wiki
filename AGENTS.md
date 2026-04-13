@@ -35,6 +35,7 @@
 
 - 绝不修改 `raw/pdfs/` 中的原始资料。
 - `raw/text/` 只用于辅助读取全文；如需重建，应优先从可用的 arXiv HTML 重新提取 markdown，若无 HTML，则从 `raw/pdfs/` 重新抽取 markdown。
+- 新增来源时，`raw` 链路必须完整：先有 `raw/html/` 或 `raw/pdfs/` 中的原始文件，再有 `raw/text/` 中的 markdown 全文层，最后才有 `raw/summary/`。缺少任一层，都不算完成 ingest。
 - 所有知识组织优先写入 `wiki/`，而不是停留在对话里。
 - 页面正文默认中文；专有名词保留英文原名。
 
@@ -133,14 +134,15 @@
 当用户要求接入新来源时，按以下顺序执行：
 
 1. 读取根级 `index.md`。
-2. 判断来源类型；若来源存在 arXiv HTML 页面，优先检查 `raw/text/` 中是否已有对应 markdown 全文。
-3. 若存在 arXiv HTML 且尚未提取全文，优先从该 HTML 提取结构化内容，并生成同名 `.md` 到 `raw/text/`。
-4. 若不存在可用 arXiv HTML，但存在 PDF，则检查 `raw/text/` 中是否已有对应 markdown 全文；若无，则使用 `PyMuPDF` 读取 `raw/pdfs/` 中的 PDF，并生成同名 `.md` 到 `raw/text/`。
-5. 从原始来源与 `raw/text/` 获取内容；`raw/text/` 始终保留为 markdown 全文层。
-6. 创建或更新 `raw/summary/` 页面。
-7. 更新相关 `wiki/topics/`、`wiki/concepts/`，必要时也更新 `authors/`、`comparisons/`、`timelines/`。
-8. 更新根级 `index.md`。
-9. 追加根级 `log.md`。
+2. 判断来源类型，并先确认原始文件已落到 `raw/html/` 或 `raw/pdfs/`；若原始文件还不存在，先下载并保存原始文件。
+3. 若来源存在 arXiv HTML 页面，优先检查 `raw/text/` 中是否已有对应 markdown 全文。
+4. 若存在 arXiv HTML 且尚未提取全文，优先从该 HTML 提取结构化内容，并生成同名 `.md` 到 `raw/text/`。
+5. 若不存在可用 arXiv HTML，但存在 PDF，则检查 `raw/text/` 中是否已有对应 markdown 全文；若无，则使用 `PyMuPDF` 读取 `raw/pdfs/` 中的 PDF，并生成同名 `.md` 到 `raw/text/`。
+6. 从原始来源与 `raw/text/` 获取内容；`raw/text/` 始终保留为 markdown 全文层。
+7. 仅在原始文件与 `raw/text/` 都已存在后，创建或更新 `raw/summary/` 页面。
+8. 更新相关 `wiki/topics/`、`wiki/concepts/`，必要时也更新 `authors/`、`comparisons/`、`timelines/`。
+9. 更新根级 `index.md`。
+10. 追加根级 `log.md`。
 
 ingest / topic / concept 联动规则：
 
@@ -148,6 +150,7 @@ ingest / topic / concept 联动规则：
 - 若新增 topic，除整理对应 `raw`、`raw/text/`、`raw/summary/` 外，还应判断是否沉淀出高价值 `wiki/concepts/` 页面；若存在清晰、可复用、可稳定定义的概念，应一并总结。
 - 若新增 `wiki/concepts/` 页面，默认应从现有 `raw/summary/`、必要时结合 `raw/text/` 总结；不得在没有现有 raw 素材支撑时凭空创建稳定 concept。
 - 若新增 `raw` 素材，不止要保存原始文件，还必须完成整理流程：补 `raw/text/`、补/更 `raw/summary/`，并同步判断和总结由该素材支撑的新 concept。
+- 严禁跳过原始层直接新增 `raw/summary/`：新增 raw 时必须满足 `raw/html 或 raw/pdfs -> raw/text -> raw/summary` 的顺序。
 - 简言之：`topic` 的新增以“新 raw 素材”为前提；`concept` 的新增以“现有 raw 素材可支撑”为前提；`raw` 的新增默认伴随整理与 concept 沉淀。
 
 topic 相关补充规则：
@@ -156,6 +159,7 @@ topic 相关补充规则：
 - 更新 topic 时，优先把新增来源沉淀为“问题定义 / 主线脉络 / 关键分歧 / 证据基础”的结构性变化，而不是在页面末尾机械追加论文。
 - 若某主题仍缺少足够 `summary` 支撑，则应先补 `raw/summary/`，必要时将 topic 保持为“待建设 topic”，不得伪装成正式 topic。
 - 若新增 topic 使用了新的论文、网页或其他来源材料，必须先检查该来源是否已在 `raw/html/` 或 `raw/pdfs/` 中保留原始文件；若没有原始文件，先下载并保存原始 HTML 或 PDF，再生成 `raw/text/` 与 `raw/summary/`，最后再把它纳入正式 topic。
+- 若发现某来源只有 `raw/summary/`、却没有对应 `raw/html/` 或 `raw/pdfs/` 与 `raw/text/`，应先补齐缺失层，再视为该来源可用；不得继续在缺链状态下扩写 topic / concept。
 
 PDF 特别规则：
 
