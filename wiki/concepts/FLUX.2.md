@@ -8,7 +8,7 @@ FLUX.2 是 Black Forest Labs 面向生产级图像生成与编辑工作流推出
 
 - 类型：图像生成与编辑模型家族
 - 代表来源：
-  - [Black Forest Labs - 2026 - FLUX.2 Overview](../../raw/summary/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
+  - [Black Forest Labs - 2026 - FLUX.2 Overview](../../wiki/summaries/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
 - 当前角色：生产级多参考文生图/图像编辑代表节点
 
 ## 相关主张
@@ -19,10 +19,10 @@ FLUX.2 是 Black Forest Labs 面向生产级图像生成与编辑工作流推出
 
 ## 来源支持
 
-- [Black Forest Labs - 2026 - FLUX.2 Overview](../../raw/summary/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
-- [扩散模型与文生图](../topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)
+- [Black Forest Labs - 2026 - FLUX.2 Overview](../../wiki/summaries/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
 
 ## 关联页面
 
 - [Stable Diffusion](./Stable%20Diffusion.md)
 - [Qwen-Image](./Qwen-Image.md)
+- [扩散模型与文生图](../topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)

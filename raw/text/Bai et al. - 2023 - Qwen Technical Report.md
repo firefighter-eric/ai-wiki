@@ -1,6 +1,6 @@
 # Bai et al. - 2023 - Qwen Technical Report
 
-- Source PDF: `raw/pdfs/Bai et al. - 2023 - Qwen Technical Report.pdf`
+- Source PDF: `raw/pdf/Bai et al. - 2023 - Qwen Technical Report.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

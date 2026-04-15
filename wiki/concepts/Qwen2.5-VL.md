@@ -7,7 +7,7 @@ Qwen2.5-VL 是 Qwen 家族中的视觉语言模型节点。在当前知识库中
 ## 关键属性
 
 - 类型：多模态语言模型
-- 代表来源：[Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../raw/summary/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
+- 代表来源：[Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../wiki/summaries/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
 - 当前角色：Qwen 家族的多模态代表页
 
 ## 相关主张
@@ -17,9 +17,7 @@ Qwen2.5-VL 是 Qwen 家族中的视觉语言模型节点。在当前知识库中
 
 ## 来源支持
 
-- [Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../raw/summary/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
-- [传统 CV](传统%20CV.md)
-- [Qwen 系列](../topics/Qwen%20系列.md)
+- [Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../wiki/summaries/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
 
 ## 关联页面
 
@@ -28,5 +26,5 @@ Qwen2.5-VL 是 Qwen 家族中的视觉语言模型节点。在当前知识库中
 - [Qwen2.5-Omni](./Qwen2.5-Omni.md)
 - [MiniCPM-V](./MiniCPM-V.md)
 - [Florence-2](./Florence-2.md)
-- [传统 CV](传统%20CV.md)
+- [传统 CV](../topics/传统%20CV.md)
 - [Qwen 系列](../topics/Qwen%20系列.md)

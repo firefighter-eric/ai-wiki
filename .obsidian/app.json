@@ -1,6 +1,7 @@
 {
   "userIgnoreFilters": [
     "raw/",
+    "wiki/summaries/",
     "log.md",
     "index.md"
   ],

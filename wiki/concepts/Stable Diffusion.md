@@ -8,8 +8,8 @@ Stable Diffusion 是把 latent diffusion 研究路线推向开放文生图生态
 
 - 类型：开放文生图模型家族
 - 代表来源：
-  - [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](../../raw/summary/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
-  - [Stability AI - 2022 - Stable Diffusion Launch Announcement](../../raw/summary/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
+  - [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](../../wiki/summaries/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
+  - [Stability AI - 2022 - Stable Diffusion Launch Announcement](../../wiki/summaries/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
 - 当前角色：开放扩散模型主线的奠基家族
 
 ## 相关主张
@@ -20,12 +20,12 @@ Stable Diffusion 是把 latent diffusion 研究路线推向开放文生图生态
 
 ## 来源支持
 
-- [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](../../raw/summary/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
-- [Stability AI - 2022 - Stable Diffusion Launch Announcement](../../raw/summary/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
-- [扩散模型与文生图](../topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)
+- [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](../../wiki/summaries/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
+- [Stability AI - 2022 - Stable Diffusion Launch Announcement](../../wiki/summaries/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
 
 ## 关联页面
 
 - [FLUX.2](./FLUX.2.md)
 - [Qwen-Image](./Qwen-Image.md)
 - [Qwen](./Qwen.md)
+- [扩散模型与文生图](../topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)

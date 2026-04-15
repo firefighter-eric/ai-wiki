@@ -8,7 +8,7 @@ Qwen2-VL 是 Qwen 家族中第一次把视觉理解、视频理解和视觉 agen
 
 - 类型：视觉语言模型家族
 - 代表来源：
-  - [Qwen Team - 2024 - Qwen2-VL](../../raw/summary/Qwen%20Team%20-%202024%20-%20Qwen2-VL.md)
+  - [Qwen Team - 2024 - Qwen2-VL](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Qwen2-VL.md)
 - 当前角色：Qwen 从 LLM 走向 VL 与视觉 agent 的关键入口
 
 ## 相关主张
@@ -19,11 +19,11 @@ Qwen2-VL 是 Qwen 家族中第一次把视觉理解、视频理解和视觉 agen
 
 ## 来源支持
 
-- [Qwen Team - 2024 - Qwen2-VL](../../raw/summary/Qwen%20Team%20-%202024%20-%20Qwen2-VL.md)
-- [Qwen 系列](../topics/Qwen%20系列.md)
+- [Qwen Team - 2024 - Qwen2-VL](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Qwen2-VL.md)
 
 ## 关联页面
 
 - [Qwen2](./Qwen2.md)
 - [Qwen2.5-VL](./Qwen2.5-VL.md)
 - [Qwen2.5-Omni](./Qwen2.5-Omni.md)
+- [Qwen 系列](../topics/Qwen%20系列.md)

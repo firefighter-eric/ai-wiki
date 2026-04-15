@@ -7,7 +7,7 @@ Sentence-BERT 是早期高质量句向量的代表模型。在当前知识库中
 ## 关键属性
 
 - 类型：句向量模型
-- 代表来源：[Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../raw/summary/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
+- 代表来源：[Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../wiki/summaries/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
 - 当前角色：句向量与语义检索的基础节点
 
 ## 相关主张
@@ -17,8 +17,7 @@ Sentence-BERT 是早期高质量句向量的代表模型。在当前知识库中
 
 ## 来源支持
 
-- [Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../raw/summary/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
-- [传统 NLP](传统%20NLP.md)
+- [Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../wiki/summaries/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
 
 ## 关联页面
 
@@ -26,4 +25,4 @@ Sentence-BERT 是早期高质量句向量的代表模型。在当前知识库中
 - [SimCSE](./SimCSE.md)
 - [Dense Retrieval](./Dense Retrieval.md)
 - [BERT类双向Transformer语言模型](../topics/BERT%E7%B1%BB%E5%8F%8C%E5%90%91Transformer%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
-- [传统 NLP](传统%20NLP.md)
+- [传统 NLP](../topics/传统%20NLP.md)

@@ -7,7 +7,7 @@
 ## 关键属性
 
 - 类型：目标检测模型
-- 代表来源：[Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks](../../raw/summary/Ren%20et%20al.%20-%202015%20-%20Faster%20R-CNN%20Towards%20Real-Time%20Object%20Detection%20with%20Region%20Proposal%20Networks.md)
+- 代表来源：[Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks](../../wiki/summaries/Ren%20et%20al.%20-%202015%20-%20Faster%20R-CNN%20Towards%20Real-Time%20Object%20Detection%20with%20Region%20Proposal%20Networks.md)
 - 当前角色：承接 `R-CNN / Fast R-CNN` 后的统一两阶段检测主线
 
 ## 相关主张
@@ -18,9 +18,8 @@
 
 ## 来源支持
 
-- [Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks](../../raw/summary/Ren%20et%20al.%20-%202015%20-%20Faster%20R-CNN%20Towards%20Real-Time%20Object%20Detection%20with%20Region%20Proposal%20Networks.md)
-- [Carion et al. - 2020 - End-to-End Object Detection with Transformers](../../raw/summary/Carion%20et%20al.%20-%202020%20-%20End-to-End%20Object%20Detection%20with%20Transformers.md)
-- [目标检测](../topics/目标检测.md)
+- [Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks](../../wiki/summaries/Ren%20et%20al.%20-%202015%20-%20Faster%20R-CNN%20Towards%20Real-Time%20Object%20Detection%20with%20Region%20Proposal%20Networks.md)
+- [Carion et al. - 2020 - End-to-End Object Detection with Transformers](../../wiki/summaries/Carion%20et%20al.%20-%202020%20-%20End-to-End%20Object%20Detection%20with%20Transformers.md)
 
 ## 关联页面
 

@@ -3,7 +3,7 @@
 ## 页面状态
 
 - 状态：正式 topic
-- 事实基座：`raw/summary/` 优先
+- 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
 
@@ -40,13 +40,13 @@
 
 ## 证据基础
 
-- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](../../raw/summary/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)
-- [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../raw/summary/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
-- [Hong et al. - 2024 - ORPO Monolithic Preference Optimization without Reference Model](../../raw/summary/Hong%20et%20al.%20-%202024%20-%20ORPO%20Monolithic%20Preference%20Optimization%20without%20Reference%20Model.md)
-- [Ethayarajh et al. - 2024 - KTO Model Alignment as Prospect Theoretic Optimization](../../raw/summary/Ethayarajh%20et%20al.%20-%202024%20-%20KTO%20Model%20Alignment%20as%20Prospect%20Theoretic%20Optimization.md)
-- [Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models](../../raw/summary/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)
-- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../raw/summary/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
-- [Yu et al. - 2025 - DAPO An Open-Source LLM Reinforcement Learning System at Scale](../../raw/summary/Yu%20et%20al.%20-%202025%20-%20DAPO%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.md)
+- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](../../wiki/summaries/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)
+- [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../wiki/summaries/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
+- [Hong et al. - 2024 - ORPO Monolithic Preference Optimization without Reference Model](../../wiki/summaries/Hong%20et%20al.%20-%202024%20-%20ORPO%20Monolithic%20Preference%20Optimization%20without%20Reference%20Model.md)
+- [Ethayarajh et al. - 2024 - KTO Model Alignment as Prospect Theoretic Optimization](../../wiki/summaries/Ethayarajh%20et%20al.%20-%202024%20-%20KTO%20Model%20Alignment%20as%20Prospect%20Theoretic%20Optimization.md)
+- [Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models](../../wiki/summaries/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)
+- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+- [Yu et al. - 2025 - DAPO An Open-Source LLM Reinforcement Learning System at Scale](../../wiki/summaries/Yu%20et%20al.%20-%202025%20-%20DAPO%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.md)
 
 ## 代表页面
 
@@ -59,6 +59,7 @@
 - [Instruction Tuning](../concepts/Instruction%20Tuning.md)
 - [InstructGPT](../concepts/InstructGPT.md)
 - [DeepSeek-R1](../concepts/DeepSeek-R1.md)
+- [RLHF vs DPO vs ORPO vs KTO](../comparisons/RLHF%20vs%20DPO%20vs%20ORPO%20vs%20KTO.md)
 
 ## 未解决问题
 
@@ -70,7 +71,7 @@
 ## 关联页面
 
 - [指令对齐与 post-training](./指令对齐与%20post-training.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [LLM 预训练](../topics/LLM%20预训练.md)
 - [DeepSeek](../concepts/DeepSeek.md)
 - [FLAN](../concepts/FLAN.md)
 - [LoRA](../concepts/LoRA.md)
@@ -84,3 +85,4 @@
 - [DAPO](../concepts/DAPO.md)
 - [Toolformer](../concepts/Toolformer.md)
 - [Llama Guard](../concepts/Llama%20Guard.md)
+- [RLHF vs DPO vs ORPO vs KTO](../comparisons/RLHF%20vs%20DPO%20vs%20ORPO%20vs%20KTO.md)

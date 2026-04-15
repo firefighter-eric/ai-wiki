@@ -1,6 +1,6 @@
 # StandfordUniversity - 2023 - Artificial Intelligence Index Report Introduction to the AI Index Report 2023 GP-003
 
-- Source PDF: `raw/pdfs/StandfordUniversity - 2023 - Artificial Intelligence Index Report Introduction to the AI Index Report 2023 GP-003.pdf`
+- Source PDF: `raw/pdf/StandfordUniversity - 2023 - Artificial Intelligence Index Report Introduction to the AI Index Report 2023 GP-003.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

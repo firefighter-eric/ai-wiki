@@ -1,6 +1,6 @@
 # Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead
 
-- Source PDF: `raw/pdfs/Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead.pdf`
+- Source PDF: `raw/pdf/Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

@@ -1,6 +1,6 @@
 # Corporation - 2022 - NVIDIA DGX A100 The Universal System for AI Infrastructure
 
-- Source PDF: `raw/pdfs/Corporation - 2022 - NVIDIA DGX A100 The Universal System for AI Infrastructure.pdf`
+- Source PDF: `raw/pdf/Corporation - 2022 - NVIDIA DGX A100 The Universal System for AI Infrastructure.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

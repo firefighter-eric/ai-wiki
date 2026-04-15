@@ -1,6 +1,6 @@
 # Dumas, Organisciak, Doherty - 2020 - Measuring Divergent Thinking Originality With Human Raters and Text-Mining Models A Psychometric Co
 
-- Source PDF: `raw/pdfs/Dumas, Organisciak, Doherty - 2020 - Measuring Divergent Thinking Originality With Human Raters and Text-Mining Models A Psychometric Co.pdf`
+- Source PDF: `raw/pdf/Dumas, Organisciak, Doherty - 2020 - Measuring Divergent Thinking Originality With Human Raters and Text-Mining Models A Psychometric Co.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

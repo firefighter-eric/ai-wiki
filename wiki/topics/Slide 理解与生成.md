@@ -3,7 +3,7 @@
 ## 页面状态
 
 - 状态：正式 topic
-- 事实基座：`raw/summary/` 优先
+- 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
 
@@ -67,32 +67,32 @@ slide 生成在当前材料里至少可拆成五个子问题：
 
 ### 底层文档与多模态基础
 
-- [Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking](../../raw/summary/Huang%20et%20al.%20-%202022%20-%20LayoutLMv3%20Pre-training%20for%20Document%20AI%20with%20Unified%20Text%20and%20Image%20Masking.md)
-- [Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../raw/summary/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
-- [Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations](../../raw/summary/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md)
+- [Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking](../../wiki/summaries/Huang%20et%20al.%20-%202022%20-%20LayoutLMv3%20Pre-training%20for%20Document%20AI%20with%20Unified%20Text%20and%20Image%20Masking.md)
+- [Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
+- [Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations](../../wiki/summaries/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md)
 
 ### Slide 理解
 
-- [Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides](../../raw/summary/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md)
+- [Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides](../../wiki/summaries/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md)
 
 ### Slide 评测
 
-- [Zhang et al. - 2025 - SlideAudit A Dataset and Taxonomy for Automated Evaluation of Presentation Slides](../../raw/summary/Zhang%20et%20al.%20-%202025%20-%20SlideAudit%20A%20Dataset%20and%20Taxonomy%20for%20Automated%20Evaluation%20of%20Presentation%20Slides.md)
+- [Zhang et al. - 2025 - SlideAudit A Dataset and Taxonomy for Automated Evaluation of Presentation Slides](../../wiki/summaries/Zhang%20et%20al.%20-%202025%20-%20SlideAudit%20A%20Dataset%20and%20Taxonomy%20for%20Automated%20Evaluation%20of%20Presentation%20Slides.md)
 
 ### Slide 生成
 
-- [Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides](../../raw/summary/Zheng%20et%20al.%20-%202025%20-%20PPTAgent%20Generating%20and%20Evaluating%20Presentations%20Beyond%20Text-to-Slides.md)
+- [Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides](../../wiki/summaries/Zheng%20et%20al.%20-%202025%20-%20PPTAgent%20Generating%20and%20Evaluating%20Presentations%20Beyond%20Text-to-Slides.md)
 
 ## 代表页面
 
-- [传统 CV](传统%20CV.md)
+- [传统 CV](../topics/传统%20CV.md)
 - [DocLLM](../concepts/DocLLM.md)
 - [LayoutLMv3](../concepts/LayoutLMv3.md)
 - [Florence-2](../concepts/Florence-2.md)
 
 ## 未解决问题
 
-- 现有 evidence base 仍偏少，尤其缺少商业汇报、学术汇报与企业模板场景的 `raw/summary/` 支撑。
+- 现有 evidence base 仍偏少，尤其缺少商业汇报、学术汇报与企业模板场景的 `wiki/summaries/` 支撑。
 - 目前还缺少把 `slide understanding vs document understanding`、`slide evaluation vs human review`、`text-to-slides vs edit-based generation` 拆成独立 comparison 页的结构。
 - slide 评测中的审美一致性、信息密度、演讲节奏与受众适配性，仍缺少稳定、可迁移的自动指标。
 - slide 生成是否应以 reference-heavy editing 为主范式，还是能被更强的端到端 multimodal agent 统一解决，现阶段还没有定论。
@@ -100,7 +100,7 @@ slide 生成在当前材料里至少可拆成五个子问题：
 
 ## 关联页面
 
-- [传统 CV](传统%20CV.md)
+- [传统 CV](../topics/传统%20CV.md)
 - [DocLLM](../concepts/DocLLM.md)
 - [LayoutLMv3](../concepts/LayoutLMv3.md)
 - [Florence-2](../concepts/Florence-2.md)

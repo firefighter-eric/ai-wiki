@@ -8,7 +8,7 @@ DPO 是 `Rafailov et al. 2023` 提出的偏好优化方法。在当前知识库�
 
 - 类型：偏好优化 / post-training 方法
 - 代表来源：
-  - [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../raw/summary/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
+  - [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../wiki/summaries/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
 - 当前角色：RLHF 之后更轻量的对齐方法代表
 
 ## 相关主张
@@ -19,8 +19,7 @@ DPO 是 `Rafailov et al. 2023` 提出的偏好优化方法。在当前知识库�
 
 ## 来源支持
 
-- [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../raw/summary/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
-- [LLM RL](../topics/LLM%20RL.md)
+- [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../wiki/summaries/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
 
 ## 关联页面
 

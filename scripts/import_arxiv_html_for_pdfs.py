@@ -234,12 +234,12 @@ def import_html(result: ScanResult, force: bool) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Scan raw/pdfs for arXiv papers and import corresponding arXiv HTML into raw/html and raw/text."
+        description="Scan raw/pdf for arXiv papers and import corresponding arXiv HTML into raw/html and raw/text."
     )
     parser.add_argument(
         "pdfs",
         nargs="*",
-        help="Optional list of PDF paths. Defaults to all PDFs under raw/pdfs/.",
+        help="Optional list of PDF paths. Defaults to all PDFs under raw/pdf/.",
     )
     parser.add_argument("--force", action="store_true", help="Overwrite existing HTML/text outputs.")
     parser.add_argument("--dry-run", action="store_true", help="Only print matches without importing.")

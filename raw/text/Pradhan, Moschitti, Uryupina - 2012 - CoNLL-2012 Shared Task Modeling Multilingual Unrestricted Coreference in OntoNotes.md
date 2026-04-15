@@ -1,6 +1,6 @@
 # Pradhan, Moschitti, Uryupina - 2012 - CoNLL-2012 Shared Task Modeling Multilingual Unrestricted Coreference in OntoNotes
 
-- Source PDF: `raw/pdfs/Pradhan, Moschitti, Uryupina - 2012 - CoNLL-2012 Shared Task Modeling Multilingual Unrestricted Coreference in OntoNotes.pdf`
+- Source PDF: `raw/pdf/Pradhan, Moschitti, Uryupina - 2012 - CoNLL-2012 Shared Task Modeling Multilingual Unrestricted Coreference in OntoNotes.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

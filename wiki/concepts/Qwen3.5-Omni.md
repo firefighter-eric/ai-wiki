@@ -8,7 +8,7 @@ Qwen3.5-Omni 是截至 `2026-04-12` Qwen 官方研究索引中的最新 omni 节
 
 - 类型：fully omnimodal LLM
 - 代表来源：
-  - [Qwen Team - 2026 - Qwen3.5-Omni Scaling Up Toward Native Omni-Modal AGI](../../raw/summary/Qwen%20Team%20-%202026%20-%20Qwen3.5-Omni%20Scaling%20Up%20Toward%20Native%20Omni-Modal%20AGI.md)
+  - [Qwen Team - 2026 - Qwen3.5-Omni Scaling Up Toward Native Omni-Modal AGI](../../wiki/summaries/Qwen%20Team%20-%202026%20-%20Qwen3.5-Omni%20Scaling%20Up%20Toward%20Native%20Omni-Modal%20AGI.md)
 - 当前角色：Qwen 最新 omni 系列节点
 
 ## 相关主张
@@ -19,11 +19,11 @@ Qwen3.5-Omni 是截至 `2026-04-12` Qwen 官方研究索引中的最新 omni 节
 
 ## 来源支持
 
-- [Qwen Team - 2026 - Qwen3.5-Omni Scaling Up Toward Native Omni-Modal AGI](../../raw/summary/Qwen%20Team%20-%202026%20-%20Qwen3.5-Omni%20Scaling%20Up%20Toward%20Native%20Omni-Modal%20AGI.md)
-- [Qwen 系列](../topics/Qwen%20系列.md)
+- [Qwen Team - 2026 - Qwen3.5-Omni Scaling Up Toward Native Omni-Modal AGI](../../wiki/summaries/Qwen%20Team%20-%202026%20-%20Qwen3.5-Omni%20Scaling%20Up%20Toward%20Native%20Omni-Modal%20AGI.md)
 
 ## 关联页面
 
 - [Qwen3.5](./Qwen3.5.md)
 - [Qwen2.5-Omni](./Qwen2.5-Omni.md)
 - [Qwen](./Qwen.md)
+- [Qwen 系列](../topics/Qwen%20系列.md)

@@ -8,7 +8,7 @@ PaLM 是 Google 提出的超大规模 dense Transformer 语言模型。在当前
 
 - 类型：大规模 dense 语言模型
 - 代表来源：
-  - [Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways](../../raw/summary/Chowdhery%20et%20al.%20-%202022%20-%20PaLM%20Scaling%20Language%20Modeling%20with%20Pathways.md)
+  - [Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways](../../wiki/summaries/Chowdhery%20et%20al.%20-%202022%20-%20PaLM%20Scaling%20Language%20Modeling%20with%20Pathways.md)
 - 当前角色：承接 GPT-3 之后的规模扩张与系统训练能力
 
 ## 相关主张
@@ -19,11 +19,9 @@ PaLM 是 Google 提出的超大规模 dense Transformer 语言模型。在当前
 
 ## 来源支持
 
-- [Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways](../../raw/summary/Chowdhery%20et%20al.%20-%202022%20-%20PaLM%20Scaling%20Language%20Modeling%20with%20Pathways.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways](../../wiki/summaries/Chowdhery%20et%20al.%20-%202022%20-%20PaLM%20Scaling%20Language%20Modeling%20with%20Pathways.md)
 
 ## 关联页面
 
 - [GPT-3](./GPT-3.md)
-- [LLM 预训练](LLM%20预训练.md)
-- [LLM 基础脉络](../topics/LLM%20基础脉络.md)
+- [LLM 预训练](../topics/LLM%20预训练.md)

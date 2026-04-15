@@ -3,7 +3,7 @@
 ## 页面状态
 
 - 状态：正式 topic
-- 事实基座：`raw/summary/` 优先
+- 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
 
@@ -37,20 +37,20 @@
 ## 证据基础
 
 - 原始范式与训练配方：
-  - [Devlin et al. - 2019 - BERT Pre-training of deep bidirectional transformers for language understanding](../../raw/summary/Devlin%20et%20al.%20-%202019%20-%20BERT%20Pre-training%20of%20deep%20bidirectional%20transformers%20for%20language%20understanding.md)
-  - [Liu et al. - 2019 - RoBERTa A Robustly Optimized BERT Pretraining Approach](../../raw/summary/Liu%20et%20al.%20-%202019%20-%20RoBERTa%20A%20Robustly%20Optimized%20BERT%20Pretraining%20Approach.md)
+  - [Devlin et al. - 2019 - BERT Pre-training of deep bidirectional transformers for language understanding](../../wiki/summaries/Devlin%20et%20al.%20-%202019%20-%20BERT%20Pre-training%20of%20deep%20bidirectional%20transformers%20for%20language%20understanding.md)
+  - [Liu et al. - 2019 - RoBERTa A Robustly Optimized BERT Pretraining Approach](../../wiki/summaries/Liu%20et%20al.%20-%202019%20-%20RoBERTa%20A%20Robustly%20Optimized%20BERT%20Pretraining%20Approach.md)
 - 结构感知与任务特化：
-  - [Joshi et al. - 2020 - Spanbert Improving pre-training by representing and predicting spans](../../raw/summary/Joshi%20et%20al.%20-%202020%20-%20Spanbert%20Improving%20pre-training%20by%20representing%20and%20predicting%20spans.md)
-  - [Liu, Lapata - 2020 - Text summarization with pretrained encoders](../../raw/summary/Liu,%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.md)
+  - [Joshi et al. - 2020 - Spanbert Improving pre-training by representing and predicting spans](../../wiki/summaries/Joshi%20et%20al.%20-%202020%20-%20Spanbert%20Improving%20pre-training%20by%20representing%20and%20predicting%20spans.md)
+  - [Liu, Lapata - 2020 - Text summarization with pretrained encoders](../../wiki/summaries/Liu,%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.md)
 - 句向量与检索：
-  - [Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../raw/summary/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
-  - [Gao, Yao, Chen - 2021 - SimCSE Simple Contrastive Learning of Sentence Embeddings](../../raw/summary/Gao,%20Yao,%20Chen%20-%202021%20-%20SimCSE%20Simple%20Contrastive%20Learning%20of%20Sentence%20Embeddings.md)
-  - [Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations](../../raw/summary/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.md)
-  - [Yan et al. - 2021 - ConSERT A contrastive framework for self-supervised sentence representation transfer](../../raw/summary/Yan%20et%20al.%20-%202021%20-%20ConSERT%20A%20contrastive%20framework%20for%20self-supervised%20sentence%20representation%20transfer.md)
-  - [Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering](../../raw/summary/Karpukhin%20et%20al.%20-%202020%20-%20Dense%20passage%20retrieval%20for%20open-domain%20question%20answering.md)
+  - [Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../wiki/summaries/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
+  - [Gao, Yao, Chen - 2021 - SimCSE Simple Contrastive Learning of Sentence Embeddings](../../wiki/summaries/Gao,%20Yao,%20Chen%20-%202021%20-%20SimCSE%20Simple%20Contrastive%20Learning%20of%20Sentence%20Embeddings.md)
+  - [Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations](../../wiki/summaries/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.md)
+  - [Yan et al. - 2021 - ConSERT A contrastive framework for self-supervised sentence representation transfer](../../wiki/summaries/Yan%20et%20al.%20-%202021%20-%20ConSERT%20A%20contrastive%20framework%20for%20self-supervised%20sentence%20representation%20transfer.md)
+  - [Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering](../../wiki/summaries/Karpukhin%20et%20al.%20-%202020%20-%20Dense%20passage%20retrieval%20for%20open-domain%20question%20answering.md)
 - 多语言扩展：
-  - [Conneau et al. - 2020 - Unsupervised cross-lingual representation learning at scale](../../raw/summary/Conneau%20et%20al.%20-%202020%20-%20Unsupervised%20cross-lingual%20representation%20learning%20at%20scale.md)
-  - [Conneau - 2021 - Larger-Scale Transformers for Multilingual Masked Language Modeling](../../raw/summary/Conneau%20-%202021%20-%20Larger-Scale%20Transformers%20for%20Multilingual%20Masked%20Language%20Modeling.md)
+  - [Conneau et al. - 2020 - Unsupervised cross-lingual representation learning at scale](../../wiki/summaries/Conneau%20et%20al.%20-%202020%20-%20Unsupervised%20cross-lingual%20representation%20learning%20at%20scale.md)
+  - [Conneau - 2021 - Larger-Scale Transformers for Multilingual Masked Language Modeling](../../wiki/summaries/Conneau%20-%202021%20-%20Larger-Scale%20Transformers%20for%20Multilingual%20Masked%20Language%20Modeling.md)
 
 ## 代表页面
 
@@ -71,8 +71,8 @@
 
 ## 关联页面
 
-- [传统 NLP](传统%20NLP.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [传统 NLP](../topics/传统%20NLP.md)
+- [LLM 预训练](../topics/LLM%20预训练.md)
 - [搜索排序](./搜索排序.md)
 - [BERT](../concepts/BERT.md)
 - [RoBERTa](../concepts/RoBERTa.md)

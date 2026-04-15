@@ -8,13 +8,13 @@
 
 - 类型：目标检测模型家族
 - 代表来源：
-  - [Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection](../../raw/summary/Redmon%20et%20al.%20-%202015%20-%20You%20Only%20Look%20Once%20Unified%20Real-Time%20Object%20Detection.md)
-  - [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](../../raw/summary/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)
-  - [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](../../raw/summary/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)
-  - [Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection](../../raw/summary/Bochkovskiy,%20Wang,%20Liao%20-%202020%20-%20YOLOv4%20Optimal%20Speed%20and%20Accuracy%20of%20Object%20Detection.md)
-  - [Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection](../../raw/summary/Wang%20et%20al.%20-%202024%20-%20YOLOv10%20Real-Time%20End-to-End%20Object%20Detection.md)
-  - [Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond](../../raw/summary/Chen%20et%20al.%20-%202025%20-%20A%20Comprehensive%20Survey%20of%20YOLO%20From%20YOLOv1%20to%20YOLO11%20and%20Beyond.md)
-  - [Ultralytics - 2026 - Ultralytics YOLO Docs Home](../../raw/summary/Ultralytics%20-%202026%20-%20Ultralytics%20YOLO%20Docs%20Home.md)
+  - [Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection](../../wiki/summaries/Redmon%20et%20al.%20-%202015%20-%20You%20Only%20Look%20Once%20Unified%20Real-Time%20Object%20Detection.md)
+  - [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](../../wiki/summaries/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)
+  - [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](../../wiki/summaries/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)
+  - [Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection](../../wiki/summaries/Bochkovskiy,%20Wang,%20Liao%20-%202020%20-%20YOLOv4%20Optimal%20Speed%20and%20Accuracy%20of%20Object%20Detection.md)
+  - [Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection](../../wiki/summaries/Wang%20et%20al.%20-%202024%20-%20YOLOv10%20Real-Time%20End-to-End%20Object%20Detection.md)
+  - [Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond](../../wiki/summaries/Chen%20et%20al.%20-%202025%20-%20A%20Comprehensive%20Survey%20of%20YOLO%20From%20YOLOv1%20to%20YOLO11%20and%20Beyond.md)
+  - [Ultralytics - 2026 - Ultralytics YOLO Docs Home](../../wiki/summaries/Ultralytics%20-%202026%20-%20Ultralytics%20YOLO%20Docs%20Home.md)
 - 当前角色：`目标检测` topic 中 one-stage 主线的总入口
 
 ## 相关主张
@@ -28,14 +28,13 @@
 
 ## 来源支持
 
-- [Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection](../../raw/summary/Redmon%20et%20al.%20-%202015%20-%20You%20Only%20Look%20Once%20Unified%20Real-Time%20Object%20Detection.md)
-- [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](../../raw/summary/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)
-- [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](../../raw/summary/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)
-- [Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection](../../raw/summary/Bochkovskiy,%20Wang,%20Liao%20-%202020%20-%20YOLOv4%20Optimal%20Speed%20and%20Accuracy%20of%20Object%20Detection.md)
-- [Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection](../../raw/summary/Wang%20et%20al.%20-%202024%20-%20YOLOv10%20Real-Time%20End-to-End%20Object%20Detection.md)
-- [Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond](../../raw/summary/Chen%20et%20al.%20-%202025%20-%20A%20Comprehensive%20Survey%20of%20YOLO%20From%20YOLOv1%20to%20YOLO11%20and%20Beyond.md)
-- [Ultralytics - 2026 - Ultralytics YOLO Docs Home](../../raw/summary/Ultralytics%20-%202026%20-%20Ultralytics%20YOLO%20Docs%20Home.md)
-- [目标检测](../topics/目标检测.md)
+- [Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection](../../wiki/summaries/Redmon%20et%20al.%20-%202015%20-%20You%20Only%20Look%20Once%20Unified%20Real-Time%20Object%20Detection.md)
+- [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](../../wiki/summaries/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)
+- [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](../../wiki/summaries/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)
+- [Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection](../../wiki/summaries/Bochkovskiy,%20Wang,%20Liao%20-%202020%20-%20YOLOv4%20Optimal%20Speed%20and%20Accuracy%20of%20Object%20Detection.md)
+- [Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection](../../wiki/summaries/Wang%20et%20al.%20-%202024%20-%20YOLOv10%20Real-Time%20End-to-End%20Object%20Detection.md)
+- [Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond](../../wiki/summaries/Chen%20et%20al.%20-%202025%20-%20A%20Comprehensive%20Survey%20of%20YOLO%20From%20YOLOv1%20to%20YOLO11%20and%20Beyond.md)
+- [Ultralytics - 2026 - Ultralytics YOLO Docs Home](../../wiki/summaries/Ultralytics%20-%202026%20-%20Ultralytics%20YOLO%20Docs%20Home.md)
 
 ## 关联页面
 

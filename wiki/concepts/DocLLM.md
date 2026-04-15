@@ -7,7 +7,7 @@ DocLLM 是 layout-aware generative document model 的代表。在当前知识库
 ## 关键属性
 
 - 类型：文档语言模型
-- 代表来源：[Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../raw/summary/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
+- 代表来源：[Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
 - 当前角色：连接文档基础模型与生成式 LLM
 
 ## 相关主张
@@ -17,12 +17,11 @@ DocLLM 是 layout-aware generative document model 的代表。在当前知识库
 
 ## 来源支持
 
-- [Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../raw/summary/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
-- [传统 CV](传统%20CV.md)
+- [Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
 
 ## 关联页面
 
 - [LayoutLMv3](./LayoutLMv3.md)
 - [Kosmos-2.5](./Kosmos-2.5.md)
 - [TrOCR](./TrOCR.md)
-- [传统 CV](传统%20CV.md)
+- [传统 CV](../topics/传统%20CV.md)

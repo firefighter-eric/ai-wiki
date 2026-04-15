@@ -8,7 +8,7 @@ Qwen2 是 Qwen 家族中把多语言、长上下文、MoE 与更系统 post-trai
 
 - 类型：大语言模型家族
 - 代表来源：
-  - [Qwen Team - 2024 - Hello Qwen2](../../raw/summary/Qwen%20Team%20-%202024%20-%20Hello%20Qwen2.md)
+  - [Qwen Team - 2024 - Hello Qwen2](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Hello%20Qwen2.md)
 - 当前角色：连接 Qwen1.5 与 Qwen2.5/2-VL 的代际骨干
 
 ## 相关主张
@@ -19,11 +19,11 @@ Qwen2 是 Qwen 家族中把多语言、长上下文、MoE 与更系统 post-trai
 
 ## 来源支持
 
-- [Qwen Team - 2024 - Hello Qwen2](../../raw/summary/Qwen%20Team%20-%202024%20-%20Hello%20Qwen2.md)
-- [Qwen 系列](../topics/Qwen%20系列.md)
+- [Qwen Team - 2024 - Hello Qwen2](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Hello%20Qwen2.md)
 
 ## 关联页面
 
 - [Qwen1.5](./Qwen1.5.md)
 - [Qwen2-VL](./Qwen2-VL.md)
 - [Qwen2.5](./Qwen2.5.md)
+- [Qwen 系列](../topics/Qwen%20系列.md)

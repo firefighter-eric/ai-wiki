@@ -7,7 +7,7 @@ Toolformer 是让语言模型自学调用工具的代表方法。在当前知识
 ## 关键属性
 
 - 类型：工具使用方法 / 语言模型增强
-- 代表来源：[Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools](../../raw/summary/Schick%20et%20al.%20-%202023%20-%20Toolformer%20Language%20Models%20Can%20Teach%20Themselves%20to%20Use%20Tools.md)
+- 代表来源：[Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools](../../wiki/summaries/Schick%20et%20al.%20-%202023%20-%20Toolformer%20Language%20Models%20Can%20Teach%20Themselves%20to%20Use%20Tools.md)
 - 当前角色：连接基础模型与工具调用能力
 
 ## 相关主张
@@ -17,8 +17,7 @@ Toolformer 是让语言模型自学调用工具的代表方法。在当前知识
 
 ## 来源支持
 
-- [Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools](../../raw/summary/Schick%20et%20al.%20-%202023%20-%20Toolformer%20Language%20Models%20Can%20Teach%20Themselves%20to%20Use%20Tools.md)
-- [LLM RL](../topics/LLM%20RL.md)
+- [Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools](../../wiki/summaries/Schick%20et%20al.%20-%202023%20-%20Toolformer%20Language%20Models%20Can%20Teach%20Themselves%20to%20Use%20Tools.md)
 
 ## 关联页面
 

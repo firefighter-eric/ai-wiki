@@ -8,8 +8,8 @@ Qwen2.5 是 Qwen 家族中一次高密度、全尺寸的语言模型升级。在
 
 - 类型：大语言模型家族
 - 代表来源：
-  - [Qwen Team - 2024 - Qwen2.5-LLM Extending the boundary of LLMs](../../raw/summary/Qwen%20Team%20-%202024%20-%20Qwen2.5-LLM%20Extending%20the%20boundary%20of%20LLMs.md)
-  - [Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../raw/summary/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
+  - [Qwen Team - 2024 - Qwen2.5-LLM Extending the boundary of LLMs](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Qwen2.5-LLM%20Extending%20the%20boundary%20of%20LLMs.md)
+  - [Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../wiki/summaries/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
 - 当前角色：Qwen 家族在 2024-2025 年间的核心骨干
 
 ## 相关主张
@@ -20,9 +20,8 @@ Qwen2.5 是 Qwen 家族中一次高密度、全尺寸的语言模型升级。在
 
 ## 来源支持
 
-- [Qwen Team - 2024 - Qwen2.5-LLM Extending the boundary of LLMs](../../raw/summary/Qwen%20Team%20-%202024%20-%20Qwen2.5-LLM%20Extending%20the%20boundary%20of%20LLMs.md)
-- [Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../raw/summary/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
-- [Qwen 系列](../topics/Qwen%20系列.md)
+- [Qwen Team - 2024 - Qwen2.5-LLM Extending the boundary of LLMs](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Qwen2.5-LLM%20Extending%20the%20boundary%20of%20LLMs.md)
+- [Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../wiki/summaries/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
 
 ## 关联页面
 
@@ -30,3 +29,4 @@ Qwen2.5 是 Qwen 家族中一次高密度、全尺寸的语言模型升级。在
 - [Qwen2.5-VL](./Qwen2.5-VL.md)
 - [Qwen2.5-Omni](./Qwen2.5-Omni.md)
 - [Qwen3](./Qwen3.md)
+- [Qwen 系列](../topics/Qwen%20系列.md)

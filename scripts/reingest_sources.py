@@ -129,7 +129,7 @@ def render_summary(doc: SummaryDoc) -> str:
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdfs/{doc.raw_name}
+- 原始文件：../../raw/pdf/{doc.raw_name}
 - 全文文本：../../raw/text/{doc.stem}.md
 - 作者：{doc.author}
 - 年份：{doc.year}

@@ -3,7 +3,7 @@
 ## 页面状态
 
 - 状态：正式 topic
-- 事实基座：`raw/summary/` 优先
+- 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
 
@@ -44,18 +44,18 @@
 
 ## 证据基础
 
-- [Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance](../../raw/summary/Sakata%20et%20al.%20-%202019%20-%20FAQ%20retrieval%20using%20query-question%20similarity%20and%20BERT-based%20query-answer%20relevance.md)：支撑“高频标准客服问题首先可被建模为 FAQ 检索”的起点。
-- [Vlasov, Mosig, Nichol - 2019 - Dialogue Transformers](../../raw/summary/Vlasov,%20Mosig,%20Nichol%20-%202019%20-%20Dialogue%20Transformers.md)：支撑“客服需要多轮上下文选择性编码，而不是简单串接历史”。
-- [Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering](../../raw/summary/Karpukhin%20et%20al.%20-%202020%20-%20Dense%20passage%20retrieval%20for%20open-domain%20question%20answering.md)：支撑“客服知识召回从词匹配转向语义检索”的关键方法节点。
-- [Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval](../../raw/summary/O%C4%9Fuz%20et%20al.%20-%202021%20-%20Domain-matched%20Pre-training%20Tasks%20for%20Dense%20Retrieval.md)：支撑“客服检索效果高度依赖领域匹配数据与预训练任务”。
-- [Wei et al. - 2021 - Finetuned Language Models Are Zero-Shot Learners](../../raw/summary/Wei%20et%20al.%20-%202021%20-%20Finetuned%20Language%20Models%20Are%20Zero-Shot%20Learners.md)：支撑“指令微调可把通用模型拉向客服式任务接口”。
-- [Iyer et al. - 2022 - OPT-IML Scaling Language Model Instruction Meta Learning through the Lens of Generalization](../../raw/summary/Iyer%20et%20al.%20-%202022%20-%20OPT-IML%20Scaling%20Language%20Model%20Instruction%20Meta%20Learning%20through%20the%20Lens%20of%20Generalization.md)：支撑“客服型 instruction tuning 的关键在任务规模、分布与 specialized dialogue 数据设计”。
-- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](../../raw/summary/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)：支撑“客服助手需要 helpful / truthful / harmless 风格对齐”的核心框架。
-- [Liang et al. - 2022 - Holistic Evaluation of Language Models](../../raw/summary/Liang%20et%20al.%20-%202022%20-%20Holistic%20Evaluation%20of%20Language%20Models.md)：支撑“客服评测不能只看单一任务准确率”。
-- [Rafailov, Mitchell, Jul - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../raw/summary/Rafailov,%20Mitchell,%20Jul%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)：支撑“客服风格偏好可通过更轻量的偏好优化实现”。
-- [Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools](../../raw/summary/Schick%20et%20al.%20-%202023%20-%20Toolformer%20Language%20Models%20Can%20Teach%20Themselves%20to%20Use%20Tools.md)：支撑“客服从回答型代理走向处理型代理需要工具调用层”。
-- [Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations](../../raw/summary/Inan%20et%20al.%20-%202023%20-%20Llama%20Guard%20LLM-based%20Input-Output%20Safeguard%20for%20Human-AI%20Conversations.md)：支撑“客服系统需要独立的输入输出安全门控”。
-- [Wang - Unknown - PIKE-RAG sPecIalized KnowledgE and Rationale Augmented Generation](../../raw/summary/Wang%20-%20Unknown%20-%20PIKE-RAG%20sPecIalized%20KnowledgE%20and%20Rationale%20Augmented%20Generation.md)：支撑“工业客服中的复杂知识应用与分解式 RAG”。
+- [Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance](../../wiki/summaries/Sakata%20et%20al.%20-%202019%20-%20FAQ%20retrieval%20using%20query-question%20similarity%20and%20BERT-based%20query-answer%20relevance.md)：支撑“高频标准客服问题首先可被建模为 FAQ 检索”的起点。
+- [Vlasov, Mosig, Nichol - 2019 - Dialogue Transformers](../../wiki/summaries/Vlasov,%20Mosig,%20Nichol%20-%202019%20-%20Dialogue%20Transformers.md)：支撑“客服需要多轮上下文选择性编码，而不是简单串接历史”。
+- [Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering](../../wiki/summaries/Karpukhin%20et%20al.%20-%202020%20-%20Dense%20passage%20retrieval%20for%20open-domain%20question%20answering.md)：支撑“客服知识召回从词匹配转向语义检索”的关键方法节点。
+- [Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval](../../wiki/summaries/O%C4%9Fuz%20et%20al.%20-%202021%20-%20Domain-matched%20Pre-training%20Tasks%20for%20Dense%20Retrieval.md)：支撑“客服检索效果高度依赖领域匹配数据与预训练任务”。
+- [Wei et al. - 2021 - Finetuned Language Models Are Zero-Shot Learners](../../wiki/summaries/Wei%20et%20al.%20-%202021%20-%20Finetuned%20Language%20Models%20Are%20Zero-Shot%20Learners.md)：支撑“指令微调可把通用模型拉向客服式任务接口”。
+- [Iyer et al. - 2022 - OPT-IML Scaling Language Model Instruction Meta Learning through the Lens of Generalization](../../wiki/summaries/Iyer%20et%20al.%20-%202022%20-%20OPT-IML%20Scaling%20Language%20Model%20Instruction%20Meta%20Learning%20through%20the%20Lens%20of%20Generalization.md)：支撑“客服型 instruction tuning 的关键在任务规模、分布与 specialized dialogue 数据设计”。
+- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](../../wiki/summaries/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)：支撑“客服助手需要 helpful / truthful / harmless 风格对齐”的核心框架。
+- [Liang et al. - 2022 - Holistic Evaluation of Language Models](../../wiki/summaries/Liang%20et%20al.%20-%202022%20-%20Holistic%20Evaluation%20of%20Language%20Models.md)：支撑“客服评测不能只看单一任务准确率”。
+- [Rafailov, Mitchell, Jul - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../wiki/summaries/Rafailov,%20Mitchell,%20Jul%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)：支撑“客服风格偏好可通过更轻量的偏好优化实现”。
+- [Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools](../../wiki/summaries/Schick%20et%20al.%20-%202023%20-%20Toolformer%20Language%20Models%20Can%20Teach%20Themselves%20to%20Use%20Tools.md)：支撑“客服从回答型代理走向处理型代理需要工具调用层”。
+- [Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations](../../wiki/summaries/Inan%20et%20al.%20-%202023%20-%20Llama%20Guard%20LLM-based%20Input-Output%20Safeguard%20for%20Human-AI%20Conversations.md)：支撑“客服系统需要独立的输入输出安全门控”。
+- [Wang - Unknown - PIKE-RAG sPecIalized KnowledgE and Rationale Augmented Generation](../../wiki/summaries/Wang%20-%20Unknown%20-%20PIKE-RAG%20sPecIalized%20KnowledgE%20and%20Rationale%20Augmented%20Generation.md)：支撑“工业客服中的复杂知识应用与分解式 RAG”。
 
 ## 代表页面
 
@@ -74,7 +74,7 @@
 - 当前知识库还缺少直接围绕工单分流、人工转接决策、客服行动执行与 CRM 集成的 summary，因此“客服代理如何可靠闭环”仍未形成稳定结论。
 - 多轮记忆与账户级个性化如何与知识检索、安全审查共同工作，当前证据仍偏方法碎片，缺少一条完整系统线。
 - 客服中的拒答、澄清、追问与升级到人工之间应如何做最优策略切换，现有页面能说明必要性，但不足以支撑成熟方法学。
-- 业务评测仍是明显空白：首次解决率、重复来访率、误操作率、投诉风险与人工节省之间的关系，当前尚无足够 `raw/summary/` 可作为结论基座。
+- 业务评测仍是明显空白：首次解决率、重复来访率、误操作率、投诉风险与人工节省之间的关系，当前尚无足够 `wiki/summaries/` 可作为结论基座。
 
 ## 关联页面
 

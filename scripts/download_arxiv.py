@@ -107,12 +107,12 @@ def fetch_html_markdown(
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Download arXiv sources into raw/pdfs/, raw/html/, and raw/text/."
+        description="Download arXiv sources into raw/pdf/, raw/html/, and raw/text/."
     )
     parser.add_argument("arxiv_id", help="arXiv id, abs/pdf/html URL, or arXiv:ID.")
     parser.add_argument("--stem", help="Output file stem. Defaults to the arXiv id.")
     parser.add_argument("--title", help="Markdown title for raw/text output.")
-    parser.add_argument("--pdf-root", default="raw/pdfs", help="Output root for downloaded PDFs.")
+    parser.add_argument("--pdf-root", default="raw/pdf", help="Output root for downloaded PDFs.")
     parser.add_argument("--html-root", default="raw/html", help="Output root for saved HTML files.")
     parser.add_argument("--text-root", default="raw/text", help="Output root for generated markdown.")
     parser.add_argument("--skip-pdf", action="store_true", help="Do not download the PDF.")

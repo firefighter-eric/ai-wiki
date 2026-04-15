@@ -2,12 +2,51 @@
 
 本页是 LLM Wiki 的追加式操作日志。
 
+## [2026-04-15] ingest | 并入并移除 LLM 基础脉络
+
+涉及页面：
+
+- [LLM 预训练](./wiki/topics/LLM%20预训练.md)
+- [指令对齐与 post-training](./wiki/topics/%E6%8C%87%E4%BB%A4%E5%AF%B9%E9%BD%90%E4%B8%8E%20post-training.md)
+- [LLM RL](./wiki/topics/LLM%20RL.md)
+- [Scaling 与 compute-optimal training](./wiki/topics/Scaling%20与%20compute-optimal%20training.md)
+- [注意力机制 Attention](./wiki/topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)
+- [Qwen 系列](./wiki/topics/Qwen%20系列.md)
+- [GPT-3](./wiki/concepts/GPT-3.md)
+- [PaLM](./wiki/concepts/PaLM.md)
+- [DeepSeek](./wiki/concepts/DeepSeek.md)
+- [Llama 3](./wiki/concepts/Llama%203.md)
+- [Vaswani et al. - 2017 - Attention is all you need](./wiki/summaries/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md)
+
+## [2026-04-15] lint | 三层结构与证据层回正
+
+- 将全部 `raw/summary/` 迁移到 `wiki/summaries/`，明确 summary 属于 wiki 的来源摘要层，而非 raw 原始层
+- 合并 `Trans-Encoder`、`PPTAgent`、`DETRs with Collaborative Hybrid Assignments Training` 的重复 `(2)` 来源链，并统一回收引用
+- 重写 `AGENTS.md`，回正为 `raw -> wiki -> schema` 三层结构，允许基于现有 `wiki/summaries/` 在 query 阶段沉淀 topic / comparison / timeline
+- 清理 concept 页中的证据层与导航层混用，把 topic 链接从 `来源支持` 移回 `关联页面`
+- 重写 `作者分析` 与 `机构分析`，去除脏统计与非实体噪声
+- 新增 comparison 页 [RLHF vs DPO vs ORPO vs KTO](./wiki/comparisons/RLHF%20vs%20DPO%20vs%20ORPO%20vs%20KTO.md)
+- 新增 timeline 页 [Qwen 系列演进](./wiki/timelines/Qwen%20系列演进.md)
+- [index](./index.md)
+
+关键变更：
+
+- 将 `LLM 基础脉络` 中仍有价值的骨干叙事并入 `LLM 预训练`
+- 在 `LLM 预训练` 中补入“能力形成 vs 行为塑形”的阶段切分，使其可独立承担 LLM 主线入口
+- 回收 `指令对齐与 post-training`、`LLM RL` 与相关 concept/topic/summary 中对 `LLM 基础脉络` 的导航依赖
+- 从 `index.md` 主导航中移除 `LLM 基础脉络`，并删除该 topic 页面
+
+后续建议：
+
+- 若后续需要更高层的 LLM 总览，应优先做 comparison 或 timeline，而不是恢复一个与子 topic 重叠的总论页
+- 在继续扩展 LLM 主线时，把新增内容优先沉淀到 `LLM 预训练`、`指令对齐与 post-training`、`LLM RL` 这三个边界更清晰的页面
+
 ## [2026-04-14] lint | 全量扫描 topic / concept 关系并补链
 
 涉及页面：
 
 - [LLM 预训练](./wiki/topics/LLM%20预训练.md)
-- [LLM 基础脉络](./wiki/topics/LLM%20基础脉络.md)
+- `LLM 基础脉络`（现已并入 `LLM 预训练`）
 - [LLM RL](./wiki/topics/LLM%20RL.md)
 - [指令对齐与 post-training](./wiki/topics/%E6%8C%87%E4%BB%A4%E5%AF%B9%E9%BD%90%E4%B8%8E%20post-training.md)
 - [传统 CV](./wiki/topics/%E4%BC%A0%E7%BB%9F%20CV.md)
@@ -40,7 +79,7 @@
 - 按 concept 页已有 `来源支持 / 关联页面` 反查 topic，优先补齐确定性漏链，而不凭空扩写新结论
 - 在 `指令对齐与 post-training`、`LLM RL` 中补入 `FLAN`、`LoRA`、`OPT-IML`、`Prompt Tuning`、`Toolformer`、`Llama Guard` 等后训练相关概念的导航
 - 在 `传统 CV` 中补入 `CLIP`、`DocLayNet`、`PubTables-1M`、`Kosmos-2`、`Kosmos-2.5`、`MiniCPM-V`、`OFA`、`data2vec`、`HuBERT`、`Tip-Adapter` 等视觉 / 文档 / 多模态相关概念的导航
-- 在 `LLM 预训练` 与 `LLM 基础脉络` 中补入 `OPT`、`T5`、`Switch Transformer`、`mT5`、`Gemma 3`、`MiniCPM`、`PaLM`、`DeepSeek` 等预训练主线相关概念
+- 在 `LLM 预训练` 与当时的 `LLM 基础脉络` 中补入 `OPT`、`T5`、`Switch Transformer`、`mT5`、`Gemma 3`、`MiniCPM`、`PaLM`、`DeepSeek` 等预训练主线相关概念
 - 扫描完成后，当前 `0` 个 concept 处于“未被任何 topic 引用”状态
 
 后续建议：
@@ -56,15 +95,15 @@
 - [ColBERT](./wiki/concepts/ColBERT.md)
 - [传统 NLP](./wiki/topics/%E4%BC%A0%E7%BB%9F%20NLP.md)
 - [BERT类双向Transformer语言模型](./wiki/topics/BERT%E7%B1%BB%E5%8F%8C%E5%90%91Transformer%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
-- [Mitra, Craswell - 2019 - A Deep Look into Neural Ranking Models for Information Retrieval](./raw/summary/Mitra,%20Craswell%20-%202019%20-%20A%20Deep%20Look%20into%20Neural%20Ranking%20Models%20for%20Information%20Retrieval.md)
-- [Nogueira, Cho - 2019 - Passage Re-ranking with BERT](./raw/summary/Nogueira,%20Cho%20-%202019%20-%20Passage%20Re-ranking%20with%20BERT.md)
-- [Khattab, Zaharia - 2020 - ColBERT Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](./raw/summary/Khattab,%20Zaharia%20-%202020%20-%20ColBERT%20Efficient%20and%20Effective%20Passage%20Search%20via%20Contextualized%20Late%20Interaction%20over%20BERT.md)
-- [Nogueira et al. - 2020 - Pretrained Transformers for Text Ranking BERT and Beyond](./raw/summary/Nogueira%20et%20al.%20-%202020%20-%20Pretrained%20Transformers%20for%20Text%20Ranking%20BERT%20and%20Beyond.md)
+- [Mitra, Craswell - 2019 - A Deep Look into Neural Ranking Models for Information Retrieval](./wiki/summaries/Mitra,%20Craswell%20-%202019%20-%20A%20Deep%20Look%20into%20Neural%20Ranking%20Models%20for%20Information%20Retrieval.md)
+- [Nogueira, Cho - 2019 - Passage Re-ranking with BERT](./wiki/summaries/Nogueira,%20Cho%20-%202019%20-%20Passage%20Re-ranking%20with%20BERT.md)
+- [Khattab, Zaharia - 2020 - ColBERT Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](./wiki/summaries/Khattab,%20Zaharia%20-%202020%20-%20ColBERT%20Efficient%20and%20Effective%20Passage%20Search%20via%20Contextualized%20Late%20Interaction%20over%20BERT.md)
+- [Nogueira et al. - 2020 - Pretrained Transformers for Text Ranking BERT and Beyond](./wiki/summaries/Nogueira%20et%20al.%20-%202020%20-%20Pretrained%20Transformers%20for%20Text%20Ranking%20BERT%20and%20Beyond.md)
 - [index](./index.md)
 
 关键变更：
 
-- 新增 4 篇搜索排序相关原始来源，并补齐对应 `raw/pdfs/`、`raw/html/`、`raw/text/` 与精修版 `raw/summary/`
+- 新增 4 篇搜索排序相关原始来源，并补齐对应 `raw/pdf/`、`raw/html/`、`raw/text/` 与精修版 `wiki/summaries/`
 - 新建正式 topic《搜索排序》，按 `neural ranking 背景 -> BERT reranking -> dense retrieval -> late interaction` 组织主线
 - 新增 `ColBERT` 概念页，承接搜索排序中介于 cross-encoder 与双塔之间的 late interaction 路线
 - 更新 `传统 NLP` 与 `BERT类双向Transformer语言模型` 的关联导航，避免新 topic 成为孤立页
@@ -83,22 +122,22 @@
 - [FlashAttention](./wiki/concepts/FlashAttention.md)
 - [Grouped-Query Attention](./wiki/concepts/Grouped-Query%20Attention.md)
 - [Transformer](./wiki/concepts/Transformer.md)
-- [Vaswani et al. - 2017 - Attention is all you need](./raw/summary/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md)
-- [Shazeer - 2019 - Fast Transformer Decoding One Write-Head is All You Need](./raw/summary/Shazeer%20-%202019%20-%20Fast%20Transformer%20Decoding%20One%20Write-Head%20is%20All%20You%20Need.md)
-- [Kitaev, Kaiser, Levskaya - 2020 - Reformer The Efficient Transformer](./raw/summary/Kitaev,%20Kaiser,%20Levskaya%20-%202020%20-%20Reformer%20The%20Efficient%20Transformer.md)
-- [Beltagy, Peters, Cohan - 2020 - Longformer The Long-Document Transformer](./raw/summary/Beltagy,%20Peters,%20Cohan%20-%202020%20-%20Longformer%20The%20Long-Document%20Transformer.md)
-- [Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity](./raw/summary/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md)
-- [Zaheer et al. - 2020 - Big bird Transformers for longer sequences](./raw/summary/Zaheer%20et%20al.%20-%202020%20-%20Big%20bird%20Transformers%20for%20longer%20sequences.md)
-- [Choromanski et al. - 2021 - Rethinking Attention with Performers](./raw/summary/Choromanski%20et%20al.%20-%202021%20-%20Rethinking%20Attention%20with%20Performers.md)
-- [Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention](./raw/summary/Xiong%20et%20al.%20-%202021%20-%20Nystr%C3%B6mformer%20A%20Nystrom-Based%20Algorithm%20for%20Approximating%20Self-Attention.md)
-- [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](./raw/summary/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)
-- [Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](./raw/summary/Ainslie%20et%20al.%20-%202023%20-%20GQA%20Training%20Generalized%20Multi-Query%20Transformer%20Models%20from%20Multi-Head%20Checkpoints.md)
-- [Unknown - 2024 - DeepSeek-V3 Technical Report](./raw/summary/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
+- [Vaswani et al. - 2017 - Attention is all you need](./wiki/summaries/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md)
+- [Shazeer - 2019 - Fast Transformer Decoding One Write-Head is All You Need](./wiki/summaries/Shazeer%20-%202019%20-%20Fast%20Transformer%20Decoding%20One%20Write-Head%20is%20All%20You%20Need.md)
+- [Kitaev, Kaiser, Levskaya - 2020 - Reformer The Efficient Transformer](./wiki/summaries/Kitaev,%20Kaiser,%20Levskaya%20-%202020%20-%20Reformer%20The%20Efficient%20Transformer.md)
+- [Beltagy, Peters, Cohan - 2020 - Longformer The Long-Document Transformer](./wiki/summaries/Beltagy,%20Peters,%20Cohan%20-%202020%20-%20Longformer%20The%20Long-Document%20Transformer.md)
+- [Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity](./wiki/summaries/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md)
+- [Zaheer et al. - 2020 - Big bird Transformers for longer sequences](./wiki/summaries/Zaheer%20et%20al.%20-%202020%20-%20Big%20bird%20Transformers%20for%20longer%20sequences.md)
+- [Choromanski et al. - 2021 - Rethinking Attention with Performers](./wiki/summaries/Choromanski%20et%20al.%20-%202021%20-%20Rethinking%20Attention%20with%20Performers.md)
+- [Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention](./wiki/summaries/Xiong%20et%20al.%20-%202021%20-%20Nystr%C3%B6mformer%20A%20Nystrom-Based%20Algorithm%20for%20Approximating%20Self-Attention.md)
+- [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](./wiki/summaries/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)
+- [Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](./wiki/summaries/Ainslie%20et%20al.%20-%202023%20-%20GQA%20Training%20Generalized%20Multi-Query%20Transformer%20Models%20from%20Multi-Head%20Checkpoints.md)
+- [Unknown - 2024 - DeepSeek-V3 Technical Report](./wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
 - [index](./index.md)
 
 关键变更：
 
-- 新增 8 篇 attention 相关原始来源，并补齐对应 `raw/pdfs/`、`raw/html/`、`raw/text/` 与精修版 `raw/summary/`
+- 新增 8 篇 attention 相关原始来源，并补齐对应 `raw/pdf/`、`raw/html/`、`raw/text/` 与精修版 `wiki/summaries/`
 - 精修 `Attention Is All You Need`、`BigBird` 与 `DeepSeek-V3` 的 summary，使其可直接支撑 attention topic 中的标准 attention、混合稀疏 attention 与 `MLA` 路线
 - 新建正式 topic《注意力机制 Attention》，按“标准全连接 attention -> 长序列稀疏化 -> 线性/低秩近似 -> `KV cache` 优化 -> 实现级优化”组织主线
 - 新增 `FlashAttention` 与 `Grouped-Query Attention` 两个 concept 页，分别承接 exact attention 的系统优化路线与 `MHA / MQA / GQA` 的推理解码折中路线
@@ -117,12 +156,12 @@
 - [传统 CV](./wiki/topics/%E4%BC%A0%E7%BB%9F%20CV.md)
 - [Faster R-CNN](./wiki/concepts/Faster%20R-CNN.md)
 - [DETR](./wiki/concepts/DETR.md)
-- [Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks](./raw/summary/Ren%20et%20al.%20-%202015%20-%20Faster%20R-CNN%20Towards%20Real-Time%20Object%20Detection%20with%20Region%20Proposal%20Networks.md)
+- [Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks](./wiki/summaries/Ren%20et%20al.%20-%202015%20-%20Faster%20R-CNN%20Towards%20Real-Time%20Object%20Detection%20with%20Region%20Proposal%20Networks.md)
 - [index](./index.md)
 
 关键变更：
 
-- 新增 `Faster R-CNN` 原始来源，补齐 `raw/pdfs/`、`raw/html/`、`raw/text/` 与精修版 `raw/summary/`
+- 新增 `Faster R-CNN` 原始来源，补齐 `raw/pdf/`、`raw/html/`、`raw/text/` 与精修版 `wiki/summaries/`
 - 新建 `目标检测` 正式 topic，按 `proposal-based -> set prediction -> 实时化 -> 混合 assignment` 组织检测主线
 - 新增 `Faster R-CNN` 与 `DETR` 两个 concept 页，作为检测 topic 的稳定导航节点
 - 更新 `传统 CV`，将目标检测从总览页中的并列分支拆为独立 topic，并保留与视觉总线的关系
@@ -139,18 +178,18 @@
 
 - [目标检测](./wiki/topics/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B.md)
 - [YOLO](./wiki/concepts/YOLO.md)
-- [Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection](./raw/summary/Redmon%20et%20al.%20-%202015%20-%20You%20Only%20Look%20Once%20Unified%20Real-Time%20Object%20Detection.md)
-- [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](./raw/summary/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)
-- [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](./raw/summary/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)
-- [Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection](./raw/summary/Bochkovskiy,%20Wang,%20Liao%20-%202020%20-%20YOLOv4%20Optimal%20Speed%20and%20Accuracy%20of%20Object%20Detection.md)
-- [Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection](./raw/summary/Wang%20et%20al.%20-%202024%20-%20YOLOv10%20Real-Time%20End-to-End%20Object%20Detection.md)
-- [Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond](./raw/summary/Chen%20et%20al.%20-%202025%20-%20A%20Comprehensive%20Survey%20of%20YOLO%20From%20YOLOv1%20to%20YOLO11%20and%20Beyond.md)
-- [Ultralytics - 2026 - Ultralytics YOLO Docs Home](./raw/summary/Ultralytics%20-%202026%20-%20Ultralytics%20YOLO%20Docs%20Home.md)
+- [Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection](./wiki/summaries/Redmon%20et%20al.%20-%202015%20-%20You%20Only%20Look%20Once%20Unified%20Real-Time%20Object%20Detection.md)
+- [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](./wiki/summaries/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)
+- [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](./wiki/summaries/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)
+- [Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection](./wiki/summaries/Bochkovskiy,%20Wang,%20Liao%20-%202020%20-%20YOLOv4%20Optimal%20Speed%20and%20Accuracy%20of%20Object%20Detection.md)
+- [Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection](./wiki/summaries/Wang%20et%20al.%20-%202024%20-%20YOLOv10%20Real-Time%20End-to-End%20Object%20Detection.md)
+- [Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond](./wiki/summaries/Chen%20et%20al.%20-%202025%20-%20A%20Comprehensive%20Survey%20of%20YOLO%20From%20YOLOv1%20to%20YOLO11%20and%20Beyond.md)
+- [Ultralytics - 2026 - Ultralytics YOLO Docs Home](./wiki/summaries/Ultralytics%20-%202026%20-%20Ultralytics%20YOLO%20Docs%20Home.md)
 - [index](./index.md)
 
 关键变更：
 
-- 新增 7 个 `YOLO` 相关来源页，并补齐对应 `raw/pdfs/`、`raw/html/`、`raw/text/`
+- 新增 7 个 `YOLO` 相关来源页，并补齐对应 `raw/pdf/`、`raw/html/`、`raw/text/`
 - 新建 `YOLO` 概念页，作为 one-stage 检测家族从 `YOLOv1` 到 `YOLO26` 的总入口
 - 重写 `目标检测` 中的主线分层，把 `YOLO` 从旁支对照对象提升为正式 one-stage 主线
 - 在 topic 中明确区分：`YOLOv1-v4` 的 classic one-stage 演化、`YOLOv5-v9` 的综述级脉络、`YOLOv10` 的 `NMS-free` 新阶段，以及截至 `2026-04-13` 官方 `YOLO11 / YOLO26` 状态
@@ -171,15 +210,15 @@
 - [ORPO](./wiki/concepts/ORPO.md)
 - [KTO](./wiki/concepts/KTO.md)
 - [DAPO](./wiki/concepts/DAPO.md)
-- [Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models](./raw/summary/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)
-- [Ethayarajh et al. - 2024 - KTO Model Alignment as Prospect Theoretic Optimization](./raw/summary/Ethayarajh%20et%20al.%20-%202024%20-%20KTO%20Model%20Alignment%20as%20Prospect%20Theoretic%20Optimization.md)
-- [Hong et al. - 2024 - ORPO Monolithic Preference Optimization without Reference Model](./raw/summary/Hong%20et%20al.%20-%202024%20-%20ORPO%20Monolithic%20Preference%20Optimization%20without%20Reference%20Model.md)
-- [Yu et al. - 2025 - DAPO An Open-Source LLM Reinforcement Learning System at Scale](./raw/summary/Yu%20et%20al.%20-%202025%20-%20DAPO%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.md)
+- [Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models](./wiki/summaries/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)
+- [Ethayarajh et al. - 2024 - KTO Model Alignment as Prospect Theoretic Optimization](./wiki/summaries/Ethayarajh%20et%20al.%20-%202024%20-%20KTO%20Model%20Alignment%20as%20Prospect%20Theoretic%20Optimization.md)
+- [Hong et al. - 2024 - ORPO Monolithic Preference Optimization without Reference Model](./wiki/summaries/Hong%20et%20al.%20-%202024%20-%20ORPO%20Monolithic%20Preference%20Optimization%20without%20Reference%20Model.md)
+- [Yu et al. - 2025 - DAPO An Open-Source LLM Reinforcement Learning System at Scale](./wiki/summaries/Yu%20et%20al.%20-%202025%20-%20DAPO%20An%20Open-Source%20LLM%20Reinforcement%20Learning%20System%20at%20Scale.md)
 - [index](./index.md)
 
 关键变更：
 
-- 补入 4 篇 `LLM RL` 关键来源：`DeepSeekMath`、`ORPO`、`KTO`、`DAPO`，并同步保存 `raw/pdfs/`、`raw/html/`、`raw/text/`
+- 补入 4 篇 `LLM RL` 关键来源：`DeepSeekMath`、`ORPO`、`KTO`、`DAPO`，并同步保存 `raw/pdf/`、`raw/html/`、`raw/text/`
 - 新增 `GRPO`、`ORPO`、`KTO`、`DAPO` 四个 concept 页，使 `LLM RL` 不再只停留在 `RLHF / DPO / DeepSeek-R1` 三节点结构
 - 重写 `LLM RL` 的方法分层，把主题明确拆成 `经典 RLHF`、`偏好优化分支`、`reasoning-oriented 在线 RL`、`大规模 reasoning RL 工程化`
 - 更新 `RLHF` 概念页，补足其与后续 preference optimization 与 reasoning RL 分支的关系
@@ -202,10 +241,10 @@
 
 关键变更：
 
-- 扫描 `raw/pdfs/` 下全部 `175` 个 PDF，优先从文件名和 PDF 前两页提取 arXiv id，少数缺 id 的条目再用标题到 arXiv API 做谨慎补判
+- 扫描 `raw/pdf/` 下全部 `175` 个 PDF，优先从文件名和 PDF 前两页提取 arXiv id，少数缺 id 的条目再用标题到 arXiv API 做谨慎补判
 - 对命中的 `165` 个 PDF 补齐 `raw/html/*.html`，并用 arXiv HTML 导出的 markdown 覆盖对应 `raw/text/*.md`
 - 为 `DeepSeek-V3`、`DeepSeek-R1` 与重复文件 `DETRs with Collaborative Hybrid Assignments Training(2)` 增加确定性映射，避免标题补判漏掉已知 arXiv 来源
-- 保持 `raw/pdfs/` 原件不变，只迁移全文层的来源优先级，使后续 summary / topic 默认回到 HTML 文本层
+- 保持 `raw/pdf/` 原件不变，只迁移全文层的来源优先级，使后续 summary / topic 默认回到 HTML 文本层
 
 未命中条目：
 
@@ -239,7 +278,7 @@
 
 关键变更：
 
-- 对全部 `raw/summary/*.md -> raw/text/*.md` 链路执行扫描，检查是否存在 `Source PDF / Source HTML`
+- 对全部 `wiki/summaries/*.md -> raw/text/*.md` 链路执行扫描，检查是否存在 `Source PDF / Source HTML`
 - 批量修正旧 `raw/text` 中错误的 `Source PDF` 路径
 - 为当前 12 个网页 / HTML 来源补齐 `raw/html/*.html` 原件
 - 为所有网页来源的 `raw/text/*.md` 补齐 `Source HTML` 头标记
@@ -252,18 +291,18 @@
 - [AGENTS](./AGENTS.md)
 - [log](./log.md)
 - `raw/text/` 中新增的网页 markdown 全文页
-- [Hello Qwen2](./raw/summary/Qwen%20Team%20-%202024%20-%20Hello%20Qwen2.md)
-- [Introducing Qwen1.5](./raw/summary/Qwen%20Team%20-%202024%20-%20Introducing%20Qwen1.5.md)
-- [Qwen2-VL](./raw/summary/Qwen%20Team%20-%202024%20-%20Qwen2-VL.md)
-- [Qwen2.5-LLM Extending the boundary of LLMs](./raw/summary/Qwen%20Team%20-%202024%20-%20Qwen2.5-LLM%20Extending%20the%20boundary%20of%20LLMs.md)
-- [Qwen2.5-Omni See Hear Talk Write Do It All](./raw/summary/Qwen%20Team%20-%202025%20-%20Qwen2.5-Omni%20See%20Hear%20Talk%20Write%20Do%20It%20All.md)
-- [Qwen3 Think Deeper Act Faster](./raw/summary/Qwen%20Team%20-%202025%20-%20Qwen3%20Think%20Deeper%20Act%20Faster.md)
-- [Qwen3.5 Towards Native Multimodal Agents](./raw/summary/Qwen%20Team%20-%202026%20-%20Qwen3.5%20Towards%20Native%20Multimodal%20Agents.md)
-- [Qwen3.5-Omni Scaling Up Toward Native Omni-Modal AGI](./raw/summary/Qwen%20Team%20-%202026%20-%20Qwen3.5-Omni%20Scaling%20Up%20Toward%20Native%20Omni-Modal%20AGI.md)
-- [Qwen-Image Crafting with Native Text Rendering](./raw/summary/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
-- [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](./raw/summary/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
-- [Stability AI - 2022 - Stable Diffusion Launch Announcement](./raw/summary/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
-- [Black Forest Labs - 2026 - FLUX.2 Overview](./raw/summary/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
+- [Hello Qwen2](./wiki/summaries/Qwen%20Team%20-%202024%20-%20Hello%20Qwen2.md)
+- [Introducing Qwen1.5](./wiki/summaries/Qwen%20Team%20-%202024%20-%20Introducing%20Qwen1.5.md)
+- [Qwen2-VL](./wiki/summaries/Qwen%20Team%20-%202024%20-%20Qwen2-VL.md)
+- [Qwen2.5-LLM Extending the boundary of LLMs](./wiki/summaries/Qwen%20Team%20-%202024%20-%20Qwen2.5-LLM%20Extending%20the%20boundary%20of%20LLMs.md)
+- [Qwen2.5-Omni See Hear Talk Write Do It All](./wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen2.5-Omni%20See%20Hear%20Talk%20Write%20Do%20It%20All.md)
+- [Qwen3 Think Deeper Act Faster](./wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen3%20Think%20Deeper%20Act%20Faster.md)
+- [Qwen3.5 Towards Native Multimodal Agents](./wiki/summaries/Qwen%20Team%20-%202026%20-%20Qwen3.5%20Towards%20Native%20Multimodal%20Agents.md)
+- [Qwen3.5-Omni Scaling Up Toward Native Omni-Modal AGI](./wiki/summaries/Qwen%20Team%20-%202026%20-%20Qwen3.5-Omni%20Scaling%20Up%20Toward%20Native%20Omni-Modal%20AGI.md)
+- [Qwen-Image Crafting with Native Text Rendering](./wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
+- [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](./wiki/summaries/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
+- [Stability AI - 2022 - Stable Diffusion Launch Announcement](./wiki/summaries/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
+- [Black Forest Labs - 2026 - FLUX.2 Overview](./wiki/summaries/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
 - [fetch_web_text.py](./scripts/fetch_web_text.py)
 
 关键变更：
@@ -277,7 +316,7 @@
 
 后续建议：
 
-- 后续 ingest 对网页来源先补 `raw/text`，再写 `raw/summary`
+- 后续 ingest 对网页来源先补 `raw/text`，再写 `wiki/summaries`
 - 若动态站点继续增多，可把 `playwright` 流程进一步脚本化
 
 ## [2026-04-12] ingest | 接入 diffusion 文生图主线
@@ -289,10 +328,10 @@
 - [FLUX.2](./wiki/concepts/FLUX.2.md)
 - [Qwen-Image](./wiki/concepts/Qwen-Image.md)
 - [Qwen 系列](./wiki/topics/Qwen%20%E7%B3%BB%E5%88%97.md)
-- [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](./raw/summary/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
-- [Stability AI - 2022 - Stable Diffusion Launch Announcement](./raw/summary/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
-- [Black Forest Labs - 2026 - FLUX.2 Overview](./raw/summary/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
-- [Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering](./raw/summary/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
+- [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](./wiki/summaries/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)
+- [Stability AI - 2022 - Stable Diffusion Launch Announcement](./wiki/summaries/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)
+- [Black Forest Labs - 2026 - FLUX.2 Overview](./wiki/summaries/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)
+- [Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering](./wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
 - [index](./index.md)
 
 关键变更：
@@ -317,27 +356,27 @@
 
 关键变更：
 
-- 固定基础结构：`raw/pdfs/`、`wiki/`、`AGENTS.md`
-- 初始化首批 `raw/summary/` 与 `wiki/topics/` 目录
+- 固定基础结构：`raw/pdf/`、`wiki/`、`AGENTS.md`
+- 初始化首批 `wiki/summaries/` 与 `wiki/topics/` 目录
 - 建立索引与操作日志入口
 
 后续建议：
 
-- 选择一个 `raw/pdfs/` 来源做首个真实 ingest
+- 选择一个 `raw/pdf/` 来源做首个真实 ingest
 - 从 ingest 结果反向微调模板和命名约定
 
 ## [2026-04-12] ingest | 首轮 LLM 基础脉络铺开
 
 涉及页面：
 
-- [LLM 基础脉络](./wiki/topics/LLM%20基础脉络.md)
+- `LLM 基础脉络`（该页后续已并入 `LLM 预训练`）
 - [Scaling 与 compute-optimal training](./wiki/topics/Scaling%20与%20compute-optimal%20training.md)
 - [指令对齐与 post-training](./wiki/topics/指令对齐与%20post-training.md)
 - [GPT-3](./wiki/concepts/GPT-3.md)
 - [Llama 3](./wiki/concepts/Llama%203.md)
-- [Brown et al. - 2020 - Language models are few-shot learners](./raw/summary/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md)
-- [Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models](./raw/summary/Hoffmann%20et%20al.%20-%202022%20-%20Training%20Compute-Optimal%20Large%20Language%20Models.md)
-- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](./raw/summary/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)
+- [Brown et al. - 2020 - Language models are few-shot learners](./wiki/summaries/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md)
+- [Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models](./wiki/summaries/Hoffmann%20et%20al.%20-%202022%20-%20Training%20Compute-Optimal%20Large%20Language%20Models.md)
+- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](./wiki/summaries/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)
 - [index](./index.md)
 
 关键变更：
@@ -358,29 +397,29 @@
 涉及页面：
 
 - [AGENTS](./AGENTS.md)
-- [LLM 基础脉络](./wiki/topics/LLM%20基础脉络.md)
+- `LLM 基础脉络`（该页后续已并入 `LLM 预训练`）
 - [Scaling 与 compute-optimal training](./wiki/topics/Scaling%20与%20compute-optimal%20training.md)
 - [指令对齐与 post-training](./wiki/topics/指令对齐与%20post-training.md)
 
 关键变更：
 
-- 为 `raw/pdfs/` 下全部 PDF 批量生成 `raw/text/*.md` 全文文本文件
+- 为 `raw/pdf/` 下全部 PDF 批量生成 `raw/text/*.md` 全文文本文件
 - 新增 `scripts/extract_pdf_text.py` 作为可重复执行的全文抽取脚本
 - 将现有 3 个主题页从摘要层重写为基于正文可支持信息的主线页
 
 后续建议：
 
 - 用 `raw/text/` 中的全文内容重写首轮 3 个summary 页，使其不再只依赖摘要
-- 继续把 `PaLM`、`Qwen`、`Llama 3`、`DPO` 等已可读全文接入 `raw/summary/`
+- 继续把 `PaLM`、`Qwen`、`Llama 3`、`DPO` 等已可读全文接入 `wiki/summaries/`
 - 若后续页数明显增长，可为 `raw/text/` 增加索引或批量校验工具
 
 ## [2026-04-12] ingest | 重组主题为五大类
 
 涉及页面：
 
-- [传统 NLP](传统%20NLP.md)
-- [传统 CV](传统%20CV.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [传统 NLP](./wiki/topics/传统%20NLP.md)
+- [传统 CV](./wiki/topics/传统%20CV.md)
+- [LLM 预训练](./wiki/topics/LLM%20预训练.md)
 - [LLM RL](./wiki/topics/LLM%20RL.md)
 - [Slide相关](./wiki/topics/Slide相关.md)
 - [index](./index.md)
@@ -400,10 +439,10 @@
 
 涉及页面：
 
-- [Unknown - 2024 - DeepSeek-V3 Technical Report](./raw/summary/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
-- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](./raw/summary/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+- [Unknown - 2024 - DeepSeek-V3 Technical Report](./wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
+- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](./wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
 - [DeepSeek](./wiki/concepts/DeepSeek.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [LLM 预训练](./wiki/topics/LLM%20预训练.md)
 - [LLM RL](./wiki/topics/LLM%20RL.md)
 - [index](./index.md)
 
@@ -423,12 +462,12 @@
 涉及页面：
 
 - [index](./index.md)
-- `raw/summary/` 下全部summary 页
+- `wiki/summaries/` 下全部summary 页
 
 关键变更：
 
 - 删除旧的 5 个试验版summary 页
-- 按 `raw/pdfs/` 与 `raw/text/` 全量重建 172 个统一格式的summary 页
+- 按 `raw/pdf/` 与 `raw/text/` 全量重建 172 个统一格式的summary 页
 - `Summary` 索引改为按候选主题分组展示
 
 后续建议：
@@ -443,10 +482,10 @@
 - [AGENTS](./AGENTS.md)
 - [index](./index.md)
 - [log](./log.md)
-- `raw/pdfs/`
+- `raw/pdf/`
 - `raw/text/`
 - `raw/assets/`
-- `raw/summary/`
+- `wiki/summaries/`
 - `wiki/topics/`
 - `wiki/concepts/`
 - `wiki/authors/`
@@ -455,15 +494,15 @@
 
 关键变更：
 
-- 将原始 PDF 统一收敛到 `raw/pdfs/`
+- 将原始 PDF 统一收敛到 `raw/pdf/`
 - 将 PDF 全文文本统一收敛到 `raw/text/`
 - 将总索引与操作日志固定在根级 `index.md` 与 `log.md`
 - 将 `wiki/` 目录固定为 `sources / topics / concepts / authors / comparisons / timelines`
-- 重新生成全部 `raw/summary/` 页面，使其引用新的 `raw/pdfs/` 与 `raw/text/` 路径
+- 重新生成全部 `wiki/summaries/` 页面，使其引用新的 `raw/pdf/` 与 `raw/text/` 路径
 
 后续建议：
 
-- 后续新增 PDF 时先放入 `raw/pdfs/`，再运行全文抽取与 ingest 脚本
+- 后续新增 PDF 时先放入 `raw/pdf/`，再运行全文抽取与 ingest 脚本
 - 作者、比较、时间线三类目录当前仍为空，可在下一轮按主题逐步补齐
 
 ## [2026-04-12] ingest | 作者与机构分析初始化
@@ -499,7 +538,7 @@
 - [DeepSeek-R1](./wiki/concepts/DeepSeek-R1.md)
 - [InstructGPT](./wiki/concepts/InstructGPT.md)
 - [DPO](./wiki/concepts/DPO.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [LLM 预训练](./wiki/topics/LLM%20预训练.md)
 - [LLM RL](./wiki/topics/LLM%20RL.md)
 - [index](./index.md)
 
@@ -523,7 +562,7 @@
 - [Instruction Tuning](./wiki/concepts/Instruction%20Tuning.md)
 - [LoRA](./wiki/concepts/LoRA.md)
 - [MoE](./wiki/concepts/MoE.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [LLM 预训练](./wiki/topics/LLM%20预训练.md)
 - [LLM RL](./wiki/topics/LLM%20RL.md)
 - [index](./index.md)
 
@@ -569,7 +608,7 @@
 
 - 将 `wiki/topics/` 从最小结构要求升级为研究综述型强规范
 - 为 topic 引入 `正式 topic / 待建设 topic` 两种成熟度状态
-- 明确 topic 的核心论断必须优先回溯到 `raw/summary/`，并区分证据层与导航层
+- 明确 topic 的核心论断必须优先回溯到 `wiki/summaries/`，并区分证据层与导航层
 - 在 `Ingest / Query / Lint / index.md` 规则中补入 topic 专项约束
 
 后续建议：
@@ -600,7 +639,7 @@
 
 涉及页面：
 
-- `raw/summary/` 下新增 8 个 Qwen 家族来源页
+- `wiki/summaries/` 下新增 8 个 Qwen 家族来源页
 - `wiki/concepts/` 下新增 7 个 Qwen 相关 concept 页，并更新 [Qwen](./wiki/concepts/Qwen.md) 与 [Qwen2.5-VL](./wiki/concepts/Qwen2.5-VL.md)
 - [Qwen 系列](./wiki/topics/Qwen%20系列.md)
 - [index](./index.md)
@@ -622,9 +661,9 @@
 
 涉及页面：
 
-- `raw/pdfs/` 下新增 3 篇 Llama 家族论文 PDF
+- `raw/pdf/` 下新增 3 篇 Llama 家族论文 PDF
 - `raw/text/` 下新增 3 篇对应全文文本
-- `raw/summary/` 下新增 3 个 Llama 家族来源页
+- `wiki/summaries/` 下新增 3 个 Llama 家族来源页
 - `wiki/concepts/` 下新增 [Llama](./wiki/concepts/Llama.md)、[LLaMA](./wiki/concepts/LLaMA.md)、[Llama 2](./wiki/concepts/Llama%202.md)、[Code Llama](./wiki/concepts/Code%20Llama.md)
 - 更新 [Llama 3](./wiki/concepts/Llama%203.md)
 - 更新 [LLM预训练](./wiki/topics/LLM%E9%A2%84%E8%AE%AD.md)
@@ -646,8 +685,8 @@
 涉及页面：
 
 - 重建 `raw/text/` 下 [Bai et al. - 2023 - Qwen Technical Report](./raw/text/Bai%20et%20al.%20-%202023%20-%20Qwen%20Technical%20Report.md) 与 [Bai et al. - 2025 - Qwen2.5-VL Technical Report](./raw/text/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md) 的 PDF 文本层
-- 更新 [Bai et al. - 2023 - Qwen Technical Report](./raw/summary/Bai%20et%20al.%20-%202023%20-%20Qwen%20Technical%20Report.md)
-- 更新 [Bai et al. - 2025 - Qwen2.5-VL Technical Report](./raw/summary/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
+- 更新 [Bai et al. - 2023 - Qwen Technical Report](./wiki/summaries/Bai%20et%20al.%20-%202023%20-%20Qwen%20Technical%20Report.md)
+- 更新 [Bai et al. - 2025 - Qwen2.5-VL Technical Report](./wiki/summaries/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
 - 更新正式 topic [Qwen 系列](./wiki/topics/Qwen%20%E7%B3%BB%E5%88%97.md)
 
 关键变更：
@@ -668,7 +707,7 @@
 
 - 新增正式 topic [Slide 理解与生产](./wiki/topics/Slide%20理解与生产.md)
 - 保留兼容入口 [Slide相关](./wiki/topics/Slide相关.md)
-- 更新 [传统 CV](传统%20CV.md)
+- 更新 [传统 CV](./wiki/topics/传统%20CV.md)
 - 更新 [index](./index.md)
 
 关键变更：
@@ -687,9 +726,9 @@
 
 涉及页面：
 
-- 新增正式 topic [Slide 理解与生成](Slide%20理解与生成.md)
+- 新增正式 topic [Slide 理解与生成](./wiki/topics/Slide%20理解与生成.md)
 - 保留兼容入口 [Slide 理解与生产](./wiki/topics/Slide%20理解与生产.md) 与 [Slide相关](./wiki/topics/Slide相关.md)
-- 更新 [传统 CV](传统%20CV.md)
+- 更新 [传统 CV](./wiki/topics/传统%20CV.md)
 - 更新 [index](./index.md)
 
 关键变更：
@@ -703,7 +742,7 @@
 涉及页面：
 
 - 新增正式 topic [BERT类双向Transformer语言模型](./wiki/topics/BERT%E7%B1%BB%E5%8F%8C%E5%90%91Transformer%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
-- 更新 [传统 NLP](传统%20NLP.md)
+- 更新 [传统 NLP](./wiki/topics/传统%20NLP.md)
 - 更新 [BERT](./wiki/concepts/BERT.md)
 - 更新 [RoBERTa](./wiki/concepts/RoBERTa.md)
 - 更新 [SpanBERT](./wiki/concepts/SpanBERT.md)
@@ -766,17 +805,17 @@
 
 涉及页面：
 
-- 更新 `raw/summary/Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance.md`
-- 更新 `raw/summary/Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering.md`
-- 更新 `raw/summary/Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval.md`
-- 更新 `raw/summary/Ouyang et al. - 2022 - Training language models to follow instructions with human feedback.md`
-- 更新 `raw/summary/Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools.md`
-- 更新 `raw/summary/Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations.md`
+- 更新 `wiki/summaries/Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance.md`
+- 更新 `wiki/summaries/Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering.md`
+- 更新 `wiki/summaries/Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval.md`
+- 更新 `wiki/summaries/Ouyang et al. - 2022 - Training language models to follow instructions with human feedback.md`
+- 更新 `wiki/summaries/Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools.md`
+- 更新 `wiki/summaries/Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations.md`
 
 关键变更：
 
 - 将一批原本仍停留在批量抽取状态的来源页升级为可复用的结构化 summary
-- 使 `AI 智能问答与智能客服` topic 的 FAQ、检索、对齐、工具调用与安全护栏层都能明确回溯到 `raw/summary`
+- 使 `AI 智能问答与智能客服` topic 的 FAQ、检索、对齐、工具调用与安全护栏层都能明确回溯到 `wiki/summaries`
 - 统一把这些来源的关联页面接回该 topic，而不是继续停留在不准确的自动归类结果
 
 ## [2026-04-13] query | 将新增 topic 必须先保留原始文件写入 AGENTS
@@ -787,5 +826,5 @@
 
 关键变更：
 
-- 在 ingest 的 topic 补充规则中明确：新增 topic 若使用新材料，必须先确认 `raw/html` 或 `raw/pdfs` 中已保留原始文件
-- 若原始 HTML / PDF 缺失，先下载原始文件，再生成 `raw/text` 与 `raw/summary`，最后再纳入正式 topic
+- 在 ingest 的 topic 补充规则中明确：新增 topic 若使用新材料，必须先确认 `raw/html` 或 `raw/pdf` 中已保留原始文件
+- 若原始 HTML / PDF 缺失，先下载原始文件，再生成 `raw/text` 与 `wiki/summaries`，最后再纳入正式 topic

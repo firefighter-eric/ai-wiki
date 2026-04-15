@@ -8,7 +8,7 @@ Qwen-Image 是 Qwen 家族首次明确推出的图像生成基础模型。在当
 
 - 类型：图像生成基础模型
 - 代表来源：
-  - [Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering](../../raw/summary/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
+  - [Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering](../../wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
 - 当前角色：Qwen 家族的 image generation 分支起点
 
 ## 相关主张
@@ -19,9 +19,7 @@ Qwen-Image 是 Qwen 家族首次明确推出的图像生成基础模型。在当
 
 ## 来源支持
 
-- [Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering](../../raw/summary/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
-- [扩散模型与文生图](../topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)
-- [Qwen 系列](../topics/Qwen%20%E7%B3%BB%E5%88%97.md)
+- [Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering](../../wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)
 
 ## 关联页面
 
@@ -29,3 +27,5 @@ Qwen-Image 是 Qwen 家族首次明确推出的图像生成基础模型。在当
 - [Qwen2.5-Omni](./Qwen2.5-Omni.md)
 - [Qwen3.5-Omni](./Qwen3.5-Omni.md)
 - [Stable Diffusion](./Stable%20Diffusion.md)
+- [扩散模型与文生图](../topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)
+- [Qwen 系列](../topics/Qwen%20系列.md)

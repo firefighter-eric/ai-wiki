@@ -1,6 +1,6 @@
 # Migacz - 2017 - Intro
 
-- Source PDF: `raw/pdfs/Migacz - 2017 - Intro.pdf`
+- Source PDF: `raw/pdf/Migacz - 2017 - Intro.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

@@ -3,11 +3,11 @@
 ## 页面状态
 
 - 状态：正式 topic
-- 事实基座：`raw/summary/` 优先
+- 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
 
-本页讨论预训练之后，模型如何从“会续写文本”转向“更符合用户意图地完成任务”。这里的重点是 instruction tuning、监督示范、偏好数据与 RLHF 管线如何共同塑造模型行为。与 `LLM RL` 相比，本页更强调从 InstructGPT 出发的总方法框架；与 `LLM预训练` 相比，本页把能力底座视为前提，而把行为塑形视为独立阶段。
+本页讨论预训练之后，模型如何从“会续写文本”转向“更符合用户意图地完成任务”。这里的重点是 instruction tuning、监督示范、偏好数据与 RLHF 管线如何共同塑造模型行为。与 `LLM RL` 相比，本页更强调从 InstructGPT 出发的总方法框架；与 `LLM预训练` 相比，本页把能力底座视为前提，而把行为塑形视为独立阶段，而非预训练规模化的自动延伸。
 
 ## 核心问题
 
@@ -32,10 +32,10 @@
 
 ## 证据基础
 
-- [Wei et al. - 2021 - Finetuned Language Models Are Zero-Shot Learners](../../raw/summary/Wei%20et%20al.%20-%202021%20-%20Finetuned%20Language%20Models%20Are%20Zero-Shot%20Learners.md)
-- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](../../raw/summary/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)
-- [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../raw/summary/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
-- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../raw/summary/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+- [Wei et al. - 2021 - Finetuned Language Models Are Zero-Shot Learners](../../wiki/summaries/Wei%20et%20al.%20-%202021%20-%20Finetuned%20Language%20Models%20Are%20Zero-Shot%20Learners.md)
+- [Ouyang et al. - 2022 - Training language models to follow instructions with human feedback](../../wiki/summaries/Ouyang%20et%20al.%20-%202022%20-%20Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.md)
+- [Rafailov et al. - 2023 - Direct Preference Optimization Your Language Model is Secretly a Reward Model](../../wiki/summaries/Rafailov%20et%20al.%20-%202023%20-%20Direct%20Preference%20Optimization%20Your%20Language%20Model%20is%20Secretly%20a%20Reward%20Model.md)
+- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
 
 ## 代表页面
 
@@ -56,8 +56,8 @@
 
 ## 关联页面
 
+- [LLM 预训练](./LLM%20预训练.md)
 - [LLM RL](./LLM%20RL.md)
-- [LLM 基础脉络](./LLM%20基础脉络.md)
 - [GPT-3](../concepts/GPT-3.md)
 - [RLHF](../concepts/RLHF.md)
 - [DPO](../concepts/DPO.md)

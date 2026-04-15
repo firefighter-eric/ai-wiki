@@ -26,7 +26,7 @@ def render_markdown(pdf_path: Path, raw_root: Path, extracted: str) -> str:
     title = pdf_path.stem
     return (
         f"# {title}\n\n"
-        f"- Source PDF: `raw/pdfs/{rel.as_posix()}`\n"
+        f"- Source PDF: `raw/pdf/{rel.as_posix()}`\n"
         f"- Generated from: `scripts/extract_pdf_text.py`\n\n"
         "## Extracted Text\n\n"
         f"{extracted}\n"
@@ -35,16 +35,16 @@ def render_markdown(pdf_path: Path, raw_root: Path, extracted: str) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Extract text from PDFs in raw/pdfs/ into markdown files in raw/text/."
+        description="Extract text from PDFs in raw/pdf/ into markdown files in raw/text/."
     )
     parser.add_argument(
         "pdfs",
         nargs="*",
-        help="Optional list of PDF paths. Defaults to all PDFs under raw/pdfs/.",
+        help="Optional list of PDF paths. Defaults to all PDFs under raw/pdf/.",
     )
     parser.add_argument(
         "--raw-root",
-        default="raw/pdfs",
+        default="raw/pdf",
         help="Root directory containing source PDFs.",
     )
     parser.add_argument(

@@ -1,6 +1,6 @@
 # Nvidia - 2022 - Nvidia Ada Gpu Architecture
 
-- Source PDF: `raw/pdfs/Nvidia - 2022 - Nvidia Ada Gpu Architecture.pdf`
+- Source PDF: `raw/pdf/Nvidia - 2022 - Nvidia Ada Gpu Architecture.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

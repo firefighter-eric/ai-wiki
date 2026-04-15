@@ -8,7 +8,7 @@ Qwen1.5 是 Qwen 初代之后的第一次大规模家族化扩展。在当前知
 
 - 类型：大语言模型家族
 - 代表来源：
-  - [Qwen Team - 2024 - Introducing Qwen1.5](../../raw/summary/Qwen%20Team%20-%202024%20-%20Introducing%20Qwen1.5.md)
+  - [Qwen Team - 2024 - Introducing Qwen1.5](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Introducing%20Qwen1.5.md)
 - 当前角色：Qwen 家族正式走向多尺寸与工程化可用性的节点
 
 ## 相关主张
@@ -19,11 +19,11 @@ Qwen1.5 是 Qwen 初代之后的第一次大规模家族化扩展。在当前知
 
 ## 来源支持
 
-- [Qwen Team - 2024 - Introducing Qwen1.5](../../raw/summary/Qwen%20Team%20-%202024%20-%20Introducing%20Qwen1.5.md)
-- [Qwen 系列](../topics/Qwen%20系列.md)
+- [Qwen Team - 2024 - Introducing Qwen1.5](../../wiki/summaries/Qwen%20Team%20-%202024%20-%20Introducing%20Qwen1.5.md)
 
 ## 关联页面
 
 - [Qwen](./Qwen.md)
 - [Qwen2](./Qwen2.md)
 - [Qwen3](./Qwen3.md)
+- [Qwen 系列](../topics/Qwen%20系列.md)

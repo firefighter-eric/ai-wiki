@@ -1,6 +1,6 @@
 # Dean, Scientist, Deepmind - Unknown - Important Trends in AI How Did We Get Here , What Can We Do Now and How Can We Shape AI ’ s Fut
 
-- Source PDF: `raw/pdfs/Dean, Scientist, Deepmind - Unknown - Important Trends in AI How Did We Get Here , What Can We Do Now and How Can We Shape AI ’ s Fut.pdf`
+- Source PDF: `raw/pdf/Dean, Scientist, Deepmind - Unknown - Important Trends in AI How Did We Get Here , What Can We Do Now and How Can We Shape AI ’ s Fut.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

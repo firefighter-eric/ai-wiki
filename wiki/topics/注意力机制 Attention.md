@@ -3,7 +3,7 @@
 ## 页面状态
 
 - 状态：正式 topic
-- 事实基座：`raw/summary/` 优先
+- 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
 
@@ -52,17 +52,17 @@
 
 ## 证据基础
 
-- [Vaswani et al. - 2017 - Attention is all you need](../../raw/summary/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md)：支撑标准 `scaled dot-product attention`、`multi-head attention` 与因果 / 非因果基线。
-- [Kitaev, Kaiser, Levskaya - 2020 - Reformer The Efficient Transformer](../../raw/summary/Kitaev,%20Kaiser,%20Levskaya%20-%202020%20-%20Reformer%20The%20Efficient%20Transformer.md)：支撑 `LSH attention` 与哈希稀疏路线。
-- [Beltagy, Peters, Cohan - 2020 - Longformer The Long-Document Transformer](../../raw/summary/Beltagy,%20Peters,%20Cohan%20-%202020%20-%20Longformer%20The%20Long-Document%20Transformer.md)：支撑局部窗口加全局 token 的长文档路线。
-- [Zaheer et al. - 2020 - Big bird Transformers for longer sequences](../../raw/summary/Zaheer%20et%20al.%20-%202020%20-%20Big%20bird%20Transformers%20for%20longer%20sequences.md)：支撑混合稀疏 attention 与全局 / 局部 / 随机三元结构。
-- [Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity](../../raw/summary/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md)：支撑低秩投影 attention。
-- [Choromanski et al. - 2021 - Rethinking Attention with Performers](../../raw/summary/Choromanski%20et%20al.%20-%202021%20-%20Rethinking%20Attention%20with%20Performers.md)：支撑 kernelized / random feature 线性 attention。
-- [Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention](../../raw/summary/Xiong%20et%20al.%20-%202021%20-%20Nystr%C3%B6mformer%20A%20Nystrom-Based%20Algorithm%20for%20Approximating%20Self-Attention.md)：支撑 landmark / Nyström 近似路线。
-- [Shazeer - 2019 - Fast Transformer Decoding One Write-Head is All You Need](../../raw/summary/Shazeer%20-%202019%20-%20Fast%20Transformer%20Decoding%20One%20Write-Head%20is%20All%20You%20Need.md)：支撑 `MQA` 与解码态 `KV cache` 压缩路线。
-- [Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](../../raw/summary/Ainslie%20et%20al.%20-%202023%20-%20GQA%20Training%20Generalized%20Multi-Query%20Transformer%20Models%20from%20Multi-Head%20Checkpoints.md)：支撑 `GQA` 作为 `MHA` 与 `MQA` 之间的折中结构。
-- [Unknown - 2024 - DeepSeek-V3 Technical Report](../../raw/summary/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)：支撑 `MLA` 作为现代 LLM 中的 latent `KV` 压缩 attention。
-- [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](../../raw/summary/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)：支撑 `IO-aware exact attention` 与实现级优化路线。
+- [Vaswani et al. - 2017 - Attention is all you need](../../wiki/summaries/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md)：支撑标准 `scaled dot-product attention`、`multi-head attention` 与因果 / 非因果基线。
+- [Kitaev, Kaiser, Levskaya - 2020 - Reformer The Efficient Transformer](../../wiki/summaries/Kitaev,%20Kaiser,%20Levskaya%20-%202020%20-%20Reformer%20The%20Efficient%20Transformer.md)：支撑 `LSH attention` 与哈希稀疏路线。
+- [Beltagy, Peters, Cohan - 2020 - Longformer The Long-Document Transformer](../../wiki/summaries/Beltagy,%20Peters,%20Cohan%20-%202020%20-%20Longformer%20The%20Long-Document%20Transformer.md)：支撑局部窗口加全局 token 的长文档路线。
+- [Zaheer et al. - 2020 - Big bird Transformers for longer sequences](../../wiki/summaries/Zaheer%20et%20al.%20-%202020%20-%20Big%20bird%20Transformers%20for%20longer%20sequences.md)：支撑混合稀疏 attention 与全局 / 局部 / 随机三元结构。
+- [Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity](../../wiki/summaries/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md)：支撑低秩投影 attention。
+- [Choromanski et al. - 2021 - Rethinking Attention with Performers](../../wiki/summaries/Choromanski%20et%20al.%20-%202021%20-%20Rethinking%20Attention%20with%20Performers.md)：支撑 kernelized / random feature 线性 attention。
+- [Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention](../../wiki/summaries/Xiong%20et%20al.%20-%202021%20-%20Nystr%C3%B6mformer%20A%20Nystrom-Based%20Algorithm%20for%20Approximating%20Self-Attention.md)：支撑 landmark / Nyström 近似路线。
+- [Shazeer - 2019 - Fast Transformer Decoding One Write-Head is All You Need](../../wiki/summaries/Shazeer%20-%202019%20-%20Fast%20Transformer%20Decoding%20One%20Write-Head%20is%20All%20You%20Need.md)：支撑 `MQA` 与解码态 `KV cache` 压缩路线。
+- [Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](../../wiki/summaries/Ainslie%20et%20al.%20-%202023%20-%20GQA%20Training%20Generalized%20Multi-Query%20Transformer%20Models%20from%20Multi-Head%20Checkpoints.md)：支撑 `GQA` 作为 `MHA` 与 `MQA` 之间的折中结构。
+- [Unknown - 2024 - DeepSeek-V3 Technical Report](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)：支撑 `MLA` 作为现代 LLM 中的 latent `KV` 压缩 attention。
+- [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](../../wiki/summaries/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)：支撑 `IO-aware exact attention` 与实现级优化路线。
 
 ## 代表页面
 
@@ -84,4 +84,3 @@
 - [FlashAttention](../concepts/FlashAttention.md)
 - [Grouped-Query Attention](../concepts/Grouped-Query%20Attention.md)
 - [LLM 预训练](./LLM%20预训练.md)
-- [LLM 基础脉络](./LLM%20基础脉络.md)

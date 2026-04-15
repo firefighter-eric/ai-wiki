@@ -7,7 +7,7 @@ ViT 是视觉 Transformer 的代表模型。在当前知识库中，它表示 Tr
 ## 关键属性
 
 - 类型：视觉基础模型
-- 代表来源：[Dosovitskiy et al. - 2020 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale](../../raw/summary/Dosovitskiy%20et%20al.%20-%202020%20-%20An%20Image%20is%20Worth%2016x16%20Words%20Transformers%20for%20Image%20Recognition%20at%20Scale.md)
+- 代表来源：[Dosovitskiy et al. - 2020 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale](../../wiki/summaries/Dosovitskiy%20et%20al.%20-%202020%20-%20An%20Image%20is%20Worth%2016x16%20Words%20Transformers%20for%20Image%20Recognition%20at%20Scale.md)
 - 当前角色：连接 Transformer 与视觉规模化路线
 
 ## 相关主张
@@ -17,11 +17,10 @@ ViT 是视觉 Transformer 的代表模型。在当前知识库中，它表示 Tr
 
 ## 来源支持
 
-- [Dosovitskiy et al. - 2020 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale](../../raw/summary/Dosovitskiy%20et%20al.%20-%202020%20-%20An%20Image%20is%20Worth%2016x16%20Words%20Transformers%20for%20Image%20Recognition%20at%20Scale.md)
-- [传统 CV](传统%20CV.md)
+- [Dosovitskiy et al. - 2020 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale](../../wiki/summaries/Dosovitskiy%20et%20al.%20-%202020%20-%20An%20Image%20is%20Worth%2016x16%20Words%20Transformers%20for%20Image%20Recognition%20at%20Scale.md)
 
 ## 关联页面
 
 - [Transformer](./Transformer.md)
 - [CLIP](./CLIP.md)
-- [传统 CV](传统%20CV.md)
+- [传统 CV](../topics/传统%20CV.md)

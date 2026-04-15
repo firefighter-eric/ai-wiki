@@ -3,7 +3,7 @@
 ## 页面状态
 
 - 状态：正式 topic
-- 事实基座：`raw/summary/` 优先
+- 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
 
@@ -32,16 +32,16 @@
 
 ## 证据基础
 
-- [Brown et al. - 2020 - Language models are few-shot learners](../../raw/summary/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md)
-- [Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways](../../raw/summary/Chowdhery%20et%20al.%20-%202022%20-%20PaLM%20Scaling%20Language%20Modeling%20with%20Pathways.md)
-- [Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models](../../raw/summary/Hoffmann%20et%20al.%20-%202022%20-%20Training%20Compute-Optimal%20Large%20Language%20Models.md)
+- [Brown et al. - 2020 - Language models are few-shot learners](../../wiki/summaries/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md)
+- [Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways](../../wiki/summaries/Chowdhery%20et%20al.%20-%202022%20-%20PaLM%20Scaling%20Language%20Modeling%20with%20Pathways.md)
+- [Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models](../../wiki/summaries/Hoffmann%20et%20al.%20-%202022%20-%20Training%20Compute-Optimal%20Large%20Language%20Models.md)
 
 ## 代表页面
 
 - [GPT-3](../concepts/GPT-3.md)
 - [PaLM](../concepts/PaLM.md)
 - [Chinchilla](../concepts/Chinchilla.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [LLM 预训练](../topics/LLM%20预训练.md)
 
 ## 未解决问题
 
@@ -51,7 +51,6 @@
 
 ## 关联页面
 
-- [LLM 基础脉络](./LLM%20基础脉络.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [LLM 预训练](../topics/LLM%20预训练.md)
 - [Chinchilla](../concepts/Chinchilla.md)
 - [MoE](../concepts/MoE.md)

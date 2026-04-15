@@ -1,6 +1,6 @@
 # Ding et al. - 2024 - Using the divergent association task to measure divergent thinking in Chinese elementary school students
 
-- Source PDF: `raw/pdfs/Ding et al. - 2024 - Using the divergent association task to measure divergent thinking in Chinese elementary school students.pdf`
+- Source PDF: `raw/pdf/Ding et al. - 2024 - Using the divergent association task to measure divergent thinking in Chinese elementary school students.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

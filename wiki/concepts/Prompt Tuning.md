@@ -7,7 +7,7 @@ Prompt Tuning 是用可学习提示向量适配预训练模型的方法。在当
 ## 关键属性
 
 - 类型：参数高效适配方法
-- 代表来源：[Yang et al. - 2022 - Prompt Tuning for Generative Multimodal Pretrained Models](../../raw/summary/Yang%20et%20al.%20-%202022%20-%20Prompt%20Tuning%20for%20Generative%20Multimodal%20Pretrained%20Models.md)
+- 代表来源：[Yang et al. - 2022 - Prompt Tuning for Generative Multimodal Pretrained Models](../../wiki/summaries/Yang%20et%20al.%20-%202022%20-%20Prompt%20Tuning%20for%20Generative%20Multimodal%20Pretrained%20Models.md)
 - 当前角色：连接 LoRA 与多模态适配方法
 
 ## 相关主张
@@ -17,11 +17,11 @@ Prompt Tuning 是用可学习提示向量适配预训练模型的方法。在当
 
 ## 来源支持
 
-- [Yang et al. - 2022 - Prompt Tuning for Generative Multimodal Pretrained Models](../../raw/summary/Yang%20et%20al.%20-%202022%20-%20Prompt%20Tuning%20for%20Generative%20Multimodal%20Pretrained%20Models.md)
-- [指令对齐与 post-training](../topics/指令对齐与%20post-training.md)
+- [Yang et al. - 2022 - Prompt Tuning for Generative Multimodal Pretrained Models](../../wiki/summaries/Yang%20et%20al.%20-%202022%20-%20Prompt%20Tuning%20for%20Generative%20Multimodal%20Pretrained%20Models.md)
 
 ## 关联页面
 
 - [LoRA](./LoRA.md)
 - [OFA](./OFA.md)
 - [LLM RL](../topics/LLM%20RL.md)
+- [指令对齐与 post-training](../topics/指令对齐与%20post-training.md)

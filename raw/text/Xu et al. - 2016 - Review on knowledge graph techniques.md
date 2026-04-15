@@ -1,6 +1,6 @@
 # Xu et al. - 2016 - Review on knowledge graph techniques
 
-- Source PDF: `raw/pdfs/Xu et al. - 2016 - Review on knowledge graph techniques.pdf`
+- Source PDF: `raw/pdf/Xu et al. - 2016 - Review on knowledge graph techniques.pdf`
 - Generated from: `scripts/extract_pdf_text.py`
 
 ## Extracted Text

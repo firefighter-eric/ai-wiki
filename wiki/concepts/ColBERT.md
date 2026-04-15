@@ -7,7 +7,7 @@
 ## 关键属性
 
 - 类型：排序 / 检索模型
-- 代表来源：[Khattab, Zaharia - 2020 - ColBERT Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](../../raw/summary/Khattab,%20Zaharia%20-%202020%20-%20ColBERT%20Efficient%20and%20Effective%20Passage%20Search%20via%20Contextualized%20Late%20Interaction%20over%20BERT.md)
+- 代表来源：[Khattab, Zaharia - 2020 - ColBERT Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](../../wiki/summaries/Khattab,%20Zaharia%20-%202020%20-%20ColBERT%20Efficient%20and%20Effective%20Passage%20Search%20via%20Contextualized%20Late%20Interaction%20over%20BERT.md)
 - 当前角色：连接 `reranking` 与 `dense retrieval` 的关键中间路线
 
 ## 相关主张
@@ -18,8 +18,8 @@
 
 ## 来源支持
 
-- [Khattab, Zaharia - 2020 - ColBERT Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](../../raw/summary/Khattab,%20Zaharia%20-%202020%20-%20ColBERT%20Efficient%20and%20Effective%20Passage%20Search%20via%20Contextualized%20Late%20Interaction%20over%20BERT.md)
-- [Nogueira et al. - 2020 - Pretrained Transformers for Text Ranking BERT and Beyond](../../raw/summary/Nogueira%20et%20al.%20-%202020%20-%20Pretrained%20Transformers%20for%20Text%20Ranking%20BERT%20and%20Beyond.md)
+- [Khattab, Zaharia - 2020 - ColBERT Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](../../wiki/summaries/Khattab,%20Zaharia%20-%202020%20-%20ColBERT%20Efficient%20and%20Effective%20Passage%20Search%20via%20Contextualized%20Late%20Interaction%20over%20BERT.md)
+- [Nogueira et al. - 2020 - Pretrained Transformers for Text Ranking BERT and Beyond](../../wiki/summaries/Nogueira%20et%20al.%20-%202020%20-%20Pretrained%20Transformers%20for%20Text%20Ranking%20BERT%20and%20Beyond.md)
 
 ## 关联页面
 

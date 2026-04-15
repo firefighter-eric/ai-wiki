@@ -7,7 +7,7 @@ Switch Transformer 是早期大规模 MoE 稀疏路线的代表模型。在当�
 ## 关键属性
 
 - 类型：MoE 预训练模型
-- 代表来源：[Fedus, Zoph, Shazeer - 2022 - Switch Transformers Scaling to Trillion Parameter Models with Simple and Efficient Sparsity](../../raw/summary/Fedus,%20Zoph,%20Shazeer%20-%202022%20-%20Switch%20Transformers%20Scaling%20to%20Trillion%20Parameter%20Models%20with%20Simple%20and%20Efficient%20Sparsity.md)
+- 代表来源：[Fedus, Zoph, Shazeer - 2022 - Switch Transformers Scaling to Trillion Parameter Models with Simple and Efficient Sparsity](../../wiki/summaries/Fedus,%20Zoph,%20Shazeer%20-%202022%20-%20Switch%20Transformers%20Scaling%20to%20Trillion%20Parameter%20Models%20with%20Simple%20and%20Efficient%20Sparsity.md)
 - 当前角色：MoE 主线中的经典代表
 
 ## 相关主张
@@ -17,12 +17,11 @@ Switch Transformer 是早期大规模 MoE 稀疏路线的代表模型。在当�
 
 ## 来源支持
 
-- [Fedus, Zoph, Shazeer - 2022 - Switch Transformers Scaling to Trillion Parameter Models with Simple and Efficient Sparsity](../../raw/summary/Fedus,%20Zoph,%20Shazeer%20-%202022%20-%20Switch%20Transformers%20Scaling%20to%20Trillion%20Parameter%20Models%20with%20Simple%20and%20Efficient%20Sparsity.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [Fedus, Zoph, Shazeer - 2022 - Switch Transformers Scaling to Trillion Parameter Models with Simple and Efficient Sparsity](../../wiki/summaries/Fedus,%20Zoph,%20Shazeer%20-%202022%20-%20Switch%20Transformers%20Scaling%20to%20Trillion%20Parameter%20Models%20with%20Simple%20and%20Efficient%20Sparsity.md)
 
 ## 关联页面
 
 - [MoE](./MoE.md)
 - [T5](./T5.md)
 - [DeepSeek-V3](./DeepSeek-V3.md)
-- [LLM 预训练](LLM%20预训练.md)
+- [LLM 预训练](../topics/LLM%20预训练.md)
