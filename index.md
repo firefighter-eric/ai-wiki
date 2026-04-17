@@ -263,6 +263,15 @@
 - [Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides](./wiki/summaries/Zheng%20et%20al.%20-%202025%20-%20PPTAgent%20Generating%20and%20Evaluating%20Presentations%20Beyond%20Text-to-Slides.md)：Automatically generating presentations from documents is a challenging...
 - [Zhou et al. - 2021 - Pose-Controllable Talking Face Generation by Implicitly Modularized Audio-Visual Representation](./wiki/summaries/Zhou%20et%20al.%20-%202021%20-%20Pose-Controllable%20Talking%20Face%20Generation%20by%20Implicitly%20Modularized%20Audio-Visual%20Representation.md)：While accurate lip synchronization has been achieved for arbitrary-sub...
 - [Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation](./wiki/summaries/Zuo%20et%20al.%20-%202022%20-%20MoEBERT%20from%20BERT%20to%20Mixture-of-Experts%20via%20Importance-Guided%20Adaptation.md)：Pre-trained language models have demon- strated superior performance i...
+### 视频生成 / 音视频生成
+
+- [OpenAI - 2025 - Sora 2 is here](./wiki/summaries/OpenAI%20-%202025%20-%20Sora%202%20is%20here.md)：Sora 2 将 OpenAI 视频主线推进到更强物理一致性、跨镜头状态保持与原生音频生成。
+- [Alibaba Cloud - 2025 - Alibaba Unveils Wan2.6 Series Enabling Everyone to Star in Videos](./wiki/summaries/Alibaba%20Cloud%20-%202025%20-%20Alibaba%20Unveils%20Wan2.6%20Series%20Enabling%20Everyone%20to%20Star%20in%20Videos.md)：Wan2.6 把 `R2V / T2V / I2V` 与多镜头叙事、音画同步一起组织成视频生成家族升级。
+- [Google DeepMind - 2026 - Veo](./wiki/summaries/Google%20DeepMind%20-%202026%20-%20Veo.md)：截至 2026-04-18，官方模型页将 `Veo 3.1` 作为最新视频生成节点，并强调 native audio 与 realism。
+- [Kuaishou Technology - 2026 - Kling VIDEO 3.0 Omni Model User Guide](./wiki/summaries/Kuaishou%20Technology%20-%202026%20-%20Kling%20VIDEO%203.0%20Omni%20Model%20User%20Guide.md)：Kling VIDEO 3.0 Omni 把 element 一致性、角色语音绑定与 storyboard 做成核心工作流能力。
+- [Vidu - 2026 - Pricing](./wiki/summaries/Vidu%20-%202026%20-%20Pricing.md)：Vidu 的 pricing 文档同时暴露出 `Q2 / Q2-Pro` 的 `reference-to-video`、video extension 与音频相关能力边界。
+- [Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity](./wiki/summaries/Team%20Seedance%20et%20al.%20-%202026%20-%20Seedance%202.0%20Advancing%20Video%20Generation%20for%20World%20Complexity.md)：Seedance 2.0 把视频生成推进到 `text / image / audio / video` 联合条件、参考编辑与音视频同步的一体化工作流。
+
 ## Topics
 
 - [注意力机制 Attention](./wiki/topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)：围绕标准 attention、稀疏 / 线性近似、`KV cache` 优化与 `FlashAttention` 组织 attention 变体主线。
@@ -279,6 +288,7 @@
 - [指令对齐与 post-training](./wiki/topics/指令对齐与%20post-training.md)：围绕 instruction tuning、RLHF 与偏好优化组织 post-training 方法主线。
 - [Qwen 系列](./wiki/topics/Qwen%20系列.md)：围绕 Qwen1 到 Qwen3.5 的 LLM、VL、Omni 与 native multimodal agent 演进组织家族级综述。
 - [扩散模型与文生图](./wiki/topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)：围绕 latent diffusion、开放文生图与生产级图像生成控制组织独立研究主线。
+- [视频生成](./wiki/topics/视频生成.md)：围绕 Sora、Veo、Kling、Wan、Vidu 与 Seedance 组织开放域视频生成、reference-to-video 与音视频联合生成主线。
 
 ## Concepts
 
@@ -350,6 +360,12 @@
 - [Qwen2.5-VL](./wiki/concepts/Qwen2.5-VL.md)：承接 Qwen 多模态扩展路线的概念页。
 - [Qwen2.5-Omni](./wiki/concepts/Qwen2.5-Omni.md)：承接 Qwen 首个端到端 omni 节点的概念页。
 - [Qwen3.5-Omni](./wiki/concepts/Qwen3.5-Omni.md)：承接 Qwen 最新 fully omnimodal 系列节点的概念页。
+- [Sora 2](./wiki/concepts/Sora%202.md)：承接 OpenAI 视频主线从画面生成走向 world simulation、角色注入与原生音频的节点。
+- [Veo 3.1](./wiki/concepts/Veo%203.1.md)：承接 Google 视频生成向 native audio、realism 与参考控制推进的节点。
+- [Kling VIDEO 3.0 Omni](./wiki/concepts/Kling%20VIDEO%203.0%20Omni.md)：承接 Kling 多模态参考、角色资产化与 storyboard 工作流的节点。
+- [Wan2.6](./wiki/concepts/Wan2.6.md)：承接阿里视频生成家族在 `R2V`、多镜头叙事与音画同步上的升级节点。
+- [Vidu Q2-Pro](./wiki/concepts/Vidu%20Q2-Pro.md)：承接 Vidu 在 `reference-to-video`、video extension 与 API 化工作流上的代表节点。
+- [Seedance 2.0](./wiki/concepts/Seedance%202.0.md)：承接 ByteDance Seed 在多模态音视频生成、参考编辑与 production workflow 方向的代表节点。
 - [Stable Diffusion](./wiki/concepts/Stable%20Diffusion.md)：承接开放扩散模型从 latent diffusion 论文走向消费级文生图生态的关键家族。
 - [FLUX.2](./wiki/concepts/FLUX.2.md)：承接生产级图像生成与多参考编辑路线的代表家族。
 - [Qwen-Image](./wiki/concepts/Qwen-Image.md)：承接 Qwen 首个图像生成基础模型与文本渲染分支。
@@ -394,10 +410,14 @@
 - [Microsoft Research](./wiki/authors/Microsoft%20Research.md)：LoRA、Kosmos 与 Florence 路线的机构入口。
 - [Google Research](./wiki/authors/Google%20Research.md)：Transformer、BERT、T5 与 PaLM 主线的机构入口。
 - [DeepMind](./wiki/authors/DeepMind.md)：Gemma 与 compute-optimal training 路线的机构入口。
+- [Kuaishou Technology](./wiki/authors/Kuaishou%20Technology.md)：Kling 视频生成路线的机构入口。
+- [Alibaba Group](./wiki/authors/Alibaba%20Group.md)：除 Qwen 外，也通过 Wan2.6 接入视频生成主线的阿里机构页。
+- [ShengShu Technology](./wiki/authors/ShengShu%20Technology.md)：Vidu 视频生成路线的机构入口。
 - [DeepSeek](./wiki/authors/DeepSeek.md)：开放推理模型与 reasoning RL 主线的机构入口。
 - [MiniCPM - ModelBest](./wiki/authors/MiniCPM%20-%20ModelBest.md)：小模型与轻量多模态支线的机构入口。
 - [Stability AI](./wiki/authors/Stability%20AI.md)：开放扩散模型主线的机构入口。
 - [Black Forest Labs](./wiki/authors/Black%20Forest%20Labs.md)：`FLUX.2` 图像生成路线的机构入口。
+- [ByteDance Seed](./wiki/authors/ByteDance%20Seed.md)：视频生成与生成媒体方向的字节团队入口，当前由 `Seedance 2.0` 首次接入。
 
 ## Comparisons
 

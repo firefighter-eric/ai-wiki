@@ -898,3 +898,60 @@
 - 将可稳定求证的人名改为全名作者页，例如 `Junyang Lin`、`Jingren Zhou`、`Hugo Touvron`、`Joseph Redmon`、`Ali Farhadi`
 - 表格结构识别相关作者页拆成 `Brandon Smock`、`Rohith Pesala`、`Robin Abraham` 三个独立作者页
 - 同步更新 `index.md` 的 Authors 区，使根级导航直接指向这些可求证的真实作者与机构页面
+
+## [2026-04-18] ingest | 补入 Seedance 2.0
+
+涉及页面：
+
+- 新增 `raw/pdf/Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity.pdf`
+- 新增 `raw/html/Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity.html`
+- 新增 `raw/text/Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity.md`
+- 新增 `wiki/summaries/Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity.md`
+- 新增 `wiki/concepts/Seedance 2.0.md`
+- 新增 `wiki/authors/ByteDance Seed.md`
+- 新增 `wiki/topics/视频生成.md`
+- 更新 `index.md`
+
+关键变更：
+
+- 按 `raw/pdf + raw/html -> raw/text -> wiki/summaries` 顺序把 `Seedance 2.0` 接入知识库
+- 将其组织为视频生成从单轮短片走向多模态参考、编辑、续写与音视频联合生成的代表节点
+- 新增 `视频生成` 待建设 topic，避免把视频模型错误挂到图像生成主线下
+- 新增 `ByteDance Seed` 机构页，使该来源不只停留在单篇 summary
+
+## [2026-04-18] ingest | 补入 Sora Veo Kling Wan Vidu 视频生成主线
+
+涉及页面：
+
+- 新增 `raw/html/OpenAI - 2025 - Sora 2 is here.html`
+- 新增 `raw/text/OpenAI - 2025 - Sora 2 is here.md`
+- 新增 `raw/html/Google DeepMind - 2026 - Veo.html`
+- 新增 `raw/text/Google DeepMind - 2026 - Veo.md`
+- 新增 `raw/html/Kuaishou Technology - 2026 - Kling VIDEO 3.0 Omni Model User Guide.html`
+- 新增 `raw/text/Kuaishou Technology - 2026 - Kling VIDEO 3.0 Omni Model User Guide.md`
+- 新增 `raw/html/Alibaba Cloud - 2025 - Alibaba Unveils Wan2.6 Series Enabling Everyone to Star in Videos.html`
+- 新增 `raw/text/Alibaba Cloud - 2025 - Alibaba Unveils Wan2.6 Series Enabling Everyone to Star in Videos.md`
+- 新增 `raw/html/Vidu - 2026 - Pricing.html`
+- 新增 `raw/text/Vidu - 2026 - Pricing.md`
+- 新增 `wiki/summaries/OpenAI - 2025 - Sora 2 is here.md`
+- 新增 `wiki/summaries/Google DeepMind - 2026 - Veo.md`
+- 新增 `wiki/summaries/Kuaishou Technology - 2026 - Kling VIDEO 3.0 Omni Model User Guide.md`
+- 新增 `wiki/summaries/Alibaba Cloud - 2025 - Alibaba Unveils Wan2.6 Series Enabling Everyone to Star in Videos.md`
+- 新增 `wiki/summaries/Vidu - 2026 - Pricing.md`
+- 新增 `wiki/concepts/Sora 2.md`
+- 新增 `wiki/concepts/Veo 3.1.md`
+- 新增 `wiki/concepts/Kling VIDEO 3.0 Omni.md`
+- 新增 `wiki/concepts/Wan2.6.md`
+- 新增 `wiki/concepts/Vidu Q2-Pro.md`
+- 新增 `wiki/authors/Kuaishou Technology.md`
+- 新增 `wiki/authors/Alibaba Group.md`
+- 新增 `wiki/authors/ShengShu Technology.md`
+- 更新 `wiki/topics/视频生成.md`
+- 更新 `index.md`
+
+关键变更：
+
+- 为 `Sora / Veo / Kling / Wan / Vidu` 分别补入官方来源层与结构化 summary
+- 将这些路线组织成独立 concept，而不是只在 topic 中口头提及
+- 把 `视频生成` 从待建设骨架升级为正式 topic，明确 world simulation、reference-to-video、导演式控制与 API 工作流几条主线
+- 为 `Kuaishou Technology`、`Alibaba Group`、`ShengShu Technology` 新建机构页，补齐视频生成方向的导航层
