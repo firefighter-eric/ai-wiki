@@ -2,6 +2,26 @@
 
 本页是 LLM Wiki 的追加式操作日志。
 
+## [2026-04-27] ingest | 接入 DeepSeek-V4
+
+涉及页面：
+
+- [DeepSeek-V4](./wiki/concepts/DeepSeek-V4.md)
+- [DeepSeek](./wiki/concepts/DeepSeek.md)
+- [MoE](./wiki/concepts/MoE.md)
+- [LLM 预训练](./wiki/topics/LLM%20预训练.md)
+- [开放模型家族与中国重要家族对照](./wiki/comparisons/开放模型家族与中国重要家族对照.md)
+- [DeepSeek](./wiki/authors/DeepSeek.md)
+- [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](./wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)
+- [index](./index.md)
+
+关键变更：
+
+- 新增 `DeepSeek-V4` 的官方技术报告 `raw/pdf`、模型卡发布页快照 `raw/html` 与 `raw/text` 抽取层
+- 新增 `wiki/summaries/DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence.md`，把百万 token 上下文、`CSA / HCA`、`mHC`、`Muon`、`DeepSeek-V4-Pro / Flash` 等事实压入 summary 层
+- 新增 `wiki/concepts/DeepSeek-V4.md`，并更新 `DeepSeek`、`MoE`、`DeepSeek` 机构页、`LLM 预训练` 与开放模型对照页
+- 更新根级 `index.md`，把 summary 总数增至 `241`，并补齐新增 summary 与 concept 导航
+
 ## [2026-04-21] ingest | OCR topic 补入 dots.ocr、DeepSeek-OCR 与 GLM-OCR
 
 涉及页面：

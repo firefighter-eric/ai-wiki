@@ -11,7 +11,7 @@
 
 ## Summary
 
-- 当前已批量 ingest 240 篇 summary 页，按候选主题分组如下。
+- 当前已批量 ingest 241 篇 summary 页，按候选主题分组如下。
 
 ### Attention / Transformer
 
@@ -61,6 +61,7 @@
 - [Team, Meta - 2024 - The Llama 3 Herd of Models](./wiki/summaries/Team,%20Meta%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.md)：The Llama 3 Herd of Models Llama Team, AI @ Meta1 1A detailed contribu...
 - [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](./wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)：We introduce our first-generation reasoning models, DeepSeek-R1-Zero a...
 - [Unknown - 2024 - DeepSeek-V3 Technical Report](./wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)：We present DeepSeek-V3, a strong Mixture-of-Experts (MoE) language mod...
+- [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](./wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)：`DeepSeek-V4` 把开放 MoE 主线推进到百万 token 上下文、混合 attention 与 agent-oriented 推理效率。
 - [Wei et al. - 2021 - Finetuned Language Models Are Zero-Shot Learners](./wiki/summaries/Wei%20et%20al.%20-%202021%20-%20Finetuned%20Language%20Models%20Are%20Zero-Shot%20Learners.md)：Published as a conference paper at ICLR 2022 FINETUNED LANGUAGE MODELS...
 - [Kimi Team et al. - 2025 - Kimi k1.5 Scaling Reinforcement Learning with LLMs](./wiki/summaries/Kimi%20Team%20et%20al.%20-%202025%20-%20Kimi%20k1.5%20Scaling%20Reinforcement%20Learning%20with%20LLMs.md)：`Kimi k1.5` 是重要但非 `open-weight` 的中国推理家族对照节点。
 - [Qwen Team - 2025 - Qwen3 Think Deeper Act Faster](./wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen3%20Think%20Deeper%20Act%20Faster.md)：Qwen3 把 hybrid thinking、MoE 与 agent 能力整合成新一代 Qwen 主干。
@@ -336,6 +337,7 @@
 - [Gemma 2](./wiki/concepts/Gemma%202.md)：承接 Gemma 家族在实用尺寸上的能力强化节点。
 - [DeepSeek](./wiki/concepts/DeepSeek.md)：连接 DeepSeek-V3 与 DeepSeek-R1 的模型家族概念页。
 - [DeepSeek-V3](./wiki/concepts/DeepSeek-V3.md)：承接开源大模型中的 MoE、高效训练与强基座能力。
+- [DeepSeek-V4](./wiki/concepts/DeepSeek-V4.md)：承接 DeepSeek 的百万 token 上下文、混合 attention 与 agent-oriented 效率架构路线。
 - [DeepSeek-OCR](./wiki/concepts/DeepSeek-OCR.md)：承接 DeepSeek 在 OCR / 文档解析方向上的 compression 与 causal flow 路线。
 - [StarCoder2](./wiki/concepts/StarCoder2.md)：承接开放代码模型与 The Stack v2 数据治理路线。
 - [DBRX](./wiki/concepts/DBRX.md)：承接平台公司主导的高效开放大模型路线。
@@ -446,7 +448,7 @@
 - [Kuaishou Technology](./wiki/authors/Kuaishou%20Technology.md)：Kling 视频生成路线的机构入口。
 - [Alibaba Group](./wiki/authors/Alibaba%20Group.md)：除 Qwen 外，也通过 Wan2.6 接入视频生成主线的阿里机构页。
 - [ShengShu Technology](./wiki/authors/ShengShu%20Technology.md)：Vidu 视频生成路线的机构入口。
-- [DeepSeek](./wiki/authors/DeepSeek.md)：开放推理模型与 reasoning RL 主线的机构入口。
+- [DeepSeek](./wiki/authors/DeepSeek.md)：开放 MoE、推理强化学习与长上下文效率主线的机构入口。
 - [MiniCPM - ModelBest](./wiki/authors/MiniCPM%20-%20ModelBest.md)：小模型与轻量多模态支线的机构入口。
 - [Stability AI](./wiki/authors/Stability%20AI.md)：开放扩散模型主线的机构入口。
 - [Black Forest Labs](./wiki/authors/Black%20Forest%20Labs.md)：`FLUX.2` 图像生成路线的机构入口。
