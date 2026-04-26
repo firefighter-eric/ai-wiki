@@ -2102,12 +2102,12 @@ LOPD(𝜃) =
 ∑︁
 𝑖=1
 𝑤𝑖· DKL
- 𝜋𝜃∥𝜋𝐸𝑖
+𝜋𝜃∥𝜋𝐸𝑖
  .
 (29)
 In this formulation, 𝑤𝑖represents the assigned weight for each expert, typically determined by
 the relative importance of the expert. Computing the reverse KL loss DKL
- 𝜋𝜃∥𝜋𝐸𝑖
+𝜋𝜃∥𝜋𝐸𝑖
  requires
 sampling training trajectories from the student 𝜋𝜃to maintain on-policy learning. The underly-
 ing logic ensures that the unified policy 𝜋𝜃selectively learns from the specialized expert relevant
