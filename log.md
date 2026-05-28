@@ -1260,3 +1260,27 @@
 - 在 [DeepSeek 系列](./wiki/topics/DeepSeek%20系列.md) 中新增 V4 架构机制层，明确 V4 是 attention 压缩、residual 稳定连接与 optimizer 工程的组合
 - 在 [注意力机制 Attention](./wiki/topics/注意力机制%20Attention.md) 中把 `CSA / HCA` 纳入百万上下文 KV cache 压缩路线，但不把 `mHC / Muon` 混入 attention topic
 - 更新根级 `index.md`，登记四个新增概念入口
+
+## [2026-05-29] ingest | Sequence to Sequence Learning with Neural Networks
+
+涉及页面：
+
+- 新增 `raw/pdf/Sutskever, Vinyals, Le - 2014 - Sequence to Sequence Learning with Neural Networks.pdf`
+- 新增 `raw/html/Sutskever, Vinyals, Le - 2014 - Sequence to Sequence Learning with Neural Networks.html`
+- 新增 `raw/text/Sutskever, Vinyals, Le - 2014 - Sequence to Sequence Learning with Neural Networks.md`
+- 新增 `wiki/summaries/Sutskever, Vinyals, Le - 2014 - Sequence to Sequence Learning with Neural Networks.md`
+- 新增 `wiki/concepts/Seq2Seq.md`
+- 更新 `wiki/topics/传统 NLP.md`
+- 更新 `wiki/concepts/Transformer.md`
+- 更新 `wiki/concepts/T5.md`
+- 更新 `wiki/concepts/OFA.md`
+- 更新 `wiki/authors/Google Research.md`
+- 更新 `index.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 将 Sutskever、Vinyals、Le 2014 的经典 seq2seq 论文按 `raw/pdf -> raw/html -> raw/text -> wiki/summaries` 链路接入知识库
+- 新增中文精修解读，突出 `LSTM encoder-decoder`、固定向量瓶颈、source reversal、beam search 与 WMT'14 英法翻译结果
+- 新增 `Seq2Seq` 概念页，连接 RNN 神经机器翻译、Transformer encoder-decoder、T5 text-to-text 与 OFA 多模态统一接口
+- 在 `传统 NLP` 中补上神经机器翻译 / 条件生成接口层，并标注 Cho、Bahdanau、Luong 等 NMT 中间来源仍待补齐

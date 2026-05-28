@@ -1,0 +1,1416 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>[1409.3215] Sequence to Sequence Learning with Neural Networks</title><meta property="og:description" content="Deep Neural Networks (DNNs) are powerful models that have achieved
+excellent performance on difficult learning tasks. Although DNNs work
+well whenever large labeled training sets are available,
+they cannot be used to m…">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sequence to Sequence Learning with Neural Networks">
+<meta name="twitter:image:src" content="https://ar5iv.labs.arxiv.org/assets/ar5iv_card.png">
+<meta name="twitter:image:alt" content="ar5iv logo">
+<meta property="og:title" content="Sequence to Sequence Learning with Neural Networks">
+<meta property="og:site_name" content="ar5iv">
+<meta property="og:image" content="https://ar5iv.labs.arxiv.org/assets/ar5iv_card.png">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ar5iv.labs.arxiv.org/html/1409.3215">
+<link rel="canonical" target="_blank" href="https://ar5iv.labs.arxiv.org/html/1409.3215">
+
+<!--Generated on Mon Mar 18 06:30:59 2024 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script>
+  function detectColorScheme(){
+    var theme="light";
+    var current_theme = localStorage.getItem("ar5iv_theme");
+    if(current_theme){
+      if(current_theme == "dark"){
+        theme = "dark";
+      } }
+    else if(!window.matchMedia) { return false; }
+    else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      theme = "dark"; }
+    if (theme=="dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light"); } }
+
+  detectColorScheme();
+
+  function toggleColorScheme(){
+    var current_theme = localStorage.getItem("ar5iv_theme");
+    if (current_theme) {
+      if (current_theme == "light") {
+        localStorage.setItem("ar5iv_theme", "dark"); }
+      else {
+        localStorage.setItem("ar5iv_theme", "light"); } }
+    else {
+        localStorage.setItem("ar5iv_theme", "dark"); }
+    detectColorScheme(); }
+</script>
+<link media="all" rel="stylesheet" href="/assets/ar5iv-fonts.0.8.4.css"><link media="all" rel="stylesheet" href="/assets/ar5iv.0.8.4.css"><link media="all" rel="stylesheet" href="/assets/ar5iv-site.0.2.2.css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Sequence to Sequence Learning
+<br class="ltx_break">with Neural Networks</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Ilya Sutskever 
+<br class="ltx_break">Google
+<br class="ltx_break"><span id="id1.1.id1" class="ltx_text ltx_font_typewriter">ilyasu@google.com</span> 
+<br class="ltx_break">&amp;Oriol Vinyals 
+<br class="ltx_break">Google
+<br class="ltx_break"><span id="id2.2.id2" class="ltx_text ltx_font_typewriter">vinyals@google.com</span> 
+<br class="ltx_break">&amp;Quoc V. Le 
+<br class="ltx_break">Google
+<br class="ltx_break"><span id="id3.3.id3" class="ltx_text ltx_font_typewriter">qvl@google.com</span> 
+<br class="ltx_break">
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p id="id4.id1" class="ltx_p">Deep Neural Networks (DNNs) are powerful models that have achieved
+excellent performance on difficult learning tasks. Although DNNs work
+well whenever large labeled training sets are available,
+they cannot be used to map sequences to sequences. In this paper, we
+present a general end-to-end approach to sequence learning that makes
+minimal assumptions on the sequence structure. Our method uses a
+multilayered Long Short-Term Memory (LSTM) to map the input sequence
+to a vector of a fixed dimensionality, and then another deep LSTM to
+decode the target sequence from the vector. Our main result is that
+on an English to French translation task from the WMT’14 dataset, the
+translations produced by the LSTM achieve a BLEU score of 34.8 on the
+entire test set, where the LSTM’s BLEU score was penalized on
+out-of-vocabulary words. Additionally, the LSTM did not have
+difficulty on long sentences. For comparison, a phrase-based
+SMT system achieves a BLEU score of 33.3 on the same dataset. When we
+used the LSTM to rerank the 1000 hypotheses produced by the
+aforementioned SMT system, its BLEU score increases to 36.5, which
+is close to the previous best result on this task. The LSTM also learned sensible
+phrase and sentence representations that are sensitive to word order
+and are relatively invariant to the active and the passive voice.
+Finally, we found that reversing the order of the words in all source
+sentences (but not target sentences) improved the LSTM’s performance
+markedly, because doing so introduced many short term dependencies
+between the source and the target sentence which made the optimization
+problem easier.</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para ltx_noindent">
+<p id="S1.p1.2" class="ltx_p">Deep Neural Networks (DNNs) are extremely powerful machine learning
+models that achieve excellent performance on difficult problems such
+as speech recognition <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib13" title="" class="ltx_ref">13</a>, <a href="#bib.bib7" title="" class="ltx_ref">7</a>]</cite> and visual object
+recognition <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib19" title="" class="ltx_ref">19</a>, <a href="#bib.bib6" title="" class="ltx_ref">6</a>, <a href="#bib.bib21" title="" class="ltx_ref">21</a>, <a href="#bib.bib20" title="" class="ltx_ref">20</a>]</cite>. DNNs are
+powerful because they can perform arbitrary parallel computation for a
+modest number of steps. A surprising example of the power of DNNs is
+their ability to sort <math id="S1.p1.1.m1.1" class="ltx_Math" alttext="N" display="inline"><semantics id="S1.p1.1.m1.1a"><mi id="S1.p1.1.m1.1.1" xref="S1.p1.1.m1.1.1.cmml">N</mi><annotation-xml encoding="MathML-Content" id="S1.p1.1.m1.1b"><ci id="S1.p1.1.m1.1.1.cmml" xref="S1.p1.1.m1.1.1">𝑁</ci></annotation-xml><annotation encoding="application/x-tex" id="S1.p1.1.m1.1c">N</annotation></semantics></math> ​​​​ <math id="S1.p1.2.m2.1" class="ltx_Math" alttext="N" display="inline"><semantics id="S1.p1.2.m2.1a"><mi id="S1.p1.2.m2.1.1" xref="S1.p1.2.m2.1.1.cmml">N</mi><annotation-xml encoding="MathML-Content" id="S1.p1.2.m2.1b"><ci id="S1.p1.2.m2.1.1.cmml" xref="S1.p1.2.m2.1.1">𝑁</ci></annotation-xml><annotation encoding="application/x-tex" id="S1.p1.2.m2.1c">N</annotation></semantics></math>-bit numbers using only 2
+hidden layers of quadratic size <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="" class="ltx_ref">27</a>]</cite>. So, while neural
+networks are related to conventional statistical models, they learn an
+intricate computation. Furthermore, large DNNs can be trained with
+supervised backpropagation whenever the labeled training set has
+enough information to specify the network’s parameters. Thus, if
+there exists a parameter setting of a large DNN that achieves good
+results (for example, because humans can solve the task very rapidly),
+supervised backpropagation will find these parameters and solve the
+problem.</p>
+</div>
+<div id="S1.p2" class="ltx_para ltx_noindent">
+<p id="S1.p2.1" class="ltx_p">Despite their flexibility and power, DNNs can only be applied to
+problems whose inputs and targets can be sensibly encoded with vectors
+of fixed dimensionality. It is a significant limitation, since many
+important problems are best expressed with sequences whose lengths are
+not known a-priori. For example, speech recognition and machine
+translation are sequential problems. Likewise, question answering can
+also be seen as mapping a sequence of words representing the question
+to a sequence of words representing the answer. It is therefore clear
+that a domain-independent method that learns to map sequences to
+sequences would be useful.</p>
+</div>
+<div id="S1.p3" class="ltx_para ltx_noindent">
+<p id="S1.p3.1" class="ltx_p">Sequences pose a challenge for DNNs because they require that the
+dimensionality of the inputs and outputs is known and fixed.
+In this paper, we show that a straightforward application of the Long
+Short-Term Memory (LSTM) architecture <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="" class="ltx_ref">16</a>]</cite> can solve
+general sequence to sequence problems. The idea is to use one LSTM to
+read the input sequence, one timestep at a time, to obtain large
+fixed-dimensional vector representation, and then to use another LSTM
+to extract the output sequence from that vector
+(fig. <a href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>). The second LSTM is essentially a
+recurrent neural network language model
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib28" title="" class="ltx_ref">28</a>, <a href="#bib.bib23" title="" class="ltx_ref">23</a>, <a href="#bib.bib30" title="" class="ltx_ref">30</a>]</cite> except
+that it is conditioned on the input sequence. The LSTM’s ability to
+successfully learn on data with long range temporal dependencies makes
+it a natural choice for this application due to the considerable time
+lag between the inputs and their corresponding outputs
+(fig. <a href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>).</p>
+</div>
+<div id="S1.p4" class="ltx_para ltx_noindent">
+<p id="S1.p4.1" class="ltx_p">There have been a number of related attempts to address the general
+sequence to sequence learning problem with neural networks. Our
+approach is closely related to Kalchbrenner and Blunsom <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="" class="ltx_ref">18</a>]</cite> who were
+the first to map the entire input sentence to vector, and is related
+to Cho et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>]</cite> although the latter was used only for rescoring hypotheses
+produced by a phrase-based system. Graves
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="" class="ltx_ref">10</a>]</cite> introduced a novel differentiable attention mechanism
+that allows neural networks to focus on different parts
+of their input, and an elegant variant of this idea was successfully
+applied to machine translation by Bahdanau et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="" class="ltx_ref">2</a>]</cite>. The Connectionist
+Sequence Classification is another popular technique for mapping sequences
+to sequences with neural networks, but it assumes a monotonic alignment
+between the inputs and the outputs <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib11" title="" class="ltx_ref">11</a>]</cite>.</p>
+</div>
+<figure id="S1.F1" class="ltx_figure"><img src="/html/1409.3215/assets/x1.png" id="S1.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="380" height="77" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Our model reads an input sentence “ABC” and produces
+“WXYZ” as the output sentence. The model stops making predictions
+after outputting the end-of-sentence token. Note that the LSTM
+reads the input sentence in reverse, because doing so introduces
+many short term dependencies in the data that make the optimization
+problem much easier. </figcaption>
+</figure>
+<div id="S1.p5" class="ltx_para ltx_noindent">
+<p id="S1.p5.1" class="ltx_p">The main result of this work is the following. On the WMT’14 English
+to French translation task, we obtained a BLEU score of <span id="S1.p5.1.1" class="ltx_text ltx_font_bold">34.81</span> by
+directly extracting translations from an ensemble of 5 deep LSTMs
+(with 384M parameters and 8,000 dimensional state each) using a simple left-to-right beam-search
+decoder. This is by far the best result achieved by direct
+translation with large neural networks. For comparison, the BLEU
+score of an SMT baseline on
+this dataset is 33.30 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>. The
+34.81 BLEU score was achieved by an LSTM with a vocabulary of 80k
+words, so the score was penalized whenever the reference translation
+contained a word not covered by these 80k. This result shows that a
+relatively unoptimized small-vocabulary neural network architecture which has much room
+for improvement outperforms a phrase-based SMT system.</p>
+</div>
+<div id="S1.p6" class="ltx_para ltx_noindent">
+<p id="S1.p6.1" class="ltx_p">Finally, we used the LSTM to rescore the publicly available 1000-best
+lists of the SMT baseline on the same task <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>. By
+doing so, we obtained a BLEU score of 36.5, which improves the
+baseline by 3.2 BLEU points and is close to the previous best published
+result on this task (which is 37.0 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="" class="ltx_ref">9</a>]</cite>).</p>
+</div>
+<div id="S1.p7" class="ltx_para ltx_noindent">
+<p id="S1.p7.1" class="ltx_p">Surprisingly, the LSTM did not suffer on very long sentences, despite
+the recent experience of other researchers with related architectures
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib26" title="" class="ltx_ref">26</a>]</cite>. We were able to do well on long sentences because we
+reversed the order of words in the source sentence but not the target
+sentences in the training and test set. By doing so, we introduced
+many short term dependencies that made the optimization problem much
+simpler (see sec. <a href="#S2" title="2 The model ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> and <a href="#S3.SS3" title="3.3 Reversing the Source Sentences ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.3</span></a>). As a result, SGD could learn
+LSTMs that had no trouble with long sentences. The simple trick of
+reversing the words in the source sentence is one of the key technical
+contributions of this work.</p>
+</div>
+<div id="S1.p8" class="ltx_para ltx_noindent">
+<p id="S1.p8.1" class="ltx_p">A useful property of the LSTM is that it learns to map an input
+sentence of variable length into a fixed-dimensional vector
+representation. Given that translations tend to be paraphrases of the
+source sentences, the translation objective encourages the LSTM to
+find sentence representations that capture their meaning, as sentences
+with similar meanings are close to each other while different
+sentences meanings will be far. A qualitative evaluation supports
+this claim, showing that our model is aware of word order and is
+fairly invariant to the active and passive voice.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>The model</h2>
+
+<div id="S2.p1" class="ltx_para ltx_noindent">
+<p id="S2.p1.2" class="ltx_p">The Recurrent Neural Network (RNN) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib31" title="" class="ltx_ref">31</a>, <a href="#bib.bib28" title="" class="ltx_ref">28</a>]</cite>
+is a natural generalization of feedforward neural networks to
+sequences. Given a sequence of inputs <math id="S2.p1.1.m1.3" class="ltx_Math" alttext="(x_{1},\ldots,x_{T})" display="inline"><semantics id="S2.p1.1.m1.3a"><mrow id="S2.p1.1.m1.3.3.2" xref="S2.p1.1.m1.3.3.3.cmml"><mo stretchy="false" id="S2.p1.1.m1.3.3.2.3" xref="S2.p1.1.m1.3.3.3.cmml">(</mo><msub id="S2.p1.1.m1.2.2.1.1" xref="S2.p1.1.m1.2.2.1.1.cmml"><mi id="S2.p1.1.m1.2.2.1.1.2" xref="S2.p1.1.m1.2.2.1.1.2.cmml">x</mi><mn id="S2.p1.1.m1.2.2.1.1.3" xref="S2.p1.1.m1.2.2.1.1.3.cmml">1</mn></msub><mo id="S2.p1.1.m1.3.3.2.4" xref="S2.p1.1.m1.3.3.3.cmml">,</mo><mi mathvariant="normal" id="S2.p1.1.m1.1.1" xref="S2.p1.1.m1.1.1.cmml">…</mi><mo id="S2.p1.1.m1.3.3.2.5" xref="S2.p1.1.m1.3.3.3.cmml">,</mo><msub id="S2.p1.1.m1.3.3.2.2" xref="S2.p1.1.m1.3.3.2.2.cmml"><mi id="S2.p1.1.m1.3.3.2.2.2" xref="S2.p1.1.m1.3.3.2.2.2.cmml">x</mi><mi id="S2.p1.1.m1.3.3.2.2.3" xref="S2.p1.1.m1.3.3.2.2.3.cmml">T</mi></msub><mo stretchy="false" id="S2.p1.1.m1.3.3.2.6" xref="S2.p1.1.m1.3.3.3.cmml">)</mo></mrow><annotation-xml encoding="MathML-Content" id="S2.p1.1.m1.3b"><vector id="S2.p1.1.m1.3.3.3.cmml" xref="S2.p1.1.m1.3.3.2"><apply id="S2.p1.1.m1.2.2.1.1.cmml" xref="S2.p1.1.m1.2.2.1.1"><csymbol cd="ambiguous" id="S2.p1.1.m1.2.2.1.1.1.cmml" xref="S2.p1.1.m1.2.2.1.1">subscript</csymbol><ci id="S2.p1.1.m1.2.2.1.1.2.cmml" xref="S2.p1.1.m1.2.2.1.1.2">𝑥</ci><cn type="integer" id="S2.p1.1.m1.2.2.1.1.3.cmml" xref="S2.p1.1.m1.2.2.1.1.3">1</cn></apply><ci id="S2.p1.1.m1.1.1.cmml" xref="S2.p1.1.m1.1.1">…</ci><apply id="S2.p1.1.m1.3.3.2.2.cmml" xref="S2.p1.1.m1.3.3.2.2"><csymbol cd="ambiguous" id="S2.p1.1.m1.3.3.2.2.1.cmml" xref="S2.p1.1.m1.3.3.2.2">subscript</csymbol><ci id="S2.p1.1.m1.3.3.2.2.2.cmml" xref="S2.p1.1.m1.3.3.2.2.2">𝑥</ci><ci id="S2.p1.1.m1.3.3.2.2.3.cmml" xref="S2.p1.1.m1.3.3.2.2.3">𝑇</ci></apply></vector></annotation-xml><annotation encoding="application/x-tex" id="S2.p1.1.m1.3c">(x_{1},\ldots,x_{T})</annotation></semantics></math>, a
+standard RNN computes a sequence of outputs <math id="S2.p1.2.m2.3" class="ltx_Math" alttext="(y_{1},\ldots,y_{T})" display="inline"><semantics id="S2.p1.2.m2.3a"><mrow id="S2.p1.2.m2.3.3.2" xref="S2.p1.2.m2.3.3.3.cmml"><mo stretchy="false" id="S2.p1.2.m2.3.3.2.3" xref="S2.p1.2.m2.3.3.3.cmml">(</mo><msub id="S2.p1.2.m2.2.2.1.1" xref="S2.p1.2.m2.2.2.1.1.cmml"><mi id="S2.p1.2.m2.2.2.1.1.2" xref="S2.p1.2.m2.2.2.1.1.2.cmml">y</mi><mn id="S2.p1.2.m2.2.2.1.1.3" xref="S2.p1.2.m2.2.2.1.1.3.cmml">1</mn></msub><mo id="S2.p1.2.m2.3.3.2.4" xref="S2.p1.2.m2.3.3.3.cmml">,</mo><mi mathvariant="normal" id="S2.p1.2.m2.1.1" xref="S2.p1.2.m2.1.1.cmml">…</mi><mo id="S2.p1.2.m2.3.3.2.5" xref="S2.p1.2.m2.3.3.3.cmml">,</mo><msub id="S2.p1.2.m2.3.3.2.2" xref="S2.p1.2.m2.3.3.2.2.cmml"><mi id="S2.p1.2.m2.3.3.2.2.2" xref="S2.p1.2.m2.3.3.2.2.2.cmml">y</mi><mi id="S2.p1.2.m2.3.3.2.2.3" xref="S2.p1.2.m2.3.3.2.2.3.cmml">T</mi></msub><mo stretchy="false" id="S2.p1.2.m2.3.3.2.6" xref="S2.p1.2.m2.3.3.3.cmml">)</mo></mrow><annotation-xml encoding="MathML-Content" id="S2.p1.2.m2.3b"><vector id="S2.p1.2.m2.3.3.3.cmml" xref="S2.p1.2.m2.3.3.2"><apply id="S2.p1.2.m2.2.2.1.1.cmml" xref="S2.p1.2.m2.2.2.1.1"><csymbol cd="ambiguous" id="S2.p1.2.m2.2.2.1.1.1.cmml" xref="S2.p1.2.m2.2.2.1.1">subscript</csymbol><ci id="S2.p1.2.m2.2.2.1.1.2.cmml" xref="S2.p1.2.m2.2.2.1.1.2">𝑦</ci><cn type="integer" id="S2.p1.2.m2.2.2.1.1.3.cmml" xref="S2.p1.2.m2.2.2.1.1.3">1</cn></apply><ci id="S2.p1.2.m2.1.1.cmml" xref="S2.p1.2.m2.1.1">…</ci><apply id="S2.p1.2.m2.3.3.2.2.cmml" xref="S2.p1.2.m2.3.3.2.2"><csymbol cd="ambiguous" id="S2.p1.2.m2.3.3.2.2.1.cmml" xref="S2.p1.2.m2.3.3.2.2">subscript</csymbol><ci id="S2.p1.2.m2.3.3.2.2.2.cmml" xref="S2.p1.2.m2.3.3.2.2.2">𝑦</ci><ci id="S2.p1.2.m2.3.3.2.2.3.cmml" xref="S2.p1.2.m2.3.3.2.2.3">𝑇</ci></apply></vector></annotation-xml><annotation encoding="application/x-tex" id="S2.p1.2.m2.3c">(y_{1},\ldots,y_{T})</annotation></semantics></math> by
+iterating the following equation:</p>
+<table id="S6.EGx1" class="ltx_equationgroup ltx_eqn_eqnarray ltx_eqn_table">
+
+<tbody id="S2.Ex1"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="S2.Ex1.m1.1" class="ltx_Math" alttext="\displaystyle h_{t}" display="inline"><semantics id="S2.Ex1.m1.1a"><msub id="S2.Ex1.m1.1.1" xref="S2.Ex1.m1.1.1.cmml"><mi id="S2.Ex1.m1.1.1.2" xref="S2.Ex1.m1.1.1.2.cmml">h</mi><mi id="S2.Ex1.m1.1.1.3" xref="S2.Ex1.m1.1.1.3.cmml">t</mi></msub><annotation-xml encoding="MathML-Content" id="S2.Ex1.m1.1b"><apply id="S2.Ex1.m1.1.1.cmml" xref="S2.Ex1.m1.1.1"><csymbol cd="ambiguous" id="S2.Ex1.m1.1.1.1.cmml" xref="S2.Ex1.m1.1.1">subscript</csymbol><ci id="S2.Ex1.m1.1.1.2.cmml" xref="S2.Ex1.m1.1.1.2">ℎ</ci><ci id="S2.Ex1.m1.1.1.3.cmml" xref="S2.Ex1.m1.1.1.3">𝑡</ci></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.Ex1.m1.1c">\displaystyle h_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_eqn_cell"><math id="S2.Ex1.m2.1" class="ltx_Math" alttext="\displaystyle=" display="inline"><semantics id="S2.Ex1.m2.1a"><mo id="S2.Ex1.m2.1.1" xref="S2.Ex1.m2.1.1.cmml">=</mo><annotation-xml encoding="MathML-Content" id="S2.Ex1.m2.1b"><eq id="S2.Ex1.m2.1.1.cmml" xref="S2.Ex1.m2.1.1"></eq></annotation-xml><annotation encoding="application/x-tex" id="S2.Ex1.m2.1c">\displaystyle=</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="S2.Ex1.m3.1" class="ltx_Math" alttext="\displaystyle\mathrm{sigm}\left(W^{\mathrm{hx}}x_{t}+W^{\mathrm{hh}}h_{t-1}\right)" display="inline"><semantics id="S2.Ex1.m3.1a"><mrow id="S2.Ex1.m3.1.1" xref="S2.Ex1.m3.1.1.cmml"><mi id="S2.Ex1.m3.1.1.3" xref="S2.Ex1.m3.1.1.3.cmml">sigm</mi><mo lspace="0em" rspace="0em" id="S2.Ex1.m3.1.1.2" xref="S2.Ex1.m3.1.1.2.cmml">​</mo><mrow id="S2.Ex1.m3.1.1.1.1" xref="S2.Ex1.m3.1.1.1.1.1.cmml"><mo id="S2.Ex1.m3.1.1.1.1.2" xref="S2.Ex1.m3.1.1.1.1.1.cmml">(</mo><mrow id="S2.Ex1.m3.1.1.1.1.1" xref="S2.Ex1.m3.1.1.1.1.1.cmml"><mrow id="S2.Ex1.m3.1.1.1.1.1.2" xref="S2.Ex1.m3.1.1.1.1.1.2.cmml"><msup id="S2.Ex1.m3.1.1.1.1.1.2.2" xref="S2.Ex1.m3.1.1.1.1.1.2.2.cmml"><mi id="S2.Ex1.m3.1.1.1.1.1.2.2.2" xref="S2.Ex1.m3.1.1.1.1.1.2.2.2.cmml">W</mi><mi id="S2.Ex1.m3.1.1.1.1.1.2.2.3" xref="S2.Ex1.m3.1.1.1.1.1.2.2.3.cmml">hx</mi></msup><mo lspace="0em" rspace="0em" id="S2.Ex1.m3.1.1.1.1.1.2.1" xref="S2.Ex1.m3.1.1.1.1.1.2.1.cmml">​</mo><msub id="S2.Ex1.m3.1.1.1.1.1.2.3" xref="S2.Ex1.m3.1.1.1.1.1.2.3.cmml"><mi id="S2.Ex1.m3.1.1.1.1.1.2.3.2" xref="S2.Ex1.m3.1.1.1.1.1.2.3.2.cmml">x</mi><mi id="S2.Ex1.m3.1.1.1.1.1.2.3.3" xref="S2.Ex1.m3.1.1.1.1.1.2.3.3.cmml">t</mi></msub></mrow><mo id="S2.Ex1.m3.1.1.1.1.1.1" xref="S2.Ex1.m3.1.1.1.1.1.1.cmml">+</mo><mrow id="S2.Ex1.m3.1.1.1.1.1.3" xref="S2.Ex1.m3.1.1.1.1.1.3.cmml"><msup id="S2.Ex1.m3.1.1.1.1.1.3.2" xref="S2.Ex1.m3.1.1.1.1.1.3.2.cmml"><mi id="S2.Ex1.m3.1.1.1.1.1.3.2.2" xref="S2.Ex1.m3.1.1.1.1.1.3.2.2.cmml">W</mi><mi id="S2.Ex1.m3.1.1.1.1.1.3.2.3" xref="S2.Ex1.m3.1.1.1.1.1.3.2.3.cmml">hh</mi></msup><mo lspace="0em" rspace="0em" id="S2.Ex1.m3.1.1.1.1.1.3.1" xref="S2.Ex1.m3.1.1.1.1.1.3.1.cmml">​</mo><msub id="S2.Ex1.m3.1.1.1.1.1.3.3" xref="S2.Ex1.m3.1.1.1.1.1.3.3.cmml"><mi id="S2.Ex1.m3.1.1.1.1.1.3.3.2" xref="S2.Ex1.m3.1.1.1.1.1.3.3.2.cmml">h</mi><mrow id="S2.Ex1.m3.1.1.1.1.1.3.3.3" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3.cmml"><mi id="S2.Ex1.m3.1.1.1.1.1.3.3.3.2" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3.2.cmml">t</mi><mo id="S2.Ex1.m3.1.1.1.1.1.3.3.3.1" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3.1.cmml">−</mo><mn id="S2.Ex1.m3.1.1.1.1.1.3.3.3.3" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3.3.cmml">1</mn></mrow></msub></mrow></mrow><mo id="S2.Ex1.m3.1.1.1.1.3" xref="S2.Ex1.m3.1.1.1.1.1.cmml">)</mo></mrow></mrow><annotation-xml encoding="MathML-Content" id="S2.Ex1.m3.1b"><apply id="S2.Ex1.m3.1.1.cmml" xref="S2.Ex1.m3.1.1"><times id="S2.Ex1.m3.1.1.2.cmml" xref="S2.Ex1.m3.1.1.2"></times><ci id="S2.Ex1.m3.1.1.3.cmml" xref="S2.Ex1.m3.1.1.3">sigm</ci><apply id="S2.Ex1.m3.1.1.1.1.1.cmml" xref="S2.Ex1.m3.1.1.1.1"><plus id="S2.Ex1.m3.1.1.1.1.1.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.1"></plus><apply id="S2.Ex1.m3.1.1.1.1.1.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2"><times id="S2.Ex1.m3.1.1.1.1.1.2.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.1"></times><apply id="S2.Ex1.m3.1.1.1.1.1.2.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.2"><csymbol cd="ambiguous" id="S2.Ex1.m3.1.1.1.1.1.2.2.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.2">superscript</csymbol><ci id="S2.Ex1.m3.1.1.1.1.1.2.2.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.2.2">𝑊</ci><ci id="S2.Ex1.m3.1.1.1.1.1.2.2.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.2.3">hx</ci></apply><apply id="S2.Ex1.m3.1.1.1.1.1.2.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.3"><csymbol cd="ambiguous" id="S2.Ex1.m3.1.1.1.1.1.2.3.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.3">subscript</csymbol><ci id="S2.Ex1.m3.1.1.1.1.1.2.3.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.3.2">𝑥</ci><ci id="S2.Ex1.m3.1.1.1.1.1.2.3.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.2.3.3">𝑡</ci></apply></apply><apply id="S2.Ex1.m3.1.1.1.1.1.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3"><times id="S2.Ex1.m3.1.1.1.1.1.3.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.1"></times><apply id="S2.Ex1.m3.1.1.1.1.1.3.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.2"><csymbol cd="ambiguous" id="S2.Ex1.m3.1.1.1.1.1.3.2.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.2">superscript</csymbol><ci id="S2.Ex1.m3.1.1.1.1.1.3.2.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.2.2">𝑊</ci><ci id="S2.Ex1.m3.1.1.1.1.1.3.2.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.2.3">hh</ci></apply><apply id="S2.Ex1.m3.1.1.1.1.1.3.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.3"><csymbol cd="ambiguous" id="S2.Ex1.m3.1.1.1.1.1.3.3.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.3">subscript</csymbol><ci id="S2.Ex1.m3.1.1.1.1.1.3.3.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.3.2">ℎ</ci><apply id="S2.Ex1.m3.1.1.1.1.1.3.3.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3"><minus id="S2.Ex1.m3.1.1.1.1.1.3.3.3.1.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3.1"></minus><ci id="S2.Ex1.m3.1.1.1.1.1.3.3.3.2.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3.2">𝑡</ci><cn type="integer" id="S2.Ex1.m3.1.1.1.1.1.3.3.3.3.cmml" xref="S2.Ex1.m3.1.1.1.1.1.3.3.3.3">1</cn></apply></apply></apply></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.Ex1.m3.1c">\displaystyle\mathrm{sigm}\left(W^{\mathrm{hx}}x_{t}+W^{\mathrm{hh}}h_{t-1}\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+<tbody id="S2.Ex2"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="S2.Ex2.m1.1" class="ltx_Math" alttext="\displaystyle y_{t}" display="inline"><semantics id="S2.Ex2.m1.1a"><msub id="S2.Ex2.m1.1.1" xref="S2.Ex2.m1.1.1.cmml"><mi id="S2.Ex2.m1.1.1.2" xref="S2.Ex2.m1.1.1.2.cmml">y</mi><mi id="S2.Ex2.m1.1.1.3" xref="S2.Ex2.m1.1.1.3.cmml">t</mi></msub><annotation-xml encoding="MathML-Content" id="S2.Ex2.m1.1b"><apply id="S2.Ex2.m1.1.1.cmml" xref="S2.Ex2.m1.1.1"><csymbol cd="ambiguous" id="S2.Ex2.m1.1.1.1.cmml" xref="S2.Ex2.m1.1.1">subscript</csymbol><ci id="S2.Ex2.m1.1.1.2.cmml" xref="S2.Ex2.m1.1.1.2">𝑦</ci><ci id="S2.Ex2.m1.1.1.3.cmml" xref="S2.Ex2.m1.1.1.3">𝑡</ci></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.Ex2.m1.1c">\displaystyle y_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_eqn_cell"><math id="S2.Ex2.m2.1" class="ltx_Math" alttext="\displaystyle=" display="inline"><semantics id="S2.Ex2.m2.1a"><mo id="S2.Ex2.m2.1.1" xref="S2.Ex2.m2.1.1.cmml">=</mo><annotation-xml encoding="MathML-Content" id="S2.Ex2.m2.1b"><eq id="S2.Ex2.m2.1.1.cmml" xref="S2.Ex2.m2.1.1"></eq></annotation-xml><annotation encoding="application/x-tex" id="S2.Ex2.m2.1c">\displaystyle=</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="S2.Ex2.m3.1" class="ltx_Math" alttext="\displaystyle W^{\mathrm{yh}}h_{t}" display="inline"><semantics id="S2.Ex2.m3.1a"><mrow id="S2.Ex2.m3.1.1" xref="S2.Ex2.m3.1.1.cmml"><msup id="S2.Ex2.m3.1.1.2" xref="S2.Ex2.m3.1.1.2.cmml"><mi id="S2.Ex2.m3.1.1.2.2" xref="S2.Ex2.m3.1.1.2.2.cmml">W</mi><mi id="S2.Ex2.m3.1.1.2.3" xref="S2.Ex2.m3.1.1.2.3.cmml">yh</mi></msup><mo lspace="0em" rspace="0em" id="S2.Ex2.m3.1.1.1" xref="S2.Ex2.m3.1.1.1.cmml">​</mo><msub id="S2.Ex2.m3.1.1.3" xref="S2.Ex2.m3.1.1.3.cmml"><mi id="S2.Ex2.m3.1.1.3.2" xref="S2.Ex2.m3.1.1.3.2.cmml">h</mi><mi id="S2.Ex2.m3.1.1.3.3" xref="S2.Ex2.m3.1.1.3.3.cmml">t</mi></msub></mrow><annotation-xml encoding="MathML-Content" id="S2.Ex2.m3.1b"><apply id="S2.Ex2.m3.1.1.cmml" xref="S2.Ex2.m3.1.1"><times id="S2.Ex2.m3.1.1.1.cmml" xref="S2.Ex2.m3.1.1.1"></times><apply id="S2.Ex2.m3.1.1.2.cmml" xref="S2.Ex2.m3.1.1.2"><csymbol cd="ambiguous" id="S2.Ex2.m3.1.1.2.1.cmml" xref="S2.Ex2.m3.1.1.2">superscript</csymbol><ci id="S2.Ex2.m3.1.1.2.2.cmml" xref="S2.Ex2.m3.1.1.2.2">𝑊</ci><ci id="S2.Ex2.m3.1.1.2.3.cmml" xref="S2.Ex2.m3.1.1.2.3">yh</ci></apply><apply id="S2.Ex2.m3.1.1.3.cmml" xref="S2.Ex2.m3.1.1.3"><csymbol cd="ambiguous" id="S2.Ex2.m3.1.1.3.1.cmml" xref="S2.Ex2.m3.1.1.3">subscript</csymbol><ci id="S2.Ex2.m3.1.1.3.2.cmml" xref="S2.Ex2.m3.1.1.3.2">ℎ</ci><ci id="S2.Ex2.m3.1.1.3.3.cmml" xref="S2.Ex2.m3.1.1.3.3">𝑡</ci></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.Ex2.m3.1c">\displaystyle W^{\mathrm{yh}}h_{t}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<p id="S2.p1.3" class="ltx_p">The RNN can easily map sequences to sequences whenever the alignment
+between the inputs the outputs is known ahead of time. However, it is
+not clear how to apply an RNN to problems whose input and the output
+sequences have different lengths with complicated and non-monotonic
+relationships.</p>
+</div>
+<div id="S2.p2" class="ltx_para ltx_noindent">
+<p id="S2.p2.1" class="ltx_p">The simplest strategy for general sequence learning is to map the input
+sequence to a fixed-sized vector using one RNN, and then to map the
+vector to the target sequence with another RNN (this approach has also been
+taken by Cho et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>]</cite>). While it could work
+in principle since the RNN is provided with all the relevant
+information, it would be difficult to train the RNNs due to the
+resulting long term dependencies
+(figure <a href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>)
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib14" title="" class="ltx_ref">14</a>, <a href="#bib.bib4" title="" class="ltx_ref">4</a>, <a href="#bib.bib16" title="" class="ltx_ref">16</a>, <a href="#bib.bib15" title="" class="ltx_ref">15</a>]</cite>. However, the Long
+Short-Term Memory (LSTM) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="" class="ltx_ref">16</a>]</cite> is known to learn
+problems with long range temporal dependencies, so an LSTM may succeed
+in this setting.</p>
+</div>
+<div id="S2.p3" class="ltx_para ltx_noindent">
+<p id="S2.p3.10" class="ltx_p">The goal of the LSTM is to estimate the conditional probability
+<math id="S2.p3.1.m1.4" class="ltx_Math" alttext="p(y_{1},\ldots,y_{T^{\prime}}|x_{1},\ldots,x_{T})" display="inline"><semantics id="S2.p3.1.m1.4a"><mrow id="S2.p3.1.m1.4.4" xref="S2.p3.1.m1.4.4.cmml"><mi id="S2.p3.1.m1.4.4.4" xref="S2.p3.1.m1.4.4.4.cmml">p</mi><mo lspace="0em" rspace="0em" id="S2.p3.1.m1.4.4.3" xref="S2.p3.1.m1.4.4.3.cmml">​</mo><mrow id="S2.p3.1.m1.4.4.2.2" xref="S2.p3.1.m1.4.4.2.3.cmml"><mo stretchy="false" id="S2.p3.1.m1.4.4.2.2.3" xref="S2.p3.1.m1.4.4.2.3.cmml">(</mo><msub id="S2.p3.1.m1.3.3.1.1.1" xref="S2.p3.1.m1.3.3.1.1.1.cmml"><mi id="S2.p3.1.m1.3.3.1.1.1.2" xref="S2.p3.1.m1.3.3.1.1.1.2.cmml">y</mi><mn id="S2.p3.1.m1.3.3.1.1.1.3" xref="S2.p3.1.m1.3.3.1.1.1.3.cmml">1</mn></msub><mo id="S2.p3.1.m1.4.4.2.2.4" xref="S2.p3.1.m1.4.4.2.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.1.m1.2.2" xref="S2.p3.1.m1.2.2.cmml">…</mi><mo id="S2.p3.1.m1.4.4.2.2.5" xref="S2.p3.1.m1.4.4.2.3.cmml">,</mo><mrow id="S2.p3.1.m1.4.4.2.2.2" xref="S2.p3.1.m1.4.4.2.2.2.cmml"><msub id="S2.p3.1.m1.4.4.2.2.2.4" xref="S2.p3.1.m1.4.4.2.2.2.4.cmml"><mi id="S2.p3.1.m1.4.4.2.2.2.4.2" xref="S2.p3.1.m1.4.4.2.2.2.4.2.cmml">y</mi><msup id="S2.p3.1.m1.4.4.2.2.2.4.3" xref="S2.p3.1.m1.4.4.2.2.2.4.3.cmml"><mi id="S2.p3.1.m1.4.4.2.2.2.4.3.2" xref="S2.p3.1.m1.4.4.2.2.2.4.3.2.cmml">T</mi><mo id="S2.p3.1.m1.4.4.2.2.2.4.3.3" xref="S2.p3.1.m1.4.4.2.2.2.4.3.3.cmml">′</mo></msup></msub><mo fence="false" id="S2.p3.1.m1.4.4.2.2.2.3" xref="S2.p3.1.m1.4.4.2.2.2.3.cmml">|</mo><mrow id="S2.p3.1.m1.4.4.2.2.2.2.2" xref="S2.p3.1.m1.4.4.2.2.2.2.3.cmml"><msub id="S2.p3.1.m1.4.4.2.2.2.1.1.1" xref="S2.p3.1.m1.4.4.2.2.2.1.1.1.cmml"><mi id="S2.p3.1.m1.4.4.2.2.2.1.1.1.2" xref="S2.p3.1.m1.4.4.2.2.2.1.1.1.2.cmml">x</mi><mn id="S2.p3.1.m1.4.4.2.2.2.1.1.1.3" xref="S2.p3.1.m1.4.4.2.2.2.1.1.1.3.cmml">1</mn></msub><mo id="S2.p3.1.m1.4.4.2.2.2.2.2.3" xref="S2.p3.1.m1.4.4.2.2.2.2.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.1.m1.1.1" xref="S2.p3.1.m1.1.1.cmml">…</mi><mo id="S2.p3.1.m1.4.4.2.2.2.2.2.4" xref="S2.p3.1.m1.4.4.2.2.2.2.3.cmml">,</mo><msub id="S2.p3.1.m1.4.4.2.2.2.2.2.2" xref="S2.p3.1.m1.4.4.2.2.2.2.2.2.cmml"><mi id="S2.p3.1.m1.4.4.2.2.2.2.2.2.2" xref="S2.p3.1.m1.4.4.2.2.2.2.2.2.2.cmml">x</mi><mi id="S2.p3.1.m1.4.4.2.2.2.2.2.2.3" xref="S2.p3.1.m1.4.4.2.2.2.2.2.2.3.cmml">T</mi></msub></mrow></mrow><mo stretchy="false" id="S2.p3.1.m1.4.4.2.2.6" xref="S2.p3.1.m1.4.4.2.3.cmml">)</mo></mrow></mrow><annotation-xml encoding="MathML-Content" id="S2.p3.1.m1.4b"><apply id="S2.p3.1.m1.4.4.cmml" xref="S2.p3.1.m1.4.4"><times id="S2.p3.1.m1.4.4.3.cmml" xref="S2.p3.1.m1.4.4.3"></times><ci id="S2.p3.1.m1.4.4.4.cmml" xref="S2.p3.1.m1.4.4.4">𝑝</ci><vector id="S2.p3.1.m1.4.4.2.3.cmml" xref="S2.p3.1.m1.4.4.2.2"><apply id="S2.p3.1.m1.3.3.1.1.1.cmml" xref="S2.p3.1.m1.3.3.1.1.1"><csymbol cd="ambiguous" id="S2.p3.1.m1.3.3.1.1.1.1.cmml" xref="S2.p3.1.m1.3.3.1.1.1">subscript</csymbol><ci id="S2.p3.1.m1.3.3.1.1.1.2.cmml" xref="S2.p3.1.m1.3.3.1.1.1.2">𝑦</ci><cn type="integer" id="S2.p3.1.m1.3.3.1.1.1.3.cmml" xref="S2.p3.1.m1.3.3.1.1.1.3">1</cn></apply><ci id="S2.p3.1.m1.2.2.cmml" xref="S2.p3.1.m1.2.2">…</ci><apply id="S2.p3.1.m1.4.4.2.2.2.cmml" xref="S2.p3.1.m1.4.4.2.2.2"><csymbol cd="latexml" id="S2.p3.1.m1.4.4.2.2.2.3.cmml" xref="S2.p3.1.m1.4.4.2.2.2.3">conditional</csymbol><apply id="S2.p3.1.m1.4.4.2.2.2.4.cmml" xref="S2.p3.1.m1.4.4.2.2.2.4"><csymbol cd="ambiguous" id="S2.p3.1.m1.4.4.2.2.2.4.1.cmml" xref="S2.p3.1.m1.4.4.2.2.2.4">subscript</csymbol><ci id="S2.p3.1.m1.4.4.2.2.2.4.2.cmml" xref="S2.p3.1.m1.4.4.2.2.2.4.2">𝑦</ci><apply id="S2.p3.1.m1.4.4.2.2.2.4.3.cmml" xref="S2.p3.1.m1.4.4.2.2.2.4.3"><csymbol cd="ambiguous" id="S2.p3.1.m1.4.4.2.2.2.4.3.1.cmml" xref="S2.p3.1.m1.4.4.2.2.2.4.3">superscript</csymbol><ci id="S2.p3.1.m1.4.4.2.2.2.4.3.2.cmml" xref="S2.p3.1.m1.4.4.2.2.2.4.3.2">𝑇</ci><ci id="S2.p3.1.m1.4.4.2.2.2.4.3.3.cmml" xref="S2.p3.1.m1.4.4.2.2.2.4.3.3">′</ci></apply></apply><list id="S2.p3.1.m1.4.4.2.2.2.2.3.cmml" xref="S2.p3.1.m1.4.4.2.2.2.2.2"><apply id="S2.p3.1.m1.4.4.2.2.2.1.1.1.cmml" xref="S2.p3.1.m1.4.4.2.2.2.1.1.1"><csymbol cd="ambiguous" id="S2.p3.1.m1.4.4.2.2.2.1.1.1.1.cmml" xref="S2.p3.1.m1.4.4.2.2.2.1.1.1">subscript</csymbol><ci id="S2.p3.1.m1.4.4.2.2.2.1.1.1.2.cmml" xref="S2.p3.1.m1.4.4.2.2.2.1.1.1.2">𝑥</ci><cn type="integer" id="S2.p3.1.m1.4.4.2.2.2.1.1.1.3.cmml" xref="S2.p3.1.m1.4.4.2.2.2.1.1.1.3">1</cn></apply><ci id="S2.p3.1.m1.1.1.cmml" xref="S2.p3.1.m1.1.1">…</ci><apply id="S2.p3.1.m1.4.4.2.2.2.2.2.2.cmml" xref="S2.p3.1.m1.4.4.2.2.2.2.2.2"><csymbol cd="ambiguous" id="S2.p3.1.m1.4.4.2.2.2.2.2.2.1.cmml" xref="S2.p3.1.m1.4.4.2.2.2.2.2.2">subscript</csymbol><ci id="S2.p3.1.m1.4.4.2.2.2.2.2.2.2.cmml" xref="S2.p3.1.m1.4.4.2.2.2.2.2.2.2">𝑥</ci><ci id="S2.p3.1.m1.4.4.2.2.2.2.2.2.3.cmml" xref="S2.p3.1.m1.4.4.2.2.2.2.2.2.3">𝑇</ci></apply></list></apply></vector></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.1.m1.4c">p(y_{1},\ldots,y_{T^{\prime}}|x_{1},\ldots,x_{T})</annotation></semantics></math> where <math id="S2.p3.2.m2.3" class="ltx_Math" alttext="(x_{1},\ldots,x_{T})" display="inline"><semantics id="S2.p3.2.m2.3a"><mrow id="S2.p3.2.m2.3.3.2" xref="S2.p3.2.m2.3.3.3.cmml"><mo stretchy="false" id="S2.p3.2.m2.3.3.2.3" xref="S2.p3.2.m2.3.3.3.cmml">(</mo><msub id="S2.p3.2.m2.2.2.1.1" xref="S2.p3.2.m2.2.2.1.1.cmml"><mi id="S2.p3.2.m2.2.2.1.1.2" xref="S2.p3.2.m2.2.2.1.1.2.cmml">x</mi><mn id="S2.p3.2.m2.2.2.1.1.3" xref="S2.p3.2.m2.2.2.1.1.3.cmml">1</mn></msub><mo id="S2.p3.2.m2.3.3.2.4" xref="S2.p3.2.m2.3.3.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.2.m2.1.1" xref="S2.p3.2.m2.1.1.cmml">…</mi><mo id="S2.p3.2.m2.3.3.2.5" xref="S2.p3.2.m2.3.3.3.cmml">,</mo><msub id="S2.p3.2.m2.3.3.2.2" xref="S2.p3.2.m2.3.3.2.2.cmml"><mi id="S2.p3.2.m2.3.3.2.2.2" xref="S2.p3.2.m2.3.3.2.2.2.cmml">x</mi><mi id="S2.p3.2.m2.3.3.2.2.3" xref="S2.p3.2.m2.3.3.2.2.3.cmml">T</mi></msub><mo stretchy="false" id="S2.p3.2.m2.3.3.2.6" xref="S2.p3.2.m2.3.3.3.cmml">)</mo></mrow><annotation-xml encoding="MathML-Content" id="S2.p3.2.m2.3b"><vector id="S2.p3.2.m2.3.3.3.cmml" xref="S2.p3.2.m2.3.3.2"><apply id="S2.p3.2.m2.2.2.1.1.cmml" xref="S2.p3.2.m2.2.2.1.1"><csymbol cd="ambiguous" id="S2.p3.2.m2.2.2.1.1.1.cmml" xref="S2.p3.2.m2.2.2.1.1">subscript</csymbol><ci id="S2.p3.2.m2.2.2.1.1.2.cmml" xref="S2.p3.2.m2.2.2.1.1.2">𝑥</ci><cn type="integer" id="S2.p3.2.m2.2.2.1.1.3.cmml" xref="S2.p3.2.m2.2.2.1.1.3">1</cn></apply><ci id="S2.p3.2.m2.1.1.cmml" xref="S2.p3.2.m2.1.1">…</ci><apply id="S2.p3.2.m2.3.3.2.2.cmml" xref="S2.p3.2.m2.3.3.2.2"><csymbol cd="ambiguous" id="S2.p3.2.m2.3.3.2.2.1.cmml" xref="S2.p3.2.m2.3.3.2.2">subscript</csymbol><ci id="S2.p3.2.m2.3.3.2.2.2.cmml" xref="S2.p3.2.m2.3.3.2.2.2">𝑥</ci><ci id="S2.p3.2.m2.3.3.2.2.3.cmml" xref="S2.p3.2.m2.3.3.2.2.3">𝑇</ci></apply></vector></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.2.m2.3c">(x_{1},\ldots,x_{T})</annotation></semantics></math> is an
+input sequence and <math id="S2.p3.3.m3.3" class="ltx_Math" alttext="y_{1},\ldots,y_{T^{\prime}}" display="inline"><semantics id="S2.p3.3.m3.3a"><mrow id="S2.p3.3.m3.3.3.2" xref="S2.p3.3.m3.3.3.3.cmml"><msub id="S2.p3.3.m3.2.2.1.1" xref="S2.p3.3.m3.2.2.1.1.cmml"><mi id="S2.p3.3.m3.2.2.1.1.2" xref="S2.p3.3.m3.2.2.1.1.2.cmml">y</mi><mn id="S2.p3.3.m3.2.2.1.1.3" xref="S2.p3.3.m3.2.2.1.1.3.cmml">1</mn></msub><mo id="S2.p3.3.m3.3.3.2.3" xref="S2.p3.3.m3.3.3.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.3.m3.1.1" xref="S2.p3.3.m3.1.1.cmml">…</mi><mo id="S2.p3.3.m3.3.3.2.4" xref="S2.p3.3.m3.3.3.3.cmml">,</mo><msub id="S2.p3.3.m3.3.3.2.2" xref="S2.p3.3.m3.3.3.2.2.cmml"><mi id="S2.p3.3.m3.3.3.2.2.2" xref="S2.p3.3.m3.3.3.2.2.2.cmml">y</mi><msup id="S2.p3.3.m3.3.3.2.2.3" xref="S2.p3.3.m3.3.3.2.2.3.cmml"><mi id="S2.p3.3.m3.3.3.2.2.3.2" xref="S2.p3.3.m3.3.3.2.2.3.2.cmml">T</mi><mo id="S2.p3.3.m3.3.3.2.2.3.3" xref="S2.p3.3.m3.3.3.2.2.3.3.cmml">′</mo></msup></msub></mrow><annotation-xml encoding="MathML-Content" id="S2.p3.3.m3.3b"><list id="S2.p3.3.m3.3.3.3.cmml" xref="S2.p3.3.m3.3.3.2"><apply id="S2.p3.3.m3.2.2.1.1.cmml" xref="S2.p3.3.m3.2.2.1.1"><csymbol cd="ambiguous" id="S2.p3.3.m3.2.2.1.1.1.cmml" xref="S2.p3.3.m3.2.2.1.1">subscript</csymbol><ci id="S2.p3.3.m3.2.2.1.1.2.cmml" xref="S2.p3.3.m3.2.2.1.1.2">𝑦</ci><cn type="integer" id="S2.p3.3.m3.2.2.1.1.3.cmml" xref="S2.p3.3.m3.2.2.1.1.3">1</cn></apply><ci id="S2.p3.3.m3.1.1.cmml" xref="S2.p3.3.m3.1.1">…</ci><apply id="S2.p3.3.m3.3.3.2.2.cmml" xref="S2.p3.3.m3.3.3.2.2"><csymbol cd="ambiguous" id="S2.p3.3.m3.3.3.2.2.1.cmml" xref="S2.p3.3.m3.3.3.2.2">subscript</csymbol><ci id="S2.p3.3.m3.3.3.2.2.2.cmml" xref="S2.p3.3.m3.3.3.2.2.2">𝑦</ci><apply id="S2.p3.3.m3.3.3.2.2.3.cmml" xref="S2.p3.3.m3.3.3.2.2.3"><csymbol cd="ambiguous" id="S2.p3.3.m3.3.3.2.2.3.1.cmml" xref="S2.p3.3.m3.3.3.2.2.3">superscript</csymbol><ci id="S2.p3.3.m3.3.3.2.2.3.2.cmml" xref="S2.p3.3.m3.3.3.2.2.3.2">𝑇</ci><ci id="S2.p3.3.m3.3.3.2.2.3.3.cmml" xref="S2.p3.3.m3.3.3.2.2.3.3">′</ci></apply></apply></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.3.m3.3c">y_{1},\ldots,y_{T^{\prime}}</annotation></semantics></math> is its corresponding output
+sequence whose length <math id="S2.p3.4.m4.1" class="ltx_Math" alttext="T^{\prime}" display="inline"><semantics id="S2.p3.4.m4.1a"><msup id="S2.p3.4.m4.1.1" xref="S2.p3.4.m4.1.1.cmml"><mi id="S2.p3.4.m4.1.1.2" xref="S2.p3.4.m4.1.1.2.cmml">T</mi><mo id="S2.p3.4.m4.1.1.3" xref="S2.p3.4.m4.1.1.3.cmml">′</mo></msup><annotation-xml encoding="MathML-Content" id="S2.p3.4.m4.1b"><apply id="S2.p3.4.m4.1.1.cmml" xref="S2.p3.4.m4.1.1"><csymbol cd="ambiguous" id="S2.p3.4.m4.1.1.1.cmml" xref="S2.p3.4.m4.1.1">superscript</csymbol><ci id="S2.p3.4.m4.1.1.2.cmml" xref="S2.p3.4.m4.1.1.2">𝑇</ci><ci id="S2.p3.4.m4.1.1.3.cmml" xref="S2.p3.4.m4.1.1.3">′</ci></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.4.m4.1c">T^{\prime}</annotation></semantics></math> may differ from <math id="S2.p3.5.m5.1" class="ltx_Math" alttext="T" display="inline"><semantics id="S2.p3.5.m5.1a"><mi id="S2.p3.5.m5.1.1" xref="S2.p3.5.m5.1.1.cmml">T</mi><annotation-xml encoding="MathML-Content" id="S2.p3.5.m5.1b"><ci id="S2.p3.5.m5.1.1.cmml" xref="S2.p3.5.m5.1.1">𝑇</ci></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.5.m5.1c">T</annotation></semantics></math>. The LSTM computes this
+conditional probability by first obtaining the fixed-dimensional
+representation <math id="S2.p3.6.m6.1" class="ltx_Math" alttext="v" display="inline"><semantics id="S2.p3.6.m6.1a"><mi id="S2.p3.6.m6.1.1" xref="S2.p3.6.m6.1.1.cmml">v</mi><annotation-xml encoding="MathML-Content" id="S2.p3.6.m6.1b"><ci id="S2.p3.6.m6.1.1.cmml" xref="S2.p3.6.m6.1.1">𝑣</ci></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.6.m6.1c">v</annotation></semantics></math> of the input sequence <math id="S2.p3.7.m7.3" class="ltx_Math" alttext="(x_{1},\ldots,x_{T})" display="inline"><semantics id="S2.p3.7.m7.3a"><mrow id="S2.p3.7.m7.3.3.2" xref="S2.p3.7.m7.3.3.3.cmml"><mo stretchy="false" id="S2.p3.7.m7.3.3.2.3" xref="S2.p3.7.m7.3.3.3.cmml">(</mo><msub id="S2.p3.7.m7.2.2.1.1" xref="S2.p3.7.m7.2.2.1.1.cmml"><mi id="S2.p3.7.m7.2.2.1.1.2" xref="S2.p3.7.m7.2.2.1.1.2.cmml">x</mi><mn id="S2.p3.7.m7.2.2.1.1.3" xref="S2.p3.7.m7.2.2.1.1.3.cmml">1</mn></msub><mo id="S2.p3.7.m7.3.3.2.4" xref="S2.p3.7.m7.3.3.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.7.m7.1.1" xref="S2.p3.7.m7.1.1.cmml">…</mi><mo id="S2.p3.7.m7.3.3.2.5" xref="S2.p3.7.m7.3.3.3.cmml">,</mo><msub id="S2.p3.7.m7.3.3.2.2" xref="S2.p3.7.m7.3.3.2.2.cmml"><mi id="S2.p3.7.m7.3.3.2.2.2" xref="S2.p3.7.m7.3.3.2.2.2.cmml">x</mi><mi id="S2.p3.7.m7.3.3.2.2.3" xref="S2.p3.7.m7.3.3.2.2.3.cmml">T</mi></msub><mo stretchy="false" id="S2.p3.7.m7.3.3.2.6" xref="S2.p3.7.m7.3.3.3.cmml">)</mo></mrow><annotation-xml encoding="MathML-Content" id="S2.p3.7.m7.3b"><vector id="S2.p3.7.m7.3.3.3.cmml" xref="S2.p3.7.m7.3.3.2"><apply id="S2.p3.7.m7.2.2.1.1.cmml" xref="S2.p3.7.m7.2.2.1.1"><csymbol cd="ambiguous" id="S2.p3.7.m7.2.2.1.1.1.cmml" xref="S2.p3.7.m7.2.2.1.1">subscript</csymbol><ci id="S2.p3.7.m7.2.2.1.1.2.cmml" xref="S2.p3.7.m7.2.2.1.1.2">𝑥</ci><cn type="integer" id="S2.p3.7.m7.2.2.1.1.3.cmml" xref="S2.p3.7.m7.2.2.1.1.3">1</cn></apply><ci id="S2.p3.7.m7.1.1.cmml" xref="S2.p3.7.m7.1.1">…</ci><apply id="S2.p3.7.m7.3.3.2.2.cmml" xref="S2.p3.7.m7.3.3.2.2"><csymbol cd="ambiguous" id="S2.p3.7.m7.3.3.2.2.1.cmml" xref="S2.p3.7.m7.3.3.2.2">subscript</csymbol><ci id="S2.p3.7.m7.3.3.2.2.2.cmml" xref="S2.p3.7.m7.3.3.2.2.2">𝑥</ci><ci id="S2.p3.7.m7.3.3.2.2.3.cmml" xref="S2.p3.7.m7.3.3.2.2.3">𝑇</ci></apply></vector></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.7.m7.3c">(x_{1},\ldots,x_{T})</annotation></semantics></math> given by
+the last hidden state of the LSTM, and then computing the probability
+of <math id="S2.p3.8.m8.3" class="ltx_Math" alttext="y_{1},\ldots,y_{T^{\prime}}" display="inline"><semantics id="S2.p3.8.m8.3a"><mrow id="S2.p3.8.m8.3.3.2" xref="S2.p3.8.m8.3.3.3.cmml"><msub id="S2.p3.8.m8.2.2.1.1" xref="S2.p3.8.m8.2.2.1.1.cmml"><mi id="S2.p3.8.m8.2.2.1.1.2" xref="S2.p3.8.m8.2.2.1.1.2.cmml">y</mi><mn id="S2.p3.8.m8.2.2.1.1.3" xref="S2.p3.8.m8.2.2.1.1.3.cmml">1</mn></msub><mo id="S2.p3.8.m8.3.3.2.3" xref="S2.p3.8.m8.3.3.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.8.m8.1.1" xref="S2.p3.8.m8.1.1.cmml">…</mi><mo id="S2.p3.8.m8.3.3.2.4" xref="S2.p3.8.m8.3.3.3.cmml">,</mo><msub id="S2.p3.8.m8.3.3.2.2" xref="S2.p3.8.m8.3.3.2.2.cmml"><mi id="S2.p3.8.m8.3.3.2.2.2" xref="S2.p3.8.m8.3.3.2.2.2.cmml">y</mi><msup id="S2.p3.8.m8.3.3.2.2.3" xref="S2.p3.8.m8.3.3.2.2.3.cmml"><mi id="S2.p3.8.m8.3.3.2.2.3.2" xref="S2.p3.8.m8.3.3.2.2.3.2.cmml">T</mi><mo id="S2.p3.8.m8.3.3.2.2.3.3" xref="S2.p3.8.m8.3.3.2.2.3.3.cmml">′</mo></msup></msub></mrow><annotation-xml encoding="MathML-Content" id="S2.p3.8.m8.3b"><list id="S2.p3.8.m8.3.3.3.cmml" xref="S2.p3.8.m8.3.3.2"><apply id="S2.p3.8.m8.2.2.1.1.cmml" xref="S2.p3.8.m8.2.2.1.1"><csymbol cd="ambiguous" id="S2.p3.8.m8.2.2.1.1.1.cmml" xref="S2.p3.8.m8.2.2.1.1">subscript</csymbol><ci id="S2.p3.8.m8.2.2.1.1.2.cmml" xref="S2.p3.8.m8.2.2.1.1.2">𝑦</ci><cn type="integer" id="S2.p3.8.m8.2.2.1.1.3.cmml" xref="S2.p3.8.m8.2.2.1.1.3">1</cn></apply><ci id="S2.p3.8.m8.1.1.cmml" xref="S2.p3.8.m8.1.1">…</ci><apply id="S2.p3.8.m8.3.3.2.2.cmml" xref="S2.p3.8.m8.3.3.2.2"><csymbol cd="ambiguous" id="S2.p3.8.m8.3.3.2.2.1.cmml" xref="S2.p3.8.m8.3.3.2.2">subscript</csymbol><ci id="S2.p3.8.m8.3.3.2.2.2.cmml" xref="S2.p3.8.m8.3.3.2.2.2">𝑦</ci><apply id="S2.p3.8.m8.3.3.2.2.3.cmml" xref="S2.p3.8.m8.3.3.2.2.3"><csymbol cd="ambiguous" id="S2.p3.8.m8.3.3.2.2.3.1.cmml" xref="S2.p3.8.m8.3.3.2.2.3">superscript</csymbol><ci id="S2.p3.8.m8.3.3.2.2.3.2.cmml" xref="S2.p3.8.m8.3.3.2.2.3.2">𝑇</ci><ci id="S2.p3.8.m8.3.3.2.2.3.3.cmml" xref="S2.p3.8.m8.3.3.2.2.3.3">′</ci></apply></apply></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.8.m8.3c">y_{1},\ldots,y_{T^{\prime}}</annotation></semantics></math> with a standard LSTM-LM formulation whose
+initial hidden state is set to the representation <math id="S2.p3.9.m9.1" class="ltx_Math" alttext="v" display="inline"><semantics id="S2.p3.9.m9.1a"><mi id="S2.p3.9.m9.1.1" xref="S2.p3.9.m9.1.1.cmml">v</mi><annotation-xml encoding="MathML-Content" id="S2.p3.9.m9.1b"><ci id="S2.p3.9.m9.1.1.cmml" xref="S2.p3.9.m9.1.1">𝑣</ci></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.9.m9.1c">v</annotation></semantics></math> of
+<math id="S2.p3.10.m10.3" class="ltx_Math" alttext="x_{1},\ldots,x_{T}" display="inline"><semantics id="S2.p3.10.m10.3a"><mrow id="S2.p3.10.m10.3.3.2" xref="S2.p3.10.m10.3.3.3.cmml"><msub id="S2.p3.10.m10.2.2.1.1" xref="S2.p3.10.m10.2.2.1.1.cmml"><mi id="S2.p3.10.m10.2.2.1.1.2" xref="S2.p3.10.m10.2.2.1.1.2.cmml">x</mi><mn id="S2.p3.10.m10.2.2.1.1.3" xref="S2.p3.10.m10.2.2.1.1.3.cmml">1</mn></msub><mo id="S2.p3.10.m10.3.3.2.3" xref="S2.p3.10.m10.3.3.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.10.m10.1.1" xref="S2.p3.10.m10.1.1.cmml">…</mi><mo id="S2.p3.10.m10.3.3.2.4" xref="S2.p3.10.m10.3.3.3.cmml">,</mo><msub id="S2.p3.10.m10.3.3.2.2" xref="S2.p3.10.m10.3.3.2.2.cmml"><mi id="S2.p3.10.m10.3.3.2.2.2" xref="S2.p3.10.m10.3.3.2.2.2.cmml">x</mi><mi id="S2.p3.10.m10.3.3.2.2.3" xref="S2.p3.10.m10.3.3.2.2.3.cmml">T</mi></msub></mrow><annotation-xml encoding="MathML-Content" id="S2.p3.10.m10.3b"><list id="S2.p3.10.m10.3.3.3.cmml" xref="S2.p3.10.m10.3.3.2"><apply id="S2.p3.10.m10.2.2.1.1.cmml" xref="S2.p3.10.m10.2.2.1.1"><csymbol cd="ambiguous" id="S2.p3.10.m10.2.2.1.1.1.cmml" xref="S2.p3.10.m10.2.2.1.1">subscript</csymbol><ci id="S2.p3.10.m10.2.2.1.1.2.cmml" xref="S2.p3.10.m10.2.2.1.1.2">𝑥</ci><cn type="integer" id="S2.p3.10.m10.2.2.1.1.3.cmml" xref="S2.p3.10.m10.2.2.1.1.3">1</cn></apply><ci id="S2.p3.10.m10.1.1.cmml" xref="S2.p3.10.m10.1.1">…</ci><apply id="S2.p3.10.m10.3.3.2.2.cmml" xref="S2.p3.10.m10.3.3.2.2"><csymbol cd="ambiguous" id="S2.p3.10.m10.3.3.2.2.1.cmml" xref="S2.p3.10.m10.3.3.2.2">subscript</csymbol><ci id="S2.p3.10.m10.3.3.2.2.2.cmml" xref="S2.p3.10.m10.3.3.2.2.2">𝑥</ci><ci id="S2.p3.10.m10.3.3.2.2.3.cmml" xref="S2.p3.10.m10.3.3.2.2.3">𝑇</ci></apply></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.10.m10.3c">x_{1},\ldots,x_{T}</annotation></semantics></math>:</p>
+<table id="S2.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E1.m1.7" class="ltx_Math" alttext="p(y_{1},\ldots,y_{T^{\prime}}|x_{1},\ldots,x_{T})=\prod_{t=1}^{T^{\prime}}p(y_{t}|v,y_{1},\ldots,y_{t-1})" display="block"><semantics id="S2.E1.m1.7a"><mrow id="S2.E1.m1.7.7" xref="S2.E1.m1.7.7.cmml"><mrow id="S2.E1.m1.6.6.2" xref="S2.E1.m1.6.6.2.cmml"><mi id="S2.E1.m1.6.6.2.4" xref="S2.E1.m1.6.6.2.4.cmml">p</mi><mo lspace="0em" rspace="0em" id="S2.E1.m1.6.6.2.3" xref="S2.E1.m1.6.6.2.3.cmml">​</mo><mrow id="S2.E1.m1.6.6.2.2.2" xref="S2.E1.m1.6.6.2.2.3.cmml"><mo stretchy="false" id="S2.E1.m1.6.6.2.2.2.3" xref="S2.E1.m1.6.6.2.2.3.cmml">(</mo><msub id="S2.E1.m1.5.5.1.1.1.1" xref="S2.E1.m1.5.5.1.1.1.1.cmml"><mi id="S2.E1.m1.5.5.1.1.1.1.2" xref="S2.E1.m1.5.5.1.1.1.1.2.cmml">y</mi><mn id="S2.E1.m1.5.5.1.1.1.1.3" xref="S2.E1.m1.5.5.1.1.1.1.3.cmml">1</mn></msub><mo id="S2.E1.m1.6.6.2.2.2.4" xref="S2.E1.m1.6.6.2.2.3.cmml">,</mo><mi mathvariant="normal" id="S2.E1.m1.2.2" xref="S2.E1.m1.2.2.cmml">…</mi><mo id="S2.E1.m1.6.6.2.2.2.5" xref="S2.E1.m1.6.6.2.2.3.cmml">,</mo><mrow id="S2.E1.m1.6.6.2.2.2.2" xref="S2.E1.m1.6.6.2.2.2.2.cmml"><msub id="S2.E1.m1.6.6.2.2.2.2.4" xref="S2.E1.m1.6.6.2.2.2.2.4.cmml"><mi id="S2.E1.m1.6.6.2.2.2.2.4.2" xref="S2.E1.m1.6.6.2.2.2.2.4.2.cmml">y</mi><msup id="S2.E1.m1.6.6.2.2.2.2.4.3" xref="S2.E1.m1.6.6.2.2.2.2.4.3.cmml"><mi id="S2.E1.m1.6.6.2.2.2.2.4.3.2" xref="S2.E1.m1.6.6.2.2.2.2.4.3.2.cmml">T</mi><mo id="S2.E1.m1.6.6.2.2.2.2.4.3.3" xref="S2.E1.m1.6.6.2.2.2.2.4.3.3.cmml">′</mo></msup></msub><mo fence="false" id="S2.E1.m1.6.6.2.2.2.2.3" xref="S2.E1.m1.6.6.2.2.2.2.3.cmml">|</mo><mrow id="S2.E1.m1.6.6.2.2.2.2.2.2" xref="S2.E1.m1.6.6.2.2.2.2.2.3.cmml"><msub id="S2.E1.m1.6.6.2.2.2.2.1.1.1" xref="S2.E1.m1.6.6.2.2.2.2.1.1.1.cmml"><mi id="S2.E1.m1.6.6.2.2.2.2.1.1.1.2" xref="S2.E1.m1.6.6.2.2.2.2.1.1.1.2.cmml">x</mi><mn id="S2.E1.m1.6.6.2.2.2.2.1.1.1.3" xref="S2.E1.m1.6.6.2.2.2.2.1.1.1.3.cmml">1</mn></msub><mo id="S2.E1.m1.6.6.2.2.2.2.2.2.3" xref="S2.E1.m1.6.6.2.2.2.2.2.3.cmml">,</mo><mi mathvariant="normal" id="S2.E1.m1.1.1" xref="S2.E1.m1.1.1.cmml">…</mi><mo id="S2.E1.m1.6.6.2.2.2.2.2.2.4" xref="S2.E1.m1.6.6.2.2.2.2.2.3.cmml">,</mo><msub id="S2.E1.m1.6.6.2.2.2.2.2.2.2" xref="S2.E1.m1.6.6.2.2.2.2.2.2.2.cmml"><mi id="S2.E1.m1.6.6.2.2.2.2.2.2.2.2" xref="S2.E1.m1.6.6.2.2.2.2.2.2.2.2.cmml">x</mi><mi id="S2.E1.m1.6.6.2.2.2.2.2.2.2.3" xref="S2.E1.m1.6.6.2.2.2.2.2.2.2.3.cmml">T</mi></msub></mrow></mrow><mo stretchy="false" id="S2.E1.m1.6.6.2.2.2.6" xref="S2.E1.m1.6.6.2.2.3.cmml">)</mo></mrow></mrow><mo rspace="0.111em" id="S2.E1.m1.7.7.4" xref="S2.E1.m1.7.7.4.cmml">=</mo><mrow id="S2.E1.m1.7.7.3" xref="S2.E1.m1.7.7.3.cmml"><munderover id="S2.E1.m1.7.7.3.2" xref="S2.E1.m1.7.7.3.2.cmml"><mo movablelimits="false" id="S2.E1.m1.7.7.3.2.2.2" xref="S2.E1.m1.7.7.3.2.2.2.cmml">∏</mo><mrow id="S2.E1.m1.7.7.3.2.2.3" xref="S2.E1.m1.7.7.3.2.2.3.cmml"><mi id="S2.E1.m1.7.7.3.2.2.3.2" xref="S2.E1.m1.7.7.3.2.2.3.2.cmml">t</mi><mo id="S2.E1.m1.7.7.3.2.2.3.1" xref="S2.E1.m1.7.7.3.2.2.3.1.cmml">=</mo><mn id="S2.E1.m1.7.7.3.2.2.3.3" xref="S2.E1.m1.7.7.3.2.2.3.3.cmml">1</mn></mrow><msup id="S2.E1.m1.7.7.3.2.3" xref="S2.E1.m1.7.7.3.2.3.cmml"><mi id="S2.E1.m1.7.7.3.2.3.2" xref="S2.E1.m1.7.7.3.2.3.2.cmml">T</mi><mo id="S2.E1.m1.7.7.3.2.3.3" xref="S2.E1.m1.7.7.3.2.3.3.cmml">′</mo></msup></munderover><mrow id="S2.E1.m1.7.7.3.1" xref="S2.E1.m1.7.7.3.1.cmml"><mi id="S2.E1.m1.7.7.3.1.3" xref="S2.E1.m1.7.7.3.1.3.cmml">p</mi><mo lspace="0em" rspace="0em" id="S2.E1.m1.7.7.3.1.2" xref="S2.E1.m1.7.7.3.1.2.cmml">​</mo><mrow id="S2.E1.m1.7.7.3.1.1.1" xref="S2.E1.m1.7.7.3.1.1.1.1.cmml"><mo stretchy="false" id="S2.E1.m1.7.7.3.1.1.1.2" xref="S2.E1.m1.7.7.3.1.1.1.1.cmml">(</mo><mrow id="S2.E1.m1.7.7.3.1.1.1.1" xref="S2.E1.m1.7.7.3.1.1.1.1.cmml"><msub id="S2.E1.m1.7.7.3.1.1.1.1.4" xref="S2.E1.m1.7.7.3.1.1.1.1.4.cmml"><mi id="S2.E1.m1.7.7.3.1.1.1.1.4.2" xref="S2.E1.m1.7.7.3.1.1.1.1.4.2.cmml">y</mi><mi id="S2.E1.m1.7.7.3.1.1.1.1.4.3" xref="S2.E1.m1.7.7.3.1.1.1.1.4.3.cmml">t</mi></msub><mo fence="false" id="S2.E1.m1.7.7.3.1.1.1.1.3" xref="S2.E1.m1.7.7.3.1.1.1.1.3.cmml">|</mo><mrow id="S2.E1.m1.7.7.3.1.1.1.1.2.2" xref="S2.E1.m1.7.7.3.1.1.1.1.2.3.cmml"><mi id="S2.E1.m1.3.3" xref="S2.E1.m1.3.3.cmml">v</mi><mo id="S2.E1.m1.7.7.3.1.1.1.1.2.2.3" xref="S2.E1.m1.7.7.3.1.1.1.1.2.3.cmml">,</mo><msub id="S2.E1.m1.7.7.3.1.1.1.1.1.1.1" xref="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.cmml"><mi id="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.2" xref="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.2.cmml">y</mi><mn id="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.3" xref="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.3.cmml">1</mn></msub><mo id="S2.E1.m1.7.7.3.1.1.1.1.2.2.4" xref="S2.E1.m1.7.7.3.1.1.1.1.2.3.cmml">,</mo><mi mathvariant="normal" id="S2.E1.m1.4.4" xref="S2.E1.m1.4.4.cmml">…</mi><mo id="S2.E1.m1.7.7.3.1.1.1.1.2.2.5" xref="S2.E1.m1.7.7.3.1.1.1.1.2.3.cmml">,</mo><msub id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.cmml"><mi id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.2" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.2.cmml">y</mi><mrow id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.cmml"><mi id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.2" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.2.cmml">t</mi><mo id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.1" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.1.cmml">−</mo><mn id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.3" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.3.cmml">1</mn></mrow></msub></mrow></mrow><mo stretchy="false" id="S2.E1.m1.7.7.3.1.1.1.3" xref="S2.E1.m1.7.7.3.1.1.1.1.cmml">)</mo></mrow></mrow></mrow></mrow><annotation-xml encoding="MathML-Content" id="S2.E1.m1.7b"><apply id="S2.E1.m1.7.7.cmml" xref="S2.E1.m1.7.7"><eq id="S2.E1.m1.7.7.4.cmml" xref="S2.E1.m1.7.7.4"></eq><apply id="S2.E1.m1.6.6.2.cmml" xref="S2.E1.m1.6.6.2"><times id="S2.E1.m1.6.6.2.3.cmml" xref="S2.E1.m1.6.6.2.3"></times><ci id="S2.E1.m1.6.6.2.4.cmml" xref="S2.E1.m1.6.6.2.4">𝑝</ci><vector id="S2.E1.m1.6.6.2.2.3.cmml" xref="S2.E1.m1.6.6.2.2.2"><apply id="S2.E1.m1.5.5.1.1.1.1.cmml" xref="S2.E1.m1.5.5.1.1.1.1"><csymbol cd="ambiguous" id="S2.E1.m1.5.5.1.1.1.1.1.cmml" xref="S2.E1.m1.5.5.1.1.1.1">subscript</csymbol><ci id="S2.E1.m1.5.5.1.1.1.1.2.cmml" xref="S2.E1.m1.5.5.1.1.1.1.2">𝑦</ci><cn type="integer" id="S2.E1.m1.5.5.1.1.1.1.3.cmml" xref="S2.E1.m1.5.5.1.1.1.1.3">1</cn></apply><ci id="S2.E1.m1.2.2.cmml" xref="S2.E1.m1.2.2">…</ci><apply id="S2.E1.m1.6.6.2.2.2.2.cmml" xref="S2.E1.m1.6.6.2.2.2.2"><csymbol cd="latexml" id="S2.E1.m1.6.6.2.2.2.2.3.cmml" xref="S2.E1.m1.6.6.2.2.2.2.3">conditional</csymbol><apply id="S2.E1.m1.6.6.2.2.2.2.4.cmml" xref="S2.E1.m1.6.6.2.2.2.2.4"><csymbol cd="ambiguous" id="S2.E1.m1.6.6.2.2.2.2.4.1.cmml" xref="S2.E1.m1.6.6.2.2.2.2.4">subscript</csymbol><ci id="S2.E1.m1.6.6.2.2.2.2.4.2.cmml" xref="S2.E1.m1.6.6.2.2.2.2.4.2">𝑦</ci><apply id="S2.E1.m1.6.6.2.2.2.2.4.3.cmml" xref="S2.E1.m1.6.6.2.2.2.2.4.3"><csymbol cd="ambiguous" id="S2.E1.m1.6.6.2.2.2.2.4.3.1.cmml" xref="S2.E1.m1.6.6.2.2.2.2.4.3">superscript</csymbol><ci id="S2.E1.m1.6.6.2.2.2.2.4.3.2.cmml" xref="S2.E1.m1.6.6.2.2.2.2.4.3.2">𝑇</ci><ci id="S2.E1.m1.6.6.2.2.2.2.4.3.3.cmml" xref="S2.E1.m1.6.6.2.2.2.2.4.3.3">′</ci></apply></apply><list id="S2.E1.m1.6.6.2.2.2.2.2.3.cmml" xref="S2.E1.m1.6.6.2.2.2.2.2.2"><apply id="S2.E1.m1.6.6.2.2.2.2.1.1.1.cmml" xref="S2.E1.m1.6.6.2.2.2.2.1.1.1"><csymbol cd="ambiguous" id="S2.E1.m1.6.6.2.2.2.2.1.1.1.1.cmml" xref="S2.E1.m1.6.6.2.2.2.2.1.1.1">subscript</csymbol><ci id="S2.E1.m1.6.6.2.2.2.2.1.1.1.2.cmml" xref="S2.E1.m1.6.6.2.2.2.2.1.1.1.2">𝑥</ci><cn type="integer" id="S2.E1.m1.6.6.2.2.2.2.1.1.1.3.cmml" xref="S2.E1.m1.6.6.2.2.2.2.1.1.1.3">1</cn></apply><ci id="S2.E1.m1.1.1.cmml" xref="S2.E1.m1.1.1">…</ci><apply id="S2.E1.m1.6.6.2.2.2.2.2.2.2.cmml" xref="S2.E1.m1.6.6.2.2.2.2.2.2.2"><csymbol cd="ambiguous" id="S2.E1.m1.6.6.2.2.2.2.2.2.2.1.cmml" xref="S2.E1.m1.6.6.2.2.2.2.2.2.2">subscript</csymbol><ci id="S2.E1.m1.6.6.2.2.2.2.2.2.2.2.cmml" xref="S2.E1.m1.6.6.2.2.2.2.2.2.2.2">𝑥</ci><ci id="S2.E1.m1.6.6.2.2.2.2.2.2.2.3.cmml" xref="S2.E1.m1.6.6.2.2.2.2.2.2.2.3">𝑇</ci></apply></list></apply></vector></apply><apply id="S2.E1.m1.7.7.3.cmml" xref="S2.E1.m1.7.7.3"><apply id="S2.E1.m1.7.7.3.2.cmml" xref="S2.E1.m1.7.7.3.2"><csymbol cd="ambiguous" id="S2.E1.m1.7.7.3.2.1.cmml" xref="S2.E1.m1.7.7.3.2">superscript</csymbol><apply id="S2.E1.m1.7.7.3.2.2.cmml" xref="S2.E1.m1.7.7.3.2"><csymbol cd="ambiguous" id="S2.E1.m1.7.7.3.2.2.1.cmml" xref="S2.E1.m1.7.7.3.2">subscript</csymbol><csymbol cd="latexml" id="S2.E1.m1.7.7.3.2.2.2.cmml" xref="S2.E1.m1.7.7.3.2.2.2">product</csymbol><apply id="S2.E1.m1.7.7.3.2.2.3.cmml" xref="S2.E1.m1.7.7.3.2.2.3"><eq id="S2.E1.m1.7.7.3.2.2.3.1.cmml" xref="S2.E1.m1.7.7.3.2.2.3.1"></eq><ci id="S2.E1.m1.7.7.3.2.2.3.2.cmml" xref="S2.E1.m1.7.7.3.2.2.3.2">𝑡</ci><cn type="integer" id="S2.E1.m1.7.7.3.2.2.3.3.cmml" xref="S2.E1.m1.7.7.3.2.2.3.3">1</cn></apply></apply><apply id="S2.E1.m1.7.7.3.2.3.cmml" xref="S2.E1.m1.7.7.3.2.3"><csymbol cd="ambiguous" id="S2.E1.m1.7.7.3.2.3.1.cmml" xref="S2.E1.m1.7.7.3.2.3">superscript</csymbol><ci id="S2.E1.m1.7.7.3.2.3.2.cmml" xref="S2.E1.m1.7.7.3.2.3.2">𝑇</ci><ci id="S2.E1.m1.7.7.3.2.3.3.cmml" xref="S2.E1.m1.7.7.3.2.3.3">′</ci></apply></apply><apply id="S2.E1.m1.7.7.3.1.cmml" xref="S2.E1.m1.7.7.3.1"><times id="S2.E1.m1.7.7.3.1.2.cmml" xref="S2.E1.m1.7.7.3.1.2"></times><ci id="S2.E1.m1.7.7.3.1.3.cmml" xref="S2.E1.m1.7.7.3.1.3">𝑝</ci><apply id="S2.E1.m1.7.7.3.1.1.1.1.cmml" xref="S2.E1.m1.7.7.3.1.1.1"><csymbol cd="latexml" id="S2.E1.m1.7.7.3.1.1.1.1.3.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.3">conditional</csymbol><apply id="S2.E1.m1.7.7.3.1.1.1.1.4.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.4"><csymbol cd="ambiguous" id="S2.E1.m1.7.7.3.1.1.1.1.4.1.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.4">subscript</csymbol><ci id="S2.E1.m1.7.7.3.1.1.1.1.4.2.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.4.2">𝑦</ci><ci id="S2.E1.m1.7.7.3.1.1.1.1.4.3.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.4.3">𝑡</ci></apply><list id="S2.E1.m1.7.7.3.1.1.1.1.2.3.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2"><ci id="S2.E1.m1.3.3.cmml" xref="S2.E1.m1.3.3">𝑣</ci><apply id="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.1.1.1"><csymbol cd="ambiguous" id="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.1.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.1.1.1">subscript</csymbol><ci id="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.2.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.2">𝑦</ci><cn type="integer" id="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.3.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.1.1.1.3">1</cn></apply><ci id="S2.E1.m1.4.4.cmml" xref="S2.E1.m1.4.4">…</ci><apply id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2"><csymbol cd="ambiguous" id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.1.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2">subscript</csymbol><ci id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.2.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.2">𝑦</ci><apply id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3"><minus id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.1.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.1"></minus><ci id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.2.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.2">𝑡</ci><cn type="integer" id="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.3.cmml" xref="S2.E1.m1.7.7.3.1.1.1.1.2.2.2.3.3">1</cn></apply></apply></list></apply></apply></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.E1.m1.7c">p(y_{1},\ldots,y_{T^{\prime}}|x_{1},\ldots,x_{T})=\prod_{t=1}^{T^{\prime}}p(y_{t}|v,y_{1},\ldots,y_{t-1})</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td>
+</tr></tbody>
+</table>
+<p id="S2.p3.17" class="ltx_p">In this equation, each <math id="S2.p3.11.m1.3" class="ltx_Math" alttext="p(y_{t}|v,y_{1},\ldots,y_{t-1})" display="inline"><semantics id="S2.p3.11.m1.3a"><mrow id="S2.p3.11.m1.3.3" xref="S2.p3.11.m1.3.3.cmml"><mi id="S2.p3.11.m1.3.3.3" xref="S2.p3.11.m1.3.3.3.cmml">p</mi><mo lspace="0em" rspace="0em" id="S2.p3.11.m1.3.3.2" xref="S2.p3.11.m1.3.3.2.cmml">​</mo><mrow id="S2.p3.11.m1.3.3.1.1" xref="S2.p3.11.m1.3.3.1.1.1.cmml"><mo stretchy="false" id="S2.p3.11.m1.3.3.1.1.2" xref="S2.p3.11.m1.3.3.1.1.1.cmml">(</mo><mrow id="S2.p3.11.m1.3.3.1.1.1" xref="S2.p3.11.m1.3.3.1.1.1.cmml"><msub id="S2.p3.11.m1.3.3.1.1.1.4" xref="S2.p3.11.m1.3.3.1.1.1.4.cmml"><mi id="S2.p3.11.m1.3.3.1.1.1.4.2" xref="S2.p3.11.m1.3.3.1.1.1.4.2.cmml">y</mi><mi id="S2.p3.11.m1.3.3.1.1.1.4.3" xref="S2.p3.11.m1.3.3.1.1.1.4.3.cmml">t</mi></msub><mo fence="false" id="S2.p3.11.m1.3.3.1.1.1.3" xref="S2.p3.11.m1.3.3.1.1.1.3.cmml">|</mo><mrow id="S2.p3.11.m1.3.3.1.1.1.2.2" xref="S2.p3.11.m1.3.3.1.1.1.2.3.cmml"><mi id="S2.p3.11.m1.1.1" xref="S2.p3.11.m1.1.1.cmml">v</mi><mo id="S2.p3.11.m1.3.3.1.1.1.2.2.3" xref="S2.p3.11.m1.3.3.1.1.1.2.3.cmml">,</mo><msub id="S2.p3.11.m1.3.3.1.1.1.1.1.1" xref="S2.p3.11.m1.3.3.1.1.1.1.1.1.cmml"><mi id="S2.p3.11.m1.3.3.1.1.1.1.1.1.2" xref="S2.p3.11.m1.3.3.1.1.1.1.1.1.2.cmml">y</mi><mn id="S2.p3.11.m1.3.3.1.1.1.1.1.1.3" xref="S2.p3.11.m1.3.3.1.1.1.1.1.1.3.cmml">1</mn></msub><mo id="S2.p3.11.m1.3.3.1.1.1.2.2.4" xref="S2.p3.11.m1.3.3.1.1.1.2.3.cmml">,</mo><mi mathvariant="normal" id="S2.p3.11.m1.2.2" xref="S2.p3.11.m1.2.2.cmml">…</mi><mo id="S2.p3.11.m1.3.3.1.1.1.2.2.5" xref="S2.p3.11.m1.3.3.1.1.1.2.3.cmml">,</mo><msub id="S2.p3.11.m1.3.3.1.1.1.2.2.2" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.cmml"><mi id="S2.p3.11.m1.3.3.1.1.1.2.2.2.2" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.2.cmml">y</mi><mrow id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.cmml"><mi id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.2" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.2.cmml">t</mi><mo id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.1" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.1.cmml">−</mo><mn id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.3" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.3.cmml">1</mn></mrow></msub></mrow></mrow><mo stretchy="false" id="S2.p3.11.m1.3.3.1.1.3" xref="S2.p3.11.m1.3.3.1.1.1.cmml">)</mo></mrow></mrow><annotation-xml encoding="MathML-Content" id="S2.p3.11.m1.3b"><apply id="S2.p3.11.m1.3.3.cmml" xref="S2.p3.11.m1.3.3"><times id="S2.p3.11.m1.3.3.2.cmml" xref="S2.p3.11.m1.3.3.2"></times><ci id="S2.p3.11.m1.3.3.3.cmml" xref="S2.p3.11.m1.3.3.3">𝑝</ci><apply id="S2.p3.11.m1.3.3.1.1.1.cmml" xref="S2.p3.11.m1.3.3.1.1"><csymbol cd="latexml" id="S2.p3.11.m1.3.3.1.1.1.3.cmml" xref="S2.p3.11.m1.3.3.1.1.1.3">conditional</csymbol><apply id="S2.p3.11.m1.3.3.1.1.1.4.cmml" xref="S2.p3.11.m1.3.3.1.1.1.4"><csymbol cd="ambiguous" id="S2.p3.11.m1.3.3.1.1.1.4.1.cmml" xref="S2.p3.11.m1.3.3.1.1.1.4">subscript</csymbol><ci id="S2.p3.11.m1.3.3.1.1.1.4.2.cmml" xref="S2.p3.11.m1.3.3.1.1.1.4.2">𝑦</ci><ci id="S2.p3.11.m1.3.3.1.1.1.4.3.cmml" xref="S2.p3.11.m1.3.3.1.1.1.4.3">𝑡</ci></apply><list id="S2.p3.11.m1.3.3.1.1.1.2.3.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2"><ci id="S2.p3.11.m1.1.1.cmml" xref="S2.p3.11.m1.1.1">𝑣</ci><apply id="S2.p3.11.m1.3.3.1.1.1.1.1.1.cmml" xref="S2.p3.11.m1.3.3.1.1.1.1.1.1"><csymbol cd="ambiguous" id="S2.p3.11.m1.3.3.1.1.1.1.1.1.1.cmml" xref="S2.p3.11.m1.3.3.1.1.1.1.1.1">subscript</csymbol><ci id="S2.p3.11.m1.3.3.1.1.1.1.1.1.2.cmml" xref="S2.p3.11.m1.3.3.1.1.1.1.1.1.2">𝑦</ci><cn type="integer" id="S2.p3.11.m1.3.3.1.1.1.1.1.1.3.cmml" xref="S2.p3.11.m1.3.3.1.1.1.1.1.1.3">1</cn></apply><ci id="S2.p3.11.m1.2.2.cmml" xref="S2.p3.11.m1.2.2">…</ci><apply id="S2.p3.11.m1.3.3.1.1.1.2.2.2.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2"><csymbol cd="ambiguous" id="S2.p3.11.m1.3.3.1.1.1.2.2.2.1.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2">subscript</csymbol><ci id="S2.p3.11.m1.3.3.1.1.1.2.2.2.2.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.2">𝑦</ci><apply id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3"><minus id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.1.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.1"></minus><ci id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.2.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.2">𝑡</ci><cn type="integer" id="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.3.cmml" xref="S2.p3.11.m1.3.3.1.1.1.2.2.2.3.3">1</cn></apply></apply></list></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.11.m1.3c">p(y_{t}|v,y_{1},\ldots,y_{t-1})</annotation></semantics></math> distribution
+is represented with a softmax over all the words in the
+vocabulary. We use the LSTM formulation from Graves <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="" class="ltx_ref">10</a>]</cite>.
+Note that we require that each sentence ends with a special
+end-of-sentence symbol “<math id="S2.p3.12.m2.1" class="ltx_Math" alttext="&lt;" display="inline"><semantics id="S2.p3.12.m2.1a"><mo id="S2.p3.12.m2.1.1" xref="S2.p3.12.m2.1.1.cmml">&lt;</mo><annotation-xml encoding="MathML-Content" id="S2.p3.12.m2.1b"><lt id="S2.p3.12.m2.1.1.cmml" xref="S2.p3.12.m2.1.1"></lt></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.12.m2.1c">&lt;</annotation></semantics></math>EOS<math id="S2.p3.13.m3.1" class="ltx_Math" alttext="&gt;" display="inline"><semantics id="S2.p3.13.m3.1a"><mo id="S2.p3.13.m3.1.1" xref="S2.p3.13.m3.1.1.cmml">&gt;</mo><annotation-xml encoding="MathML-Content" id="S2.p3.13.m3.1b"><gt id="S2.p3.13.m3.1.1.cmml" xref="S2.p3.13.m3.1.1"></gt></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.13.m3.1c">&gt;</annotation></semantics></math>”, which enables the model to define a
+distribution over sequences of all possible lengths. The overall
+scheme is outlined in figure <a href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, where the
+shown LSTM computes the representation of “A”, “B”, “C”, “<math id="S2.p3.14.m4.1" class="ltx_Math" alttext="&lt;" display="inline"><semantics id="S2.p3.14.m4.1a"><mo id="S2.p3.14.m4.1.1" xref="S2.p3.14.m4.1.1.cmml">&lt;</mo><annotation-xml encoding="MathML-Content" id="S2.p3.14.m4.1b"><lt id="S2.p3.14.m4.1.1.cmml" xref="S2.p3.14.m4.1.1"></lt></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.14.m4.1c">&lt;</annotation></semantics></math>EOS<math id="S2.p3.15.m5.1" class="ltx_Math" alttext="&gt;" display="inline"><semantics id="S2.p3.15.m5.1a"><mo id="S2.p3.15.m5.1.1" xref="S2.p3.15.m5.1.1.cmml">&gt;</mo><annotation-xml encoding="MathML-Content" id="S2.p3.15.m5.1b"><gt id="S2.p3.15.m5.1.1.cmml" xref="S2.p3.15.m5.1.1"></gt></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.15.m5.1c">&gt;</annotation></semantics></math>”
+and then uses this representation to compute the probability of “W”,
+“X”, “Y”, “Z”, “<math id="S2.p3.16.m6.1" class="ltx_Math" alttext="&lt;" display="inline"><semantics id="S2.p3.16.m6.1a"><mo id="S2.p3.16.m6.1.1" xref="S2.p3.16.m6.1.1.cmml">&lt;</mo><annotation-xml encoding="MathML-Content" id="S2.p3.16.m6.1b"><lt id="S2.p3.16.m6.1.1.cmml" xref="S2.p3.16.m6.1.1"></lt></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.16.m6.1c">&lt;</annotation></semantics></math>EOS<math id="S2.p3.17.m7.1" class="ltx_Math" alttext="&gt;" display="inline"><semantics id="S2.p3.17.m7.1a"><mo id="S2.p3.17.m7.1.1" xref="S2.p3.17.m7.1.1.cmml">&gt;</mo><annotation-xml encoding="MathML-Content" id="S2.p3.17.m7.1b"><gt id="S2.p3.17.m7.1.1.cmml" xref="S2.p3.17.m7.1.1"></gt></annotation-xml><annotation encoding="application/x-tex" id="S2.p3.17.m7.1c">&gt;</annotation></semantics></math>”.</p>
+</div>
+<div id="S2.p4" class="ltx_para ltx_noindent">
+<p id="S2.p4.10" class="ltx_p">Our actual models differ from the above description in three important
+ways. First, we used two different LSTMs: one for the input sequence
+and another for the output sequence, because doing so increases the
+number model parameters at negligible computational cost and makes it
+natural to train the LSTM on multiple language pairs simultaneously
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="" class="ltx_ref">18</a>]</cite>. Second, we found that deep LSTMs significantly
+outperformed shallow LSTMs, so we chose an LSTM with four layers.
+Third, we found it extremely valuable to reverse the order of the
+words of the input sentence. So for example, instead of mapping the
+sentence <math id="S2.p4.1.m1.3" class="ltx_Math" alttext="a,b,c" display="inline"><semantics id="S2.p4.1.m1.3a"><mrow id="S2.p4.1.m1.3.4.2" xref="S2.p4.1.m1.3.4.1.cmml"><mi id="S2.p4.1.m1.1.1" xref="S2.p4.1.m1.1.1.cmml">a</mi><mo id="S2.p4.1.m1.3.4.2.1" xref="S2.p4.1.m1.3.4.1.cmml">,</mo><mi id="S2.p4.1.m1.2.2" xref="S2.p4.1.m1.2.2.cmml">b</mi><mo id="S2.p4.1.m1.3.4.2.2" xref="S2.p4.1.m1.3.4.1.cmml">,</mo><mi id="S2.p4.1.m1.3.3" xref="S2.p4.1.m1.3.3.cmml">c</mi></mrow><annotation-xml encoding="MathML-Content" id="S2.p4.1.m1.3b"><list id="S2.p4.1.m1.3.4.1.cmml" xref="S2.p4.1.m1.3.4.2"><ci id="S2.p4.1.m1.1.1.cmml" xref="S2.p4.1.m1.1.1">𝑎</ci><ci id="S2.p4.1.m1.2.2.cmml" xref="S2.p4.1.m1.2.2">𝑏</ci><ci id="S2.p4.1.m1.3.3.cmml" xref="S2.p4.1.m1.3.3">𝑐</ci></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.1.m1.3c">a,b,c</annotation></semantics></math> to the sentence <math id="S2.p4.2.m2.3" class="ltx_Math" alttext="\alpha,\beta,\gamma" display="inline"><semantics id="S2.p4.2.m2.3a"><mrow id="S2.p4.2.m2.3.4.2" xref="S2.p4.2.m2.3.4.1.cmml"><mi id="S2.p4.2.m2.1.1" xref="S2.p4.2.m2.1.1.cmml">α</mi><mo id="S2.p4.2.m2.3.4.2.1" xref="S2.p4.2.m2.3.4.1.cmml">,</mo><mi id="S2.p4.2.m2.2.2" xref="S2.p4.2.m2.2.2.cmml">β</mi><mo id="S2.p4.2.m2.3.4.2.2" xref="S2.p4.2.m2.3.4.1.cmml">,</mo><mi id="S2.p4.2.m2.3.3" xref="S2.p4.2.m2.3.3.cmml">γ</mi></mrow><annotation-xml encoding="MathML-Content" id="S2.p4.2.m2.3b"><list id="S2.p4.2.m2.3.4.1.cmml" xref="S2.p4.2.m2.3.4.2"><ci id="S2.p4.2.m2.1.1.cmml" xref="S2.p4.2.m2.1.1">𝛼</ci><ci id="S2.p4.2.m2.2.2.cmml" xref="S2.p4.2.m2.2.2">𝛽</ci><ci id="S2.p4.2.m2.3.3.cmml" xref="S2.p4.2.m2.3.3">𝛾</ci></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.2.m2.3c">\alpha,\beta,\gamma</annotation></semantics></math>, the LSTM is
+asked to map <math id="S2.p4.3.m3.3" class="ltx_Math" alttext="c,b,a" display="inline"><semantics id="S2.p4.3.m3.3a"><mrow id="S2.p4.3.m3.3.4.2" xref="S2.p4.3.m3.3.4.1.cmml"><mi id="S2.p4.3.m3.1.1" xref="S2.p4.3.m3.1.1.cmml">c</mi><mo id="S2.p4.3.m3.3.4.2.1" xref="S2.p4.3.m3.3.4.1.cmml">,</mo><mi id="S2.p4.3.m3.2.2" xref="S2.p4.3.m3.2.2.cmml">b</mi><mo id="S2.p4.3.m3.3.4.2.2" xref="S2.p4.3.m3.3.4.1.cmml">,</mo><mi id="S2.p4.3.m3.3.3" xref="S2.p4.3.m3.3.3.cmml">a</mi></mrow><annotation-xml encoding="MathML-Content" id="S2.p4.3.m3.3b"><list id="S2.p4.3.m3.3.4.1.cmml" xref="S2.p4.3.m3.3.4.2"><ci id="S2.p4.3.m3.1.1.cmml" xref="S2.p4.3.m3.1.1">𝑐</ci><ci id="S2.p4.3.m3.2.2.cmml" xref="S2.p4.3.m3.2.2">𝑏</ci><ci id="S2.p4.3.m3.3.3.cmml" xref="S2.p4.3.m3.3.3">𝑎</ci></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.3.m3.3c">c,b,a</annotation></semantics></math> to <math id="S2.p4.4.m4.3" class="ltx_Math" alttext="\alpha,\beta,\gamma" display="inline"><semantics id="S2.p4.4.m4.3a"><mrow id="S2.p4.4.m4.3.4.2" xref="S2.p4.4.m4.3.4.1.cmml"><mi id="S2.p4.4.m4.1.1" xref="S2.p4.4.m4.1.1.cmml">α</mi><mo id="S2.p4.4.m4.3.4.2.1" xref="S2.p4.4.m4.3.4.1.cmml">,</mo><mi id="S2.p4.4.m4.2.2" xref="S2.p4.4.m4.2.2.cmml">β</mi><mo id="S2.p4.4.m4.3.4.2.2" xref="S2.p4.4.m4.3.4.1.cmml">,</mo><mi id="S2.p4.4.m4.3.3" xref="S2.p4.4.m4.3.3.cmml">γ</mi></mrow><annotation-xml encoding="MathML-Content" id="S2.p4.4.m4.3b"><list id="S2.p4.4.m4.3.4.1.cmml" xref="S2.p4.4.m4.3.4.2"><ci id="S2.p4.4.m4.1.1.cmml" xref="S2.p4.4.m4.1.1">𝛼</ci><ci id="S2.p4.4.m4.2.2.cmml" xref="S2.p4.4.m4.2.2">𝛽</ci><ci id="S2.p4.4.m4.3.3.cmml" xref="S2.p4.4.m4.3.3">𝛾</ci></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.4.m4.3c">\alpha,\beta,\gamma</annotation></semantics></math>, where <math id="S2.p4.5.m5.3" class="ltx_Math" alttext="\alpha,\beta,\gamma" display="inline"><semantics id="S2.p4.5.m5.3a"><mrow id="S2.p4.5.m5.3.4.2" xref="S2.p4.5.m5.3.4.1.cmml"><mi id="S2.p4.5.m5.1.1" xref="S2.p4.5.m5.1.1.cmml">α</mi><mo id="S2.p4.5.m5.3.4.2.1" xref="S2.p4.5.m5.3.4.1.cmml">,</mo><mi id="S2.p4.5.m5.2.2" xref="S2.p4.5.m5.2.2.cmml">β</mi><mo id="S2.p4.5.m5.3.4.2.2" xref="S2.p4.5.m5.3.4.1.cmml">,</mo><mi id="S2.p4.5.m5.3.3" xref="S2.p4.5.m5.3.3.cmml">γ</mi></mrow><annotation-xml encoding="MathML-Content" id="S2.p4.5.m5.3b"><list id="S2.p4.5.m5.3.4.1.cmml" xref="S2.p4.5.m5.3.4.2"><ci id="S2.p4.5.m5.1.1.cmml" xref="S2.p4.5.m5.1.1">𝛼</ci><ci id="S2.p4.5.m5.2.2.cmml" xref="S2.p4.5.m5.2.2">𝛽</ci><ci id="S2.p4.5.m5.3.3.cmml" xref="S2.p4.5.m5.3.3">𝛾</ci></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.5.m5.3c">\alpha,\beta,\gamma</annotation></semantics></math> is the translation of <math id="S2.p4.6.m6.3" class="ltx_Math" alttext="a,b,c" display="inline"><semantics id="S2.p4.6.m6.3a"><mrow id="S2.p4.6.m6.3.4.2" xref="S2.p4.6.m6.3.4.1.cmml"><mi id="S2.p4.6.m6.1.1" xref="S2.p4.6.m6.1.1.cmml">a</mi><mo id="S2.p4.6.m6.3.4.2.1" xref="S2.p4.6.m6.3.4.1.cmml">,</mo><mi id="S2.p4.6.m6.2.2" xref="S2.p4.6.m6.2.2.cmml">b</mi><mo id="S2.p4.6.m6.3.4.2.2" xref="S2.p4.6.m6.3.4.1.cmml">,</mo><mi id="S2.p4.6.m6.3.3" xref="S2.p4.6.m6.3.3.cmml">c</mi></mrow><annotation-xml encoding="MathML-Content" id="S2.p4.6.m6.3b"><list id="S2.p4.6.m6.3.4.1.cmml" xref="S2.p4.6.m6.3.4.2"><ci id="S2.p4.6.m6.1.1.cmml" xref="S2.p4.6.m6.1.1">𝑎</ci><ci id="S2.p4.6.m6.2.2.cmml" xref="S2.p4.6.m6.2.2">𝑏</ci><ci id="S2.p4.6.m6.3.3.cmml" xref="S2.p4.6.m6.3.3">𝑐</ci></list></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.6.m6.3c">a,b,c</annotation></semantics></math>. This way, <math id="S2.p4.7.m7.1" class="ltx_Math" alttext="a" display="inline"><semantics id="S2.p4.7.m7.1a"><mi id="S2.p4.7.m7.1.1" xref="S2.p4.7.m7.1.1.cmml">a</mi><annotation-xml encoding="MathML-Content" id="S2.p4.7.m7.1b"><ci id="S2.p4.7.m7.1.1.cmml" xref="S2.p4.7.m7.1.1">𝑎</ci></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.7.m7.1c">a</annotation></semantics></math> is in close
+proximity to <math id="S2.p4.8.m8.1" class="ltx_Math" alttext="\alpha" display="inline"><semantics id="S2.p4.8.m8.1a"><mi id="S2.p4.8.m8.1.1" xref="S2.p4.8.m8.1.1.cmml">α</mi><annotation-xml encoding="MathML-Content" id="S2.p4.8.m8.1b"><ci id="S2.p4.8.m8.1.1.cmml" xref="S2.p4.8.m8.1.1">𝛼</ci></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.8.m8.1c">\alpha</annotation></semantics></math>, <math id="S2.p4.9.m9.1" class="ltx_Math" alttext="b" display="inline"><semantics id="S2.p4.9.m9.1a"><mi id="S2.p4.9.m9.1.1" xref="S2.p4.9.m9.1.1.cmml">b</mi><annotation-xml encoding="MathML-Content" id="S2.p4.9.m9.1b"><ci id="S2.p4.9.m9.1.1.cmml" xref="S2.p4.9.m9.1.1">𝑏</ci></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.9.m9.1c">b</annotation></semantics></math> is fairly close to <math id="S2.p4.10.m10.1" class="ltx_Math" alttext="\beta" display="inline"><semantics id="S2.p4.10.m10.1a"><mi id="S2.p4.10.m10.1.1" xref="S2.p4.10.m10.1.1.cmml">β</mi><annotation-xml encoding="MathML-Content" id="S2.p4.10.m10.1b"><ci id="S2.p4.10.m10.1.1.cmml" xref="S2.p4.10.m10.1.1">𝛽</ci></annotation-xml><annotation encoding="application/x-tex" id="S2.p4.10.m10.1c">\beta</annotation></semantics></math>, and so on, a
+fact that makes it easy for SGD to “establish communication” between
+the input and the output. We found this simple data transformation to
+greatly improve the performance of the LSTM.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Experiments</h2>
+
+<div id="S3.p1" class="ltx_para ltx_noindent">
+<p id="S3.p1.1" class="ltx_p">We applied our method to the WMT’14 English to French MT task in two
+ways. We used it to directly translate the input sentence without
+using a reference SMT system and we it to rescore the n-best lists of
+an SMT baseline. We report the accuracy of these translation methods,
+present sample translations, and visualize the resulting sentence
+representation.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Dataset details</h3>
+
+<div id="S3.SS1.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS1.p1.1" class="ltx_p">We used the WMT’14 English to French dataset. We trained our models
+on a subset of 12M sentences consisting of 348M French words and 304M
+English words, which is a clean “selected” subset from
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>. We chose this translation task and this specific
+training set subset because of the public availability of a tokenized training and
+test set together with 1000-best lists from the baseline SMT
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>.</p>
+</div>
+<div id="S3.SS1.p2" class="ltx_para ltx_noindent">
+<p id="S3.SS1.p2.1" class="ltx_p">As typical neural language models rely on a vector representation for
+each word, we used a fixed vocabulary for both languages. We used
+160,000 of the most frequent words for the source language and 80,000
+of the most frequent words for the target language. Every
+out-of-vocabulary word was replaced with a special “UNK” token.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Decoding and Rescoring</h3>
+
+<div id="S3.SS2.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS2.p1.2" class="ltx_p">The core of our experiments involved training a large deep LSTM on
+many sentence pairs. We trained it by maximizing the log
+probability of a correct translation <math id="S3.SS2.p1.1.m1.1" class="ltx_Math" alttext="T" display="inline"><semantics id="S3.SS2.p1.1.m1.1a"><mi id="S3.SS2.p1.1.m1.1.1" xref="S3.SS2.p1.1.m1.1.1.cmml">T</mi><annotation-xml encoding="MathML-Content" id="S3.SS2.p1.1.m1.1b"><ci id="S3.SS2.p1.1.m1.1.1.cmml" xref="S3.SS2.p1.1.m1.1.1">𝑇</ci></annotation-xml><annotation encoding="application/x-tex" id="S3.SS2.p1.1.m1.1c">T</annotation></semantics></math> given the source sentence
+<math id="S3.SS2.p1.2.m2.1" class="ltx_Math" alttext="S" display="inline"><semantics id="S3.SS2.p1.2.m2.1a"><mi id="S3.SS2.p1.2.m2.1.1" xref="S3.SS2.p1.2.m2.1.1.cmml">S</mi><annotation-xml encoding="MathML-Content" id="S3.SS2.p1.2.m2.1b"><ci id="S3.SS2.p1.2.m2.1.1.cmml" xref="S3.SS2.p1.2.m2.1.1">𝑆</ci></annotation-xml><annotation encoding="application/x-tex" id="S3.SS2.p1.2.m2.1c">S</annotation></semantics></math>, so the training objective is</p>
+<table id="S3.Ex3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.Ex3.m1.4" class="ltx_Math" alttext="1/|\mathcal{S}|\sum_{(T,S)\in\mathcal{S}}\log p(T|S)" display="block"><semantics id="S3.Ex3.m1.4a"><mrow id="S3.Ex3.m1.4.4" xref="S3.Ex3.m1.4.4.cmml"><mrow id="S3.Ex3.m1.4.4.3" xref="S3.Ex3.m1.4.4.3.cmml"><mn id="S3.Ex3.m1.4.4.3.2" xref="S3.Ex3.m1.4.4.3.2.cmml">1</mn><mo id="S3.Ex3.m1.4.4.3.1" xref="S3.Ex3.m1.4.4.3.1.cmml">/</mo><mrow id="S3.Ex3.m1.4.4.3.3.2" xref="S3.Ex3.m1.4.4.3.3.1.cmml"><mo stretchy="false" id="S3.Ex3.m1.4.4.3.3.2.1" xref="S3.Ex3.m1.4.4.3.3.1.1.cmml">|</mo><mi class="ltx_font_mathcaligraphic" id="S3.Ex3.m1.3.3" xref="S3.Ex3.m1.3.3.cmml">𝒮</mi><mo stretchy="false" id="S3.Ex3.m1.4.4.3.3.2.2" xref="S3.Ex3.m1.4.4.3.3.1.1.cmml">|</mo></mrow></mrow><mo lspace="0em" rspace="0em" id="S3.Ex3.m1.4.4.2" xref="S3.Ex3.m1.4.4.2.cmml">​</mo><mrow id="S3.Ex3.m1.4.4.1" xref="S3.Ex3.m1.4.4.1.cmml"><munder id="S3.Ex3.m1.4.4.1.2" xref="S3.Ex3.m1.4.4.1.2.cmml"><mo movablelimits="false" id="S3.Ex3.m1.4.4.1.2.2" xref="S3.Ex3.m1.4.4.1.2.2.cmml">∑</mo><mrow id="S3.Ex3.m1.2.2.2" xref="S3.Ex3.m1.2.2.2.cmml"><mrow id="S3.Ex3.m1.2.2.2.4.2" xref="S3.Ex3.m1.2.2.2.4.1.cmml"><mo stretchy="false" id="S3.Ex3.m1.2.2.2.4.2.1" xref="S3.Ex3.m1.2.2.2.4.1.cmml">(</mo><mi id="S3.Ex3.m1.1.1.1.1" xref="S3.Ex3.m1.1.1.1.1.cmml">T</mi><mo id="S3.Ex3.m1.2.2.2.4.2.2" xref="S3.Ex3.m1.2.2.2.4.1.cmml">,</mo><mi id="S3.Ex3.m1.2.2.2.2" xref="S3.Ex3.m1.2.2.2.2.cmml">S</mi><mo stretchy="false" id="S3.Ex3.m1.2.2.2.4.2.3" xref="S3.Ex3.m1.2.2.2.4.1.cmml">)</mo></mrow><mo id="S3.Ex3.m1.2.2.2.3" xref="S3.Ex3.m1.2.2.2.3.cmml">∈</mo><mi class="ltx_font_mathcaligraphic" id="S3.Ex3.m1.2.2.2.5" xref="S3.Ex3.m1.2.2.2.5.cmml">𝒮</mi></mrow></munder><mrow id="S3.Ex3.m1.4.4.1.1" xref="S3.Ex3.m1.4.4.1.1.cmml"><mrow id="S3.Ex3.m1.4.4.1.1.3" xref="S3.Ex3.m1.4.4.1.1.3.cmml"><mi id="S3.Ex3.m1.4.4.1.1.3.1" xref="S3.Ex3.m1.4.4.1.1.3.1.cmml">log</mi><mo lspace="0.167em" id="S3.Ex3.m1.4.4.1.1.3a" xref="S3.Ex3.m1.4.4.1.1.3.cmml">⁡</mo><mi id="S3.Ex3.m1.4.4.1.1.3.2" xref="S3.Ex3.m1.4.4.1.1.3.2.cmml">p</mi></mrow><mo lspace="0em" rspace="0em" id="S3.Ex3.m1.4.4.1.1.2" xref="S3.Ex3.m1.4.4.1.1.2.cmml">​</mo><mrow id="S3.Ex3.m1.4.4.1.1.1.1" xref="S3.Ex3.m1.4.4.1.1.1.1.1.cmml"><mo stretchy="false" id="S3.Ex3.m1.4.4.1.1.1.1.2" xref="S3.Ex3.m1.4.4.1.1.1.1.1.cmml">(</mo><mrow id="S3.Ex3.m1.4.4.1.1.1.1.1" xref="S3.Ex3.m1.4.4.1.1.1.1.1.cmml"><mi id="S3.Ex3.m1.4.4.1.1.1.1.1.2" xref="S3.Ex3.m1.4.4.1.1.1.1.1.2.cmml">T</mi><mo fence="false" id="S3.Ex3.m1.4.4.1.1.1.1.1.1" xref="S3.Ex3.m1.4.4.1.1.1.1.1.1.cmml">|</mo><mi id="S3.Ex3.m1.4.4.1.1.1.1.1.3" xref="S3.Ex3.m1.4.4.1.1.1.1.1.3.cmml">S</mi></mrow><mo stretchy="false" id="S3.Ex3.m1.4.4.1.1.1.1.3" xref="S3.Ex3.m1.4.4.1.1.1.1.1.cmml">)</mo></mrow></mrow></mrow></mrow><annotation-xml encoding="MathML-Content" id="S3.Ex3.m1.4b"><apply id="S3.Ex3.m1.4.4.cmml" xref="S3.Ex3.m1.4.4"><times id="S3.Ex3.m1.4.4.2.cmml" xref="S3.Ex3.m1.4.4.2"></times><apply id="S3.Ex3.m1.4.4.3.cmml" xref="S3.Ex3.m1.4.4.3"><divide id="S3.Ex3.m1.4.4.3.1.cmml" xref="S3.Ex3.m1.4.4.3.1"></divide><cn type="integer" id="S3.Ex3.m1.4.4.3.2.cmml" xref="S3.Ex3.m1.4.4.3.2">1</cn><apply id="S3.Ex3.m1.4.4.3.3.1.cmml" xref="S3.Ex3.m1.4.4.3.3.2"><abs id="S3.Ex3.m1.4.4.3.3.1.1.cmml" xref="S3.Ex3.m1.4.4.3.3.2.1"></abs><ci id="S3.Ex3.m1.3.3.cmml" xref="S3.Ex3.m1.3.3">𝒮</ci></apply></apply><apply id="S3.Ex3.m1.4.4.1.cmml" xref="S3.Ex3.m1.4.4.1"><apply id="S3.Ex3.m1.4.4.1.2.cmml" xref="S3.Ex3.m1.4.4.1.2"><csymbol cd="ambiguous" id="S3.Ex3.m1.4.4.1.2.1.cmml" xref="S3.Ex3.m1.4.4.1.2">subscript</csymbol><sum id="S3.Ex3.m1.4.4.1.2.2.cmml" xref="S3.Ex3.m1.4.4.1.2.2"></sum><apply id="S3.Ex3.m1.2.2.2.cmml" xref="S3.Ex3.m1.2.2.2"><in id="S3.Ex3.m1.2.2.2.3.cmml" xref="S3.Ex3.m1.2.2.2.3"></in><interval closure="open" id="S3.Ex3.m1.2.2.2.4.1.cmml" xref="S3.Ex3.m1.2.2.2.4.2"><ci id="S3.Ex3.m1.1.1.1.1.cmml" xref="S3.Ex3.m1.1.1.1.1">𝑇</ci><ci id="S3.Ex3.m1.2.2.2.2.cmml" xref="S3.Ex3.m1.2.2.2.2">𝑆</ci></interval><ci id="S3.Ex3.m1.2.2.2.5.cmml" xref="S3.Ex3.m1.2.2.2.5">𝒮</ci></apply></apply><apply id="S3.Ex3.m1.4.4.1.1.cmml" xref="S3.Ex3.m1.4.4.1.1"><times id="S3.Ex3.m1.4.4.1.1.2.cmml" xref="S3.Ex3.m1.4.4.1.1.2"></times><apply id="S3.Ex3.m1.4.4.1.1.3.cmml" xref="S3.Ex3.m1.4.4.1.1.3"><log id="S3.Ex3.m1.4.4.1.1.3.1.cmml" xref="S3.Ex3.m1.4.4.1.1.3.1"></log><ci id="S3.Ex3.m1.4.4.1.1.3.2.cmml" xref="S3.Ex3.m1.4.4.1.1.3.2">𝑝</ci></apply><apply id="S3.Ex3.m1.4.4.1.1.1.1.1.cmml" xref="S3.Ex3.m1.4.4.1.1.1.1"><csymbol cd="latexml" id="S3.Ex3.m1.4.4.1.1.1.1.1.1.cmml" xref="S3.Ex3.m1.4.4.1.1.1.1.1.1">conditional</csymbol><ci id="S3.Ex3.m1.4.4.1.1.1.1.1.2.cmml" xref="S3.Ex3.m1.4.4.1.1.1.1.1.2">𝑇</ci><ci id="S3.Ex3.m1.4.4.1.1.1.1.1.3.cmml" xref="S3.Ex3.m1.4.4.1.1.1.1.1.3">𝑆</ci></apply></apply></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S3.Ex3.m1.4c">1/|\mathcal{S}|\sum_{(T,S)\in\mathcal{S}}\log p(T|S)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<p id="S3.SS2.p1.3" class="ltx_p">where <math id="S3.SS2.p1.3.m1.1" class="ltx_Math" alttext="\mathcal{S}" display="inline"><semantics id="S3.SS2.p1.3.m1.1a"><mi class="ltx_font_mathcaligraphic" id="S3.SS2.p1.3.m1.1.1" xref="S3.SS2.p1.3.m1.1.1.cmml">𝒮</mi><annotation-xml encoding="MathML-Content" id="S3.SS2.p1.3.m1.1b"><ci id="S3.SS2.p1.3.m1.1.1.cmml" xref="S3.SS2.p1.3.m1.1.1">𝒮</ci></annotation-xml><annotation encoding="application/x-tex" id="S3.SS2.p1.3.m1.1c">\mathcal{S}</annotation></semantics></math> is the training set. Once training is complete, we produce
+translations by finding the most likely translation according to
+the LSTM:</p>
+<table id="S3.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E2.m1.1" class="ltx_Math" alttext="\hat{T}=\arg\max_{T}p(T|S)" display="block"><semantics id="S3.E2.m1.1a"><mrow id="S3.E2.m1.1.1" xref="S3.E2.m1.1.1.cmml"><mover accent="true" id="S3.E2.m1.1.1.3" xref="S3.E2.m1.1.1.3.cmml"><mi id="S3.E2.m1.1.1.3.2" xref="S3.E2.m1.1.1.3.2.cmml">T</mi><mo id="S3.E2.m1.1.1.3.1" xref="S3.E2.m1.1.1.3.1.cmml">^</mo></mover><mo id="S3.E2.m1.1.1.2" xref="S3.E2.m1.1.1.2.cmml">=</mo><mrow id="S3.E2.m1.1.1.1" xref="S3.E2.m1.1.1.1.cmml"><mrow id="S3.E2.m1.1.1.1.3" xref="S3.E2.m1.1.1.1.3.cmml"><mi id="S3.E2.m1.1.1.1.3.1" xref="S3.E2.m1.1.1.1.3.1.cmml">arg</mi><mo lspace="0.167em" id="S3.E2.m1.1.1.1.3a" xref="S3.E2.m1.1.1.1.3.cmml">⁡</mo><mrow id="S3.E2.m1.1.1.1.3.2" xref="S3.E2.m1.1.1.1.3.2.cmml"><munder id="S3.E2.m1.1.1.1.3.2.1" xref="S3.E2.m1.1.1.1.3.2.1.cmml"><mi id="S3.E2.m1.1.1.1.3.2.1.2" xref="S3.E2.m1.1.1.1.3.2.1.2.cmml">max</mi><mi id="S3.E2.m1.1.1.1.3.2.1.3" xref="S3.E2.m1.1.1.1.3.2.1.3.cmml">T</mi></munder><mo lspace="0.167em" id="S3.E2.m1.1.1.1.3.2a" xref="S3.E2.m1.1.1.1.3.2.cmml">⁡</mo><mi id="S3.E2.m1.1.1.1.3.2.2" xref="S3.E2.m1.1.1.1.3.2.2.cmml">p</mi></mrow></mrow><mo lspace="0em" rspace="0em" id="S3.E2.m1.1.1.1.2" xref="S3.E2.m1.1.1.1.2.cmml">​</mo><mrow id="S3.E2.m1.1.1.1.1.1" xref="S3.E2.m1.1.1.1.1.1.1.cmml"><mo stretchy="false" id="S3.E2.m1.1.1.1.1.1.2" xref="S3.E2.m1.1.1.1.1.1.1.cmml">(</mo><mrow id="S3.E2.m1.1.1.1.1.1.1" xref="S3.E2.m1.1.1.1.1.1.1.cmml"><mi id="S3.E2.m1.1.1.1.1.1.1.2" xref="S3.E2.m1.1.1.1.1.1.1.2.cmml">T</mi><mo fence="false" id="S3.E2.m1.1.1.1.1.1.1.1" xref="S3.E2.m1.1.1.1.1.1.1.1.cmml">|</mo><mi id="S3.E2.m1.1.1.1.1.1.1.3" xref="S3.E2.m1.1.1.1.1.1.1.3.cmml">S</mi></mrow><mo stretchy="false" id="S3.E2.m1.1.1.1.1.1.3" xref="S3.E2.m1.1.1.1.1.1.1.cmml">)</mo></mrow></mrow></mrow><annotation-xml encoding="MathML-Content" id="S3.E2.m1.1b"><apply id="S3.E2.m1.1.1.cmml" xref="S3.E2.m1.1.1"><eq id="S3.E2.m1.1.1.2.cmml" xref="S3.E2.m1.1.1.2"></eq><apply id="S3.E2.m1.1.1.3.cmml" xref="S3.E2.m1.1.1.3"><ci id="S3.E2.m1.1.1.3.1.cmml" xref="S3.E2.m1.1.1.3.1">^</ci><ci id="S3.E2.m1.1.1.3.2.cmml" xref="S3.E2.m1.1.1.3.2">𝑇</ci></apply><apply id="S3.E2.m1.1.1.1.cmml" xref="S3.E2.m1.1.1.1"><times id="S3.E2.m1.1.1.1.2.cmml" xref="S3.E2.m1.1.1.1.2"></times><apply id="S3.E2.m1.1.1.1.3.cmml" xref="S3.E2.m1.1.1.1.3"><arg id="S3.E2.m1.1.1.1.3.1.cmml" xref="S3.E2.m1.1.1.1.3.1"></arg><apply id="S3.E2.m1.1.1.1.3.2.cmml" xref="S3.E2.m1.1.1.1.3.2"><apply id="S3.E2.m1.1.1.1.3.2.1.cmml" xref="S3.E2.m1.1.1.1.3.2.1"><csymbol cd="ambiguous" id="S3.E2.m1.1.1.1.3.2.1.1.cmml" xref="S3.E2.m1.1.1.1.3.2.1">subscript</csymbol><max id="S3.E2.m1.1.1.1.3.2.1.2.cmml" xref="S3.E2.m1.1.1.1.3.2.1.2"></max><ci id="S3.E2.m1.1.1.1.3.2.1.3.cmml" xref="S3.E2.m1.1.1.1.3.2.1.3">𝑇</ci></apply><ci id="S3.E2.m1.1.1.1.3.2.2.cmml" xref="S3.E2.m1.1.1.1.3.2.2">𝑝</ci></apply></apply><apply id="S3.E2.m1.1.1.1.1.1.1.cmml" xref="S3.E2.m1.1.1.1.1.1"><csymbol cd="latexml" id="S3.E2.m1.1.1.1.1.1.1.1.cmml" xref="S3.E2.m1.1.1.1.1.1.1.1">conditional</csymbol><ci id="S3.E2.m1.1.1.1.1.1.1.2.cmml" xref="S3.E2.m1.1.1.1.1.1.1.2">𝑇</ci><ci id="S3.E2.m1.1.1.1.1.1.1.3.cmml" xref="S3.E2.m1.1.1.1.1.1.1.3">𝑆</ci></apply></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S3.E2.m1.1c">\hat{T}=\arg\max_{T}p(T|S)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td>
+</tr></tbody>
+</table>
+<p id="S3.SS2.p1.7" class="ltx_p">We search for the most likely translation using a simple left-to-right
+beam search decoder which maintains a small number <math id="S3.SS2.p1.4.m1.1" class="ltx_Math" alttext="B" display="inline"><semantics id="S3.SS2.p1.4.m1.1a"><mi id="S3.SS2.p1.4.m1.1.1" xref="S3.SS2.p1.4.m1.1.1.cmml">B</mi><annotation-xml encoding="MathML-Content" id="S3.SS2.p1.4.m1.1b"><ci id="S3.SS2.p1.4.m1.1.1.cmml" xref="S3.SS2.p1.4.m1.1.1">𝐵</ci></annotation-xml><annotation encoding="application/x-tex" id="S3.SS2.p1.4.m1.1c">B</annotation></semantics></math> of partial
+hypotheses, where a partial hypothesis is a prefix of some
+translation. At each timestep we extend each partial hypothesis in
+the beam with every possible word in the vocabulary. This greatly
+increases the number of the hypotheses so we discard all but the <math id="S3.SS2.p1.5.m2.1" class="ltx_Math" alttext="B" display="inline"><semantics id="S3.SS2.p1.5.m2.1a"><mi id="S3.SS2.p1.5.m2.1.1" xref="S3.SS2.p1.5.m2.1.1.cmml">B</mi><annotation-xml encoding="MathML-Content" id="S3.SS2.p1.5.m2.1b"><ci id="S3.SS2.p1.5.m2.1.1.cmml" xref="S3.SS2.p1.5.m2.1.1">𝐵</ci></annotation-xml><annotation encoding="application/x-tex" id="S3.SS2.p1.5.m2.1c">B</annotation></semantics></math>
+most likely hypotheses according to the model’s log probability. As soon
+as the “<math id="S3.SS2.p1.6.m3.1" class="ltx_Math" alttext="&lt;" display="inline"><semantics id="S3.SS2.p1.6.m3.1a"><mo id="S3.SS2.p1.6.m3.1.1" xref="S3.SS2.p1.6.m3.1.1.cmml">&lt;</mo><annotation-xml encoding="MathML-Content" id="S3.SS2.p1.6.m3.1b"><lt id="S3.SS2.p1.6.m3.1.1.cmml" xref="S3.SS2.p1.6.m3.1.1"></lt></annotation-xml><annotation encoding="application/x-tex" id="S3.SS2.p1.6.m3.1c">&lt;</annotation></semantics></math>EOS<math id="S3.SS2.p1.7.m4.1" class="ltx_Math" alttext="&gt;" display="inline"><semantics id="S3.SS2.p1.7.m4.1a"><mo id="S3.SS2.p1.7.m4.1.1" xref="S3.SS2.p1.7.m4.1.1.cmml">&gt;</mo><annotation-xml encoding="MathML-Content" id="S3.SS2.p1.7.m4.1b"><gt id="S3.SS2.p1.7.m4.1.1.cmml" xref="S3.SS2.p1.7.m4.1.1"></gt></annotation-xml><annotation encoding="application/x-tex" id="S3.SS2.p1.7.m4.1c">&gt;</annotation></semantics></math>” symbol is appended to a hypothesis, it is removed from
+the beam and is added to the set of complete hypotheses. While this
+decoder is approximate, it is simple to implement. Interestingly, our
+system performs well even with a beam size of 1, and a beam of
+size 2 provides most of the benefits of beam search (Table
+<a href="#S3.T1" title="Table 1 ‣ 3.6 Experimental Results ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>).</p>
+</div>
+<div id="S3.SS2.p2" class="ltx_para ltx_noindent">
+<p id="S3.SS2.p2.1" class="ltx_p">We also used the LSTM to rescore the 1000-best lists produced by the
+baseline system <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>. To rescore an n-best list, we
+computed the log probability of every hypothesis with our LSTM and
+took an even average with their score and the LSTM’s score.</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.3 </span>Reversing the Source Sentences</h3>
+
+<div id="S3.SS3.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS3.p1.1" class="ltx_p">While the LSTM is capable of solving problems with long term
+dependencies, we discovered that the LSTM learns much better when the
+source sentences are reversed (the target sentences are not reversed). By
+doing so, the LSTM’s test perplexity dropped from 5.8 to 4.7, and the
+test BLEU scores of its decoded translations increased from 25.9 to 30.6.</p>
+</div>
+<div id="S3.SS3.p2" class="ltx_para ltx_noindent">
+<p id="S3.SS3.p2.1" class="ltx_p">While we do not have a complete explanation to this phenomenon, we
+believe that it is caused by the introduction of many short term
+dependencies to the dataset. Normally, when we concatenate a source
+sentence with a target sentence, each word in the source sentence is
+far from its corresponding word in the target sentence. As a result,
+the problem has a large “minimal time lag” <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib17" title="" class="ltx_ref">17</a>]</cite>. By reversing the
+words in the source sentence, the average distance between
+corresponding words in the source and target language is unchanged.
+However, the first few words in the source language are now very close to
+the first few words in the target language, so the problem’s minimal
+time lag is greatly reduced. Thus, backpropagation has an easier time
+“establishing communication” between the source sentence and the
+target sentence, which in turn results in substantially improved overall
+performance.</p>
+</div>
+<div id="S3.SS3.p3" class="ltx_para ltx_noindent">
+<p id="S3.SS3.p3.1" class="ltx_p">Initially, we believed that reversing the input sentences would
+only lead to more confident predictions in the early parts of the target
+sentence and to less confident predictions in the later parts.
+However, LSTMs trained on reversed source sentences did much better on
+long sentences than LSTMs trained on the raw source sentences (see
+sec. <a href="#S3.SS7" title="3.7 Performance on long sentences ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.7</span></a>), which suggests that reversing the
+input sentences results in LSTMs with better memory utilization.</p>
+</div>
+</section>
+<section id="S3.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.4 </span>Training details</h3>
+
+<div id="S3.SS4.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS4.p1.1" class="ltx_p">We found that the LSTM models are fairly easy to train. We used deep
+LSTMs with 4 layers, with 1000 cells at each layer and 1000
+dimensional word embeddings, with an input vocabulary of 160,000
+and an output vocabulary of 80,000. Thus the deep LSTM uses 8000 real
+numbers to represent a sentence. We found deep LSTMs to
+significantly outperform shallow LSTMs, where each additional layer
+reduced perplexity by nearly 10%, possibly due to their much larger
+hidden state. We used a naive softmax over 80,000 words at each
+output. The resulting LSTM has 384M parameters of which 64M are pure
+recurrent connections (32M for the “encoder” LSTM and 32M for the
+“decoder” LSTM). The complete training details are given below:</p>
+<ul id="S3.I1" class="ltx_itemize">
+<li id="S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i1.p1" class="ltx_para">
+<p id="S3.I1.i1.p1.1" class="ltx_p">We initialized all of the LSTM’s parameters with the uniform distribution between
+-0.08 and 0.08</p>
+</div>
+</li>
+<li id="S3.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i2.p1" class="ltx_para">
+<p id="S3.I1.i2.p1.1" class="ltx_p">We used stochastic gradient descent without momentum,
+with a fixed learning rate of 0.7. After 5 epochs, we begun
+halving the learning rate every half epoch. We trained our models for a
+total of 7.5 epochs.</p>
+</div>
+</li>
+<li id="S3.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i3.p1" class="ltx_para">
+<p id="S3.I1.i3.p1.1" class="ltx_p">We used batches of 128 sequences for the gradient and divided it
+the size of the batch (namely, 128).</p>
+</div>
+</li>
+<li id="S3.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i4.p1" class="ltx_para">
+<p id="S3.I1.i4.p1.4" class="ltx_p">Although LSTMs tend to not suffer from the vanishing gradient
+problem, they can have exploding gradients. Thus we enforced a hard
+constraint on the norm of the gradient
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="" class="ltx_ref">10</a>, <a href="#bib.bib25" title="" class="ltx_ref">25</a>]</cite> by scaling it when its norm exceeded
+a threshold. For each training batch, we compute <math id="S3.I1.i4.p1.1.m1.1" class="ltx_Math" alttext="s=\left\|g\right\|_{2}" display="inline"><semantics id="S3.I1.i4.p1.1.m1.1a"><mrow id="S3.I1.i4.p1.1.m1.1.2" xref="S3.I1.i4.p1.1.m1.1.2.cmml"><mi id="S3.I1.i4.p1.1.m1.1.2.2" xref="S3.I1.i4.p1.1.m1.1.2.2.cmml">s</mi><mo id="S3.I1.i4.p1.1.m1.1.2.1" xref="S3.I1.i4.p1.1.m1.1.2.1.cmml">=</mo><msub id="S3.I1.i4.p1.1.m1.1.2.3" xref="S3.I1.i4.p1.1.m1.1.2.3.cmml"><mrow id="S3.I1.i4.p1.1.m1.1.2.3.2.2" xref="S3.I1.i4.p1.1.m1.1.2.3.2.1.cmml"><mo id="S3.I1.i4.p1.1.m1.1.2.3.2.2.1" xref="S3.I1.i4.p1.1.m1.1.2.3.2.1.1.cmml">‖</mo><mi id="S3.I1.i4.p1.1.m1.1.1" xref="S3.I1.i4.p1.1.m1.1.1.cmml">g</mi><mo id="S3.I1.i4.p1.1.m1.1.2.3.2.2.2" xref="S3.I1.i4.p1.1.m1.1.2.3.2.1.1.cmml">‖</mo></mrow><mn id="S3.I1.i4.p1.1.m1.1.2.3.3" xref="S3.I1.i4.p1.1.m1.1.2.3.3.cmml">2</mn></msub></mrow><annotation-xml encoding="MathML-Content" id="S3.I1.i4.p1.1.m1.1b"><apply id="S3.I1.i4.p1.1.m1.1.2.cmml" xref="S3.I1.i4.p1.1.m1.1.2"><eq id="S3.I1.i4.p1.1.m1.1.2.1.cmml" xref="S3.I1.i4.p1.1.m1.1.2.1"></eq><ci id="S3.I1.i4.p1.1.m1.1.2.2.cmml" xref="S3.I1.i4.p1.1.m1.1.2.2">𝑠</ci><apply id="S3.I1.i4.p1.1.m1.1.2.3.cmml" xref="S3.I1.i4.p1.1.m1.1.2.3"><csymbol cd="ambiguous" id="S3.I1.i4.p1.1.m1.1.2.3.1.cmml" xref="S3.I1.i4.p1.1.m1.1.2.3">subscript</csymbol><apply id="S3.I1.i4.p1.1.m1.1.2.3.2.1.cmml" xref="S3.I1.i4.p1.1.m1.1.2.3.2.2"><csymbol cd="latexml" id="S3.I1.i4.p1.1.m1.1.2.3.2.1.1.cmml" xref="S3.I1.i4.p1.1.m1.1.2.3.2.2.1">norm</csymbol><ci id="S3.I1.i4.p1.1.m1.1.1.cmml" xref="S3.I1.i4.p1.1.m1.1.1">𝑔</ci></apply><cn type="integer" id="S3.I1.i4.p1.1.m1.1.2.3.3.cmml" xref="S3.I1.i4.p1.1.m1.1.2.3.3">2</cn></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S3.I1.i4.p1.1.m1.1c">s=\left\|g\right\|_{2}</annotation></semantics></math>, where <math id="S3.I1.i4.p1.2.m2.1" class="ltx_Math" alttext="g" display="inline"><semantics id="S3.I1.i4.p1.2.m2.1a"><mi id="S3.I1.i4.p1.2.m2.1.1" xref="S3.I1.i4.p1.2.m2.1.1.cmml">g</mi><annotation-xml encoding="MathML-Content" id="S3.I1.i4.p1.2.m2.1b"><ci id="S3.I1.i4.p1.2.m2.1.1.cmml" xref="S3.I1.i4.p1.2.m2.1.1">𝑔</ci></annotation-xml><annotation encoding="application/x-tex" id="S3.I1.i4.p1.2.m2.1c">g</annotation></semantics></math> is the gradient divided by 128. If <math id="S3.I1.i4.p1.3.m3.1" class="ltx_Math" alttext="s&gt;5" display="inline"><semantics id="S3.I1.i4.p1.3.m3.1a"><mrow id="S3.I1.i4.p1.3.m3.1.1" xref="S3.I1.i4.p1.3.m3.1.1.cmml"><mi id="S3.I1.i4.p1.3.m3.1.1.2" xref="S3.I1.i4.p1.3.m3.1.1.2.cmml">s</mi><mo id="S3.I1.i4.p1.3.m3.1.1.1" xref="S3.I1.i4.p1.3.m3.1.1.1.cmml">&gt;</mo><mn id="S3.I1.i4.p1.3.m3.1.1.3" xref="S3.I1.i4.p1.3.m3.1.1.3.cmml">5</mn></mrow><annotation-xml encoding="MathML-Content" id="S3.I1.i4.p1.3.m3.1b"><apply id="S3.I1.i4.p1.3.m3.1.1.cmml" xref="S3.I1.i4.p1.3.m3.1.1"><gt id="S3.I1.i4.p1.3.m3.1.1.1.cmml" xref="S3.I1.i4.p1.3.m3.1.1.1"></gt><ci id="S3.I1.i4.p1.3.m3.1.1.2.cmml" xref="S3.I1.i4.p1.3.m3.1.1.2">𝑠</ci><cn type="integer" id="S3.I1.i4.p1.3.m3.1.1.3.cmml" xref="S3.I1.i4.p1.3.m3.1.1.3">5</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="S3.I1.i4.p1.3.m3.1c">s&gt;5</annotation></semantics></math>, we set
+<math id="S3.I1.i4.p1.4.m4.1" class="ltx_Math" alttext="g=\frac{5g}{s}" display="inline"><semantics id="S3.I1.i4.p1.4.m4.1a"><mrow id="S3.I1.i4.p1.4.m4.1.1" xref="S3.I1.i4.p1.4.m4.1.1.cmml"><mi id="S3.I1.i4.p1.4.m4.1.1.2" xref="S3.I1.i4.p1.4.m4.1.1.2.cmml">g</mi><mo id="S3.I1.i4.p1.4.m4.1.1.1" xref="S3.I1.i4.p1.4.m4.1.1.1.cmml">=</mo><mfrac id="S3.I1.i4.p1.4.m4.1.1.3" xref="S3.I1.i4.p1.4.m4.1.1.3.cmml"><mrow id="S3.I1.i4.p1.4.m4.1.1.3.2" xref="S3.I1.i4.p1.4.m4.1.1.3.2.cmml"><mn id="S3.I1.i4.p1.4.m4.1.1.3.2.2" xref="S3.I1.i4.p1.4.m4.1.1.3.2.2.cmml">5</mn><mo lspace="0em" rspace="0em" id="S3.I1.i4.p1.4.m4.1.1.3.2.1" xref="S3.I1.i4.p1.4.m4.1.1.3.2.1.cmml">​</mo><mi id="S3.I1.i4.p1.4.m4.1.1.3.2.3" xref="S3.I1.i4.p1.4.m4.1.1.3.2.3.cmml">g</mi></mrow><mi id="S3.I1.i4.p1.4.m4.1.1.3.3" xref="S3.I1.i4.p1.4.m4.1.1.3.3.cmml">s</mi></mfrac></mrow><annotation-xml encoding="MathML-Content" id="S3.I1.i4.p1.4.m4.1b"><apply id="S3.I1.i4.p1.4.m4.1.1.cmml" xref="S3.I1.i4.p1.4.m4.1.1"><eq id="S3.I1.i4.p1.4.m4.1.1.1.cmml" xref="S3.I1.i4.p1.4.m4.1.1.1"></eq><ci id="S3.I1.i4.p1.4.m4.1.1.2.cmml" xref="S3.I1.i4.p1.4.m4.1.1.2">𝑔</ci><apply id="S3.I1.i4.p1.4.m4.1.1.3.cmml" xref="S3.I1.i4.p1.4.m4.1.1.3"><divide id="S3.I1.i4.p1.4.m4.1.1.3.1.cmml" xref="S3.I1.i4.p1.4.m4.1.1.3"></divide><apply id="S3.I1.i4.p1.4.m4.1.1.3.2.cmml" xref="S3.I1.i4.p1.4.m4.1.1.3.2"><times id="S3.I1.i4.p1.4.m4.1.1.3.2.1.cmml" xref="S3.I1.i4.p1.4.m4.1.1.3.2.1"></times><cn type="integer" id="S3.I1.i4.p1.4.m4.1.1.3.2.2.cmml" xref="S3.I1.i4.p1.4.m4.1.1.3.2.2">5</cn><ci id="S3.I1.i4.p1.4.m4.1.1.3.2.3.cmml" xref="S3.I1.i4.p1.4.m4.1.1.3.2.3">𝑔</ci></apply><ci id="S3.I1.i4.p1.4.m4.1.1.3.3.cmml" xref="S3.I1.i4.p1.4.m4.1.1.3.3">𝑠</ci></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="S3.I1.i4.p1.4.m4.1c">g=\frac{5g}{s}</annotation></semantics></math>.</p>
+</div>
+</li>
+<li id="S3.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i5.p1" class="ltx_para ltx_noindent">
+<p id="S3.I1.i5.p1.1" class="ltx_p">Different sentences have different lengths. Most sentences are
+short (e.g., length 20-30) but some sentences are long (e.g., length
+<math id="S3.I1.i5.p1.1.m1.1" class="ltx_Math" alttext="&gt;" display="inline"><semantics id="S3.I1.i5.p1.1.m1.1a"><mo id="S3.I1.i5.p1.1.m1.1.1" xref="S3.I1.i5.p1.1.m1.1.1.cmml">&gt;</mo><annotation-xml encoding="MathML-Content" id="S3.I1.i5.p1.1.m1.1b"><gt id="S3.I1.i5.p1.1.m1.1.1.cmml" xref="S3.I1.i5.p1.1.m1.1.1"></gt></annotation-xml><annotation encoding="application/x-tex" id="S3.I1.i5.p1.1.m1.1c">&gt;</annotation></semantics></math> 100), so a minibatch of 128 randomly chosen training sentences
+will have many short sentences and few long sentences, and as a
+result, much of the computation in the minibatch is wasted. To
+address this problem, we made sure that all sentences in a
+minibatch are roughly of the same length, yielding a 2x speedup.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S3.SS5" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.5 </span>Parallelization</h3>
+
+<div id="S3.SS5.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS5.p1.1" class="ltx_p">A C++ implementation of deep LSTM with the configuration from the
+previous section on a single GPU processes a speed of approximately
+1,700 words per second. This was too slow for our purposes, so we
+parallelized our model using an 8-GPU machine. Each layer of the LSTM
+was executed on a different GPU and communicated its activations
+to the next GPU / layer as soon as they were computed. Our models
+have 4 layers of LSTMs, each of which resides on a separate GPU. The remaining
+4 GPUs were used to parallelize the softmax, so each GPU was
+responsible for multiplying by a <math id="S3.SS5.p1.1.m1.1" class="ltx_Math" alttext="1000\times 20000" display="inline"><semantics id="S3.SS5.p1.1.m1.1a"><mrow id="S3.SS5.p1.1.m1.1.1" xref="S3.SS5.p1.1.m1.1.1.cmml"><mn id="S3.SS5.p1.1.m1.1.1.2" xref="S3.SS5.p1.1.m1.1.1.2.cmml">1000</mn><mo lspace="0.222em" rspace="0.222em" id="S3.SS5.p1.1.m1.1.1.1" xref="S3.SS5.p1.1.m1.1.1.1.cmml">×</mo><mn id="S3.SS5.p1.1.m1.1.1.3" xref="S3.SS5.p1.1.m1.1.1.3.cmml">20000</mn></mrow><annotation-xml encoding="MathML-Content" id="S3.SS5.p1.1.m1.1b"><apply id="S3.SS5.p1.1.m1.1.1.cmml" xref="S3.SS5.p1.1.m1.1.1"><times id="S3.SS5.p1.1.m1.1.1.1.cmml" xref="S3.SS5.p1.1.m1.1.1.1"></times><cn type="integer" id="S3.SS5.p1.1.m1.1.1.2.cmml" xref="S3.SS5.p1.1.m1.1.1.2">1000</cn><cn type="integer" id="S3.SS5.p1.1.m1.1.1.3.cmml" xref="S3.SS5.p1.1.m1.1.1.3">20000</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="S3.SS5.p1.1.m1.1c">1000\times 20000</annotation></semantics></math> matrix. The
+resulting implementation achieved a speed of 6,300 (both English and
+French) words per second with a minibatch size of 128.
+Training took about a ten days with this implementation.</p>
+</div>
+</section>
+<section id="S3.SS6" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.6 </span>Experimental Results</h3>
+
+<div id="S3.SS6.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS6.p1.1" class="ltx_p">We used the cased BLEU score <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="" class="ltx_ref">24</a>]</cite> to evaluate the quality of our
+translations. We computed our BLEU scores using <span id="S3.SS6.p1.1.1" class="ltx_text ltx_font_typewriter">multi-bleu.pl<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_tag ltx_tag_note"><span id="footnote1.1.1.1" class="ltx_text ltx_font_serif">1</span></span><span id="footnote1.4" class="ltx_text ltx_font_serif">
+There several variants of the BLEU score, and each variant is defined with a perl script. </span></span></span></span></span>
+on the <em id="S3.SS6.p1.1.2" class="ltx_emph ltx_font_italic">tokenized</em> predictions and ground truth.
+This way of evaluating the BELU score is consistent with <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>]</cite> and <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="" class="ltx_ref">2</a>]</cite>, and reproduces
+the 33.3 score of <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>.
+However, if we evaluate the best WMT’14 system <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="" class="ltx_ref">9</a>]</cite>
+(whose predictions can be downloaded from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">statmt.org\matrix</span>) in this manner, we get
+37.0, which is greater than the 35.8 reported by <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">statmt.org\matrix</span>.</p>
+</div>
+<div id="S3.SS6.p2" class="ltx_para ltx_noindent">
+<p id="S3.SS6.p2.1" class="ltx_p">The results are presented in tables <a href="#S3.T1" title="Table 1 ‣ 3.6 Experimental Results ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> and
+<a href="#S3.T2" title="Table 2 ‣ 3.6 Experimental Results ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. Our best results are obtained with an
+ensemble of LSTMs that differ in their random initializations and
+in the random order of minibatches. While the decoded translations of the
+LSTM ensemble do not outperform the best WMT’14 system, it is the first time
+that a pure neural translation system outperforms a
+phrase-based SMT baseline on a large scale MT task by a sizeable margin,
+despite its inability to handle out-of-vocabulary words. The LSTM
+is within 0.5 BLEU points of the best WMT’14 result if it is used to rescore the 1000-best
+list of the baseline system.</p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<table id="S3.T1.1" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S3.T1.1.1.1" class="ltx_tr">
+<th id="S3.T1.1.1.1.1" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t"><span id="S3.T1.1.1.1.1.1" class="ltx_text ltx_font_bold">Method</span></th>
+<th id="S3.T1.1.1.1.2" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_r ltx_border_t"><span id="S3.T1.1.1.1.2.1" class="ltx_text ltx_font_bold">test BLEU score (ntst14)</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S3.T1.1.2.1" class="ltx_tr">
+<td id="S3.T1.1.2.1.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Bahdanau et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="" class="ltx_ref">2</a>]</cite>
+</td>
+<td id="S3.T1.1.2.1.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">28.45</td>
+</tr>
+<tr id="S3.T1.1.3.2" class="ltx_tr">
+<td id="S3.T1.1.3.2.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Baseline System <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>
+</td>
+<td id="S3.T1.1.3.2.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">33.30</td>
+</tr>
+<tr id="S3.T1.1.4.3" class="ltx_tr">
+<td id="S3.T1.1.4.3.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_tt">Single forward LSTM, beam size 12</td>
+<td id="S3.T1.1.4.3.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_tt">26.17</td>
+</tr>
+<tr id="S3.T1.1.5.4" class="ltx_tr">
+<td id="S3.T1.1.5.4.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Single reversed LSTM, beam size 12</td>
+<td id="S3.T1.1.5.4.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">30.59</td>
+</tr>
+<tr id="S3.T1.1.6.5" class="ltx_tr">
+<td id="S3.T1.1.6.5.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Ensemble of 5 reversed LSTMs, beam size 1</td>
+<td id="S3.T1.1.6.5.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">33.00</td>
+</tr>
+<tr id="S3.T1.1.7.6" class="ltx_tr">
+<td id="S3.T1.1.7.6.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Ensemble of 2 reversed LSTMs, beam size 12</td>
+<td id="S3.T1.1.7.6.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">33.27</td>
+</tr>
+<tr id="S3.T1.1.8.7" class="ltx_tr">
+<td id="S3.T1.1.8.7.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Ensemble of 5 reversed LSTMs, beam size 2</td>
+<td id="S3.T1.1.8.7.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">34.50</td>
+</tr>
+<tr id="S3.T1.1.9.8" class="ltx_tr">
+<td id="S3.T1.1.9.8.1" class="ltx_td ltx_align_center ltx_border_b ltx_border_l ltx_border_r ltx_border_t">Ensemble of 5 reversed LSTMs, beam size 12</td>
+<td id="S3.T1.1.9.8.2" class="ltx_td ltx_align_center ltx_border_b ltx_border_r ltx_border_t"><span id="S3.T1.1.9.8.2.1" class="ltx_text ltx_font_bold">34.81</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>The performance of the LSTM on WMT’14 English to French test
+set (ntst14). Note that an ensemble of 5 LSTMs with a beam of size
+2 is cheaper than of a single LSTM with a beam of size 12. </figcaption>
+</figure>
+<figure id="S3.T2" class="ltx_table">
+<table id="S3.T2.1" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S3.T2.1.2.1" class="ltx_tr">
+<th id="S3.T2.1.2.1.1" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t"><span id="S3.T2.1.2.1.1.1" class="ltx_text ltx_font_bold">Method</span></th>
+<th id="S3.T2.1.2.1.2" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_r ltx_border_t"><span id="S3.T2.1.2.1.2.1" class="ltx_text ltx_font_bold">test BLEU score (ntst14)</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S3.T2.1.3.1" class="ltx_tr">
+<td id="S3.T2.1.3.1.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Baseline System <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="" class="ltx_ref">29</a>]</cite>
+</td>
+<td id="S3.T2.1.3.1.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">33.30</td>
+</tr>
+<tr id="S3.T2.1.4.2" class="ltx_tr">
+<td id="S3.T2.1.4.2.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Cho et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>]</cite>
+</td>
+<td id="S3.T2.1.4.2.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">34.54</td>
+</tr>
+<tr id="S3.T2.1.5.3" class="ltx_tr">
+<td id="S3.T2.1.5.3.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Best WMT’14 result <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="" class="ltx_ref">9</a>]</cite>
+</td>
+<td id="S3.T2.1.5.3.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t"><span id="S3.T2.1.5.3.2.1" class="ltx_text ltx_font_bold">37.0</span></td>
+</tr>
+<tr id="S3.T2.1.6.4" class="ltx_tr">
+<td id="S3.T2.1.6.4.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_tt">Rescoring the baseline 1000-best with a single forward LSTM</td>
+<td id="S3.T2.1.6.4.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_tt">35.61</td>
+</tr>
+<tr id="S3.T2.1.7.5" class="ltx_tr">
+<td id="S3.T2.1.7.5.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Rescoring the baseline 1000-best with a single reversed LSTM</td>
+<td id="S3.T2.1.7.5.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t">35.85</td>
+</tr>
+<tr id="S3.T2.1.8.6" class="ltx_tr">
+<td id="S3.T2.1.8.6.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t">Rescoring the baseline 1000-best with an ensemble of 5 reversed LSTMs</td>
+<td id="S3.T2.1.8.6.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t"><span id="S3.T2.1.8.6.2.1" class="ltx_text ltx_font_bold">36.5</span></td>
+</tr>
+<tr id="S3.T2.1.1" class="ltx_tr">
+<td id="S3.T2.1.1.2" class="ltx_td ltx_align_center ltx_border_b ltx_border_l ltx_border_r ltx_border_tt">Oracle Rescoring of the Baseline 1000-best lists</td>
+<td id="S3.T2.1.1.1" class="ltx_td ltx_align_center ltx_border_b ltx_border_r ltx_border_tt">
+<math id="S3.T2.1.1.1.m1.1" class="ltx_Math" alttext="\sim" display="inline"><semantics id="S3.T2.1.1.1.m1.1a"><mo id="S3.T2.1.1.1.m1.1.1" xref="S3.T2.1.1.1.m1.1.1.cmml">∼</mo><annotation-xml encoding="MathML-Content" id="S3.T2.1.1.1.m1.1b"><csymbol cd="latexml" id="S3.T2.1.1.1.m1.1.1.cmml" xref="S3.T2.1.1.1.m1.1.1">similar-to</csymbol></annotation-xml><annotation encoding="application/x-tex" id="S3.T2.1.1.1.m1.1c">\sim</annotation></semantics></math>45</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Methods that use neural networks together with an SMT system
+on the WMT’14 English to French test set (ntst14).</figcaption>
+</figure>
+</section>
+<section id="S3.SS7" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.7 </span>Performance on long sentences</h3>
+
+<div id="S3.SS7.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS7.p1.1" class="ltx_p">We were surprised to discover that the LSTM did well on long
+sentences, which is shown quantitatively in figure <a href="#S3.F3" title="Figure 3 ‣ 3.8 Model Analysis ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+Table <a href="#S3.T3" title="Table 3 ‣ 3.7 Performance on long sentences ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> presents several examples of long sentences and
+their translations.</p>
+</div>
+<figure id="S3.T3" class="ltx_table">
+<table id="S3.T3.1" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S3.T3.1.1.1" class="ltx_tr">
+<th id="S3.T3.1.1.1.1" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t"><span id="S3.T3.1.1.1.1.1" class="ltx_text ltx_font_bold">Type</span></th>
+<th id="S3.T3.1.1.1.2" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_r ltx_border_t"><span id="S3.T3.1.1.1.2.1" class="ltx_text ltx_font_bold">Sentence</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S3.T3.1.2.1" class="ltx_tr">
+<td id="S3.T3.1.2.1.1" class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span id="S3.T3.1.2.1.1.1" class="ltx_text ltx_font_bold">Our model</span></td>
+<td id="S3.T3.1.2.1.2" class="ltx_td ltx_align_left ltx_border_r ltx_border_tt">Ulrich UNK , membre du conseil d’ administration du constructeur automobile Audi ,</td>
+</tr>
+<tr id="S3.T3.1.3.2" class="ltx_tr">
+<td id="S3.T3.1.3.2.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.3.2.2" class="ltx_td ltx_align_left ltx_border_r">affirme qu’ il s’ agit d’ une pratique courante depuis des années pour que les téléphones</td>
+</tr>
+<tr id="S3.T3.1.4.3" class="ltx_tr">
+<td id="S3.T3.1.4.3.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.4.3.2" class="ltx_td ltx_align_left ltx_border_r">portables puissent être collectés avant les réunions du conseil d’ administration afin qu’ ils</td>
+</tr>
+<tr id="S3.T3.1.5.4" class="ltx_tr">
+<td id="S3.T3.1.5.4.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.5.4.2" class="ltx_td ltx_align_left ltx_border_r">ne soient pas utilisés comme appareils d’ écoute à distance .</td>
+</tr>
+<tr id="S3.T3.1.6.5" class="ltx_tr">
+<td id="S3.T3.1.6.5.1" class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t"><span id="S3.T3.1.6.5.1.1" class="ltx_text ltx_font_bold">Truth</span></td>
+<td id="S3.T3.1.6.5.2" class="ltx_td ltx_align_left ltx_border_r ltx_border_t">Ulrich Hackenberg , membre du conseil d’ administration du constructeur automobile Audi ,</td>
+</tr>
+<tr id="S3.T3.1.7.6" class="ltx_tr">
+<td id="S3.T3.1.7.6.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.7.6.2" class="ltx_td ltx_align_left ltx_border_r">déclare que la collecte des téléphones portables avant les réunions du conseil , afin qu’ ils</td>
+</tr>
+<tr id="S3.T3.1.8.7" class="ltx_tr">
+<td id="S3.T3.1.8.7.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.8.7.2" class="ltx_td ltx_align_left ltx_border_r">ne puissent pas être utilisés comme appareils d’ écoute à distance , est une pratique courante</td>
+</tr>
+<tr id="S3.T3.1.9.8" class="ltx_tr">
+<td id="S3.T3.1.9.8.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.9.8.2" class="ltx_td ltx_align_left ltx_border_r">depuis des années .</td>
+</tr>
+<tr id="S3.T3.1.10.9" class="ltx_tr">
+<td id="S3.T3.1.10.9.1" class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span id="S3.T3.1.10.9.1.1" class="ltx_text ltx_font_bold">Our model</span></td>
+<td id="S3.T3.1.10.9.2" class="ltx_td ltx_align_left ltx_border_r ltx_border_tt">“ Les téléphones cellulaires , qui sont vraiment une question , non seulement parce qu’ ils</td>
+</tr>
+<tr id="S3.T3.1.11.10" class="ltx_tr">
+<td id="S3.T3.1.11.10.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.11.10.2" class="ltx_td ltx_align_left ltx_border_r">pourraient potentiellement causer des interférences avec les appareils de navigation , mais</td>
+</tr>
+<tr id="S3.T3.1.12.11" class="ltx_tr">
+<td id="S3.T3.1.12.11.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.12.11.2" class="ltx_td ltx_align_left ltx_border_r">nous savons , selon la FCC , qu’ ils pourraient interférer avec les tours de téléphone cellulaire</td>
+</tr>
+<tr id="S3.T3.1.13.12" class="ltx_tr">
+<td id="S3.T3.1.13.12.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.13.12.2" class="ltx_td ltx_align_left ltx_border_r">lorsqu’ ils sont dans l’ air ” , dit UNK .</td>
+</tr>
+<tr id="S3.T3.1.14.13" class="ltx_tr">
+<td id="S3.T3.1.14.13.1" class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t"><span id="S3.T3.1.14.13.1.1" class="ltx_text ltx_font_bold">Truth</span></td>
+<td id="S3.T3.1.14.13.2" class="ltx_td ltx_align_left ltx_border_r ltx_border_t">“ Les téléphones portables sont véritablement un problème , non seulement parce qu’ ils</td>
+</tr>
+<tr id="S3.T3.1.15.14" class="ltx_tr">
+<td id="S3.T3.1.15.14.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.15.14.2" class="ltx_td ltx_align_left ltx_border_r">pourraient éventuellement créer des interférences avec les instruments de navigation , mais</td>
+</tr>
+<tr id="S3.T3.1.16.15" class="ltx_tr">
+<td id="S3.T3.1.16.15.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.16.15.2" class="ltx_td ltx_align_left ltx_border_r">parce que nous savons , d’ après la FCC , qu’ ils pourraient perturber les antennes-relais de</td>
+</tr>
+<tr id="S3.T3.1.17.16" class="ltx_tr">
+<td id="S3.T3.1.17.16.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.17.16.2" class="ltx_td ltx_align_left ltx_border_r">téléphonie mobile s’ ils sont utilisés à bord ” , a déclaré Rosenker .</td>
+</tr>
+<tr id="S3.T3.1.18.17" class="ltx_tr">
+<td id="S3.T3.1.18.17.1" class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span id="S3.T3.1.18.17.1.1" class="ltx_text ltx_font_bold">Our model</span></td>
+<td id="S3.T3.1.18.17.2" class="ltx_td ltx_align_left ltx_border_r ltx_border_tt">Avec la crémation , il y a un “ sentiment de violence contre le corps d’ un être cher ” ,</td>
+</tr>
+<tr id="S3.T3.1.19.18" class="ltx_tr">
+<td id="S3.T3.1.19.18.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.19.18.2" class="ltx_td ltx_align_left ltx_border_r">qui sera “ réduit à une pile de cendres ” en très peu de temps au lieu d’ un processus de</td>
+</tr>
+<tr id="S3.T3.1.20.19" class="ltx_tr">
+<td id="S3.T3.1.20.19.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.20.19.2" class="ltx_td ltx_align_left ltx_border_r">décomposition “ qui accompagnera les étapes du deuil ” .</td>
+</tr>
+<tr id="S3.T3.1.21.20" class="ltx_tr">
+<td id="S3.T3.1.21.20.1" class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t"><span id="S3.T3.1.21.20.1.1" class="ltx_text ltx_font_bold">Truth</span></td>
+<td id="S3.T3.1.21.20.2" class="ltx_td ltx_align_left ltx_border_r ltx_border_t">Il y a , avec la crémation , “ une violence faite au corps aimé ” ,</td>
+</tr>
+<tr id="S3.T3.1.22.21" class="ltx_tr">
+<td id="S3.T3.1.22.21.1" class="ltx_td ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.22.21.2" class="ltx_td ltx_align_left ltx_border_r">qui va être “ réduit à un tas de cendres ” en très peu de temps , et non après un processus de</td>
+</tr>
+<tr id="S3.T3.1.23.22" class="ltx_tr">
+<td id="S3.T3.1.23.22.1" class="ltx_td ltx_border_b ltx_border_l ltx_border_r"></td>
+<td id="S3.T3.1.23.22.2" class="ltx_td ltx_align_left ltx_border_b ltx_border_r">décomposition , qui “ accompagnerait les phases du deuil ” .</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 3: </span>A few examples of long translations produced by the LSTM
+alongside the ground truth translations. The reader can verify that
+the translations are sensible using Google translate. </figcaption>
+</figure>
+</section>
+<section id="S3.SS8" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.8 </span>Model Analysis</h3>
+
+<figure id="S3.F2" class="ltx_figure">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2"><img src="/html/1409.3215/assets/x2.png" id="S3.F2.g1" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" width="194" height="146" alt="Refer to caption"></div>
+<div class="ltx_flex_cell ltx_flex_size_2"><img src="/html/1409.3215/assets/x3.png" id="S3.F2.g2" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" width="194" height="146" alt="Refer to caption"></div>
+</div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>The figure shows a 2-dimensional PCA projection of the
+LSTM hidden states that are obtained after processing the phrases in
+the figures. The phrases are clustered by meaning, which in these
+examples is primarily a function of word order, which would be
+difficult to capture with a bag-of-words model. Notice that both
+clusters have similar internal structure.</figcaption>
+</figure>
+<figure id="S3.F3" class="ltx_figure">
+<p id="S3.F3.1" class="ltx_p ltx_align_center"><span id="S3.F3.1.1" class="ltx_text">
+<img src="/html/1409.3215/assets/x4.png" id="S3.F3.1.1.g1" class="ltx_graphics ltx_img_landscape" width="422" height="203" alt="Refer to caption"></span></p>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>The left plot shows the performance of our system as a
+function of sentence length, where the x-axis corresponds to the
+test sentences sorted by their length and is marked by the actual
+sequence lengths. There is no degradation on sentences with less
+than 35 words, there is only a minor degradation on the longest
+sentences. The right plot shows the LSTM’s performance on sentences
+with progressively more rare words, where the x-axis corresponds to
+the test sentences sorted by their “average word frequency rank”.
+</figcaption>
+</figure>
+<div id="S3.SS8.p1" class="ltx_para ltx_noindent">
+<p id="S3.SS8.p1.1" class="ltx_p">One of the attractive features of our model is its ability to turn a
+sequence of words into a vector of fixed dimensionality.
+Figure <a href="#S3.F2" title="Figure 2 ‣ 3.8 Model Analysis ‣ 3 Experiments ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> visualizes some of the learned
+representations. The figure clearly shows that the representations
+are sensitive to the order of words, while being fairly insensitive to
+the replacement of an active voice with a passive voice. The
+two-dimensional projections are obtained using PCA.</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Related work</h2>
+
+<div id="S4.p1" class="ltx_para ltx_noindent">
+<p id="S4.p1.1" class="ltx_p">There is a large body of work on applications of neural networks to
+machine translation. So far, the simplest and most effective way of
+applying an RNN-Language Model (RNNLM) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="" class="ltx_ref">23</a>]</cite> or
+a Feedforward Neural Network Language Model (NNLM) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib3" title="" class="ltx_ref">3</a>]</cite> to an
+MT task is by rescoring the n-best lists of a strong MT baseline
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="" class="ltx_ref">22</a>]</cite>, which reliably improves translation quality.</p>
+</div>
+<div id="S4.p2" class="ltx_para ltx_noindent">
+<p id="S4.p2.1" class="ltx_p">More recently, researchers have begun to look into ways of including
+information about the source language into the NNLM. Examples of this
+work include Auli et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="" class="ltx_ref">1</a>]</cite>, who combine an NNLM with a
+topic model of the input sentence, which improves rescoring
+performance. Devlin et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="" class="ltx_ref">8</a>]</cite> followed a similar
+approach, but they incorporated their NNLM into the decoder of an MT
+system and used the decoder’s alignment information to provide the
+NNLM with the most useful words in the input sentence. Their approach
+was highly successful and it achieved large improvements over their
+baseline.</p>
+</div>
+<div id="S4.p3" class="ltx_para ltx_noindent">
+<p id="S4.p3.1" class="ltx_p">Our work is closely related to Kalchbrenner and Blunsom <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="" class="ltx_ref">18</a>]</cite>,
+who were the first to map the input sentence into a vector and then
+back to a sentence, although they map sentences to vectors using
+convolutional neural networks, which lose the ordering of the words.
+Similarly to this work, Cho et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>]</cite> used an LSTM-like RNN
+architecture to map sentences into vectors and back, although their
+primary focus was on integrating their neural network into an SMT
+system. Bahdanau et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="" class="ltx_ref">2</a>]</cite> also attempted direct
+translations with a neural network that used an attention mechanism to
+overcome the poor performance on long sentences experienced by Cho et
+al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>]</cite> and achieved encouraging results. Likewise,
+Pouget-Abadie et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib26" title="" class="ltx_ref">26</a>]</cite> attempted to address the memory
+problem of Cho et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>]</cite> by translating pieces of the source
+sentence in way that produces smooth translations, which is similar to
+a phrase-based approach. We suspect that they could achieve similar
+improvements by simply training their networks on reversed source
+sentences.</p>
+</div>
+<div id="S4.p4" class="ltx_para ltx_noindent">
+<p id="S4.p4.1" class="ltx_p">End-to-end training is also the focus of Hermann et
+al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="" class="ltx_ref">12</a>]</cite>, whose model represents the inputs and outputs by
+feedforward networks, and map them to similar points in
+space. However, their approach cannot generate translations directly:
+to get a translation, they need to do a look up for closest vector in
+the pre-computed database of sentences, or to rescore a sentence.</p>
+</div>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Conclusion</h2>
+
+<div id="S5.p1" class="ltx_para ltx_noindent">
+<p id="S5.p1.1" class="ltx_p">In this work, we showed that a large deep LSTM, that has a limited
+vocabulary and that makes almost no
+assumption about problem structure can outperform a standard SMT-based system whose vocabulary
+is unlimited on a large-scale MT task. The success of our simple
+LSTM-based approach on MT suggests that it should do well on many
+other sequence learning problems, provided they have enough training
+data.</p>
+</div>
+<div id="S5.p2" class="ltx_para ltx_noindent">
+<p id="S5.p2.1" class="ltx_p">We were surprised by the extent of the improvement obtained by
+reversing the words in the source sentences. We conclude that it is
+important to find a problem encoding that has the greatest number of
+short term dependencies, as they make the learning problem much
+simpler. In particular, while we were unable to train a standard
+RNN on the non-reversed translation problem (shown in
+fig. <a href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Sequence to Sequence Learning with Neural Networks" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>), we believe that a standard RNN
+should be easily trainable when the source sentences are reversed (although we
+did not verify it experimentally).</p>
+</div>
+<div id="S5.p3" class="ltx_para ltx_noindent">
+<p id="S5.p3.1" class="ltx_p">We were also surprised by the ability of the LSTM to correctly
+translate very long sentences. We were initially convinced that the
+LSTM would fail on long sentences due to its limited memory, and other
+researchers reported poor performance on long sentences with a model
+similar to ours <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="" class="ltx_ref">5</a>, <a href="#bib.bib2" title="" class="ltx_ref">2</a>, <a href="#bib.bib26" title="" class="ltx_ref">26</a>]</cite>. And yet,
+LSTMs trained on the reversed dataset had little difficulty translating long
+sentences.</p>
+</div>
+<div id="S5.p4" class="ltx_para ltx_noindent">
+<p id="S5.p4.1" class="ltx_p">Most importantly, we demonstrated that a simple, straightforward and a
+relatively unoptimized approach can outperform an SMT system, so
+further work will likely lead to even greater translation accuracies.
+These results suggest that our approach will likely
+do well on other challenging sequence to sequence problems.</p>
+</div>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Acknowledgments</h2>
+
+<div id="S6.p1" class="ltx_para ltx_noindent">
+<p id="S6.p1.1" class="ltx_p">We thank Samy Bengio, Jeff Dean, Matthieu Devin, Geoffrey Hinton, Nal Kalchbrenner, Thang Luong, Wolfgang
+Macherey, Rajat Monga, Vincent Vanhoucke, Peng Xu, Wojciech Zaremba,
+and the Google Brain team for useful comments and discussions.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul class="ltx_biblist">
+<li id="bib.bib1" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock">
+M. Auli, M. Galley, C. Quirk, and G. Zweig.
+
+</span>
+<span class="ltx_bibblock">Joint language and translation modeling with recurrent neural
+networks.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib1.1.1" class="ltx_text ltx_font_italic">EMNLP</span>, 2013.
+
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock">
+D. Bahdanau, K. Cho, and Y. Bengio.
+
+</span>
+<span class="ltx_bibblock">Neural machine translation by jointly learning to align and
+translate.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib2.1.1" class="ltx_text ltx_font_italic">arXiv preprint arXiv:1409.0473</span>, 2014.
+
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock">
+Y. Bengio, R. Ducharme, P. Vincent, and C. Jauvin.
+
+</span>
+<span class="ltx_bibblock">A neural probabilistic language model.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib3.1.1" class="ltx_text ltx_font_italic">Journal of Machine Learning Research</span>, pages 1137–1155,
+2003.
+
+</span>
+</li>
+<li id="bib.bib4" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock">
+Y. Bengio, P. Simard, and P. Frasconi.
+
+</span>
+<span class="ltx_bibblock">Learning long-term dependencies with gradient descent is difficult.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib4.1.1" class="ltx_text ltx_font_italic">IEEE Transactions on Neural Networks</span>, 5(2):157–166, 1994.
+
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock">
+K. Cho, B. Merrienboer, C. Gulcehre, F. Bougares, H. Schwenk, and Y. Bengio.
+
+</span>
+<span class="ltx_bibblock">Learning phrase representations using RNN encoder-decoder for
+statistical machine translation.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib5.1.1" class="ltx_text ltx_font_italic">Arxiv preprint arXiv:1406.1078</span>, 2014.
+
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock">
+D. Ciresan, U. Meier, and J. Schmidhuber.
+
+</span>
+<span class="ltx_bibblock">Multi-column deep neural networks for image classification.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib6.1.1" class="ltx_text ltx_font_italic">CVPR</span>, 2012.
+
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock">
+G. E. Dahl, D. Yu, L. Deng, and A. Acero.
+
+</span>
+<span class="ltx_bibblock">Context-dependent pre-trained deep neural networks for large
+vocabulary speech recognition.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib7.1.1" class="ltx_text ltx_font_italic">IEEE Transactions on Audio, Speech, and Language Processing -
+Special Issue on Deep Learning for Speech and Language Processing</span>, 2012.
+
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock">
+J. Devlin, R. Zbib, Z. Huang, T. Lamar, R. Schwartz, and J. Makhoul.
+
+</span>
+<span class="ltx_bibblock">Fast and robust neural network joint models for statistical machine
+translation.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib8.1.1" class="ltx_text ltx_font_italic">ACL</span>, 2014.
+
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock">
+Nadir Durrani, Barry Haddow, Philipp Koehn, and Kenneth Heafield.
+
+</span>
+<span class="ltx_bibblock">Edinburgh’s phrase-based machine translation systems for wmt-14.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib9.1.1" class="ltx_text ltx_font_italic">WMT</span>, 2014.
+
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock">
+A. Graves.
+
+</span>
+<span class="ltx_bibblock">Generating sequences with recurrent neural networks.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib10.1.1" class="ltx_text ltx_font_italic">Arxiv preprint arXiv:1308.0850</span>, 2013.
+
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock">
+A. Graves, S. Fernández, F. Gomez, and J. Schmidhuber.
+
+</span>
+<span class="ltx_bibblock">Connectionist temporal classification: labelling unsegmented sequence
+data with recurrent neural networks.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib11.1.1" class="ltx_text ltx_font_italic">ICML</span>, 2006.
+
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock">
+K. M. Hermann and P. Blunsom.
+
+</span>
+<span class="ltx_bibblock">Multilingual distributed representations without word alignment.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib12.1.1" class="ltx_text ltx_font_italic">ICLR</span>, 2014.
+
+</span>
+</li>
+<li id="bib.bib13" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock">
+G. Hinton, L. Deng, D. Yu, G. Dahl, A. Mohamed, N. Jaitly, A. Senior,
+V. Vanhoucke, P. Nguyen, T. Sainath, and B. Kingsbury.
+
+</span>
+<span class="ltx_bibblock">Deep neural networks for acoustic modeling in speech recognition.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib13.1.1" class="ltx_text ltx_font_italic">IEEE Signal Processing Magazine</span>, 2012.
+
+</span>
+</li>
+<li id="bib.bib14" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock">
+S. Hochreiter.
+
+</span>
+<span class="ltx_bibblock">Untersuchungen zu dynamischen neuronalen netzen.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib14.1.1" class="ltx_text ltx_font_italic">Master’s thesis, Institut fur Informatik, Technische
+Universitat, Munchen</span>, 1991.
+
+</span>
+</li>
+<li id="bib.bib15" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock">
+S. Hochreiter, Y. Bengio, P. Frasconi, and J. Schmidhuber.
+
+</span>
+<span class="ltx_bibblock">Gradient flow in recurrent nets: the difficulty of learning long-term
+dependencies, 2001.
+
+</span>
+</li>
+<li id="bib.bib16" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock">
+S. Hochreiter and J. Schmidhuber.
+
+</span>
+<span class="ltx_bibblock">Long short-term memory.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib16.1.1" class="ltx_text ltx_font_italic">Neural Computation</span>, 1997.
+
+</span>
+</li>
+<li id="bib.bib17" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock">
+S. Hochreiter and J. Schmidhuber.
+
+</span>
+<span class="ltx_bibblock">LSTM can solve hard long time lag problems.
+
+</span>
+<span class="ltx_bibblock">1997.
+
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock">
+N. Kalchbrenner and P. Blunsom.
+
+</span>
+<span class="ltx_bibblock">Recurrent continuous translation models.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib18.1.1" class="ltx_text ltx_font_italic">EMNLP</span>, 2013.
+
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock">
+A. Krizhevsky, I. Sutskever, and G. E. Hinton.
+
+</span>
+<span class="ltx_bibblock">ImageNet classification with deep convolutional neural networks.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib19.1.1" class="ltx_text ltx_font_italic">NIPS</span>, 2012.
+
+</span>
+</li>
+<li id="bib.bib20" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock">
+Q.V. Le, M.A. Ranzato, R. Monga, M. Devin, K. Chen, G.S. Corrado, J. Dean, and
+A.Y. Ng.
+
+</span>
+<span class="ltx_bibblock">Building high-level features using large scale unsupervised learning.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib20.1.1" class="ltx_text ltx_font_italic">ICML</span>, 2012.
+
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock">
+Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner.
+
+</span>
+<span class="ltx_bibblock">Gradient-based learning applied to document recognition.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib21.1.1" class="ltx_text ltx_font_italic">Proceedings of the IEEE</span>, 1998.
+
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock">
+T. Mikolov.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib22.1.1" class="ltx_text ltx_font_italic">Statistical Language Models based on Neural Networks</span>.
+
+</span>
+<span class="ltx_bibblock">PhD thesis, Brno University of Technology, 2012.
+
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock">
+T. Mikolov, M. Karafiát, L. Burget, J. Cernockỳ, and S. Khudanpur.
+
+</span>
+<span class="ltx_bibblock">Recurrent neural network based language model.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib23.1.1" class="ltx_text ltx_font_italic">INTERSPEECH</span>, pages 1045–1048, 2010.
+
+</span>
+</li>
+<li id="bib.bib24" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock">
+K. Papineni, S. Roukos, T. Ward, and W. J. Zhu.
+
+</span>
+<span class="ltx_bibblock">BLEU: a method for automatic evaluation of machine translation.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib24.1.1" class="ltx_text ltx_font_italic">ACL</span>, 2002.
+
+</span>
+</li>
+<li id="bib.bib25" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock">
+R. Pascanu, T. Mikolov, and Y. Bengio.
+
+</span>
+<span class="ltx_bibblock">On the difficulty of training recurrent neural networks.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib25.1.1" class="ltx_text ltx_font_italic">arXiv preprint arXiv:1211.5063</span>, 2012.
+
+</span>
+</li>
+<li id="bib.bib26" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock">
+J. Pouget-Abadie, D. Bahdanau, B. van Merrienboer, K. Cho, and Y. Bengio.
+
+</span>
+<span class="ltx_bibblock">Overcoming the curse of sentence length for neural machine
+translation using automatic segmentation.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib26.1.1" class="ltx_text ltx_font_italic">arXiv preprint arXiv:1409.1257</span>, 2014.
+
+</span>
+</li>
+<li id="bib.bib27" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock">
+A. Razborov.
+
+</span>
+<span class="ltx_bibblock">On small depth threshold circuits.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib27.1.1" class="ltx_text ltx_font_italic">Proc. 3rd Scandinavian Workshop on Algorithm Theory</span>, 1992.
+
+</span>
+</li>
+<li id="bib.bib28" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock">
+D. Rumelhart, G. E. Hinton, and R. J. Williams.
+
+</span>
+<span class="ltx_bibblock">Learning representations by back-propagating errors.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib28.1.1" class="ltx_text ltx_font_italic">Nature</span>, 323(6088):533–536, 1986.
+
+</span>
+</li>
+<li id="bib.bib29" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock">
+H. Schwenk.
+
+</span>
+<span class="ltx_bibblock">University le mans.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://www-lium.univ-lemans.fr/~schwenk/cslm_joint_paper/</span>,
+2014.
+
+</span>
+<span class="ltx_bibblock">[Online; accessed 03-September-2014].
+
+</span>
+</li>
+<li id="bib.bib30" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock">
+M. Sundermeyer, R. Schluter, and H. Ney.
+
+</span>
+<span class="ltx_bibblock">LSTM neural networks for language modeling.
+
+</span>
+<span class="ltx_bibblock">In <span id="bib.bib30.1.1" class="ltx_text ltx_font_italic">INTERSPEECH</span>, 2010.
+
+</span>
+</li>
+<li id="bib.bib31" class="ltx_bibitem">
+<span class="ltx_tag ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock">
+P. Werbos.
+
+</span>
+<span class="ltx_bibblock">Backpropagation through time: what it does and how to do it.
+
+</span>
+<span class="ltx_bibblock"><span id="bib.bib31.1.1" class="ltx_text ltx_font_italic">Proceedings of IEEE</span>, 1990.
+
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<div class="ar5iv-footer"><a href="/html/1409.3214" class="ar5iv-nav-button ar5iv-nav-button-prev">◄</a>
+    <a class="ar5iv-home-button" href="/"><img height="40" alt="ar5iv homepage" src="/assets/ar5iv.png"></a>
+    <a href="/feeling_lucky" class="ar5iv-text-button">Feeling<br>lucky?</a>
+    <a href="/land_of_honey_and_milk" rel="nofollow" aria-hidden="true" tabindex="-1"></a>
+    <a href="/log/1409.3215" class="ar5iv-text-button ar5iv-severity-ok">Conversion<br>report</a>
+    <a class="ar5iv-text-button" target="_blank" href="https://github.com/dginev/ar5iv/issues/new?template=improve-article--arxiv-id-.md&title=Improve+article+1409.3215">Report<br>an issue</a>
+    <a href="https://arxiv.org/abs/1409.3215" class="ar5iv-text-button arxiv-ui-theme">View&nbsp;original<br>on&nbsp;arXiv</a><a href="/html/1409.3216" class="ar5iv-nav-button ar5iv-nav-button-next">►</a>
+</div><footer class="ltx_page_footer">
+<a class="ar5iv-toggle-color-scheme" href="javascript:toggleColorScheme()" title="Toggle ar5iv color scheme"><span class="color-scheme-icon"></span></a>
+<a class="ar5iv-footer-button" href="https://arxiv.org/help/license" target="_blank">Copyright</a>
+<a class="ar5iv-footer-button" href="https://arxiv.org/help/policies/privacy_policy" target="_blank">Privacy Policy</a>
+
+<div class="ltx_page_logo">Generated  on Mon Mar 18 06:30:59 2024 by <a target="_blank" href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+
+    <script>
+      var canMathML = typeof(MathMLElement) == "function";
+      if (!canMathML) {
+        var body = document.querySelector("body");
+        body.firstElementChild.setAttribute('style', 'opacity: 0;');
+        var loading = document.createElement("div");
+        loading.setAttribute("id", "mathjax-loading-spinner");
+        var message = document.createElement("div");
+        message.setAttribute("id", "mathjax-loading-message");
+        message.innerText = "Typesetting Equations...";
+        body.prepend(loading);
+        body.prepend(message);
+
+        var el = document.createElement("script");
+        el.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+        document.querySelector("head").appendChild(el);
+
+        window.MathJax = {
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                body.removeChild(loading);
+                body.removeChild(message);
+                body.firstElementChild.removeAttribute('style');
+              }); } } };
+      }
+    </script>
+    <script>
+    // Auxiliary function, building the preview feature when
+    // an inline citation is clicked
+    function clicked_cite(e) {
+      e.preventDefault();
+      let cite = this.closest('.ltx_cite');
+      let next = cite.nextSibling;
+      if (next && next.nodeType == Node.ELEMENT_NODE && next.getAttribute('class') == "ar5iv-bibitem-preview") {
+        next.remove();
+        return; }
+      // Before adding a preview modal,
+      // cleanup older previews, in case they're still open
+      document.querySelectorAll('span.ar5iv-bibitem-preview').forEach(function(node) {
+        node.remove();
+      })
+
+      // Create the preview
+      preview = document.createElement('span');
+      preview.setAttribute('class','ar5iv-bibitem-preview');
+      let target = document.getElementById(this.getAttribute('href').slice(1));
+      target.childNodes.forEach(function (child) {
+        preview.append(child.cloneNode(true));
+      });
+      let close_x = document.createElement('button');
+      close_x.setAttribute("aria-label","Close modal for bibliography item preview");
+      close_x.textContent = "×";
+      close_x.setAttribute('class', 'ar5iv-button-close-preview');
+      close_x.setAttribute('onclick','this.parentNode.remove()');
+      preview.append(close_x);
+      preview.querySelectorAll('.ltx_tag_bibitem').forEach(function(node) {
+        node.remove();
+      });
+      cite.parentNode.insertBefore(preview, cite.nextSibling);
+      return;
+    }
+    // Global Document initialization:
+    // - assign the preview feature to all inline citation links
+    document.querySelectorAll(".ltx_cite .ltx_ref").forEach(function (link) {
+      link.addEventListener("click", clicked_cite);
+    });
+    </script>
+    </body>
+</html>

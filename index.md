@@ -11,7 +11,7 @@
 
 ## Summary
 
-- 当前已批量 ingest 250 篇 summary 页，按候选主题分组如下。
+- 当前已批量 ingest 251 篇 summary 页，按候选主题分组如下。
 
 ### Attention / Transformer
 
@@ -118,6 +118,7 @@
 
 ### 传统NLP
 
+- [Sutskever, Vinyals, Le - 2014 - Sequence to Sequence Learning with Neural Networks](./wiki/summaries/Sutskever,%20Vinyals,%20Le%20-%202014%20-%20Sequence%20to%20Sequence%20Learning%20with%20Neural%20Networks.md)：`Seq2Seq` 用 LSTM encoder-decoder 将神经机器翻译改写为端到端条件序列生成问题。
 - [Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem](./wiki/summaries/Bekoulis%20et%20al.%20-%202018%20-%20Joint%20entity%20recognition%20and%20relation%20extraction%20as%20a%20multi-head%20selection%20problem.md)：Joint entity recognition and relation extraction as a multi-head selec...
 - [Bommasani et al. - 2021 - On the Opportunities and Risks of Foundation Models](./wiki/summaries/Bommasani%20et%20al.%20-%202021%20-%20On%20the%20Opportunities%20and%20Risks%20of%20Foundation%20Models.md)：On the Opportunities and Risks of Foundation Models Rishi Bommasani* D...
 - [Conneau - 2021 - Larger-Scale Transformers for Multilingual Masked Language Modeling](./wiki/summaries/Conneau%20-%202021%20-%20Larger-Scale%20Transformers%20for%20Multilingual%20Masked%20Language%20Modeling.md)：Recent work has demonstrated the effective- ness of cross-lingual lang...
@@ -370,6 +371,7 @@
 - [BERT](./wiki/concepts/BERT.md)：承接双向预训练编码器主线的基础概念页。
 - [RoBERTa](./wiki/concepts/RoBERTa.md)：承接 BERT 训练优化路线的概念页。
 - [SpanBERT](./wiki/concepts/SpanBERT.md)：承接 span 级预训练改造路线的概念页。
+- [Seq2Seq](./wiki/concepts/Seq2Seq.md)：承接从 RNN 神经机器翻译到 Transformer、T5 与 OFA 的条件生成接口概念。
 - [T5](./wiki/concepts/T5.md)：承接统一 text-to-text 任务范式的概念页。
 - [FLAN](./wiki/concepts/FLAN.md)：承接早期 instruction tuning 泛化路线的概念页。
 - [OPT](./wiki/concepts/OPT.md)：承接开放权重大模型路线的概念页。
