@@ -28,7 +28,7 @@
 - **dense scaling 证明期**：`Brown et al. 2020` 与 `Chowdhery et al. 2022` 共同支撑了预训练时代的第一个核心判断：**在自回归语言建模框架下，随着参数、数据与训练系统规模扩大，模型会出现更强的 few-shot 与跨任务泛化能力。** `GPT-3` 的意义在于让 prompt 成为任务接口；`PaLM` 的意义在于说明这条路线在更大训练系统、更多语言与代码场景下仍然成立。
 - **compute-optimal 修正期**：`Hoffmann et al. 2022` 并没有推翻 dense scaling，而是修正其粗糙版本。它指出许多早期大模型不是“参数不够大”，而是 **在既定计算预算下 token 训练不足**。因此，本页理解 `Chinchilla` 的正确方式，不是“从大模型转向小模型”，而是从“只扩参数”转向 **参数量与数据量的联合最优配置**。这是预训练叙事里最重要的纠偏节点。
 - **能力底座与行为塑形分层期**：`Ouyang et al. 2022` 之所以应在本页中被提及，不是因为它属于预训练，而是因为它为“预训练页的边界”提供了反证。即使 base model 已很强，它仍不会自动变成 helpful、truthful、harmless 的交互系统。这一事实支持一个重要结构判断：**预训练负责通用能力底座，后训练负责行为接口重写。**
-- **开放模型家族并行竞争期**：`LLaMA / Llama 2 / Llama 3 / Mistral / Mixtral / Gemma / OLMo 2 / DBRX / OpenELM / Falcon 3 / BLOOM / StarCoder 2 / GLM-130B / Qwen / DeepSeek-V3 / DeepSeek-V4` 等来源共同表明，预训练主线已从闭源演示阶段进入多家族并行推进阶段。这里真正的分化并不只是“是否开源”，而是 **多语言覆盖、代码能力、上下文长度、训练效率、MoE 采用、研究透明度与部署形态** 的组合差异。
+- **开放模型家族并行竞争期**：`LLaMA / Llama 2 / Llama 3 / Mistral / Mixtral / Gemma / Gemma 4 / OLMo 2 / DBRX / OpenELM / Falcon 3 / BLOOM / StarCoder 2 / GLM-130B / Qwen / DeepSeek-V3 / DeepSeek-V4` 等来源共同表明，预训练主线已从闭源演示阶段进入多家族并行推进阶段。这里真正的分化并不只是“是否开源”，而是 **多语言覆盖、代码能力、上下文长度、训练效率、MoE 采用、研究透明度与部署形态** 的组合差异。
 - **sparse scaling 与效率导向期**：`Mixtral`、`DBRX`、`DeepSeek-V3 / DeepSeek-V4` 等节点说明，预训练不再只沿 dense Transformer 一条线扩张。MoE 的引入使“总参数规模”与“单 token 激活成本”发生脱钩，预训练讨论因此从“模型有多大”转向“**每单位计算预算能激活多强的有效容量**”。`DeepSeek-V4` 又把这个问题进一步推进到百万 token 上下文下的 attention FLOPs、`KV cache` 成本和深层训练稳定性：`CSA / HCA` 处理混合压缩 attention，`mHC` 处理 residual signal stability，`Muon` 处理大规模训练优化。因此 sparse scaling 已经不只是训练容量问题，也变成了长上下文推理工程与训练稳定性问题。这并没有废除 dense 叙事，但确实改变了后续竞争的工程重点。
 - **中国重要家族与全球开放主线交叉期**：`GLM-130B`、`Qwen`、`DeepSeek-V3` 以及 `Kimi` 相关来源说明，中国模型竞争不应被简化为 “Qwen 对其他一切”。其中有些家族以 open-weight 方式参与开放主线，有些则以高影响但非 open-weight 的形式构成重要对照节点。知识组织上，**开放家族主线** 与 **重要非开源对照** 必须区分，否则本页会把“开放性”“影响力”“研究价值”混成一个维度。
 
@@ -39,7 +39,7 @@
 - **更大是否仍是最主要驱动力**：现有证据支持“规模仍然关键”，但不再支持“只扩参数即可”的朴素版本。这个争论真正成立的前提是：区分 **规模本身有效** 与 **规模配置是否合理**。`Chinchilla` 修正的是后者，而不是前者。
 - **dense 与 sparse 哪条更代表未来主线**：当前 summary 仍以 dense scaling 为能力讨论的共同语言，但 `Mixtral`、`DBRX`、`DeepSeek-V3` 说明 sparse/MoE 已经成为现实工程路线。现阶段更稳妥的结论不是“dense 被 sparse 替代”，而是：**dense 仍提供主干理论语言，sparse 则在工程竞争中不断扩大实际权重。**
 - **预训练与后训练应如何分界**：许多技术报告会把预训练、SFT、RL 一并叙述，尤其是 `DeepSeek-V3 / DeepSeek-V4` 一类综合性报告更容易模糊边界。但只要当前知识库仍把“能力底座”与“行为塑形”视为两阶段结构，就不应把强 post-training 或 agent benchmark 效果反写成预训练规律本身。
-- **开放模型是否主要只是分发策略差异**：当前证据不支持这种过窄理解。`BLOOM`、`OLMo 2` 强调研究透明度；`Gemma` 强调 practical size；`OpenELM` 与 `Phi-3` 强调端侧与效率；`Qwen`、`Llama`、`DeepSeek` 强调家族化延展。也就是说，开放模型之间存在真实技术分化，而不仅是 license 分化。
+- **开放模型是否主要只是分发策略差异**：当前证据不支持这种过窄理解。`BLOOM`、`OLMo 2` 强调研究透明度；`Gemma` 到 `Gemma 4` 强调 practical size、开放多模态、`MoE` 与本地/工作站部署；`OpenELM` 与 `Phi-3` 强调端侧与效率；`Qwen`、`Llama`、`DeepSeek` 强调家族化延展。也就是说，开放模型之间存在真实技术分化，而不仅是 license 分化。
 - **应否把 `Kimi` 这类非 open-weight 但高影响家族写入本页**：更稳妥的做法是保留，但明确标注其角色是 **重要对照节点**，而不是“开放模型家族成员”。否则会在主题层面混淆“开放主线”与“行业重要节点”。
 - **预训练是否已经足以解释当前模型差异**：随着 agent、多模态与 tool use 路线扩张，单靠预训练已难解释全部产品能力差异。当前证据仍支持本页把预训练当作能力骨干，但也支持一个限制性判断：**预训练已不再独自解释最终系统表现。**
 
@@ -57,6 +57,7 @@
 - [Jiang et al. - 2024 - Mixtral of Experts](../../wiki/summaries/Jiang%20et%20al.%20-%202024%20-%20Mixtral%20of%20Experts.md)
 - [Team, Google - 2024 - Gemma Open Models Based on Gemini Research and Technology](../../wiki/summaries/Team,%20Google%20-%202024%20-%20Gemma%20Open%20Models%20Based%20on%20Gemini%20Research%20and%20Technology.md)
 - [Team, Google DeepMind - 2024 - Gemma 2 Improving Open Language Models at a Practical Size](../../wiki/summaries/Team,%20Google%20DeepMind%20-%202024%20-%20Gemma%202%20Improving%20Open%20Language%20Models%20at%20a%20Practical%20Size.md)
+- [Google DeepMind - 2026 - Gemma 4 Model Card](../../wiki/summaries/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md)
 - [Lozhkov et al. - 2024 - StarCoder 2 and The Stack v2 The Next Generation](../../wiki/summaries/Lozhkov%20et%20al.%20-%202024%20-%20StarCoder%202%20and%20The%20Stack%20v2%20The%20Next%20Generation.md)
 - [Databricks - 2024 - DBRX A Highly Efficient Open LLM](../../wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)
 - [Mehta et al. - 2024 - OpenELM An Efficient Language Model Family with Open Training and Inference Framework](../../wiki/summaries/Mehta%20et%20al.%20-%202024%20-%20OpenELM%20An%20Efficient%20Language%20Model%20Family%20with%20Open%20Training%20and%20Inference%20Framework.md)
@@ -94,6 +95,8 @@
 - [Gemma](../concepts/Gemma.md)
 - [Gemma 2](../concepts/Gemma%202.md)
 - [Gemma 3](../concepts/Gemma%203.md)
+- [Gemma 4](../concepts/Gemma%204.md)
+- [DiffusionGemma](../concepts/DiffusionGemma.md)
 - [StarCoder2](../concepts/StarCoder2.md)
 - [DBRX](../concepts/DBRX.md)
 - [OpenELM](../concepts/OpenELM.md)
@@ -121,13 +124,14 @@
 - `dense vs MoE` 尚未形成独立 comparison 页；因此 sparse scaling 在本页中仍主要以结构性判断出现，而不是以系统对照结论出现。
 - 当前 evidence base 仍不足以对 `Qwen / Llama 3 / DeepSeek-V3 / DeepSeek-V4 / Mistral / Gemma / GLM` 做高置信统一排序，本页只能稳定讨论 **路线差异**，不能稳定讨论 **家族优劣总排名**。
 - `tool use、多模态、agent` 是否应被视为预训练主干的自然外推，还是更应归于后训练与系统整合，目前仍需要更多 `wiki/summaries/` 支撑；因此本页暂不把这些能力写成预训练本身的必然结果。
-- `ChatGLM / GLM-4 / Gemma 3 / Phi` 后续代际，以及 `Kimi` 全家族节点，目前仍未形成更闭合的时间线与 comparison 层支撑，这限制了本页对“开放家族长期演进格局”的判断强度。
+- `ChatGLM / GLM-4 / Phi` 后续代际，以及 `Kimi` 全家族节点，目前仍未形成更闭合的时间线与 comparison 层支撑，这限制了本页对“开放家族长期演进格局”的判断强度。`Gemma 4` 虽已接入，但其 text diffusion 分支 [DiffusionGemma](../concepts/DiffusionGemma.md) 更适合在 [文本扩散语言模型](./%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md) 中继续展开，而不是全部写入预训练 topic。
 
 ## 关联页面
 
 - [Scaling 与 compute-optimal training](./Scaling%20与%20compute-optimal%20training.md)
 - [指令对齐与 post-training](./指令对齐与%20post-training.md)
 - [LLM RL](./LLM%20RL.md)
+- [文本扩散语言模型](./%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
 - [DeepSeek 系列](./DeepSeek%20系列.md)
 - [DeepSeek](../concepts/DeepSeek.md)
 - [开放模型家族与中国重要家族对照](../comparisons/开放模型家族与中国重要家族对照.md)

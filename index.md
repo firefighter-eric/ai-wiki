@@ -45,6 +45,8 @@
 - [Jiang et al. - 2024 - Mixtral of Experts](./wiki/summaries/Jiang%20et%20al.%20-%202024%20-%20Mixtral%20of%20Experts.md)：`Mixtral` 代表开放模型中的 `MoE` 家族主线。
 - [Team, Google - 2024 - Gemma Open Models Based on Gemini Research and Technology](./wiki/summaries/Team,%20Google%20-%202024%20-%20Gemma%20Open%20Models%20Based%20on%20Gemini%20Research%20and%20Technology.md)：`Gemma` 是 Google 进入开放小模型家族竞争的起点。
 - [Team, Google DeepMind - 2024 - Gemma 2 Improving Open Language Models at a Practical Size](./wiki/summaries/Team,%20Google%20DeepMind%20-%202024%20-%20Gemma%202%20Improving%20Open%20Language%20Models%20at%20a%20Practical%20Size.md)：`Gemma 2` 代表 Google 开放家族在实用尺寸上的能力强化。
+- [Google DeepMind - 2026 - Gemma 4 Model Card](./wiki/summaries/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md)：`Gemma 4` 将 Gemma 开放家族扩展到多架构、多模态、长上下文、`MoE` 与 agentic workflow。
+- [Google - 2026 - Gemma 4 Byte for Byte Most Capable Open Models](./wiki/summaries/Google%20-%202026%20-%20Gemma%204%20Byte%20for%20Byte%20Most%20Capable%20Open%20Models.md)：Google 官方发布博客，给出 Gemma 4 的开放模型定位与家族化发布背景。
 - [Lozhkov et al. - 2024 - StarCoder 2 and The Stack v2 The Next Generation](./wiki/summaries/Lozhkov%20et%20al.%20-%202024%20-%20StarCoder%202%20and%20The%20Stack%20v2%20The%20Next%20Generation.md)：`StarCoder2` 承接开放代码模型与代码数据治理主线。
 - [Databricks - 2024 - DBRX A Highly Efficient Open LLM](./wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)：`DBRX` 是平台公司主导的高效开放大模型节点。
 - [Mehta et al. - 2024 - OpenELM An Efficient Language Model Family with Open Training and Inference Framework](./wiki/summaries/Mehta%20et%20al.%20-%202024%20-%20OpenELM%20An%20Efficient%20Language%20Model%20Family%20with%20Open%20Training%20and%20Inference%20Framework.md)：`OpenELM` 代表端侧效率与训练/推理框架开放路线。
@@ -68,6 +70,16 @@
 - [Qwen Team - 2026 - Qwen3.5 Towards Native Multimodal Agents](./wiki/summaries/Qwen%20Team%20-%202026%20-%20Qwen3.5%20Towards%20Native%20Multimodal%20Agents.md)：截至 2026-04-12，官方将 Qwen3.5 直接定义为 native multimodal agent 路线节点。
 - [Yuan et al. - 2023 - Scaling Relationship on Learning Mathematical Reasoning with Large Language Models](./wiki/summaries/Yuan%20et%20al.%20-%202023%20-%20Scaling%20Relationship%20on%20Learning%20Mathematical%20Reasoning%20with%20Large%20Language%20Models.md)：Preprint SCALING RELATIONSHIP ON LEARNING MATHEMATI- CAL REASONING WIT...
 - [Zhang et al. - 2022 - OPT Open Pre-trained Transformer Language Models](./wiki/summaries/Zhang%20et%20al.%20-%202022%20-%20OPT%20Open%20Pre-trained%20Transformer%20Language%20Models.md)：Large language models, which are often trained for hundreds of thousan...
+
+### 文本扩散语言模型
+
+- [Google DeepMind - 2026 - DiffusionGemma 26B A4B IT Model Card](./wiki/summaries/Google%20DeepMind%20-%202026%20-%20DiffusionGemma%2026B%20A4B%20IT%20Model%20Card.md)：`DiffusionGemma` 是基于 `Gemma 4 26B A4B MoE` 的实验性开放文本扩散生成模型。
+- [Google - 2026 - DiffusionGemma 4x Faster Text Generation](./wiki/summaries/Google%20-%202026%20-%20DiffusionGemma%204x%20Faster%20Text%20Generation.md)：Google 官方发布博客，强调 DiffusionGemma 面向本地低并发场景的 parallel denoising 加速。
+- [Google Developers - 2026 - DiffusionGemma The Developer Guide](./wiki/summaries/Google%20Developers%20-%202026%20-%20DiffusionGemma%20The%20Developer%20Guide.md)：开发者指南，解释 uniform state diffusion、block-autoregressive denoising、Sudoku 微调与 vLLM serving 配置。
+- [Google AI for Developers - 2026 - DiffusionGemma Model Overview](./wiki/summaries/Google%20AI%20for%20Developers%20-%202026%20-%20DiffusionGemma%20Model%20Overview.md)：官方文档，给出 DiffusionGemma 的定位、推荐采样参数与部署入口。
+- [Google DeepMind - 2026 - Gemini Diffusion](./wiki/summaries/Google%20DeepMind%20-%202026%20-%20Gemini%20Diffusion.md)：`Gemini Diffusion` 是 Google DeepMind text diffusion 方向的实验背景来源。
+- [NVIDIA - 2026 - Run DiffusionGemma on NVIDIA for Developer-Ready High-Throughput Text Generation](./wiki/summaries/NVIDIA%20-%202026%20-%20Run%20DiffusionGemma%20on%20NVIDIA%20for%20Developer-Ready%20High-Throughput%20Text%20Generation.md)：NVIDIA 技术博客，补充 `BF16 / NVFP4`、NIM、vLLM 与硬件部署口径。
+- [Maarten Grootendorst - 2026 - A Visual Guide to DiffusionGemma](./wiki/summaries/Maarten%20Grootendorst%20-%202026%20-%20A%20Visual%20Guide%20to%20DiffusionGemma.md)：第三方 visual guide，用于理解 text diffusion、self-conditioning、scheduler 与 entropy-bounded sampler。
 
 ### 多模态与 Omni
 
@@ -307,6 +319,7 @@
 - [经典 CNN 架构](./wiki/topics/经典%20CNN%20架构.md)：围绕 `VGG / Inception / ResNet / DenseNet / ResNeXt / MobileNet / ConvNeXt` 组织经典卷积 backbone 演化主线。
 - [目标检测](./wiki/topics/目标检测.md)：围绕两阶段检测、set prediction、实时化约束与训练分配分歧组织独立检测主线。
 - [LLM 预训练](./wiki/topics/LLM%20预训练.md)：围绕 dense scaling、compute-optimal、开放模型家族与 MoE 组织 LLM 预训练主线。
+- [文本扩散语言模型](./wiki/topics/%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)：待建设 topic，围绕 `DiffusionGemma / Gemini Diffusion` 组织离散文本扩散与自回归解码的生成范式差异。
 - [LLM RL](./wiki/topics/LLM%20RL.md)：围绕 RLHF、偏好优化分支与 reasoning-oriented RL 组织 LLM 后训练中的强化学习路线。
 - [DeepSeek 系列](./wiki/topics/DeepSeek%20系列.md)：围绕 DeepSeek 的高效 MoE、reasoning RL、thinking tool-use、百万上下文与 OCR 压缩实验组织家族级技术主线。
 - [AI 智能问答与智能客服](./wiki/topics/AI%20%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E4%B8%8E%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D.md)：围绕 FAQ 检索、多轮对话、知识增强生成、偏好对齐、安全护栏与工具调用组织 AI 问答与客服研究主题。
@@ -340,6 +353,8 @@
 - [Mixtral](./wiki/concepts/Mixtral.md)：承接 Mistral 家族的 `MoE` 扩展与开放稀疏模型路线。
 - [Gemma](./wiki/concepts/Gemma.md)：承接 Google 开放小模型家族的总入口。
 - [Gemma 2](./wiki/concepts/Gemma%202.md)：承接 Gemma 家族在实用尺寸上的能力强化节点。
+- [Gemma 4](./wiki/concepts/Gemma%204.md)：承接 Gemma 开放家族向多架构、多模态、`MoE` 与 agentic workflow 扩展的节点。
+- [DiffusionGemma](./wiki/concepts/DiffusionGemma.md)：承接基于 `Gemma 4 26B A4B MoE` 的实验性文本扩散生成模型。
 - [DeepSeek](./wiki/concepts/DeepSeek.md)：连接 DeepSeek-V3、R1、V3.2、V4 与 OCR 压缩分支的模型家族概念页。
 - [DeepSeek-V3](./wiki/concepts/DeepSeek-V3.md)：承接开源大模型中的 MoE、高效训练与强基座能力。
 - [DeepSeek-V4](./wiki/concepts/DeepSeek-V4.md)：承接 DeepSeek 的百万 token 上下文、混合 attention 与 agent-oriented 效率架构路线。
@@ -455,7 +470,7 @@
 - [OpenAI](./wiki/authors/OpenAI.md)：对齐、human feedback 与 agent 叙事的核心机构入口。
 - [Microsoft Research](./wiki/authors/Microsoft%20Research.md)：LoRA、Kosmos 与 Florence 路线的机构入口。
 - [Google Research](./wiki/authors/Google%20Research.md)：Transformer、BERT、T5 与 PaLM 主线的机构入口。
-- [DeepMind](./wiki/authors/DeepMind.md)：Gemma 与 compute-optimal training 路线的机构入口。
+- [DeepMind](./wiki/authors/DeepMind.md)：Gemma / DiffusionGemma、compute-optimal training 与 Google DeepMind 开放模型路线的机构入口。
 - [Kuaishou Technology](./wiki/authors/Kuaishou%20Technology.md)：Kling 视频生成路线的机构入口。
 - [Alibaba Group](./wiki/authors/Alibaba%20Group.md)：除 Qwen 外，也通过 Wan2.6 接入视频生成主线的阿里机构页。
 - [ShengShu Technology](./wiki/authors/ShengShu%20Technology.md)：Vidu 视频生成路线的机构入口。

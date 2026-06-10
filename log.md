@@ -1284,3 +1284,53 @@
 - 新增中文精修解读，突出 `LSTM encoder-decoder`、固定向量瓶颈、source reversal、beam search 与 WMT'14 英法翻译结果
 - 新增 `Seq2Seq` 概念页，连接 RNN 神经机器翻译、Transformer encoder-decoder、T5 text-to-text 与 OFA 多模态统一接口
 - 在 `传统 NLP` 中补上神经机器翻译 / 条件生成接口层，并标注 Cho、Bahdanau、Luong 等 NMT 中间来源仍待补齐
+
+## [2026-06-11] ingest | DiffusionGemma 与 Gemma 4 文本扩散资料
+
+涉及页面：
+
+- 新增 `raw/html/Google DeepMind - 2026 - DiffusionGemma 26B A4B IT Model Card.html`
+- 新增 `raw/text/Google DeepMind - 2026 - DiffusionGemma 26B A4B IT Model Card.md`
+- 新增 `wiki/summaries/Google DeepMind - 2026 - DiffusionGemma 26B A4B IT Model Card.md`
+- 新增 `raw/html/Google - 2026 - DiffusionGemma 4x Faster Text Generation.html`
+- 新增 `raw/text/Google - 2026 - DiffusionGemma 4x Faster Text Generation.md`
+- 新增 `wiki/summaries/Google - 2026 - DiffusionGemma 4x Faster Text Generation.md`
+- 新增 `raw/html/Google Developers - 2026 - DiffusionGemma The Developer Guide.html`
+- 新增 `raw/text/Google Developers - 2026 - DiffusionGemma The Developer Guide.md`
+- 新增 `wiki/summaries/Google Developers - 2026 - DiffusionGemma The Developer Guide.md`
+- 新增 `raw/html/Google AI for Developers - 2026 - DiffusionGemma Model Overview.html`
+- 新增 `raw/text/Google AI for Developers - 2026 - DiffusionGemma Model Overview.md`
+- 新增 `wiki/summaries/Google AI for Developers - 2026 - DiffusionGemma Model Overview.md`
+- 新增 `raw/html/Google DeepMind - 2026 - Gemma 4 Model Card.html`
+- 新增 `raw/text/Google DeepMind - 2026 - Gemma 4 Model Card.md`
+- 新增 `wiki/summaries/Google DeepMind - 2026 - Gemma 4 Model Card.md`
+- 新增 `raw/html/Google - 2026 - Gemma 4 Byte for Byte Most Capable Open Models.html`
+- 新增 `raw/text/Google - 2026 - Gemma 4 Byte for Byte Most Capable Open Models.md`
+- 新增 `wiki/summaries/Google - 2026 - Gemma 4 Byte for Byte Most Capable Open Models.md`
+- 新增 `raw/html/Google DeepMind - 2026 - Gemini Diffusion.html`
+- 新增 `raw/text/Google DeepMind - 2026 - Gemini Diffusion.md`
+- 新增 `wiki/summaries/Google DeepMind - 2026 - Gemini Diffusion.md`
+- 新增 `raw/html/NVIDIA - 2026 - Run DiffusionGemma on NVIDIA for Developer-Ready High-Throughput Text Generation.html`
+- 新增 `raw/text/NVIDIA - 2026 - Run DiffusionGemma on NVIDIA for Developer-Ready High-Throughput Text Generation.md`
+- 新增 `wiki/summaries/NVIDIA - 2026 - Run DiffusionGemma on NVIDIA for Developer-Ready High-Throughput Text Generation.md`
+- 新增 `raw/html/Maarten Grootendorst - 2026 - A Visual Guide to DiffusionGemma.html`
+- 新增 `raw/text/Maarten Grootendorst - 2026 - A Visual Guide to DiffusionGemma.md`
+- 新增 `wiki/summaries/Maarten Grootendorst - 2026 - A Visual Guide to DiffusionGemma.md`
+- 新增 `wiki/concepts/Gemma 4.md`
+- 新增 `wiki/concepts/DiffusionGemma.md`
+- 新增 `wiki/topics/文本扩散语言模型.md`
+- 更新 `wiki/concepts/Gemma.md`
+- 更新 `wiki/concepts/MoE.md`
+- 更新 `wiki/authors/DeepMind.md`
+- 更新 `wiki/topics/LLM 预训练.md`
+- 更新 `wiki/comparisons/开放模型家族与中国重要家族对照.md`
+- 更新 `index.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 按 `raw/html -> raw/text -> wiki/summaries` 链路接入 DiffusionGemma 的 Hugging Face 模型卡、Google 官方发布博客、开发者指南、AI.dev 文档、Gemma 4 模型卡、Gemma 4 发布博客、Gemini Diffusion 背景页、NVIDIA 部署博客和 Maarten Grootendorst visual guide。
+- 新增 `DiffusionGemma` 概念页，明确其不是图像扩散模型，而是基于 `Gemma 4 26B A4B MoE` 的实验性 text diffusion 语言模型：用 `256-token canvas` 和 block-autoregressive denoising 替代逐 token 自回归解码。
+- 新增 `Gemma 4` 概念页，承接 Gemma 家族向多架构、多模态、长上下文、`MoE` 与 agentic workflow 的扩展，并标明它是 DiffusionGemma 的 backbone。
+- 新增 `文本扩散语言模型` 待建设 topic，把 DiffusionGemma 与 Gemini Diffusion 放入同一生成范式问题下，区分速度收益、质量限制、部署条件与未解决问题。
+- 在 `Gemma`、`MoE`、`DeepMind`、`LLM 预训练` 与开放模型家族对照页中补齐 Gemma 4 / DiffusionGemma 的交叉链接和证据入口。
