@@ -11,7 +11,7 @@
 
 因此，本页的边界需要收紧到三个层面。第一，它讨论的是**视觉任务如何形成基础表征、任务接口与文档理解能力**，而不是所有非 LLM 论文的杂项汇编。第二，它把目标检测与 OCR 都视为已经足够成熟、足够独立的子主线，因此这里只保留它们在整体视觉谱系中的位置，不再在本页内部展开其细部综述。第三，文档 AI 与版面建模仍暂时留在本页，不是因为它们与通用视觉完全同质，而是因为当前知识库证据更支持它们作为“视觉结构化理解”路线的一部分，而不是已经可以稳定拆成更细的多个正式 topic。
 
-从现有 summary 出发，本页最稳妥的定位是：它描述的是**视觉研究从经典 CNN backbone、任务专用 pipeline，走向统一 Transformer 表征，再进一步走向 layout-aware、generative 接口**的过渡地带。这个判断目前主要由经典 CNN 主线、`ViT`、`LayoutLMv3`、`TrOCR` 四类来源共同支撑。
+从现有 summary 出发，本页最稳妥的定位是：它描述的是**视觉研究从经典 CNN backbone、任务专用 pipeline，走向统一 Transformer 表征，再进一步走向 layout-aware、generative 接口**的过渡地带。这个判断目前主要由经典 CNN 主线、`ViT`、`LayoutLMv3`、`TrOCR` 与 `Vision Banana` 这几类来源共同支撑。
 
 ## 核心问题
 
@@ -20,6 +20,7 @@
 - **文档与 OCR 为什么没有停留在“检测 + 识别 + 规则后处理”**，而是逐步转向预训练与生成式接口。
 - **通用视觉、文档视觉、OCR、版面理解之间究竟共享多少表示层**，又在哪些任务边界上仍然必须分开讨论。
 - **视觉研究的“统一化”究竟指什么**：是统一 backbone、统一预训练目标，还是统一为自然语言驱动的生成接口。
+- **图像生成预训练能否反过来成为视觉理解底座**，即感知任务是否可以被稳定改写为可解码的图像生成任务。
 
 ## 主线脉络 / 方法分层
 
@@ -29,15 +30,17 @@
 - **视觉表征基础转向层**：`ViT` 的意义不只是提出一个新分类器，而是把“图像可以被切成 token 序列，并直接送入 Transformer”变成可行命题。它真正改写的是视觉基础表征的组织方式，把“视觉模型是否必须显式保留 CNN 式局部归纳偏置”从默认前提改成开放问题。也正因为如此，`ViT` 在本页里不是一篇普通分类论文，而是后续文档视觉、跨模态视觉与视觉 Transformer 家族的共同起点之一。
 - **文档多模态建模层**：`LayoutLMv3` 代表的是另一类问题设定。它不是要证明 Transformer 能否处理图像，而是要证明**文字、版面和图像区域可以在统一预训练目标下共同学习**。这条线的价值在于，它把文档 AI 从“先 OCR，再喂给下游模型”的松耦合流程，推进到 layout-aware 的统一表示学习框架。这里的核心对象不再是自然图像，而是带有强空间结构约束的视觉文档。
 - **识别到生成接口层**：`TrOCR` 的关键不是把 OCR 精度再抬高一点，而是把文本识别从 `CNN/RNN + LM` 组合系统，改写成**图像编码器加文本生成器的端到端序列生成问题**。这意味着 OCR 在接口层上开始向生成模型靠拢，其输出不再只是中间模块结果，而是可以被更大生成式工作流吸收的自然语言序列。
+- **视觉感知生成化层**：`Vision Banana` 把这一趋势从 OCR 扩展到更一般的 2D / 3D 视觉任务。它将 semantic segmentation、referring segmentation、metric depth、surface normal 等输出编码成 `RGB` 图像，让同一个图像生成模型通过 prompt 产生可解码的任务答案。对传统 CV 而言，这不是简单的多任务模型，而是在挑战“感知任务必须由专门判别式架构完成”的默认前提。
 - **专门任务向独立 topic 外溢层**：目标检测与 OCR 在当前知识库里都已经形成独立主线。前者围绕 proposal、set prediction 与实时化接口展开，后者围绕生成式识别、阅读顺序与结构化转写展开。因此本页只保留它们作为传统视觉谱系关键支柱的定位，而不再承担细部综述；否则会削弱本页围绕“视觉表征统一化”和“文档视觉生成化”的主线。
 
-把这几层放在一起，当前可以得到一个比原页更稳的综述判断：**传统 CV 在本库中的主线，不是“旧方法大全”，而是视觉 backbone 与任务接口如何从经典卷积谱系，转向更统一的 token 表示、layout-aware 预训练和生成式解码。** 其中经典 CNN 主线解决的是视觉 backbone 如何持续演化，`ViT` 改写基础表征范式，`LayoutLMv3` 解决结构化文档问题，`TrOCR` 解决识别接口生成化问题，而检测则已经外溢成独立主题。
+把这几层放在一起，当前可以得到一个比原页更稳的综述判断：**传统 CV 在本库中的主线，不是“旧方法大全”，而是视觉 backbone 与任务接口如何从经典卷积谱系，转向更统一的 token 表示、layout-aware 预训练和生成式解码。** 其中经典 CNN 主线解决的是视觉 backbone 如何持续演化，`ViT` 改写基础表征范式，`LayoutLMv3` 解决结构化文档问题，`TrOCR` 解决识别接口生成化问题，`Vision Banana` 则把生成式图像预训练推向通用感知任务，而检测已经外溢成独立主题。
 
 ## 关键争论与分歧
 
 - **Transformer 是否已经“统一了视觉”**：现有证据只支持它已改写视觉基础架构与文档建模方式，不支持“所有视觉子任务都已被同一种训练范式稳定统一”。`ViT` 支撑的是基础表征层转向，`LayoutLMv3` 和 `TrOCR` 支撑的是部分任务接口统一，不能机械外推为全部视觉问题都已收敛。
 - **文档 AI 应否继续留在传统 CV 中**：当前这样组织是合理的，因为 `LayoutLMv3` 与 `TrOCR` 仍然体现出强视觉结构约束与任务专用接口；但若后续知识库补入更多 `DocLLM`、通用文档 agent、版面生成与文档问答来源，文档 AI 可能更适合升级为独立 topic。也就是说，这个争论目前的成立条件是**证据面是否仍主要围绕版面与识别，而非围绕通用多模态推理**。
 - **OCR 是否已经从识别任务变成纯生成任务**：`TrOCR` 证明生成式接口在 OCR 中可行且有效，但现有证据不足以说明 OCR 的评测逻辑、错误模式和数据依赖已经完全等同于通用文本生成。更稳妥的说法是：OCR 的**模型接口生成化了**，而问题本体并未因此消失。
+- **生成式视觉预训练是否已经统一 CV**：`Vision Banana` 提供了强证据，说明强图像生成器经过轻量 instruction tuning 后可以在多类分割、深度与表面法线任务上达到接近或超过专门模型的结果。但由于其底座闭源、训练数据不完全透明、推理成本较高，且 instance segmentation 等任务仍存在短板，当前不能把它解释为“传统 CV 已经被图像生成完全替代”。
 - **“传统 CV”这个总题是否过宽**：是的，而且这个宽度本身就是当前页面的风险。随着 `目标检测` 与 `OCR` 已经外溢成独立 topic，这一风险实际上已经开始被缓解；但文档 AI、表格理解、视觉基础模型等子线仍未完全拆稳，因此本页仍需要继续收缩为更强的总览页，而不是再次回到细节堆积。
 
 ## 证据基础
@@ -47,6 +50,7 @@
 - [Liu et al. - 2022 - A ConvNet for the 2020s](../../wiki/summaries/Liu%20et%20al.%20-%202022%20-%20A%20ConvNet%20for%20the%202020s.md)
 - [Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking](../../wiki/summaries/Huang%20et%20al.%20-%202022%20-%20LayoutLMv3%20Pre-training%20for%20Document%20AI%20with%20Unified%20Text%20and%20Image%20Masking.md)
 - [Li et al. - 2021 - TrOCR Transformer-based Optical Character Recognition with Pre-trained Models](../../wiki/summaries/Li%20et%20al.%20-%202021%20-%20TrOCR%20Transformer-based%20Optical%20Character%20Recognition%20with%20Pre-trained%20Models.md)
+- [Gabeur et al. - 2026 - Image Generators are Generalist Vision Learners](../../wiki/summaries/Gabeur%20et%20al.%20-%202026%20-%20Image%20Generators%20are%20Generalist%20Vision%20Learners.md)
 
 ## 代表页面
 
@@ -58,6 +62,7 @@
 - [ViT](../concepts/ViT.md)
 - [Transformer](../concepts/Transformer.md)
 - [CLIP](../concepts/CLIP.md)
+- [Vision Banana](../concepts/Vision%20Banana.md)
 - [Faster R-CNN](../concepts/Faster%20R-CNN.md)
 - [DETR](../concepts/DETR.md)
 - [LayoutLMv3](../concepts/LayoutLMv3.md)
@@ -70,7 +75,7 @@
 
 ## 未解决问题
 
-- 当前页面对**视觉基础模型、文档 AI、OCR 生成化**三条子线的总结已经初步成形，但证据面仍偏薄，尚不足以支撑更细粒度的稳定断言，例如“统一预训练已成为文档理解唯一主流”。
+- 当前页面对**视觉基础模型、文档 AI、OCR 生成化、感知任务生成化**几条子线的总结已经初步成形，但证据面仍偏薄，尚不足以支撑更细粒度的稳定断言，例如“统一预训练已成为文档理解唯一主流”或“图像生成预训练已经替代所有专门视觉模型”。
 - `DocLLM`、`OmniDocBench` 等来源虽已在库中出现，但当前页的核心判断仍主要由 `ViT / LayoutLMv3 / TrOCR` 支撑；若要把“文档理解正在从视觉模型转向 layout-aware 语言模型”写成稳定结论，必须先补更强的 `wiki/summaries/`。
 - 表格解析、版面分析、文档问答与 OCR 之间目前还缺 comparison 页，因此这些相邻路线虽然已经开始拆分，但边界仍未被更细粒度地稳固下来。
 - 视频、neural rendering、talking-head、3D 视觉生成等内容仍未纳入本页主线；在现有证据下，把它们直接吸进“传统 CV”只会稀释页面边界。
@@ -88,6 +93,7 @@
 - [ViT](../concepts/ViT.md)
 - [Transformer](../concepts/Transformer.md)
 - [CLIP](../concepts/CLIP.md)
+- [Vision Banana](../concepts/Vision%20Banana.md)
 - [LayoutLMv3](../concepts/LayoutLMv3.md)
 - [DocLayNet](../concepts/DocLayNet.md)
 - [PubTables-1M](../concepts/PubTables-1M.md)

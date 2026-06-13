@@ -1334,3 +1334,24 @@
 - 新增 `Gemma 4` 概念页，承接 Gemma 家族向多架构、多模态、长上下文、`MoE` 与 agentic workflow 的扩展，并标明它是 DiffusionGemma 的 backbone。
 - 新增 `文本扩散语言模型` 待建设 topic，把 DiffusionGemma 与 Gemini Diffusion 放入同一生成范式问题下，区分速度收益、质量限制、部署条件与未解决问题。
 - 在 `Gemma`、`MoE`、`DeepMind`、`LLM 预训练` 与开放模型家族对照页中补齐 Gemma 4 / DiffusionGemma 的交叉链接和证据入口。
+
+## [2026-06-13] ingest | Vision Banana
+
+涉及页面：
+
+- 新增 `raw/html/Gabeur et al. - 2026 - Image Generators are Generalist Vision Learners.html`
+- 新增 `raw/text/Gabeur et al. - 2026 - Image Generators are Generalist Vision Learners.md`
+- 新增 `wiki/summaries/Gabeur et al. - 2026 - Image Generators are Generalist Vision Learners.md`
+- 新增 `wiki/concepts/Vision Banana.md`
+- 更新 `wiki/topics/扩散模型与文生图.md`
+- 更新 `wiki/topics/传统 CV.md`
+- 更新 `wiki/authors/DeepMind.md`
+- 更新 `index.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 按 `raw/html -> raw/text -> wiki/summaries` 链路接入 arXiv `2604.20329`。
+- 新增 `Vision Banana` 概念页，明确它是把 `Nano Banana Pro` 经轻量 instruction tuning 对齐为通用视觉理解模型的节点。
+- 在 `扩散模型与文生图` 中补入“感知任务生成化层”，把 `RGB` 输出接口从图像编辑扩展到 segmentation、metric depth 与 surface normal。
+- 在 `传统 CV` 中补入生成式视觉预训练对专门视觉架构默认前提的挑战，同时保留闭源、数据透明度与推理成本的不确定性。

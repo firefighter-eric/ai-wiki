@@ -11,7 +11,7 @@
 
 ## Summary
 
-- 当前已批量 ingest 251 篇 summary 页，按候选主题分组如下。
+- 当前已批量 ingest 261 篇 summary 页，按候选主题分组如下。
 
 ### Attention / Transformer
 
@@ -93,6 +93,7 @@
 - [Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models](./wiki/summaries/Rombach%20et%20al.%20-%202022%20-%20High-Resolution%20Image%20Synthesis%20with%20Latent%20Diffusion%20Models.md)：latent diffusion 把扩散生成从像素空间迁移到潜空间，为 Stable Diffusion 路线提供技术基座。
 - [Stability AI - 2022 - Stable Diffusion Launch Announcement](./wiki/summaries/Stability%20AI%20-%202022%20-%20Stable%20Diffusion%20Launch%20Announcement.md)：Stable Diffusion 将 latent diffusion 工程化为开放、可在消费级 GPU 上运行的文生图模型。
 - [Black Forest Labs - 2026 - FLUX.2 Overview](./wiki/summaries/Black%20Forest%20Labs%20-%202026%20-%20FLUX.2%20Overview.md)：FLUX.2 把多参考编辑、文本渲染与生产级控制整合成图像生成家族。
+- [Gabeur et al. - 2026 - Image Generators are Generalist Vision Learners](./wiki/summaries/Gabeur%20et%20al.%20-%202026%20-%20Image%20Generators%20are%20Generalist%20Vision%20Learners.md)：`Vision Banana` 将强图像生成模型经轻量 instruction tuning 对齐为可做分割、深度与表面法线的通用视觉模型。
 - [Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering](./wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md)：Qwen-Image 以复杂文本渲染与精确编辑为核心，打开 Qwen 的图像生成分支。
 - [Wang et al. - 2025 - AlphaVAE Unified End-to-End RGBA Image Reconstruction and Generation with Alpha-Aware Representation Learning](./wiki/summaries/Wang%20et%20al.%20-%202025%20-%20AlphaVAE%20Unified%20End-to-End%20RGBA%20Image%20Reconstruction%20and%20Generation%20with%20Alpha-Aware%20Representation%20Learning.md)：AlphaVAE 把透明图像的 RGBA VAE 与 benchmark 作为独立基础设施问题补齐。
 - [Yin et al. - 2025 - Qwen-Image-Layered Towards Inherent Editability via Layer Decomposition](./wiki/summaries/Yin%20et%20al.%20-%202025%20-%20Qwen-Image-Layered%20Towards%20Inherent%20Editability%20via%20Layer%20Decomposition.md)：Qwen-Image-Layered 把单张 RGB 图像分解为多层 RGBA 表示，强调 inherent editability。
@@ -426,6 +427,7 @@
 - [Seedance 2.0](./wiki/concepts/Seedance%202.0.md)：承接 ByteDance Seed 在多模态音视频生成、参考编辑与 production workflow 方向的代表节点。
 - [Stable Diffusion](./wiki/concepts/Stable%20Diffusion.md)：承接开放扩散模型从 latent diffusion 论文走向消费级文生图生态的关键家族。
 - [FLUX.2](./wiki/concepts/FLUX.2.md)：承接生产级图像生成与多参考编辑路线的代表家族。
+- [Vision Banana](./wiki/concepts/Vision%20Banana.md)：承接图像生成预训练向通用视觉理解与 `RGB` 感知任务接口扩展的节点。
 - [Qwen-Image](./wiki/concepts/Qwen-Image.md)：承接 Qwen 首个图像生成基础模型与文本渲染分支。
 - [Qwen-Image-Layered](./wiki/concepts/Qwen-Image-Layered.md)：承接 Qwen 图像生成支线向可编辑图层分解扩展的节点。
 - [AlphaVAE](./wiki/concepts/AlphaVAE.md)：承接透明图像与 RGBA 潜表示学习的基础设施节点。
@@ -470,7 +472,7 @@
 - [OpenAI](./wiki/authors/OpenAI.md)：对齐、human feedback 与 agent 叙事的核心机构入口。
 - [Microsoft Research](./wiki/authors/Microsoft%20Research.md)：LoRA、Kosmos 与 Florence 路线的机构入口。
 - [Google Research](./wiki/authors/Google%20Research.md)：Transformer、BERT、T5 与 PaLM 主线的机构入口。
-- [DeepMind](./wiki/authors/DeepMind.md)：Gemma / DiffusionGemma、compute-optimal training 与 Google DeepMind 开放模型路线的机构入口。
+- [DeepMind](./wiki/authors/DeepMind.md)：Gemma / DiffusionGemma / Vision Banana、compute-optimal training 与 Google DeepMind 研究路线的机构入口。
 - [Kuaishou Technology](./wiki/authors/Kuaishou%20Technology.md)：Kling 视频生成路线的机构入口。
 - [Alibaba Group](./wiki/authors/Alibaba%20Group.md)：除 Qwen 外，也通过 Wan2.6 接入视频生成主线的阿里机构页。
 - [ShengShu Technology](./wiki/authors/ShengShu%20Technology.md)：Vidu 视频生成路线的机构入口。
