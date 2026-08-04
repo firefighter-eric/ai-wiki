@@ -1433,3 +1433,22 @@
 - 明确官方评测混合不同 harness、effort、tools 与第三方榜单快照；保留 Moonshot 对 K3 总体仍落后于 Claude Fable 5 与 GPT-5.6 Sol 的限制性表述，不制造脱离配置的永久排名。
 - 补充 preserved thinking history、always-thinking、过度主动、64+ accelerator supernode 建议，以及 KDA/MLA 混合 cache 对 vLLM/SGLang 版本兼容的实际部署边界。
 - K3 技术报告 PDF 共 47 页；已渲染并目视核验标题/摘要、KDA、AttnRes/Stable LatentMoE、MoonEP 和评测配置等关键页面。
+
+## [2026-08-05] query | Muon 与 AdamW 优化器的区别
+
+涉及页面：
+
+- 更新 `wiki/concepts/Muon.md`
+- 更新 `wiki/concepts/Kimi K3.md`
+- 更新 `wiki/summaries/DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence.md`
+- 更新 `wiki/summaries/Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 补充 AdamW 的逐元素一阶/二阶矩更新，与 Muon 的矩阵级 momentum、Newton–Schulz 近似正交化和 update RMS 重标定之间的结构性差异。
+- 明确 Muon 正交化的是 momentum / update matrix，而不是强制模型权重本身正交。
+- 解释真实大模型训练中的混合分工：二维 Transformer matrices 使用 Muon，embedding、normalization、bias、部分 gating parameters 与 prediction head 保留 AdamW。
+- 补充 Kimi K3 Per-Head Muon 的 head-wise 更新平衡动机，以及 Muon 在 optimizer state、单步计算和 ZeRO 分布式切分上的工程权衡。
+- 在 Kimi K3 概念页单列 Muon 用法：matrix-parameter scope、Q/K/V 按 head 分块正交化、与 weight clipping / QB / cosine schedule 的 recipe 分工，以及 P2P-based distributed orthogonalization。
+- 保留证据边界：现有报告不足以把整体能力或 scaling efficiency 提升单独归因给 Muon。

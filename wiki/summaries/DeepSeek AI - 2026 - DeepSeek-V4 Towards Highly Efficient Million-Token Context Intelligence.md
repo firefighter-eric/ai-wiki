@@ -25,6 +25,8 @@
 - `HCA` 使用更大的压缩率把更长跨度的 `KV cache` 合并为单个 compressed KV entry，并与 sliding window branch 配合保留近邻依赖；它负责把百万上下文下的缓存成本进一步压低。
 - `mHC` 通过把 residual mapping 约束到 doubly stochastic matrices 所在的 Birkhoff polytope，改善深层 Transformer blocks 间的信号传播稳定性；报告同时说明其需要 fused kernels、recomputation 和 pipeline overlap 来控制额外开销。
 - `Muon` 被用于多数模块，`AdamW` 仍用于 embedding、prediction head、`mHC` 的静态 bias / gating factors 和 `RMSNorm` 权重；报告称该优化器有助于更快收敛与训练稳定性，并为其设计了与 `ZeRO` 和 MoE 参数更新兼容的实现。
+- DeepSeek-V4 的 Muon 先累积 momentum，并在 Nesterov update 上执行 hybrid Newton–Schulz iterations；若更新矩阵的 SVD 为 `M = UΣVᵀ`，其目标是把更新近似正交化为 `UVᵀ`，再重标定 update RMS、施加 decoupled weight decay 并更新权重。
+- 该报告把 AdamW 明确归为 element-wise optimizer：单个参数矩阵可以被 ZeRO 切分后分别更新；Muon 则需要 logically independent weight 的完整梯度矩阵，因此必须采用限制 ZeRO 并行规模、整矩阵 bucket assignment、冗余计算与 MoE expert 独立更新等专门策略。
 - 报告称 `DeepSeek-V4-Flash` 使用约 `32T` token 预训练，`DeepSeek-V4-Pro` 使用约 `33T` token 预训练，之后再经过 SFT、GRPO 等后训练管线。
 - `DeepSeek-V4` 的发布不是纯 base model 事件：模型卡同时强调 `Non-think / Think High / Think Max` 等推理模式、agent 能力与工具调用格式，这说明该系列从发布层面就面向长程任务和 agent 使用。
 - `DeepSeek-V4-Flash` 与 `DeepSeek-V4-Pro` 都有 base 与 instruct 权重入口，发布页标注 MIT license，并通过 Hugging Face collection 分发。
