@@ -11,7 +11,7 @@
 
 ## Summary
 
-- 当前已批量 ingest 261 篇 summary 页，按候选主题分组如下。
+- 当前已批量 ingest 268 篇 summary 页，按候选主题分组如下。
 
 ### Attention / Transformer
 
@@ -25,6 +25,16 @@
 - [Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention](./wiki/summaries/Xiong%20et%20al.%20-%202021%20-%20Nystr%C3%B6mformer%20A%20Nystrom-Based%20Algorithm%20for%20Approximating%20Self-Attention.md)：`Nyströmformer` 代表 landmark / Nyström 近似 attention。
 - [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](./wiki/summaries/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)：`FlashAttention` 以 IO-aware kernel 重写 exact attention 的执行方式。
 - [Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](./wiki/summaries/Ainslie%20et%20al.%20-%202023%20-%20GQA%20Training%20Generalized%20Multi-Query%20Transformer%20Models%20from%20Multi-Head%20Checkpoints.md)：`GQA` 在 `MHA` 与 `MQA` 之间提供更平衡的 `KV cache` 结构折中。
+
+### LLM 推理与服务系统
+
+- [Kwon et al. - 2023 - Efficient Memory Management for Large Language Model Serving with PagedAttention](./wiki/summaries/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md)：vLLM 论文以 `PagedAttention`、block-level KV 管理和调度协同解决动态 KV cache 的显存碎片与过度预留。
+- [Zheng et al. - 2024 - SGLang Efficient Execution of Structured Language Model Programs](./wiki/summaries/Zheng%20et%20al.%20-%202024%20-%20SGLang%20Efficient%20Execution%20of%20Structured%20Language%20Model%20Programs.md)：SGLang 论文以 frontend/runtime co-design、`RadixAttention`、Compressed FSM 与 API speculative execution 优化 structured LM programs。
+- [SGLang Team - 2024 - SGLang v0.4 Zero-Overhead Batch Scheduler Cache-Aware Load Balancer Faster Structured Outputs](./wiki/summaries/SGLang%20Team%20-%202024%20-%20SGLang%20v0.4%20Zero-Overhead%20Batch%20Scheduler%20Cache-Aware%20Load%20Balancer%20Faster%20Structured%20Outputs.md)：SGLang v0.4 官方说明给出 overlap scheduler、cache-aware load balancer、DPA 与 XGrammar 的版本演进。
+- [SGLang Project - 2026 - HiCache System Design and Optimization](./wiki/summaries/SGLang%20Project%20-%202026%20-%20HiCache%20System%20Design%20and%20Optimization.md)：HiCache 以 `HiRadixTree` 统一 GPU、host 与 distributed storage 的三级 KV cache、预取和回写路径。
+- [vLLM Project - 2026 - Architecture Overview](./wiki/summaries/vLLM%20Project%20-%202026%20-%20Architecture%20Overview.md)：vLLM V1 官方架构快照说明 API Server、Engine Core、per-GPU Worker 与 DP Coordinator 的进程职责。
+- [vLLM Project - 2026 - vLLM V1 Guide](./wiki/summaries/vLLM%20Project%20-%202026%20-%20vLLM%20V1%20Guide.md)：V1 guide 记录 unified token-budget scheduler、功能支持矩阵、迁移语义与已移除能力。
+- [vLLM Project - 2026 - Automatic Prefix Caching](./wiki/summaries/vLLM%20Project%20-%202026%20-%20Automatic%20Prefix%20Caching.md)：vLLM V1 以 chained full-block hashes、block pool、reference count 与 LRU free queue 实现自动前缀缓存。
 
 ### LLM预训练
 
@@ -311,7 +321,7 @@
 
 ## Topics
 
-- [注意力机制 Attention](./wiki/topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)：围绕标准 attention、稀疏 / 线性近似、`KV cache` 优化与 `FlashAttention` 组织 attention 变体主线。
+- [注意力机制 Attention](./wiki/topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)：区分标准 attention、稀疏 / 线性近似、模型级 KV 压缩、serving 级 KV 管理与 `FlashAttention` 执行优化。
 - [BERT类双向Transformer语言模型](./wiki/topics/BERT%E7%B1%BB%E5%8F%8C%E5%90%91Transformer%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)：围绕 BERT、RoBERTa、SpanBERT、句向量化与多语言编码器组织类 BERT 家族的正式 topic。
 - [搜索排序](./wiki/topics/%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F.md)：围绕 neural ranking、BERT reranking、dense retrieval 与 late interaction 组织搜索排序主线。
 - [传统 NLP](./wiki/topics/传统%20NLP.md)：围绕编码器预训练、句向量、检索与摘要组织传统 NLP 的方法脉络。
@@ -397,6 +407,10 @@
 - [XLM-R](./wiki/concepts/XLM-R.md)：承接跨语言编码器预训练路线的概念页。
 - [Transformer](./wiki/concepts/Transformer.md)：承接注意力架构底层主线的概念页。
 - [FlashAttention](./wiki/concepts/FlashAttention.md)：承接 exact attention 的 IO-aware 实现优化路线。
+- [vLLM](./wiki/concepts/vLLM.md)：承接从 `PagedAttention` 论文系统到 V1 多进程 serving engine、统一调度与自动前缀缓存的演进。
+- [SGLang](./wiki/concepts/SGLang.md)：承接 structured LM program frontend、SGLang Runtime、`RadixAttention` 与后续缓存系统演进。
+- [PagedAttention](./wiki/concepts/PagedAttention.md)：解释 serving runtime 中 KV cache 的 logical-to-physical block 映射、共享与显存管理。
+- [RadixAttention](./wiki/concepts/RadixAttention.md)：解释 SGLang 用 radix tree 组织跨请求前缀 KV 复用、淘汰与 cache-aware scheduling 的机制。
 - [Grouped-Query Attention](./wiki/concepts/Grouped-Query%20Attention.md)：承接 `MHA -> MQA -> GQA` 的推理解码 `KV cache` 折中路线。
 - [ViT](./wiki/concepts/ViT.md)：承接视觉 Transformer 主线的概念页。
 - [VGG](./wiki/concepts/VGG.md)：承接小卷积规则堆叠的经典深层 CNN 基线。
@@ -486,6 +500,7 @@
 
 - [RLHF vs DPO vs ORPO vs KTO](./wiki/comparisons/RLHF%20vs%20DPO%20vs%20ORPO%20vs%20KTO.md)：比较经典 RLHF 管线与三条偏好优化简化路线的目标函数、数据接口与适用边界。
 - [开放模型家族与中国重要家族对照](./wiki/comparisons/%E5%BC%80%E6%94%BE%E6%A8%A1%E5%9E%8B%E5%AE%B6%E6%97%8F%E4%B8%8E%E4%B8%AD%E5%9B%BD%E9%87%8D%E8%A6%81%E5%AE%B6%E6%97%8F%E5%AF%B9%E7%85%A7.md)：比较开放模型主线与 `GLM / Kimi` 等中国重要家族节点在开放性、家族角色与技术主轴上的差异。
+- [SGLang 与 vLLM 架构对比](./wiki/comparisons/SGLang%20%E4%B8%8E%20vLLM%20%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94.md)：按系统边界、KV 物理分页、前缀索引、调度与 structured generation 比较两套 serving stack，并区分论文起点与 2026 当前架构。
 
 ## Timelines
 

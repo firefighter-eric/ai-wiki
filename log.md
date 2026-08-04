@@ -1355,3 +1355,42 @@
 - 新增 `Vision Banana` 概念页，明确它是把 `Nano Banana Pro` 经轻量 instruction tuning 对齐为通用视觉理解模型的节点。
 - 在 `扩散模型与文生图` 中补入“感知任务生成化层”，把 `RGB` 输出接口从图像编辑扩展到 segmentation、metric depth 与 surface normal。
 - 在 `传统 CV` 中补入生成式视觉预训练对专门视觉架构默认前提的挑战，同时保留闭源、数据透明度与推理成本的不确定性。
+
+## [2026-08-04] ingest | SGLang、vLLM 与当前官方架构资料
+
+涉及页面：
+
+- 新增 `raw/pdf/`、`raw/html/`、`raw/text/` 中的 SGLang arXiv v2 与 vLLM PagedAttention 论文来源链路
+- 新增 `raw/html/` 与 `raw/text/` 中的 SGLang v0.4、HiCache、vLLM V1 Architecture、V1 Guide、Automatic Prefix Caching 官方资料快照
+- 新增 7 个对应 `wiki/summaries/` 精修页面
+- 新增 `wiki/concepts/SGLang.md`
+- 新增 `wiki/concepts/vLLM.md`
+- 新增 `wiki/concepts/PagedAttention.md`
+- 新增 `wiki/concepts/RadixAttention.md`
+- 更新 `index.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 按 `raw/html 或 raw/pdf -> raw/text -> wiki/summaries` 链路接入两篇系统论文与五份当前官方资料，并把 living documentation 明确标记为 `2026-08-04` 快照。
+- 将 SGLang canonical 来源固定为 arXiv `2312.07104v2` / NeurIPS 版本，区分论文中的 frontend、SRT、RadixAttention、Compressed FSM、API speculative execution 与后续 v0.4 / HiCache 演进。
+- 区分 vLLM 2023 论文中的 PagedAttention、centralized scheduler 与 swapping / recomputation，和 V1 的 API Server / Engine Core / Worker 进程拓扑、unified token-budget scheduler、hash-based Automatic Prefix Caching。
+- 所有论文性能数字均保留 baseline、hardware、workload 与版本边界，不将其改写成当前 SGLang 与 vLLM 的性能排名。
+
+## [2026-08-04] query | SGLang 和 vLLM 的技术与架构差异
+
+涉及页面：
+
+- 新增 `wiki/comparisons/SGLang 与 vLLM 架构对比.md`
+- 更新 `wiki/topics/注意力机制 Attention.md`
+- 更新 `wiki/concepts/SGLang.md`
+- 更新 `wiki/concepts/vLLM.md`
+- 更新 `index.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 将稳定差异收敛为：vLLM 从通用 serving engine 与 block-based KV memory management 出发；SGLang 从 structured LM program 与 prefix-aware runtime co-design 出发。
+- 明确 `PagedAttention` 主要解决 KV tensors 的物理分页、增长与共享，`RadixAttention` 主要解决 prefix indexing、保留、淘汰与 cache locality；二者不是互斥 attention 公式。
+- 校正历史二分法：当前两者都具备 paged KV layout、prefix caching、continuous batching、structured output 等能力，差异更多体现为 chained block hash 与 radix tree、unified token budget 与 cache-aware / overlap scheduler 等核心组织方式。
+- 不给出脱离 model、hardware、framework version、prompt reuse distribution 与 SLO 的通用性能赢家。
