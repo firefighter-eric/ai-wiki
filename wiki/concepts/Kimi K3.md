@@ -26,6 +26,49 @@
 | 模态 | `MoonViT-V2` | 从训练开始统一 text/image/video 表示，而非后接视觉 adapter | 视觉样本形状与计算量使 PP/CP 负载更不规则 |
 | 行为 | 多领域、多 effort RL + MOPD | 把 reasoning、coding、agentic 与视觉执行能力压回统一模型 | preserved thinking history 成为实际调用协议约束 |
 
+## Muon 在 K3 中的用法
+
+Kimi K3 延续 Kimi K2，把 `Muon` 用于 **matrix parameters**。这一定义很重要：技术报告并没有说所有标量、向量和非矩阵参数都由 Muon 更新；其明确讨论的核心对象是 Transformer 中的二维权重矩阵。
+
+### 从 full-matrix 到 Per-Head Muon
+
+普通 Muon 会先对一个完整权重矩阵的 momentum 做 Newton–Schulz orthogonalization。对 attention 的 Q/K/V projections，如果直接处理拼接后的完整 projection matrix，相当于把所有 attention heads 看成一个耦合块：
+
+1. 先累计完整 Q、K 或 V projection 的 momentum matrix。
+2. 对完整矩阵做近似正交化。
+3. 所有 heads 共同决定最终 update geometry。
+
+K3 将这一路径改成 `Per-Head Muon`：
+
+1. 沿 attention-head dimension 切分 Q/K/V momentum matrices。
+2. 对每个 head 对应的 tall matrix block 分别执行 Newton–Schulz iterations。
+3. 把各 head blocks 的结果重新组合成 projection update。
+
+这样做是因为 full-matrix orthogonalization 可能让 gradient 或 momentum scale 较大的 heads 主导共同更新方向，使较弱 heads 得不到充分归一化。Per-Head Muon 把正交化边界收缩到单个 head，目标是让不同 heads 获得更平衡的更新尺度和学习动态。官方报告还指出，小于完整 projection matrix 的 tall per-head blocks 能略微降低 Newton–Schulz 的计算开销。
+
+### 在预训练 recipe 中的位置
+
+Per-Head Muon 不是孤立使用的。K3 预训练把它与以下机制共同组合：
+
+- 继承自 Kimi K2 的 weight clipping。
+- 用于 MoE load balancing 的 `Quantile Balancing (QB)`。
+- cosine learning-rate schedule 与 `1%` linear warmup。
+- 全程 `0.1` weight decay。
+
+因此 Per-Head Muon 主要负责 attention projection updates 的 head-wise geometry 与大尺度训练稳定性；QB 负责 expert dispatch balance，weight clipping 和有界激活负责控制数值异常。它们解决的是不同层次的问题。
+
+### 分布式实现
+
+K3 的 distributed optimizer 会把参数分散到 data-parallel ranks，但 Newton–Schulz orthogonalization 需要完整的 logically independent matrix。朴素实现是在所有 ranks 上 all-gather 整个 parameter buffer，这会同时增加通信量和峰值显存。
+
+K3 改为 `P2P-based Muon orthogonalization`：每个 rank 只从相应 owner ranks 取回自己负责参数所缺少的 shards，不为所有参数建立完整全局 buffer；通信和正交化再以 model-chunk buffer 为粒度流水化，从而隐藏一部分通信开销。这说明 Muon 在 K3 中不仅是优化公式，也需要与 parameter sharding 和 pipeline execution 协同设计。
+
+### 能解释什么，不能解释什么
+
+- 可以支持的判断：Per-Head Muon 是 K3 用来平衡 attention heads 更新尺度、改善大规模训练稳定性的组成部分。
+- 不能直接推出：K3 的 `2.5× scaling efficiency` 全部来自 Muon。该数字是 architecture、data、training recipe、model shape 和超参数重新搜索的联合 scaling-law 结果。
+- 不能直接推出：采用 Muon 会让推理更快。Muon 作用于训练优化；推理效率主要由 KDA/MLA、MoE、量化、cache 与 serving system 决定。
+
 ## 相关主张
 
 - K3 的 `2.5× scaling efficiency` 是相对 K2 的官方 scaling-law 结果，指在作者的验证损失拟合与超参数搜索下更有效地使用计算，不等于下游 benchmark 全面提升 2.5 倍。

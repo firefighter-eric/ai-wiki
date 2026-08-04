@@ -33,7 +33,7 @@
 - `Stable LatentMoE` 使用 `3,584` 维 latent routed path、896 个 routed experts、每 token top-16、2 个 full-width shared experts，每个 expert hidden size 为 `3,072`。
 - Stable LatentMoE 通过 routed aggregate 后的 `RMSNorm`、有界的 `SiTU-GLU` 和 `Quantile Balancing (QB)` 共同处理极端 sparsity 下的 activation explosion 与 load imbalance。
 - `QB` 从 router-score quantile 直接推导下一步 expert bias；bias 只参与 top-k dispatch，不进入 mixture weights，因此其目标是调节负载而不直接改写 router gradient。
-- `Per-Head Muon` 不对拼接后的完整 Q/K/V momentum matrix 一次正交化，而是按 attention head 分块执行 Newton–Schulz orthogonalization，以减少大尺度下不同 head 更新幅度互相支配的问题。
+- K3 延续 K2，对 matrix parameters 使用 `Muon`；其中 Q/K/V attention projections 采用 `Per-Head Muon`，不对拼接后的完整 momentum matrix 一次正交化，而是沿 attention-head dimension 分块执行 Newton–Schulz orthogonalization，以减少大尺度下不同 head 更新幅度互相支配的问题。报告称这种做法使 head 间学习动态更平衡，并因 tall per-head blocks 较小而略降 optimizer overhead。
 - `MoonViT-V2` 是约 `401M` 参数、27 层、patch size 14、12 heads 的视觉编码器；报告称它从随机初始化开始与 LLM 联合训练，而不是先做 SigLIP 式对比预训练再接入。
 
 ### 预训练与长上下文
@@ -59,6 +59,7 @@
 
 - KDA 使用固定大小 recurrent state，缓解长序列 KV 增长，但其状态递推不天然适合 GPU 并行；报告为 training/prefill 设计 `FlashKDA`，为跨设备长序列设计 KDA Context Parallelism，并为 decode 设计可在 speculative rejection 后重建 state 的 replay kernel。
 - 3T 级训练组合 Pipeline Parallelism、virtual stages、Expert Parallelism、ZeRO-1、Pipeline ZeRO-2 和 Context Parallelism，并用统一 activation manager 组合 recomputation、quantization、local/remote offload。
+- K3 的 distributed optimizer 按 DP ranks 切分参数，但 Muon 正交化需要完整 matrix；其实现不在每个 rank 上 all-gather 整个 parameter buffer，而是让各 rank 通过 P2P 只取回自己负责参数的缺失 shards，并按 model-chunk buffers 流水化通信与正交化计算。
 - `MoonEP` 用动态冗余专家、GPU online planner、zero-copy communication 与 static shapes 保证每个 EP rank 接收完全相同的 token 负载，避免逐层 host-device shape synchronization。
 - 1M agentic RL 将可复用 prefix 状态写回 CPU DRAM 外部 cache pool，并在训练/rollout 阶段间复用显存和主存；scheduler 根据 active/queued requests 与 cache utilization 自动节流。
 - `AgentENV` 基于 Firecracker microVM，支持 pause/resume、fork、snapshot 与增量 checkpoint；报告给出的 133ms checkpoint、49ms resume 和 6.5× memory overcommit 都是作者系统中的测量值。
