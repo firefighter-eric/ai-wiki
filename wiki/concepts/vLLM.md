@@ -106,6 +106,7 @@ V1 的 APC 对每个 **完整 block** 构造 chained hash：key 包含 parent bl
 - 与模型级 `MQA / GQA` 等技术相比，vLLM 不改变每个 token 需要生成哪些 K/V 表示；模型结构决定单位 token 的 cache 体积，vLLM 决定这些状态怎样被放置、复用和调度。
 - 与 `RadixAttention` 相比，`PagedAttention` 首先回答 KV tensors 的物理放置、增长和 block-based execution；`RadixAttention` 首先回答已计算 token prefixes 怎样由 radix tree 索引、保留、匹配并参与 cache-aware scheduling。二者不在完全相同的抽象层，SGLang 的 RadixAttention 也建立在 paged KV layout 上。
 - 与当前 `SGLang` 相比，V1 vLLM 同样拥有 prefix cache，准确差异不是“有或没有缓存”，而是 vLLM APC 以 chained block hash + cache table + LRU free queue 为中心，SGLang 以 radix tree / HiRadixTree 与 locality-aware policy 为中心。完整比较见 [SGLang 与 vLLM 架构对比](../comparisons/SGLang%20与%20vLLM%20架构对比.md)。
+- `Kimi K3` 是模型架构迫使 serving cache abstraction 扩展的实例：K3 的 MLA cache 随 token 增长，而 KDA state 固定大小且只能在已持久化 checkpoint 的 boundary 恢复。Moonshot 报告称两者被放进统一 paged layout 并共同完成 allocation、hit validation、eviction 与 transfer；这属于 K3-specific runtime path，不能倒推为通用 vLLM APC 的既有语义。
 
 ### 证据的时间与适用范围
 
@@ -122,6 +123,8 @@ V1 的 APC 对每个 **完整 block** 构造 chained hash：key 包含 parent bl
 - [Zheng et al. - 2024 - SGLang Efficient Execution of Structured Language Model Programs](../summaries/Zheng%20et%20al.%20-%202024%20-%20SGLang%20Efficient%20Execution%20of%20Structured%20Language%20Model%20Programs.md)
 - [SGLang Team - 2024 - SGLang v0.4 Zero-Overhead Batch Scheduler Cache-Aware Load Balancer Faster Structured Outputs](../summaries/SGLang%20Team%20-%202024%20-%20SGLang%20v0.4%20Zero-Overhead%20Batch%20Scheduler%20Cache-Aware%20Load%20Balancer%20Faster%20Structured%20Outputs.md)
 - [SGLang Project - 2026 - HiCache System Design and Optimization](../summaries/SGLang%20Project%20-%202026%20-%20HiCache%20System%20Design%20and%20Optimization.md)
+- [Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence](../summaries/Kimi%20Team%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence.md)
+- [Moonshot AI - 2026 - Kimi K3 Model Repository](../summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20Model%20Repository.md)
 
 ## 关联页面
 
@@ -132,3 +135,5 @@ V1 的 APC 对每个 **完整 block** 构造 chained hash：key 包含 parent bl
 - [Transformer](./Transformer.md)
 - [FlashAttention](./FlashAttention.md)
 - [注意力机制 Attention](../topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)
+- [Kimi K3](./Kimi%20K3.md)
+- [Kimi Delta Attention](./Kimi%20Delta%20Attention.md)

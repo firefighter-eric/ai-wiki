@@ -11,7 +11,7 @@
 
 ## Summary
 
-- 当前已批量 ingest 268 篇 summary 页，按候选主题分组如下。
+- 当前已批量 ingest 273 篇 summary 页，按候选主题分组如下。
 
 ### Attention / Transformer
 
@@ -75,7 +75,12 @@
 - [Unknown - 2024 - DeepSeek-V3 Technical Report](./wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)：We present DeepSeek-V3, a strong Mixture-of-Experts (MoE) language mod...
 - [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](./wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)：`DeepSeek-V4` 把开放 MoE 主线推进到百万 token 上下文、混合 attention 与 agent-oriented 推理效率。
 - [Wei et al. - 2021 - Finetuned Language Models Are Zero-Shot Learners](./wiki/summaries/Wei%20et%20al.%20-%202021%20-%20Finetuned%20Language%20Models%20Are%20Zero-Shot%20Learners.md)：Published as a conference paper at ICLR 2022 FINETUNED LANGUAGE MODELS...
-- [Kimi Team et al. - 2025 - Kimi k1.5 Scaling Reinforcement Learning with LLMs](./wiki/summaries/Kimi%20Team%20et%20al.%20-%202025%20-%20Kimi%20k1.5%20Scaling%20Reinforcement%20Learning%20with%20LLMs.md)：`Kimi k1.5` 是重要但非 `open-weight` 的中国推理家族对照节点。
+- [Kimi Team et al. - 2025 - Kimi k1.5 Scaling Reinforcement Learning with LLMs](./wiki/summaries/Kimi%20Team%20et%20al.%20-%202025%20-%20Kimi%20k1.5%20Scaling%20Reinforcement%20Learning%20with%20LLMs.md)：`Kimi k1.5` 支撑 Kimi 家族早期长上下文、多模态 reasoning RL 路线，但该来源本身不提供权重开放证据。
+- [Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence](./wiki/summaries/Kimi%20Team%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence.md)：精读 K3 的 2.78T/104.2B MoE、KDA/MLA、AttnRes、Stable LatentMoE、agentic RL 与百万 token 系统共设计。
+- [Kimi - 2026 - Kimi K3 Open Frontier Intelligence Release](./wiki/summaries/Kimi%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence%20Release.md)：官方发布页补充产品可用性、部署建议、案例边界与 preserved-thinking-history 等明确限制。
+- [Moonshot AI - 2026 - Kimi K3 Model Repository](./wiki/summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20Model%20Repository.md)：模型仓库记录完整结构配置、MXFP4/MXFP8 权重口径、vLLM/SGLang 部署入口与调用协议。
+- [Moonshot AI - 2026 - Kimi K3 License](./wiki/summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20License.md)：解释 K3 自定义许可证授予的权利、MaaS 收入门槛与超大商业产品展示条件。
+- [Kimi - 2026 - Kimi API Model Selection](./wiki/summaries/Kimi%20-%202026%20-%20Kimi%20API%20Model%20Selection.md)：记录 2026-08-04 的 K3 API model id、always-thinking、reasoning effort 与 1M context 服务快照。
 - [Qwen Team - 2025 - Qwen3 Think Deeper Act Faster](./wiki/summaries/Qwen%20Team%20-%202025%20-%20Qwen3%20Think%20Deeper%20Act%20Faster.md)：Qwen3 把 hybrid thinking、MoE 与 agent 能力整合成新一代 Qwen 主干。
 - [Qwen Team - 2026 - Qwen3.5 Towards Native Multimodal Agents](./wiki/summaries/Qwen%20Team%20-%202026%20-%20Qwen3.5%20Towards%20Native%20Multimodal%20Agents.md)：截至 2026-04-12，官方将 Qwen3.5 直接定义为 native multimodal agent 路线节点。
 - [Yuan et al. - 2023 - Scaling Relationship on Learning Mathematical Reasoning with Large Language Models](./wiki/summaries/Yuan%20et%20al.%20-%202023%20-%20Scaling%20Relationship%20on%20Learning%20Mathematical%20Reasoning%20with%20Large%20Language%20Models.md)：Preprint SCALING RELATIONSHIP ON LEARNING MATHEMATI- CAL REASONING WIT...
@@ -373,7 +378,7 @@
 - [Compressed Sparse Attention](./wiki/concepts/Compressed%20Sparse%20Attention.md)：承接 DeepSeek-V4 中“KV 压缩 + sparse selection”的百万上下文 attention 分支。
 - [Heavily Compressed Attention](./wiki/concepts/Heavily%20Compressed%20Attention.md)：承接 DeepSeek-V4 中更激进的重度 KV 压缩 attention 分支。
 - [Manifold-Constrained Hyper-Connections](./wiki/concepts/Manifold-Constrained%20Hyper-Connections.md)：承接 DeepSeek-V4 中用于稳定 residual signal propagation 的连接结构。
-- [Muon](./wiki/concepts/Muon.md)：承接 DeepSeek-V4 中服务于收敛速度与训练稳定性的优化器组件。
+- [Muon](./wiki/concepts/Muon.md)：连接 DeepSeek-V4 的分布式 Muon 与 Kimi K3 的 Per-Head Muon 更新策略。
 - [StarCoder2](./wiki/concepts/StarCoder2.md)：承接开放代码模型与 The Stack v2 数据治理路线。
 - [DBRX](./wiki/concepts/DBRX.md)：承接平台公司主导的高效开放大模型路线。
 - [OpenELM](./wiki/concepts/OpenELM.md)：承接端侧高效率开放模型与训练/推理框架开放路线。
@@ -381,7 +386,14 @@
 - [OLMo 2](./wiki/concepts/OLMo%202.md)：承接 fully open research release 取向的开放模型路线。
 - [Falcon 3](./wiki/concepts/Falcon%203.md)：承接国际开放模型版图中的重要补充家族。
 - [GLM](./wiki/concepts/GLM.md)：承接中文重要双语大模型家族与 `ChatGLM / GLM-4` 的上游节点。
-- [Kimi](./wiki/concepts/Kimi.md)：承接重要但非 `open-weight` 的中国推理家族对照节点。
+- [Kimi](./wiki/concepts/Kimi.md)：承接从 k1.5 reasoning RL 到 K3 open-weight 多模态 MoE 与长程 agent 系统的家族演进。
+- [Kimi K3](./wiki/concepts/Kimi%20K3.md)：综合 K3 的架构、预训练、post-training、系统实现、开放许可与实际部署边界。
+- [Kimi Delta Attention](./wiki/concepts/Kimi%20Delta%20Attention.md)：解释 KDA fixed-size recurrent state、KDA/MLA 混合结构与 KDA-aware prefix cache。
+- [Attention Residuals](./wiki/concepts/Attention%20Residuals.md)：解释把选择性 attention 从 token sequence 迁移到 network depth 的跨层信息路由。
+- [Stable LatentMoE](./wiki/concepts/Stable%20LatentMoE.md)：解释 K3 以 latent routed path、RMSNorm、SiTU-GLU 与 QB 支撑 896/top-16 experts。
+- [Quantile Balancing](./wiki/concepts/Quantile%20Balancing.md)：解释根据 router-score quantile 直接估计 expert dispatch bias 的负载均衡方法。
+- [MoonViT-V2](./wiki/concepts/MoonViT-V2.md)：承接 K3 从随机初始化开始与语言 backbone 联合预训练的原生多模态视觉编码器。
+- [MoonEP](./wiki/concepts/MoonEP.md)：承接动态冗余 experts、在线规划和静态 shapes 的完全均衡 expert-parallel 训练系统。
 - [DeepSeek-R1](./wiki/concepts/DeepSeek-R1.md)：承接 reasoning-oriented RL 与后训练强化的代表概念页。
 - [InstructGPT](./wiki/concepts/InstructGPT.md)：承接早期 RLHF 管线与对齐转折点的概念页。
 - [DPO](./wiki/concepts/DPO.md)：承接偏好优化简化路线的概念页。
@@ -491,6 +503,7 @@
 - [Alibaba Group](./wiki/authors/Alibaba%20Group.md)：除 Qwen 外，也通过 Wan2.6 接入视频生成主线的阿里机构页。
 - [ShengShu Technology](./wiki/authors/ShengShu%20Technology.md)：Vidu 视频生成路线的机构入口。
 - [DeepSeek](./wiki/authors/DeepSeek.md)：开放 MoE、推理强化学习、thinking tool-use、长上下文效率与 OCR 压缩实验主线的机构入口。
+- [Moonshot AI](./wiki/authors/Moonshot%20AI.md)：连接 Kimi k1.5 reasoning RL 与 Kimi K3 开放权重、长上下文、多模态和 agentic systems co-design 的机构入口。
 - [MiniCPM - ModelBest](./wiki/authors/MiniCPM%20-%20ModelBest.md)：小模型与轻量多模态支线的机构入口。
 - [Stability AI](./wiki/authors/Stability%20AI.md)：开放扩散模型主线的机构入口。
 - [Black Forest Labs](./wiki/authors/Black%20Forest%20Labs.md)：`FLUX.2` 图像生成路线的机构入口。
@@ -499,7 +512,7 @@
 ## Comparisons
 
 - [RLHF vs DPO vs ORPO vs KTO](./wiki/comparisons/RLHF%20vs%20DPO%20vs%20ORPO%20vs%20KTO.md)：比较经典 RLHF 管线与三条偏好优化简化路线的目标函数、数据接口与适用边界。
-- [开放模型家族与中国重要家族对照](./wiki/comparisons/%E5%BC%80%E6%94%BE%E6%A8%A1%E5%9E%8B%E5%AE%B6%E6%97%8F%E4%B8%8E%E4%B8%AD%E5%9B%BD%E9%87%8D%E8%A6%81%E5%AE%B6%E6%97%8F%E5%AF%B9%E7%85%A7.md)：比较开放模型主线与 `GLM / Kimi` 等中国重要家族节点在开放性、家族角色与技术主轴上的差异。
+- [开放模型家族与中国重要家族对照](./wiki/comparisons/%E5%BC%80%E6%94%BE%E6%A8%A1%E5%9E%8B%E5%AE%B6%E6%97%8F%E4%B8%8E%E4%B8%AD%E5%9B%BD%E9%87%8D%E8%A6%81%E5%AE%B6%E6%97%8F%E5%AF%B9%E7%85%A7.md)：比较开放模型主线，并记录 Kimi 从 k1.5 API/报告节点到 K3 open-weight custom-license 模型的代际变化。
 - [SGLang 与 vLLM 架构对比](./wiki/comparisons/SGLang%20%E4%B8%8E%20vLLM%20%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94.md)：按系统边界、KV 物理分页、前缀索引、调度与 structured generation 比较两套 serving stack，并区分论文起点与 2026 当前架构。
 
 ## Timelines
