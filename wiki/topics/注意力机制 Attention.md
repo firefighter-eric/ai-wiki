@@ -11,13 +11,14 @@
 
 因此，本页最重要的边界意识是：`efficient attention` 并不是单一问题域。长序列 encoder、长文档建模、自回归解码、`KV cache` 压缩、GPU kernel IO 优化，都会被论文写成“高效 attention”，但它们优化的对象并不相同。若不先把这些瓶颈拆开，后续所有方法分层都会变成表面分类。
 
-从当前 evidence base 看，本页可以稳定成立的核心判断是：**attention 的研究主线不是从一种标准形式演化到另一种更先进的标准形式，而是围绕不同瓶颈分化出了几类彼此只部分可比的路线。** `Vaswani et al.` 提供统一基线；`Longformer / BigBird / Reformer` 改连接图；`Linformer / Performer / Nyströmformer` 近似完整矩阵；`MQA / GQA / MLA` 压缩解码态；`CSA / HCA` 把长上下文 KV 压缩与稀疏选择组合到百万 token 场景；`FlashAttention` 重写执行方式。
+从当前 evidence base 看，本页可以稳定成立的核心判断是：**attention 的研究主线不是从一种标准形式演化到另一种更先进的标准形式，而是围绕不同瓶颈分化出了几类彼此只部分可比的路线。** `Vaswani et al.` 提供统一基线；`Longformer / BigBird / Reformer` 改连接图；`Linformer / Performer / Nyströmformer` 近似完整矩阵；`MQA / GQA / MLA` 压缩模型级解码态；`CSA / HCA` 把长上下文 KV 压缩与稀疏选择组合到百万 token 场景；`FlashAttention` 重写一次 attention 的执行方式；`PagedAttention / RadixAttention` 则进入 serving runtime，分别处理 KV 的物理分页和跨请求前缀复用。
 
 ## 核心问题
 
 - **标准 `scaled dot-product attention` 为什么能成为统一信息路由接口**，并长期作为各种近似与优化的参照物。
 - **所谓 `O(n^2)` 瓶颈到底指什么**：是训练时的全矩阵显存和计算，还是推理时的 `KV cache` 带宽，还是硬件 IO 常数项。
 - **后续 attention 变体到底在改变什么**：连接图、矩阵近似、状态缓存结构，还是 kernel 实现。
+- **serving runtime 中的 KV cache 技术处于哪一层**：物理 block/page 管理、跨请求 prefix index 与模型级 `K/V` 头压缩不能混为一谈。
 - **哪些方法是在近似标准 attention，哪些方法是在改变应用场景和系统接口**。
 
 ## 主线脉络 / 方法分层
@@ -28,9 +29,10 @@
 - **长序列连接图稀疏化层**：这一层接受的前提是，并非所有 token 对都必须显式交互。`Longformer` 用**局部窗口 + 少量全局 token**处理长文档；`BigBird` 用 **global + local + random** 的混合稀疏模式试图兼顾长程信息流与理论表达性质；`Reformer` 则用 `LSH attention` 按内容相似性分桶，而不是按固定相对位置建图。三者共同代表的是**改连接图**的路线，但它们内部偏置不同：`Longformer` 偏文档任务先验，`BigBird` 偏混合稀疏与理论性质，`Reformer` 偏近邻检索式稀疏。
 - **近似 full attention 矩阵层**：这条线不预设显式稀疏结构，而是把完整 attention matrix 本身视为可近似对象。`Linformer` 假设 attention 映射存在低秩结构，先压缩 `K/V`；`Performer` 用 `FAVOR+` 把 softmax kernel 线性化；`Nyströmformer` 用 landmark / Nyström 方法重建全矩阵。它们共同代表的是**保留全局交互意图，但放弃精确矩阵计算**。与前一层相比，这里的核心不是“谁跟谁连接”，而是“完整交互能否被低成本重写”。
 - **解码态与 `KV cache` 压缩层**：`MQA`、`GQA`、`MLA` 虽然也经常被归入 efficient attention，但它们面对的并不是训练时 `n x n` attention matrix，而是**自回归推理不断增长的状态缓存和带宽压力**。`MQA` 通过共享单组 `K/V` 压缩缓存；`GQA` 在 `MHA` 和 `MQA` 之间做连续折中；`MLA` 进一步引入 latent 压缩来减少推理态负担。`DeepSeek-V4` 的 `CSA / HCA` 把这一层推进到百万 token context：`CSA` 先压缩 KV 再做 sparse selection，`HCA` 用更大压缩率做重度 KV 合并，并通过滑动窗口分支补局部依赖。这一层与长序列 encoder 优化只能在非常宽口径上同属“高效 attention”，但不能视为同一问题的不同答案。
+- **serving runtime 的 KV 组织与复用层**：`PagedAttention` 把一个 sequence 的 logical KV blocks 映射到不连续 physical blocks，主要解决动态长度、连续预留与 fragmentation；`RadixAttention` 把已计算 token prefix 与 paged KV tensors 组织成 radix tree，主要解决跨请求 prefix matching、保留、淘汰与 locality-aware scheduling。二者不是互斥 attention 公式：SGLang 的 RadixAttention 本身使用 paged KV layout，而当前 vLLM 也在 paged block manager 上实现 hash-based Automatic Prefix Caching。这一层与 `MQA / GQA / MLA` 的区别在于，前者管理模型已经产生的 KV states，后者改变每个 token 需要产生多少或何种 KV 表示。
 - **实现级与系统级优化层**：`FlashAttention` 代表的是另一种完全不同的思路。它不近似 attention，不改连接图，而是把瓶颈重述为**GPU 高带宽显存 IO**，在保持 exact attention 语义的前提下通过 tile 化、kernel fusion 和重算策略减少内存读写。这说明 efficient attention 还存在第三种逻辑：不改数学对象，只改执行路径。
 
-据此可以得到一个更清晰的综合判断：**attention 世界里至少混杂了四类不同层次的创新：标准语义定义、连接图偏置、矩阵近似、推理态压缩、系统实现优化。** 把这些层级混在一起做“谁更先进”的比较，往往会掩盖它们各自的成立条件。
+据此可以得到一个更清晰的综合判断：**attention 世界里至少混杂了六类不同层次的创新：标准语义定义、连接图偏置、矩阵近似、模型级推理态压缩、serving 级 KV 管理、kernel / 系统执行优化。** 把这些层级混在一起做“谁更先进”的比较，往往会掩盖它们各自的成立条件。
 
 ## 关键争论与分歧
 
@@ -38,6 +40,7 @@
 - **稀疏 attention 与线性 / 低秩 attention 哪个更接近标准 attention**：现有证据不支持一个统一答案。稀疏路线保留精确局部交互但显式删边；线性 / 低秩路线保留全局交互意图但接受矩阵近似。哪一个“更接近”标准 attention，取决于你把语义保真度理解为连接图保真还是矩阵值保真。
 - **`MQA / GQA / MLA / CSA / HCA` 是否应与 `Linformer / Performer / BigBird` 直接并列**：只能在极宽的“attention 变体”口径下并列，不能在“同一瓶颈的不同解法”意义上并列。前者主要优化 decoder inference、KV cache 或百万上下文推理态，后者主要优化长序列 attention 计算。若不先说明这一点，topic 会错误暗示它们可直接横评。
 - **`FlashAttention` 是否属于新的 attention 模型**：从当前来源看，不应这样表述。它改变的是执行方式和 IO 代价，而不是注意力语义本身。更准确的说法是，它把标准 attention 从“算术复杂度问题”重新表述成“内存访问问题”。
+- **`PagedAttention` 与 `RadixAttention` 是否是竞争关系**：不是严格的二选一。前者首先定义 KV tensors 的物理分页与 block table；后者首先定义 prefix 的语义索引、缓存生命周期与 locality policy。当前 SGLang 同时使用 paged layout 与 radix tree，当前 vLLM 也同时使用 paged blocks 与 hash-based prefix cache，因此稳定差异是数据结构与调度重心，而不是“有没有前缀缓存”。
 - **是否存在统一最优的 attention 路线**：现有证据不支持。不同方法在近似误差、硬件依赖、训练稳定性、部署场景与任务类型上都有明显边界。当前更稳妥的结论是：attention 研究已经从“寻找唯一最好形式”转向“为不同瓶颈选择不同结构和实现偏置”。
 
 ## 证据基础
@@ -54,11 +57,16 @@
 - [Unknown - 2024 - DeepSeek-V3 Technical Report](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
 - [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](../../wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)
 - [Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness](../../wiki/summaries/Dao%20et%20al.%20-%202022%20-%20FlashAttention%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness.md)
+- [Kwon et al. - 2023 - Efficient Memory Management for Large Language Model Serving with PagedAttention](../../wiki/summaries/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md)
+- [Zheng et al. - 2024 - SGLang Efficient Execution of Structured Language Model Programs](../../wiki/summaries/Zheng%20et%20al.%20-%202024%20-%20SGLang%20Efficient%20Execution%20of%20Structured%20Language%20Model%20Programs.md)
 
 ## 代表页面
 
 - [Transformer](../concepts/Transformer.md)
 - [FlashAttention](../concepts/FlashAttention.md)
+- [PagedAttention](../concepts/PagedAttention.md)
+- [RadixAttention](../concepts/RadixAttention.md)
+- [SGLang 与 vLLM 架构对比](../comparisons/SGLang%20与%20vLLM%20架构对比.md)
 - [Grouped-Query Attention](../concepts/Grouped-Query%20Attention.md)
 - [Compressed Sparse Attention](../concepts/Compressed%20Sparse%20Attention.md)
 - [Heavily Compressed Attention](../concepts/Heavily%20Compressed%20Attention.md)
@@ -76,6 +84,9 @@
 
 - [Transformer](../concepts/Transformer.md)
 - [FlashAttention](../concepts/FlashAttention.md)
+- [PagedAttention](../concepts/PagedAttention.md)
+- [RadixAttention](../concepts/RadixAttention.md)
+- [SGLang 与 vLLM 架构对比](../comparisons/SGLang%20与%20vLLM%20架构对比.md)
 - [Grouped-Query Attention](../concepts/Grouped-Query%20Attention.md)
 - [Compressed Sparse Attention](../concepts/Compressed%20Sparse%20Attention.md)
 - [Heavily Compressed Attention](../concepts/Heavily%20Compressed%20Attention.md)
