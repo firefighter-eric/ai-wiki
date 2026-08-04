@@ -33,10 +33,12 @@
 - SGLang 与传统单次 Completion-style serving API 的首要差异是优化边界：后者把 requests 当作彼此独立，论文中的 SGLang 保留跨调用的程序结构。这不意味着所有 workload 都会更快；论文在 long-output multi-turn chat 上就观察到 decode 主导时几乎没有 speedup。
 - compiler 路径提供 graph rewriting、serialization 和较低解释开销，但论文版本只能覆盖可 tracing、无 data-dependent control flow 的子集；完整 Python flexibility 主要由 interpreter 路径保留。
 - 论文中的 GPT-4-assisted code movement 是探索性机制：它可以增加可共享前缀，却可能改变自然语言 prompt 的语义，因此不能与严格 semantics-preserving compiler optimization 等同。
+- `Kimi K3` 官方模型仓库把 SGLang 列为推荐 inference engine，但 K3 的 hybrid KDA–MLA state 与普通 full-attention KV cache 不同；部署时必须核对对应 K3 cookbook、kernel 和 preserved-thinking-history 支持，不能从“支持 SGLang”反推任意历史版本都可直接运行。
 
 ## 来源支持
 
 - [Zheng et al. - 2024 - SGLang Efficient Execution of Structured Language Model Programs](../summaries/Zheng%20et%20al.%20-%202024%20-%20SGLang%20Efficient%20Execution%20of%20Structured%20Language%20Model%20Programs.md)
+- [Moonshot AI - 2026 - Kimi K3 Model Repository](../summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20Model%20Repository.md)
 
 ## 关联页面
 
@@ -48,3 +50,5 @@
 - [HiCache System Design and Optimization](../summaries/SGLang%20Project%20-%202026%20-%20HiCache%20System%20Design%20and%20Optimization.md)
 - [Transformer](./Transformer.md)
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+- [Kimi K3](./Kimi%20K3.md)
+- [Kimi Delta Attention](./Kimi%20Delta%20Attention.md)

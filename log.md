@@ -1394,3 +1394,42 @@
 - 明确 `PagedAttention` 主要解决 KV tensors 的物理分页、增长与共享，`RadixAttention` 主要解决 prefix indexing、保留、淘汰与 cache locality；二者不是互斥 attention 公式。
 - 校正历史二分法：当前两者都具备 paged KV layout、prefix caching、continuous batching、structured output 等能力，差异更多体现为 chained block hash 与 radix tree、unified token budget 与 cache-aware / overlap scheduler 等核心组织方式。
 - 不给出脱离 model、hardware、framework version、prompt reuse distribution 与 SLO 的通用性能赢家。
+
+## [2026-08-04] ingest | Kimi K3 全面研究
+
+涉及页面：
+
+- 新增 `raw/pdf/Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence.pdf`
+- 新增 `raw/html/Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence.html`
+- 新增 `raw/text/Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence.md`
+- 新增官方发布博客、模型仓库、许可证、API model selection 的 4 组 `raw/html -> raw/text` 来源链
+- 新增 5 个对应 `wiki/summaries/` 精修页面
+- 新增 `wiki/concepts/Kimi K3.md`
+- 新增 `wiki/concepts/Kimi Delta Attention.md`
+- 新增 `wiki/concepts/Attention Residuals.md`
+- 新增 `wiki/concepts/Stable LatentMoE.md`
+- 新增 `wiki/concepts/Quantile Balancing.md`
+- 新增 `wiki/concepts/MoonViT-V2.md`
+- 新增 `wiki/concepts/MoonEP.md`
+- 新增 `wiki/authors/Moonshot AI.md`
+- 更新 `wiki/concepts/Kimi.md`
+- 更新 `wiki/concepts/MoE.md`
+- 更新 `wiki/concepts/Muon.md`
+- 更新 `wiki/concepts/SGLang.md`
+- 更新 `wiki/concepts/vLLM.md`
+- 更新 `wiki/topics/LLM 预训练.md`
+- 更新 `wiki/topics/LLM RL.md`
+- 更新 `wiki/topics/注意力机制 Attention.md`
+- 更新 `wiki/comparisons/开放模型家族与中国重要家族对照.md`
+- 更新 `index.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 按 `raw/pdf + raw/html -> raw/text -> wiki/summaries` 接入 arXiv `2607.24653`，并按 `raw/html -> raw/text -> wiki/summaries` 接入 Kimi 官方发布页、GitHub 模型仓库、自定义许可证与 API 文档。
+- 将技术结构收敛为三个信息流轴：序列轴的 `KDA + Gated MLA`，深度轴的 `Block AttnRes`，宽度轴的 `Stable LatentMoE`；并补齐 Quantile Balancing、Per-Head Muon、MoonViT-V2 与 MoonEP 的训练稳定性和系统角色。
+- 单独整理 `SFT -> 三领域 × 三 reasoning efforts 的 RL -> MOPD`，以及 partial rollout、persistent sandbox、verifiable environments、MXFP4/MXFP8 QAT 和 million-token agentic RL infrastructure。
+- 纠正旧的家族级结论：Kimi 不再能整体标成 `API 或闭源`；`Kimi K3` 已发布完整权重，但采用含 MaaS 与超大商业产品条件的自定义许可证，因此标记为 `open-weight under custom license`，不等同于 fully open research release。
+- 明确官方评测混合不同 harness、effort、tools 与第三方榜单快照；保留 Moonshot 对 K3 总体仍落后于 Claude Fable 5 与 GPT-5.6 Sol 的限制性表述，不制造脱离配置的永久排名。
+- 补充 preserved thinking history、always-thinking、过度主动、64+ accelerator supernode 建议，以及 KDA/MLA 混合 cache 对 vLLM/SGLang 版本兼容的实际部署边界。
+- K3 技术报告 PDF 共 47 页；已渲染并目视核验标题/摘要、KDA、AttnRes/Stable LatentMoE、MoonEP 和评测配置等关键页面。

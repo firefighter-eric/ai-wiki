@@ -1,0 +1,73 @@
+# Kimi K3
+
+## 简介
+
+`Kimi K3` 是 Moonshot AI 在 2026 年发布的开放权重、原生多模态、agent-oriented `MoE` 模型。它以约 `2.78T` 总参数、`104.2B` 激活参数和 `1M` token context 把 Kimi 家族从此前的高影响 API 模型推进到集群级 open-weight frontier model。其技术特征不是单个新算子，而是 `KDA + Gated MLA`、`AttnRes`、`Stable LatentMoE`、多档 reasoning-effort RL 与 KDA-aware serving 的联合设计。
+
+## 关键属性
+
+- 类型：开放权重原生多模态 MoE / 长上下文 agent 模型
+- 规模：约 `2.78T` 总参数、`104.2B` 激活参数、93 层
+- 上下文：`1,048,576` token
+- 核心结构：`69 KDA + 24 Gated MLA`、`Block AttnRes`、`Stable LatentMoE`
+- MoE：896 routed experts、top-16、2 shared experts
+- 视觉：从头联合训练的 `MoonViT-V2`
+- Post-training：SFT、三领域 × 三 reasoning efforts 的 RL、MOPD、MXFP4/MXFP8 QAT
+- 开放性：完整权重可下载，但适用自定义 `Kimi K3 License`，包含 MaaS 与超大商业产品条件
+- 部署：官方列出 vLLM、SGLang、TokenSpeed；推荐 64+ accelerators 的 supernode 形态
+
+## 技术结构
+
+| 信息流维度 | K3 机制 | 解决的主要问题 | 新代价或约束 |
+|---|---|---|---|
+| 序列 | `KDA` 与周期性 `Gated MLA` | 让大部分层用 fixed-size recurrent state 处理长序列，同时保留周期性全局交互 | KDA 状态递推、context parallelism 与 prefix cache 需专用 kernel/manager |
+| 深度 | `Block AttnRes` | 让当前层选择性读取 embedding 与先前 block 表示，避免所有历史只被均匀压进单条 residual stream | 需要维护 block states 和专用 prefill/decode kernel |
+| 宽度 | `Stable LatentMoE` | 用低维 routed path 扩大 expert pool 与 top-k，同时控制通信和激活不稳定 | 极端 sparsity 依赖 QB、静态 EP 和专门 MoE kernels |
+| 模态 | `MoonViT-V2` | 从训练开始统一 text/image/video 表示，而非后接视觉 adapter | 视觉样本形状与计算量使 PP/CP 负载更不规则 |
+| 行为 | 多领域、多 effort RL + MOPD | 把 reasoning、coding、agentic 与视觉执行能力压回统一模型 | preserved thinking history 成为实际调用协议约束 |
+
+## 相关主张
+
+- K3 的 `2.5× scaling efficiency` 是相对 K2 的官方 scaling-law 结果，指在作者的验证损失拟合与超参数搜索下更有效地使用计算，不等于下游 benchmark 全面提升 2.5 倍。
+- KDA 并不是简单删除 full attention：K3 每三个 KDA 层保留一个 Gated MLA 层，并让最后一层始终执行全局 attention。这是一种 recurrent/linear mixing 与 global latent attention 的混合架构。
+- Stable LatentMoE 的贡献不只是把 expert 数量增到 896，而是把低维 routed path、RMSNorm、SiTU-GLU 与 Quantile Balancing 组合起来，使 top-16 routing 在 3T 级训练中可控。
+- K3 的 native multimodality 指视觉与语言从预训练开始共享 next-token objective；公开模型仓库明确列出 text/image 输入，而技术报告说明训练语料还覆盖 video。
+- agent 能力来自 post-training 与环境系统的共同作用：partial rollout、budgeted effort、MOPD、不同 harness 配置、可验证环境和持久化 microVM 共同支持长程轨迹。
+- 1M context 的工程核心不是只把最大长度设大，而是训练 curriculum、KDA Context Parallelism、外部 cache pool、KDA-aware prefix caching 与 fleet scheduling 的共同实现。
+- K3 是 open-weight，但不是 fully open research release：训练数据与完整训练代码没有达到 OLMo 式全面公开，且自定义许可证对特定商业规模设置条件。
+- 官方评测覆盖广，但不同模型与任务使用不同 harness、effort、tools 和数据来源；适合观察能力覆盖面，不适合脱离配置给出永久总排名。
+- 产品上 K3 永远 thinking，且依赖 preserved thinking history。部署方如果只回传可见 answer、遗漏 `reasoning_content`，会触发官方明确警告的质量不稳定。
+- 官方还警告 K3 可能过度主动；在有权限、资金、外部写入或不可逆操作的 agent 场景中，system prompt、approval gate 和 verifier 不能省略。
+
+## 使用判断
+
+- 适合：超长代码库、复杂 knowledge work、视觉参与的多步任务、可以保留完整会话状态且有集群级部署条件的 agent 系统。
+- 需要谨慎：低延迟短对话、必须关闭 thinking、会在同一 session 中频繁切换模型、不能保留 reasoning history、缺少权限边界或 verifier 的自动化流程。
+- Self-hosting 评估不能只看权重下载成功，还要核对 MXFP4 kernel、KDA/AttnRes runtime、EP 拓扑、cache manager 和具体框架版本。
+
+## 来源支持
+
+- [Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence](../../wiki/summaries/Kimi%20Team%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence.md)
+- [Kimi - 2026 - Kimi K3 Open Frontier Intelligence Release](../../wiki/summaries/Kimi%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence%20Release.md)
+- [Moonshot AI - 2026 - Kimi K3 Model Repository](../../wiki/summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20Model%20Repository.md)
+- [Moonshot AI - 2026 - Kimi K3 License](../../wiki/summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20License.md)
+- [Kimi - 2026 - Kimi API Model Selection](../../wiki/summaries/Kimi%20-%202026%20-%20Kimi%20API%20Model%20Selection.md)
+
+## 关联页面
+
+- [Kimi](./Kimi.md)
+- [Kimi Delta Attention](./Kimi%20Delta%20Attention.md)
+- [Attention Residuals](./Attention%20Residuals.md)
+- [Stable LatentMoE](./Stable%20LatentMoE.md)
+- [Quantile Balancing](./Quantile%20Balancing.md)
+- [MoonViT-V2](./MoonViT-V2.md)
+- [MoonEP](./MoonEP.md)
+- [MoE](./MoE.md)
+- [Muon](./Muon.md)
+- [SGLang](./SGLang.md)
+- [vLLM](./vLLM.md)
+- [LLM 预训练](../topics/LLM%20预训练.md)
+- [LLM RL](../topics/LLM%20RL.md)
+- [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+- [开放模型家族与中国重要家族对照](../comparisons/开放模型家族与中国重要家族对照.md)
+- [Moonshot AI](../authors/Moonshot%20AI.md)
