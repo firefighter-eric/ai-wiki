@@ -7,7 +7,7 @@
 - 全文文本：../../raw/text/Team, Meta - 2024 - The Llama 3 Herd of Models.md
 - 作者：Team, Meta
 - 年份：2024
-- 状态：已抽取全文，待精读
+- 状态：已核对预训练优化器；其余部分仍待系统精读
 
 ## 自动抽取摘要
 
@@ -21,6 +21,8 @@ The Llama 3 Herd of Models Llama Team, AI @ Meta1 1A detailed contributor list c
 
 ## 关键事实
 
+- 报告明确披露 Llama 3 405B 初始预训练使用 `AdamW`，peak learning rate 为 `8×10^-5`，线性 warmup `8,000` steps，随后用 cosine schedule 衰减。
+- optimizer states 与 gradients 通过 FSDP 分片；因此 Llama 3 是当前先进模型仍采用 element-wise AdamW 路线的明确案例。
 - 已存在可读全文文本，可直接从 `raw/text/Team, Meta - 2024 - The Llama 3 Herd of Models.md` 继续做深入整理。
 - 当前尚未对方法细节、实验设置和局限做系统提炼。
 - 若该来源对主题主干重要，下一步应提升为精修版来源页。
@@ -30,8 +32,9 @@ The Llama 3 Herd of Models Llama Team, AI @ Meta1 1A detailed contributor list c
 - 自动抽取摘要可能存在 PDF 文本切分误差。
 - 主题归类是启发式结果，不等于最终主题归属。
 - 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 该来源没有做 AdamW 与 Muon 的同条件对照，不能据此比较两种优化器优劣。
 
 ## 关联页面
 
 - 主题：[LLM预训练](../topics/LLM%20预训练.md)
-- 综合：暂无
+- 对比：[Muon 与 AdamW](../comparisons/Muon%20与%20AdamW.md)

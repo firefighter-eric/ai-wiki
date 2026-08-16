@@ -1,0 +1,1513 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>[2511.07464] Motif 2 12.7B technical report</title><meta property="og:description" content="We introduce Motif-2-12.7B, a new open-weight foundation model that pushes the efficiency frontier of large language models by combining architectural innovation with system-level optimization. Designed for scalable la…">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Motif 2 12.7B technical report">
+<meta name="twitter:image:src" content="https://ar5iv.labs.arxiv.org/assets/ar5iv_card.png">
+<meta name="twitter:image:alt" content="ar5iv logo">
+<meta property="og:title" content="Motif 2 12.7B technical report">
+<meta property="og:site_name" content="ar5iv">
+<meta property="og:image" content="https://ar5iv.labs.arxiv.org/assets/ar5iv_card.png">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ar5iv.labs.arxiv.org/html/2511.07464">
+<link rel="canonical" target="_blank" href="https://ar5iv.labs.arxiv.org/html/2511.07464">
+
+<!--Generated on Fri Dec  5 14:27:54 2025 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script>
+  function detectColorScheme(){
+    var theme="light";
+    var current_theme = localStorage.getItem("ar5iv_theme");
+    if(current_theme){
+      if(current_theme == "dark"){
+        theme = "dark";
+      } }
+    else if(!window.matchMedia) { return false; }
+    else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      theme = "dark"; }
+    if (theme=="dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light"); } }
+
+  detectColorScheme();
+
+  function toggleColorScheme(){
+    var current_theme = localStorage.getItem("ar5iv_theme");
+    if (current_theme) {
+      if (current_theme == "light") {
+        localStorage.setItem("ar5iv_theme", "dark"); }
+      else {
+        localStorage.setItem("ar5iv_theme", "light"); } }
+    else {
+        localStorage.setItem("ar5iv_theme", "dark"); }
+    detectColorScheme(); }
+</script>
+<link media="all" rel="stylesheet" href="/assets/ar5iv-fonts.0.8.4.css"><link media="all" rel="stylesheet" href="/assets/ar5iv.0.8.5.css"><link media="all" rel="stylesheet" href="/assets/ar5iv-site.0.2.2.css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Motif 2 12.7B technical report</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Motif Technologies
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p">We introduce Motif-2-12.7B, a new open-weight foundation model that pushes the efficiency frontier of large language models by combining architectural innovation with system-level optimization. Designed for scalable language understanding and robust instruction generalization under constrained compute budgets, Motif-2-12.7B builds upon Motif-2.6B with the integration of Grouped Differential Attention (GDA), which improves representational efficiency by disentangling signal and noise-control attention pathways. The model is pre-trained on 5.5 trillion tokens spanning diverse linguistic, mathematical, scientific, and programming domains using a curriculum-driven data scheduler that gradually changes the data composition ratio. The training system leverages the MuonClip optimizer alongside custom high-performance kernels, including fused PolyNorm activations and the Parallel Muon algorithm, yielding significant throughput and memory efficiency gains in large-scale distributed environments. Post-training employs a three-stage supervised fine-tuning pipeline that successively enhances general instruction adherence, compositional understanding, and linguistic precision. Motif-2-12.7B demonstrates competitive performance across diverse benchmarks, showing that thoughtful architectural scaling and optimized training design can rival the capabilities of much larger models.
+<br class="ltx_break"><span class="ltx_text ltx_font_bold">Hugging Face</span>: <a target="_blank" href="https://huggingface.co/Motif-Technologies" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://huggingface.co/Motif-Technologies</a>
+<br class="ltx_break"><span class="ltx_text ltx_font_bold">Chat service</span>: <a target="_blank" href="https://chat.motiftech.io/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://chat.motiftech.io/</a></p>
+</div>
+<div id="p1" class="ltx_para">
+<img src="/html/2511.07464/assets/x1.png" id="g1" class="ltx_graphics ltx_centering ltx_img_square" width="152" height="146" alt="[Uncaptioned image]">
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Recent years have seen rapid progress in large language models (LLMs), with both proprietary and open-weight systems such as GPT-5 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">gpt5systemcard</span></cite>, Claude-4 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">Anthropic2025Claude4SC</span></cite>, Grok-4 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">xAI_Grok4_2025</span></cite>, Gemini-2.5 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">comanici2025gemini</span></cite>, Qwen-3 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">yang2025qwen3</span></cite>, DeepSeek-r1 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">guo2025deepseek</span></cite>, and Kimi K2 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">team2025kimi</span></cite> achieving remarkable results across diverse domains, including mathematics, programming, STEM reasoning, medicine, and law. The scale and breadth of these systems have begun to redefine the boundaries of what language models can represent and reason about, signaling a shift from pattern recognition toward more structured and analytical forms of intelligence. Despite these advances, research on competitive capability under constrained model sizes and limited computational resources remains relatively sparse. Understanding how to push the limits of LLMs’ ability within efficiency constraints has emerged as an important challenge for the next generation of language models.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">We introduce Motif-2-12.7B(-Base/Instruct), an open-weight foundational language model designed to support instruction following, multi-step reasoning, and general-purpose language understanding.
+At its core is Grouped Differential Attention (GDA) <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">lim2025grouped</span></cite>, a new mechanism that reorganizes attention computation to better capture multi-granular token interactions while preserving scalability.
+Motif-2-12.7B achieves competitive results across a broad range of reasoning and instruction-following tasks, showing that architectural innovation and effective training strategies can lead to meaningful improvements even without relying on extremely large parameter sizes.
+With its open availability and transparent training methodology, Motif-2-12.7B would serve as a strong baseline for future research on scalable attention and efficient reasoning.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">Compared to its predecessor Motif-2.6B <cite class="ltx_cite ltx_citemacro_citep">(<span class="ltx_ref ltx_missing_citation ltx_ref_self">lim2025motif</span>)</cite>, Motif-2-12.7B represents a significant evolution in scale and training methodology. It is obtained by upscaling Motif-2.6B and pre-training on a substantially larger and more diverse corpus, yielding broader linguistic coverage and deeper knowledge representation across general English, Question Answering, chat, multilingual, scientific, mathematical, and coding domains. Most importantly, we introduce Grouped Differential Attention (GDA), which enhances the model’s capacity to capture complex token dependencies and improves efficiency without additional computational cost. Complemented by strengthened data curation (rigorous filtering, deduplication, novel synthetic data generation, and domain-balanced sampling) and an expanded token budget, Motif-2-12.7B exhibits consistently stronger performance on standard evaluations while preserving continuity with Motif-2.6B.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">Pre-training of Motif-2-12.7B-Base was conducted over a corpus total 5.5 trillion tokens, designed to support scalable reasoning and generalization. We employed a linear curriculum scheduler to modulate the data composition throughout training. Early phases consisted predominantly of general-domain English text, with a gradual and controlled increase in the proportion of STEM, mathematical, and programming data. This approach encouraged early convergence on core linguistic fluency while promoting progressive adaptation to more structured reasoning tasks. Optimization was carried out using the MuonClip optimizer <cite class="ltx_cite ltx_citemacro_citep">(<span class="ltx_ref ltx_missing_citation ltx_ref_self">team2025kimi</span>)</cite>, which was chosen for its adaptive gradient scaling properties under large-batch conditions. To fully leverage hardware efficiency, we implemented a set of high-performance parallelism kernels for optimizing MuonClip’s update rule, significantly improves throughput and stability for long-sequence training. This combination of curriculum-aware data scheduling, specialized optimization, and systems-level acceleration enabled us to scale pre-training effectively without compromising convergence quality or compute efficiency.</p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p class="ltx_p">Following pre-training, Motif-2-12.7B-Instruct further went through a post-training phase consisting of three-stage supervised fine-tuning (SFT) to enhance its general instruction-following and domain-specific abilities. The process began with large-scale alignment on diverse instruction datasets to establish broad conversational competence, then progressively incorporated curated and synthetic data emphasizing compositional reasoning, algorithmic thinking, mathematics, and code generation. In the final refinement stage, selective data pruning was applied to improve diversity and maintain linguistic fluency. Through this gradual and data-driven approach, Motif-2-12.7B-Instruct developed stronger generalization and more coherent reasoning behaviors across a wide range of tasks.</p>
+</div>
+<div id="S1.p6" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Organization of the technical report.</span>
+Section 2 introduces the architectural design of Motif-2-12.7B, detailing its scaling methodology and integration of key components.
+Section 3 describes the pretraining data composition, training procedure, and evaluation results of the base model.
+Section 4 presents system-level optimizations developed to improve large-scale training efficiency.
+Section 5 outlines the three-stage supervised fine-tuning pipeline used to construct the Motif-2-12.7B-Instruct model, along with its corresponding evaluation results.
+Finally, Section 6 concludes the report with a summary of findings and future directions.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Architecture</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">To expand model capacity while preserving the pretrained representation space, we employed a width expansion strategy that scales internal dimensions without altering the model’s learned function. Motif-2-12.7B was derived from Motif-2.6B through the Scaling Smart Hypercloning procedure <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">samragh2024scaling</span></cite>, in which the model is scaled by an integer multiple through direct weight replication. This method enlarges the network while strictly preserving the original parameter topology and initialization statistics, thereby ensuring functional continuity between generations. Rather than re-initializing or retraining new components from scratch, hypercloning reproduces the pretrained activation tensors exactly, allowing the expanded model to inherit both the structural and representational properties of Motif-2.6B.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">To improve representational disentanglement and enhance fine-grained control over information routing within attention, we incorporated the Grouped Differential Attention (GDA) mechanism <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">lim2025grouped</span></cite> during the hypercloning stage. This mechanism enables different subsets of attention heads to specialize in either amplifying salient signals or suppressing residual noise, thereby improving the overall quality and efficiency of learned representations. During this stage, we integrated GDA directly into the cloned architecture, organizing the attention heads into asymmetric groups with a 4:1 ratio between signal-preserving and noise-control groups, respectively. Determining this ratio was a critical design choice, as the GDA mechanism requires balancing the proportion of signal and noise heads for optimal performance. Through preliminary experiments exploring various configurations, we empirically found that a 4:1 ratio provided the best balance—allocating more heads to salient information propagation while maintaining stability and regularization through the smaller noise-control group. This integration represents the first large-scale application of GDA within the Motif architecture, validating its scalability and effectiveness in production-scale training.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">Following the width-preserving hypercloning and GDA integration, we expanded the model depth using the LLaMA-Pro framework <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">wu2024llama</span></cite>. This step increased the number of layers in a structurally consistent manner while preserving RMS normalization <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">zhang2019root</span></cite>, Rotary Positional Embedding <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">su2024roformer</span></cite>, and cross-layer residual scaling inherited from Motif-2.6B. The activation PolyNorm <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">zhuo2024polynomial</span></cite> and the tokenizer from Motif-2.6B were retained without modification. The resulting architecture, referred to “2” in the middle of its name ‘Motif-2-12.7B’, therefore represents a continuous and functionally extended successor of its predecessor Motif-2.6B. The detailed architectural configurations are summarized in Table <a href="#S2.T1" title="Table 1 ‣ 2 Architecture ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
+</div>
+<figure id="S2.tab1" class="ltx_table">
+<div class="ltx_block">
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_tt"><span class="ltx_text ltx_font_bold">Model size</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold">12.7B</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_t">Hidden dimension</td>
+<td class="ltx_td ltx_align_center ltx_border_t">4,096</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Number of layers</td>
+<td class="ltx_td ltx_align_center">40</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Feed-Forward dimension</td>
+<td class="ltx_td ltx_align_center">16,384</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Number of heads</td>
+<td class="ltx_td ltx_align_center">40</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Number of KV heads</td>
+<td class="ltx_td ltx_align_center">16</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Number of Noise heads</td>
+<td class="ltx_td ltx_align_center">8</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_t">Attention Mechanism</td>
+<td class="ltx_td ltx_align_center ltx_border_t">Grouped Differential Attention</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Activation Function</td>
+<td class="ltx_td ltx_align_center">PolyNorm Activation</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Max Sequence Length</td>
+<td class="ltx_td ltx_align_center">32,768</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Positional Embeddings</td>
+<td class="ltx_td ltx_align_center">RoPE (<math id="S2.m1" class="ltx_Math" alttext="\theta=1,000,000" display="inline" intent=":literal"><semantics><mrow><mi>θ</mi><mo>=</mo><mrow><mn>1</mn><mo>,</mo><mn>000</mn><mo>,</mo><mn>000</mn></mrow></mrow><annotation encoding="application/x-tex">\theta=1,000,000</annotation></semantics></math>)</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r">Vocab size</td>
+<td class="ltx_td ltx_align_center">219,520</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_r">Tied word embedding</td>
+<td class="ltx_td ltx_align_center ltx_border_bb">False</td>
+</tr>
+</table>
+<figure id="S2.T1" class="ltx_table ltx_align_center">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">Table 1: </span>The detailed hyper-parameters of Motif-2-12.7B.</figcaption>
+</figure>
+</div>
+</figure>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Pre-training</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">This section provides an overview of the pre-training data construction, describes the pre-training methodology, and presents benchmark evaluations of the base models.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Pre-training Data</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">We constructed a large-scale and high-quality pre-training corpus for Motif-2-12.7B by aggregating a broad spectrum of open-source and in-house datasets spanning diverse domains and modalities. The corpus encompasses general web data (e.g., Nemotron-CC <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">su2024nemotron</span></cite>, Wikipedia, Stack Exchange <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">tang2024txt360</span></cite>, and Facebook Recycling the Web <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">nguyen2025recycling</span></cite>), multilingual and Korean-language resources (Fineweb2 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">penedo2025fineweb2pipelinescale</span></cite>, Translated DiverseQA <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">su2024nemotron</span></cite>, and extended in-house Korean corpus), as well as specialized domains such as reasoning and knowledge-intensive tasks (DiverseQA <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">su2024nemotron</span></cite>, Synthetic QA Dataset), scientific and mathematical content (FineWeb2 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">penedo2025fineweb2pipelinescale</span></cite>, OctoThinker MegaMath <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">wang2025octothinker</span></cite>, Yulan Math <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">hu2024yulan</span></cite>, arXiv), and code-centric corpora (OpenCoder-LLM Dataset <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">huang2024opencoder</span></cite>, Yulan Code <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">hu2024yulan</span></cite>).</p>
+</div>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">The model was trained on 5.5 trillion tokens drawn from this corpus, encompassing general English, question answering, conversational, multilingual, scientific, mathematical, and programming domains. This large-scale training setup provides a balanced and robust foundation for advancing both linguistic and reasoning capabilities.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Pre-training Stage and Recipe</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">The pre-training of the Motif-2-12.7B series followed three core strategies designed to balance efficiency, diversity, and reasoning capability.</p>
+</div>
+<section id="S3.SS2.SSS0.Px1" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Dataset Mixture Scheduling</h5>
+
+<div id="S3.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p">We adopted a progressive dataset mixture scheduling strategy, similar to that used in Motif-2.6B. The early training phase primarily consisted of English web-scale corpora, while reasoning, mathematical, and code-related datasets were introduced in small proportions. Their relative ratios were then gradually increased over the course of training. The dataset mixture was dynamically adjusted at each training step, analogous to how a learning-rate scheduler modulates optimization dynamics. This approach enabled a smooth transition from general linguistic learning to higher-order reasoning without destabilizing early-stage convergence.</p>
+</div>
+</section>
+<section id="S3.SS2.SSS0.Px2" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Large-Batch Training</h5>
+
+<div id="S3.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p">Training was conducted with large effective batch sizes, starting from 16 million tokens and progressively scaling up to 80 million tokens. We employed the Muon-Clip optimizer, originally introduced in the Kimi K2 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">team2025kimi</span></cite>, and further developed an internally optimized variant tailored for parallel and distributed training settings.
+This enhanced Muon implementation features improved gradient stability, communication efficiency, and large-batch scalability, which together enable high-throughput optimization under multi-node environments. Details of the parallel and distributed optimization design are provided in a later section.</p>
+</div>
+</section>
+<section id="S3.SS2.SSS0.Px3" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Reasoning Annealing Stage</h5>
+
+<div id="S3.SS2.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p">In the final annealing phase, we gradually increased the proportion of reasoning data while capping it below 10% of total tokens to prevent overfitting and mode collapse toward narrow reasoning distributions. Notably, within this reasoning subset, mathematical data were weighted more heavily than code data, which is a deliberate choice aimed at strengthening symbolic abstraction and quantitative reasoning. Although this allocation is unconventional, we found it conducive to improved general reasoning robustness without degrading linguistic fluency.
+We used a peak learning rate of <math id="S3.SS2.SSS0.Px3.p1.m1" class="ltx_Math" alttext="4\times 10^{-4}" display="inline" intent=":literal"><semantics><mrow><mn>4</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">4\times 10^{-4}</annotation></semantics></math>, which was decayed to approximately 10% of the value using the Warmup–Stable–Decay scheduler <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">hu2024minicpmunveilingpotentialsmall</span></cite>. The annealing stage was conducted over roughly 1 trillion training tokens, during which the maximum sequence length was gradually increased from 4,096 to 16,384 tokens toward the end of training to enable smooth adaptation to longer-context understanding.</p>
+</div>
+</section>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.3 </span>Pre-training Evaluation</h3>
+
+<section id="S3.SS3.SSS0.Px1" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Evaluation Setup</h5>
+
+<div id="S3.SS3.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p">To evaluate the performance of the Motif-2-12.7B-Base, we conducted a comprehensive evaluation across multiple capability areas. We compared the models developed in this study against two leading open-source foundation models, Qwen3 and Gemma3 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">team2025gemma</span></cite>. These two models represent state-of-the-art open weight models similar scale and learning methods. To ensure fair and consistent comparison, we used the officially reported scores from each model’s technical report. All evaluations for Motif-2-12.7B-Base were conducted using greedy decoding.</p>
+</div>
+<div id="S3.SS3.SSS0.Px1.p2" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">General Knowledge</span>
+ We evaluate benchmarks such as MMLU <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">hendrycks2009measuring</span></cite>, MMLU-Redux <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">gema2025we</span></cite>, MMLU-Pro <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">wang2024mmlu</span></cite>, BBH <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">suzgun2023challenging</span></cite>, ARC-Challenge, and ARC-Easy <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">clark2018think</span></cite> to measure the model’s breadth of factual knowledge, general reasoning ability. Motif-2-Base achieves solid performance on the MMLU and MMLU-Redux, surpassing Gemma-3 12B and approaching Qwen-3 14B/32B levels. Notably, it records the highest score on MMLU-Pro highlighting strong reasoning capability.</p>
+</div>
+<div id="S3.SS3.SSS0.Px1.p3" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Math &amp; Scientific Reasoning</span>
+ GSM8K <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">cobbe2021training</span></cite>, MATH <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">hendrycks2024measuring</span></cite>, GPQA, GPQA-Diamond <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">rein2024gpqa</span></cite>, and SuperGPQA <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">du2025supergpqa</span></cite> are used to assess mathematical reasoning, numerical precision, and scientific understanding requiring multi-step logical inference. Motif-2-Base exhibits clear strength, recording 94.9 on GSM8K and 73.6 on MATH, exceeding all open-weight baselines of comparable scale. It also attains competitive results on GPQA and SuperGPQA, showing superior performance among models of similar scale.</p>
+</div>
+<div id="S3.SS3.SSS0.Px1.p4" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Code Tasks</span>
+ HumanEval <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">chen2021evaluating</span></cite>, MBPP <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">austin2021program</span></cite>, EvalPlus <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">liu2023your</span></cite>, and CRUX-O <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">gu2024cruxeval</span></cite> evaluate code generation, reasoning about programs, and functional correctness through test-based execution. Motif-2-Base leads with 65.9 on HumanEval and 81.5 on MBPP, establishing itself as one of the strongest code-capable models among non-proprietary peers.</p>
+</div>
+<div id="S3.SS3.SSS0.Px1.p5" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Common-sense</span>
+ HellaSwag <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">zellers2019hellaswag</span></cite>, BoolQ <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">clark2019boolq</span></cite>, PIQA <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">bisk2020piqa</span></cite>, SIQA <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">sap2019socialiqa</span></cite>, WinoGrande <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">sakaguchi2021winogrande</span></cite>, DROP <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">dua2019drop</span></cite>, TriviaQA <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">joshi2017triviaqa</span></cite>, and Natural Questions <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">kwiatkowski2019natural</span></cite>
+are employed to test everyday reasoning, contextual comprehension,
+and the model’s ability to infer causal or pragmatic relationships in natural language. Although slightly lower than larger counterparts, the scores remain competitive and do not show significant degradation.</p>
+</div>
+</section>
+<section id="S3.SS3.SSS0.Px2" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Evaluation Results</h5>
+
+<div id="S3.SS3.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p">Across diverse benchmarks spanning knowledge, reasoning, coding, and commonsense understanding, Motif-2-12.7B-Base demonstrates strong overall competitiveness with leading open-source foundation models.
+Overall, Motif-2-12.7B-Base outperforms both Gemma-3 12B and 27B, as well as Qwen models of comparable size (14B), while approaching the performance of much larger variants such as Qwen-3 32B. These results confirm that Motif-2-12.7B-Base stands as a high-performing and broadly capable foundation model among open-weight models.</p>
+</div>
+<figure id="S3.T2" class="ltx_table">
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" style="width:433.6pt;height:311.2pt;vertical-align:-153.6pt;"><span class="ltx_transformed_inner" style="transform:translate(-54.1pt,38.8pt) scale(0.800435728853373,0.800435728853373) ;">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_text ltx_font_bold">Benchmark</span></td>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text ltx_font_bold">Metric</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold">Motif-2</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold">Gemma3</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold">Qwen2.5</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="3"><span class="ltx_text ltx_font_bold">Qwen3</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_right">12.7B</td>
+<td class="ltx_td ltx_align_right">12B</td>
+<td class="ltx_td ltx_align_right">27B</td>
+<td class="ltx_td ltx_align_right">14B</td>
+<td class="ltx_td ltx_align_right">32B</td>
+<td class="ltx_td ltx_align_right">14B</td>
+<td class="ltx_td ltx_align_right">32B</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">30B-A3B</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">General knowledge</span></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">MMLU</td>
+<td class="ltx_td ltx_align_right ltx_border_t">5-shot</td>
+<td class="ltx_td ltx_align_right ltx_border_t">78.1</td>
+<td class="ltx_td ltx_align_right ltx_border_t">74.5</td>
+<td class="ltx_td ltx_align_right ltx_border_t">78.6</td>
+<td class="ltx_td ltx_align_right ltx_border_t">79.66</td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_framed ltx_framed_underline">83.32</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t">81.05</td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold">83.61</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_t">81.38</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">MMLU-Redux</td>
+<td class="ltx_td ltx_align_right">5-shot</td>
+<td class="ltx_td ltx_align_right">78.68</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">76.64</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">81.97</span></td>
+<td class="ltx_td ltx_align_right">79.88</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">83.41</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">81.17</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">MMLU-Pro</td>
+<td class="ltx_td ltx_align_right">5-shot, CoT</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">66.38</span></td>
+<td class="ltx_td ltx_align_right">45.3</td>
+<td class="ltx_td ltx_align_right">52.2</td>
+<td class="ltx_td ltx_align_right">51.16</td>
+<td class="ltx_td ltx_align_right">55.1</td>
+<td class="ltx_td ltx_align_right">61.03</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">65.54</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">61.49</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">BBH</td>
+<td class="ltx_td ltx_align_right">3-shot, CoT</td>
+<td class="ltx_td ltx_align_right">81.34</td>
+<td class="ltx_td ltx_align_right">72.6</td>
+<td class="ltx_td ltx_align_right">77.7</td>
+<td class="ltx_td ltx_align_right">78.18</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">84.48</span></td>
+<td class="ltx_td ltx_align_right">81.07</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">87.38</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">81.54</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">ARC-Easy</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">84.1</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">88.3</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">89.0</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">ARC-Challenge</td>
+<td class="ltx_td ltx_align_right">25-shot</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">69.6</span></td>
+<td class="ltx_td ltx_align_right">68.9</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">70.6</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">Math &amp; Scientific Reasoning</span></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" rowspan="2">GSM8k</td>
+<td class="ltx_td ltx_align_right ltx_border_t">4-shot, CoT</td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold">93.85</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">90.22</td>
+<td class="ltx_td ltx_align_right ltx_border_t">92.87</td>
+<td class="ltx_td ltx_align_right ltx_border_t">92.49</td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_framed ltx_framed_underline">93.40</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_t">91.81</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_right">8-shot, CoT</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">94.92</span></td>
+<td class="ltx_td ltx_align_right">71.0</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">82.6</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">MATH</td>
+<td class="ltx_td ltx_align_right">4-shot, CoT</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">73.62</span></td>
+<td class="ltx_td ltx_align_right">43.3</td>
+<td class="ltx_td ltx_align_right">50.0</td>
+<td class="ltx_td ltx_align_right">55.64</td>
+<td class="ltx_td ltx_align_right">57.7</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">62.02</span></td>
+<td class="ltx_td ltx_align_right">61.62</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">59.04</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">GPQA</td>
+<td class="ltx_td ltx_align_right">5-shot, CoT</td>
+<td class="ltx_td ltx_align_right">42.18</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">32.83</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">47.97</span></td>
+<td class="ltx_td ltx_align_right">39.9</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">49.49</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">43.94</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">GPQA-Diamond</td>
+<td class="ltx_td ltx_align_right">5-shot, CoT</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">42.92</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">25.4</span></td>
+<td class="ltx_td ltx_align_right">24.3</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">SuperGPQA</td>
+<td class="ltx_td ltx_align_right">5-shot, CoT</td>
+<td class="ltx_td ltx_align_right">32.68</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">30.68</td>
+<td class="ltx_td ltx_align_right">33.55</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">34.27</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">39.78</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">35.72</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">Coding Tasks</span></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">HumanEval</td>
+<td class="ltx_td ltx_align_right ltx_border_t">0-shot</td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold">65.9</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_framed ltx_framed_underline">48.8</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t">45.7</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_t">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">MBPP</td>
+<td class="ltx_td ltx_align_right">3-shot</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">81.5</span></td>
+<td class="ltx_td ltx_align_right">60.4</td>
+<td class="ltx_td ltx_align_right">65.6</td>
+<td class="ltx_td ltx_align_right">69.0</td>
+<td class="ltx_td ltx_align_right">73.6</td>
+<td class="ltx_td ltx_align_right">73.4</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">78.2</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">74.4</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">EvalPlus</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">72.22</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">60.7</td>
+<td class="ltx_td ltx_align_right">66.25</td>
+<td class="ltx_td ltx_align_right">72.05</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">72.23</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">71.45</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">CRUX-O</td>
+<td class="ltx_td ltx_align_right">1-shot</td>
+<td class="ltx_td ltx_align_right">63.1</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">61.1</td>
+<td class="ltx_td ltx_align_right">67.8</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">68.6</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">72.5</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">67.2</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">Common Sense</span></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">HellaSwag</td>
+<td class="ltx_td ltx_align_right ltx_border_t">10-shot</td>
+<td class="ltx_td ltx_align_right ltx_border_t">84.0</td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_framed ltx_framed_underline">84.2</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold">85.6</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_t">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">BoolQ</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">78.5</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">78.8</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">82.4</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">PIQA</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">81.6</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">81.8</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">83.3</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">SIQA</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">53.8</span></td>
+<td class="ltx_td ltx_align_right">53.4</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">54.9</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">DROP</td>
+<td class="ltx_td ltx_align_right">1-shot</td>
+<td class="ltx_td ltx_align_right">69.9</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">72.2</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">77.2</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">TriviaQA</td>
+<td class="ltx_td ltx_align_right">5-shot</td>
+<td class="ltx_td ltx_align_right">72.2</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">78.2</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">85.5</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">Natural Questions</td>
+<td class="ltx_td ltx_align_right">5-shot</td>
+<td class="ltx_td ltx_align_right">29.6</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">31.4</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">36.1</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">WinoGrande</td>
+<td class="ltx_td ltx_align_right">5-shot</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold">79.6</span></td>
+<td class="ltx_td ltx_align_right">74.3</td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_framed ltx_framed_underline">78.8</span></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" rowspan="2"><span class="ltx_text ltx_font_bold">Average</span></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold">71.53</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t">63.87</td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_framed ltx_framed_underline">67.96</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_align_right ltx_border_t">-</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_t">-</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_border_bb"></td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text ltx_framed ltx_framed_underline">69.42</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb">-</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">-</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">62.35</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">67.69</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">67.81</td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text ltx_font_bold">71.54</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_bb">68.10</td>
+</tr>
+</table>
+</span></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Performance comparison across Motif-2, Gemma3, Qwen2.5, and Qwen3 families. Bold indicates the highest score per row; underline indicates the second-highest.</figcaption>
+</figure>
+</section>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Training System Optimization</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">In this section, we describe how training efficiency was significantly enhanced through the integration of novel kernel fusion and parallel muon techniques.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Infrastructure and Precision</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">We employed <span class="ltx_text ltx_font_typewriter">SkyPilot</span> <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">yang2023skypilot</span></cite> as the orchestration framework, enabling seamless multi-node and multi-cluster provisioning, and unified resource abstraction across multiple compute environments. For the core training stack, we adopted <span class="ltx_text ltx_font_typewriter">TorchTitan</span> <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">liang2024torchtitan</span></cite>, a PyTorch-native distributed training platform that provides modular 3D/4D parallelism (data, tensor, pipeline, and context), advanced optimizations such as FP8 all-gather and activation checkpointing.
+Pretraining was performed on 400 H100 gpus for approximately 272K hours, using FP8 precision to maximize computational efficiency. For FP8 training, we applied row-wise scaling and keeps gradients in BF16 precision during the backward pass.</p>
+</div>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>Kernel Fusion</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">During training, we implemented PolyNorm, a polynomial activation function introduced at Motif-2.6B <cite class="ltx_cite ltx_citemacro_citep">(<span class="ltx_ref ltx_missing_citation ltx_ref_self">lim2025motif</span>)</cite>, as a fused CUDA kernel and further fused it with the subsequent elementwise multiplication in the FeedForward layer. PolyNorm is composed of lightweight sub-operations—elementwise scaling, reduction, and normalization—that are typically memory-bound and hence benefit from kernel fusion, which reduces redundant memory traffic and kernel launch overhead.</p>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter">torch.compile<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_serif">1</span></span><a target="_blank" href="https://docs.pytorch.org/docs/stable/generated/torch.compile.html" title="" class="ltx_ref ltx_url">https://docs.pytorch.org/docs/stable/generated/torch.compile.html</a></span></span></span></span> is a high-level API that enables graph-level optimization and automatic GPU kernel fusion with almost no code modification.
+While it provides substantial performance gains, we observed that hand-written fused CUDA kernels can still deliver superior throughput.</p>
+</div>
+<figure id="S4.T3" class="ltx_table">
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" style="width:345.0pt;height:38.2pt;vertical-align:-17.4pt;"><span class="ltx_transformed_inner" style="transform:translate(-52.9pt,5.9pt) scale(0.765333032750344,0.765333032750344) ;">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt" rowspan="2"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Operation</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Forward Speedup</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Backward Speedup</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">vs Naive</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">vs <span class="ltx_text ltx_font_typewriter">torch.compile</span></span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">vs Naive</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">vs <span class="ltx_text ltx_font_typewriter">torch.compile</span></span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">
+<span class="ltx_text" style="font-size:90%;">
+<span class="ltx_tabular ltx_align_middle">
+<span class="ltx_tr">
+<span class="ltx_td ltx_nopad_r ltx_align_left">PolyNorm</span></span>
+</span></span><span class="ltx_text" style="font-size:90%;"></span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">30.29</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">1.53</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">43.90</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">4.77</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb">
+<span class="ltx_text" style="font-size:90%;">
+<span class="ltx_tabular ltx_align_middle">
+<span class="ltx_tr">
+<span class="ltx_td ltx_nopad_r ltx_align_left">PolyNorm + Elementwise Multiplication</span></span>
+</span></span><span class="ltx_text" style="font-size:90%;"></span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">23.38</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">1.29</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">27.92</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">3.33</span></td>
+</tr>
+</table>
+</span></div>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 3: </span>
+Performance comparison of fused kernels against baseline implementations on an H200 GPU.
+All experiments use BF16 precision under PyTorch 2.8.
+Benchmarks were conducted with hidden sizes of 8K and 16K, sequence lengths from 1K to 8K, and batch sizes between 1 and 4.
+Reported speedups are geometric means across all configurations.
+“Naive” refers to a direct implementation using standard PyTorch APIs.
+</figcaption>
+</figure>
+<div id="S4.SS2.p3" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T3" title="Table 3 ‣ 4.2 Kernel Fusion ‣ 4 Training System Optimization ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> compares our fused CUDA kernels against both the naive PyTorch implementation and the <span class="ltx_text ltx_font_typewriter">torch.compile</span>-optimized version.
+While <span class="ltx_text ltx_font_typewriter">torch.compile</span> already provides substantial acceleration—yielding up to <math id="S4.SS2.p3.m1" class="ltx_math_unparsed" alttext="12.9\times" display="inline" intent=":literal"><semantics><mrow><mn>12.9</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">12.9\times</annotation></semantics></math> speedup over the naive baseline—our hand-written fused kernels achieve even higher throughput in both forward and backward passes.
+This demonstrates that manual fusion can further exploit the remaining optimization headroom, particularly for normalization layers dominated by small, memory-bound operations.
+The full implementation of Fused PolyNorm kernels are available at
+<a target="_blank" href="https://huggingface.co/Motif-Technologies/activation" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://huggingface.co/Motif-Technologies/activation</a>.</p>
+</div>
+</section>
+<section id="S4.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.3 </span>Parallel Muon</h3>
+
+<div id="S4.SS3.p1" class="ltx_para">
+<p class="ltx_p">Liu et al. introduced Distributed Muon <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">liu2025muon</span></cite>, which applies a ZeRO-1–based parameter partitioning scheme to the Muon algorithm. Unlike element-wise optimizers such as AdamW, Muon requires access to the full gradient matrices to perform the Newton–Schulz iterations.
+Distributed Muon addresses this by performing an all-gather to reconstruct the full matrix before each Newton–Schulz iteration, computing the update locally, and then discarding all shards except the one that belongs to each rank. While this approach resolves the full-matrix dependency of Muon, it does not parallelize the Newton–Schulz computation itself; as a result, the iteration steps are redundantly executed on all ranks.</p>
+</div>
+<div id="S4.SS3.p2" class="ltx_para">
+<p class="ltx_p">There exist several ideas and implementations that aim to overcome the limitations of Distributed Muon. One notable approach is from Essential AI<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_tag ltx_tag_note">2</span><a target="_blank" href="https://www.essential.ai/research/infra" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://www.essential.ai/research/infra</a></span></span></span>,
+where they propose employing All-to-All communication to re-shard gradients across ranks, thereby eliminating the redundant computations inherent in Distributed Muon.</p>
+</div>
+<div id="S4.SS3.p3" class="ltx_para">
+<p class="ltx_p">We began developing our own implementation of Muon, extending Essential AI’s idea with pipelining and general sharding support (e.g., TP + HSDP), which we refer to as Parallel Muon.
+Parallel Muon distributes computational workloads across shard ranks and executes them concurrently.
+In addition, it schedules communication and computation operations to fully utilize the accelerators.
+While some existing implementations of Muon support FSDP, none provide support for hybrid parallel configurations.</p>
+</div>
+<figure id="alg1" class="ltx_float ltx_float_algorithm ltx_framed ltx_framed_top">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_float"><span class="ltx_text ltx_font_bold">Algorithm 1</span> </span> Parallel Muon</figcaption>
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Require:</span> DP sharded gradients <math id="alg1.m1" class="ltx_Math" alttext="\mathbf{G}" display="inline" intent=":literal"><semantics><mi>𝐆</mi><annotation encoding="application/x-tex">\mathbf{G}</annotation></semantics></math>, DP sharded parameters <math id="alg1.m2" class="ltx_Math" alttext="\mathbf{P}" display="inline" intent=":literal"><semantics><mi>𝐏</mi><annotation encoding="application/x-tex">\mathbf{P}</annotation></semantics></math>, rank <math id="alg1.m3" class="ltx_Math" alttext="\mathbf{r}" display="inline" intent=":literal"><semantics><mi>𝐫</mi><annotation encoding="application/x-tex">\mathbf{r}</annotation></semantics></math></p>
+<br class="ltx_break ltx_break">
+<div class="ltx_listing ltx_listing">
+<div id="alg1.l1" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">1:</span></span><span class="ltx_text ltx_font_typewriter">// 1. Divide <math id="alg1.l1.m1" class="ltx_Math" alttext="\mathbf{G}" display="inline" intent=":literal"><semantics><mi>𝐆</mi><annotation encoding="application/x-tex">\mathbf{G}</annotation></semantics></math> into subsets and assign to each rank</span>
+
+</div>
+<div id="alg1.l2" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">2:</span></span><math id="alg1.l2.m1" class="ltx_Math" alttext="\mathbf{G}^{\prime}\leftarrow\text{assign}(\mathbf{G},\mathbf{r})" display="inline" intent=":literal"><semantics><mrow><msup><mi>𝐆</mi><mo>′</mo></msup><mo stretchy="false">←</mo><mrow><mtext>assign</mtext><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐆</mi><mo>,</mo><mi>𝐫</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{G}^{\prime}\leftarrow\text{assign}(\mathbf{G},\mathbf{r})</annotation></semantics></math>
+
+</div>
+<div id="alg1.l3" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">3:</span></span><span class="ltx_text ltx_font_typewriter">// 2. All2All communicate to gather <math id="alg1.l3.m1" class="ltx_Math" alttext="\mathbf{G}^{\prime}" display="inline" intent=":literal"><semantics><msup><mi>𝐆</mi><mo>′</mo></msup><annotation encoding="application/x-tex">\mathbf{G}^{\prime}</annotation></semantics></math> across DP shard group</span>
+
+</div>
+<div id="alg1.l4" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">4:</span></span><span class="ltx_text ltx_font_typewriter">// As a result, each rank get unsharded matrices of <math id="alg1.l4.m1" class="ltx_Math" alttext="\mathbf{G}^{\prime}" display="inline" intent=":literal"><semantics><msup><mi>𝐆</mi><mo>′</mo></msup><annotation encoding="application/x-tex">\mathbf{G}^{\prime}</annotation></semantics></math></span>
+
+</div>
+<div id="alg1.l5" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">5:</span></span><math id="alg1.l5.m1" class="ltx_Math" alttext="\mathbf{G}^{\prime}_{\text{full}}\leftarrow\text{all2all\_gather}(\text{recv=}\mathbf{G^{\prime}},\text{send=}\mathbf{G}\setminus\mathbf{G}^{\prime})" display="inline" intent=":literal"><semantics><mrow><msubsup><mi>𝐆</mi><mtext>full</mtext><mo>′</mo></msubsup><mo stretchy="false">←</mo><mrow><mtext>all2all_gather</mtext><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mtext>recv=</mtext><mo lspace="0em" rspace="0em">​</mo><msup><mi>𝐆</mi><mo>′</mo></msup></mrow><mo>,</mo><mrow><mrow><mtext>send=</mtext><mo lspace="0em" rspace="0em">​</mo><mi>𝐆</mi></mrow><mo>∖</mo><msup><mi>𝐆</mi><mo>′</mo></msup></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{G}^{\prime}_{\text{full}}\leftarrow\text{all2all\_gather}(\text{recv=}\mathbf{G^{\prime}},\text{send=}\mathbf{G}\setminus\mathbf{G}^{\prime})</annotation></semantics></math>
+
+</div>
+<div id="alg1.l6" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">6:</span></span><span class="ltx_text ltx_font_typewriter">// 3. Calculate Newton-Schulz of unsharded gradients assigned to rank <math id="alg1.l6.m1" class="ltx_Math" alttext="\mathbf{r}" display="inline" intent=":literal"><semantics><mi>𝐫</mi><annotation encoding="application/x-tex">\mathbf{r}</annotation></semantics></math></span>
+
+</div>
+<div id="alg1.l7" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">7:</span></span><math id="alg1.l7.m1" class="ltx_Math" alttext="\mathbf{U}^{\prime}_{\text{full}}\leftarrow\text{Newton-Schulz}(\mathbf{G}^{\prime}_{\text{full}})" display="inline" intent=":literal"><semantics><mrow><msubsup><mi>𝐔</mi><mtext>full</mtext><mo>′</mo></msubsup><mo stretchy="false">←</mo><mrow><mtext>Newton-Schulz</mtext><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>𝐆</mi><mtext>full</mtext><mo>′</mo></msubsup><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{U}^{\prime}_{\text{full}}\leftarrow\text{Newton-Schulz}(\mathbf{G}^{\prime}_{\text{full}})</annotation></semantics></math>
+
+</div>
+<div id="alg1.l8" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">8:</span></span><span class="ltx_text ltx_font_typewriter">// 4. All2All communicate to scatter <math id="alg1.l8.m1" class="ltx_Math" alttext="\mathbf{U}^{\prime}_{\text{full}}" display="inline" intent=":literal"><semantics><msubsup><mi>𝐔</mi><mtext class="ltx_mathvariant_monospace">full</mtext><mo>′</mo></msubsup><annotation encoding="application/x-tex">\mathbf{U}^{\prime}_{\text{full}}</annotation></semantics></math> across DP shard group</span>
+
+</div>
+<div id="alg1.l9" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">9:</span></span><span class="ltx_text ltx_font_typewriter">// As a result, earch rank get sharded matrices of <math id="alg1.l9.m1" class="ltx_Math" alttext="\mathbf{U}^{\prime}_{\text{full}}" display="inline" intent=":literal"><semantics><msubsup><mi>𝐔</mi><mtext class="ltx_mathvariant_monospace">full</mtext><mo>′</mo></msubsup><annotation encoding="application/x-tex">\mathbf{U}^{\prime}_{\text{full}}</annotation></semantics></math></span>
+
+</div>
+<div id="alg1.l10" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">10:</span></span><math id="alg1.l10.m1" class="ltx_Math" alttext="\mathbf{U}\leftarrow\text{all2all\_scatter}(\text{recv=}\mathbf{U}^{\prime}_{\text{other}},\text{send=}\mathbf{U}^{\prime}_{\text{full}})" display="inline" intent=":literal"><semantics><mrow><mi>𝐔</mi><mo stretchy="false">←</mo><mrow><mtext>all2all_scatter</mtext><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mtext>recv=</mtext><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>𝐔</mi><mtext>other</mtext><mo>′</mo></msubsup></mrow><mo>,</mo><mrow><mtext>send=</mtext><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>𝐔</mi><mtext>full</mtext><mo>′</mo></msubsup></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{U}\leftarrow\text{all2all\_scatter}(\text{recv=}\mathbf{U}^{\prime}_{\text{other}},\text{send=}\mathbf{U}^{\prime}_{\text{full}})</annotation></semantics></math>
+
+</div>
+<div id="alg1.l11" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">11:</span></span><span class="ltx_text ltx_font_typewriter">// 5. Apply DP sharded <math id="alg1.l11.m1" class="ltx_Math" alttext="\mathbf{U}" display="inline" intent=":literal"><semantics><mi>𝐔</mi><annotation encoding="application/x-tex">\mathbf{U}</annotation></semantics></math> to <math id="alg1.l11.m2" class="ltx_Math" alttext="\mathbf{P}" display="inline" intent=":literal"><semantics><mi>𝐏</mi><annotation encoding="application/x-tex">\mathbf{P}</annotation></semantics></math></span>
+
+</div>
+<div id="alg1.l12" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">12:</span></span><math id="alg1.l12.m1" class="ltx_Math" alttext="\mathbf{P^{\prime}}\leftarrow\text{apply\_update}(\mathbf{P},\mathbf{U})" display="inline" intent=":literal"><semantics><mrow><msup><mi>𝐏</mi><mo>′</mo></msup><mo stretchy="false">←</mo><mrow><mtext>apply_update</mtext><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐏</mi><mo>,</mo><mi>𝐔</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{P^{\prime}}\leftarrow\text{apply\_update}(\mathbf{P},\mathbf{U})</annotation></semantics></math>
+
+</div>
+<div id="alg1.l13" class="ltx_listingline">
+<span class="ltx_tag ltx_tag_listingline"><span class="ltx_text" style="font-size:80%;">13:</span></span><span class="ltx_text ltx_font_bold">return <math id="alg1.l13.m1" class="ltx_Math" alttext="\mathbf{P^{\prime}}" display="inline" intent=":literal"><semantics><msup><mi>𝐏</mi><mo>′</mo></msup><annotation encoding="application/x-tex">\mathbf{P^{\prime}}</annotation></semantics></math></span>
+
+</div>
+</div>
+</figure>
+<div id="S4.SS3.p4" class="ltx_para">
+<p class="ltx_p">Algorithm <a href="#alg1" title="Algorithm 1 ‣ 4.3 Parallel Muon ‣ 4 Training System Optimization ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> describes the parallel version of Muon under Fully Sharded Data-Parallel (FSDP) training. Each rank first takes a subset of gradients and then participates in an All2All communication to gather the full unsharded gradients assigned to it. The Newton–Schulz iteration is then applied independently on each gathered subset to compute the update matrices. The resulting unsharded updates are scattered back to the corresponding ranks via another All2All operation, producing sharded update tensors. Finally, each rank applies its local update to the corresponding sharded parameters. This procedure enables concurrent computation across DP-shard ranks without additional memory overhead.</p>
+</div>
+<section id="S4.SS3.SSS0.Px1" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">All-to-All Gather and Scatter</h5>
+
+<figure id="S4.F1" class="ltx_figure"><img src="/html/2511.07464/assets/x2.png" id="S4.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="165" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Illustration of the All-to-All gather and scatter process in Parallel Muon. Each rank exchanges its sharded gradients with all other ranks during the gather phase and redistributes the computed results in the scatter phase.</figcaption>
+</figure>
+<div id="S4.SS3.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p">As discussed earlier in Essential AI’s idea, Parallel Muon also employs All-to-All communication to redistribute both sharded and unsharded gradients across ranks.
+The All-to-All gather operation collects the sharded gradients so that each rank obtains its assigned unsharded gradients, while the All-to-All scatter operation redistributes the computed results back to all ranks, as illustrated in Figure <a href="#S4.F1" title="Figure 1 ‣ All-to-All Gather and Scatter ‣ 4.3 Parallel Muon ‣ 4 Training System Optimization ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
+</div>
+</section>
+<section id="S4.SS3.SSS0.Px2" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Pipelined Execution</h5>
+
+<figure id="S4.F2" class="ltx_figure"><img src="/html/2511.07464/assets/x3.png" id="S4.F2.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="326" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Illustration of pipelined execution of all-to-all gather, computation, and scatter phases. A total of eight gradients are distributed across two ranks and partitioned into chunks of size two. Computation and communication are scheduled in a pipelined manner, allowing overlap between them and improving overall efficiency.</figcaption>
+</figure>
+<div id="S4.SS3.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p">Although Algorithm <a href="#alg1" title="Algorithm 1 ‣ 4.3 Parallel Muon ‣ 4 Training System Optimization ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> is sound on its own, pipelining its execution enables better performance through communication–computation overlap. As illustrated in Figure <a href="#S4.F2" title="Figure 2 ‣ Pipelined Execution ‣ 4.3 Parallel Muon ‣ 4 Training System Optimization ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>, we group the parameters into chunks and schedule their all-to-all <em class="ltx_emph ltx_font_italic">gather</em>, <em class="ltx_emph ltx_font_italic">computation</em>, and <em class="ltx_emph ltx_font_italic">scatter</em> phases in a pipelined fashion.
+Specifically, we first issue the <em class="ltx_emph ltx_font_italic">gather</em> and <em class="ltx_emph ltx_font_italic">computation</em> operations for a few initial chunks to warm up the pipeline. Then, for each subsequent chunk, we overlap <em class="ltx_emph ltx_font_italic">scatter</em> of the previous results, <em class="ltx_emph ltx_font_italic">gather</em> of the next inputs, and the <em class="ltx_emph ltx_font_italic">computation</em> of the current chunk.
+This scheduling can hide communication latency by maintaining a steady flow of computation and communication, thereby improving throughput and reducing idle time.</p>
+</div>
+<div id="S4.SS3.SSS0.Px2.p2" class="ltx_para">
+<p class="ltx_p">In addition to performance improvements, pipelining also helps reduce peak memory usage.
+Since the full output matrices produced by each computation can only be deallocated after their corresponding <em class="ltx_emph ltx_font_italic">scatter</em> phase completes, a non-pipelined execution must keep multiple full matrices in memory simultaneously.
+By overlapping computation and scatter, the pipelined schedule allows completed full matrices to be released earlier, thus lowering the overall memory footprint.</p>
+</div>
+</section>
+<section id="S4.SS3.SSS0.Px3" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Chunk Size Trade-off</h5>
+
+<div id="S4.SS3.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p">While pipelining improves both performance and memory efficiency, one important consideration is the choice of <em class="ltx_emph ltx_font_italic">chunk size</em>.
+A smaller chunk size allows finer-grained overlap between computation and communication, which tends to improve performance and reduce memory usage.
+However, all-to-all communication becomes less efficient when messages are too small, making larger chunks more favorable for bandwidth utilization.
+In practice, the benefit from improved bandwidth utilization with larger chunks often outweighs the performance gain from finer overlap, resulting in an optimal chunk size that balances both effects.
+We empirically find that a chunk size of 32 achieves the best overall trade-off between performance and memory usage.</p>
+</div>
+</section>
+<section id="S4.SS3.SSS0.Px4" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Mitigating Rank Imbalance</h5>
+
+<div id="S4.SS3.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p">To mitigate workload imbalance among ranks, we balanced the total computational load assigned to each rank.
+Because the all-to-all communication in gather and scatter stages requires synchronization among all participating ranks, any imbalance in computation time would lead to idle waiting and reduced throughput.
+We therefore sorted all gradients according to the number of floating-point operations (FLOPs) required for their respective Newton–Schulz computations and assigned them to ranks in a round-robin fashion.
+This simple yet effective heuristic ensures that each rank receives a roughly equal total workload, reducing idle time and improving parallel efficiency.
+While this strategy does not guarantee perfectly balanced execution, it provides a good practical trade-off between load balance and scheduling overhead.</p>
+</div>
+</section>
+<section id="S4.SS3.SSS0.Px5" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Support for Hybrid Parallel Configurations</h5>
+
+<div id="S4.SS3.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p">To support various strategies beyond FSDP, such as TP or TP + HSDP, Parallel Muon dynamically inspects the placement of gradient tensors at runtime, constructs corresponding sub–process groups for gather and scatter operations, and computes the shard mapping that defines which tensor slice is held by each rank.</p>
+</div>
+<div id="S4.SS3.SSS0.Px5.p2" class="ltx_para">
+<p class="ltx_p">Since Parallel Muon preserves the semantics of the original Newton–Schulz iterations, it directly leverages existing kernel optimizations, including Flash Muon <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">lin2025flash</span></cite>. The full implementation of Parallel Muon is available at <a target="_blank" href="https://huggingface.co/Motif-Technologies/optimizer" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://huggingface.co/Motif-Technologies/optimizer</a>.</p>
+</div>
+</section>
+<section id="S4.SS3.SSS0.Px6" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Parallel Muon Evaluation</h5>
+
+<div id="S4.SS3.SSS0.Px6.p1" class="ltx_para">
+<p class="ltx_p">We evaluate the performance of Parallel Muon under various configurations and compare it against the Distributed Muon baseline.
+All experiments are conducted on a single node equipped with eight NVIDIA H200 GPUs, using Fully Sharded Data Parallel (FSDP) with eight ranks.
+The model used for evaluation is Motif-2-12.7B, and all communication and GEMM operations are performed in BF16 precision.</p>
+</div>
+<div id="S4.SS3.SSS0.Px6.p2" class="ltx_para">
+<p class="ltx_p">We consider the following configurations:</p>
+<ol id="S4.I1" class="ltx_enumerate">
+<li id="S4.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="S4.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Distributed Muon</span> – the baseline implementation, extended with Flash Muon<cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">lin2025flash</span></cite> for fair comparison with Parallel Muon.
+Distributed Muon reconstructs the full parameter matrix via all-gather and redundantly executes the Newton–Schulz iterations on all ranks.</p>
+</div>
+</li>
+<li id="S4.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="S4.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Parallel Muon (non-pipelined)</span> – our implementation of Parallel Muon without pipelining, where computation and communication are executed sequentially.</p>
+</div>
+</li>
+<li id="S4.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="S4.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Parallel Muon (pipelined)</span> – Parallel Muon with pipelined gather–compute–scatter scheduling to enable communication–computation overlap.</p>
+</div>
+</li>
+<li id="S4.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">4.</span> 
+<div id="S4.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Parallel Muon (pipelined + FLOPs-sorted)</span> – the full version, which additionally applies FLOPs-based gradient sorting and round-robin scheduling to balance computation across ranks.</p>
+</div>
+</li>
+</ol>
+<p class="ltx_p">We measure throughput, step time, and peak memory usage for each configuration to quantify the impact of pipelining and load balancing.</p>
+</div>
+<div id="S4.SS3.SSS0.Px6.p3" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T4" title="Table 4 ‣ Parallel Muon Evaluation ‣ 4.3 Parallel Muon ‣ 4 Training System Optimization ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> summarizes the performance of Distributed Muon and the different Parallel Muon configurations.</p>
+</div>
+<div id="S4.SS3.SSS0.Px6.p4" class="ltx_para">
+<p class="ltx_p">First, simply adopting the non-pipelined Parallel Muon configuration (row 2) achieves a substantial performance of 571 Tera floating operations per second per GPU (TFLOPS/GPU), a 7.1<math id="S4.SS3.SSS0.Px6.p4.m1" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> throughput improvement over the baseline Distributed Muon (80 TFLOPS/GPU). This significant gain is attributed to distributing the computational workload across the 8 GPUs.</p>
+</div>
+<div id="S4.SS3.SSS0.Px6.p5" class="ltx_para">
+<p class="ltx_p">Interestingly, introducing pipelining (row 3) initially results in a performance degradation, with throughput dropping by approximately 15.8% compared to the non-pipelined version. This is caused by workload imbalance, as the per-chunk all-to-all communication (for the small, size 32 chunks) acts as a synchronization barrier across ranks. This is strongly supported by the results from the fourth configuration: applying FLOPs-based parameter sorting (row 4) rectifies this imbalance, boosting performance significantly by over 21%.</p>
+</div>
+<div id="S4.SS3.SSS0.Px6.p6" class="ltx_para">
+<p class="ltx_p">It is also important to note that the throughput of the fully optimized (pipelined + sorted) version is only marginally higher—by about 2.1%—than that of the non-pipelined version. This relates to the chunk size trade-off; the non-pipelined approach effectively uses a single, large chunk (equal to the total number of parameters), thus benefiting from high bandwidth utilization on its single communication step while also avoiding the repeated synchronization overheads inherent to fine-grained pipelining.</p>
+</div>
+<div id="S4.SS3.SSS0.Px6.p7" class="ltx_para">
+<p class="ltx_p">Despite this small throughput difference, the primary benefit of the pipelined approach is its drastically lower memory footprint. The non-pipelined version’s peak memory usage is over 4.1 times that of the pipelined (non-sorted) configuration and over 3 times that of the fully optimized version, making pipelining a crucial optimization for memory efficiency.</p>
+</div>
+<div id="S4.SS3.SSS0.Px6.p8" class="ltx_para">
+<p class="ltx_p">Another open-sourced Muon implementation example<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><span class="ltx_tag ltx_tag_note">3</span><a target="_blank" href="https://github.com/microsoft/dion/blob/main/dion/muon.py" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/microsoft/dion/blob/main/dion/muon.py</a></span></span></span> is provided in Dion <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">ahn2025diondistributedorthonormalizedupdates</span></cite>. This work is also inspired by Essential AI’s approach, and its key idea is to avoid the full-matrix reconstruction required by Muon. However, this implementation does not support hybrid configurations such as FSDP2 combined with tensor parallelism (TP).</p>
+</div>
+<figure id="S4.T4" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 4: </span>Performance comparison of Distributed Muon and Parallel Muon configurations on 8<math id="S4.T4.m2" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>H200 GPUs. All experiments use BF16 precision under FSDP.</figcaption>
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" style="width:345.0pt;height:39.3pt;vertical-align:-18.2pt;"><span class="ltx_transformed_inner" style="transform:translate(-98.8pt,11.3pt) scale(0.635850556760704,0.635850556760704) ;">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Configuration</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Pipelining</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Sort Param.</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Chunk Size</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Time (ms)</span></td>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Peak Mem (MB)</span></td>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">TFLOPS per GPU</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">
+<span class="ltx_text" style="font-size:90%;">
+<span class="ltx_tabular ltx_align_middle">
+<span class="ltx_tr">
+<span class="ltx_td ltx_nopad_r ltx_align_left">Distributed Muon</span></span>
+</span></span><span class="ltx_text" style="font-size:90%;"></span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">–</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">–</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">–</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">1574.67</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">832</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">80</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">
+<span class="ltx_text" style="font-size:90%;">
+<span class="ltx_tabular ltx_align_middle">
+<span class="ltx_tr">
+<span class="ltx_td ltx_nopad_r ltx_align_left">Parallel Muon</span></span>
+</span></span><span class="ltx_text" style="font-size:90%;"></span>
+</td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">X</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">X</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">–</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">221.27</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">11904</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">571</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">
+<span class="ltx_text" style="font-size:90%;">
+<span class="ltx_tabular ltx_align_middle">
+<span class="ltx_tr">
+<span class="ltx_td ltx_nopad_r ltx_align_left">Parallel Muon</span></span>
+</span></span><span class="ltx_text" style="font-size:90%;"></span>
+</td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">O</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">X</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">32</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">262.83</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">2894</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">481</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb">
+<span class="ltx_text" style="font-size:90%;">
+<span class="ltx_tabular ltx_align_middle">
+<span class="ltx_tr">
+<span class="ltx_td ltx_nopad_r ltx_align_left">Parallel Muon</span></span>
+</span></span><span class="ltx_text" style="font-size:90%;"></span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">O</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">O</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">32</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb"><span class="ltx_text" style="font-size:90%;">216.46</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">3904</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">583</span></td>
+</tr>
+</table>
+</span></div>
+</figure>
+</section>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Post-training</h2>
+
+<section id="S5.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.1 </span>Supervised Fine-tuning</h3>
+
+<div id="S5.SS1.p1" class="ltx_para">
+<p class="ltx_p">Following the completion of pre-training, Motif-2-12.7B-Instruct went through a <span class="ltx_text ltx_font_bold">three-stage supervised fine-tuning (SFT)</span> process designed to enhance its instruction-following, reasoning, and domain specialization capabilities.
+Unlike Motif-2.6B, which primarily focused on general instruction adherence, each stage explicitly targeted multi-step reasoning, code synthesis, and mathematical problem-solving through carefully curated and synthesized datasets.
+The three-stage SFT pipeline progressively refines the model’s capabilities—from large-scale general instruction learning (Stage 1), to reasoning- and domain-oriented enhancement through synthetic data (Stage 2), and finally to data-pruned targeted refinement (Stage 3).</p>
+</div>
+<section id="S5.SS1.SSS1" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">
+<span class="ltx_tag ltx_tag_subsubsection">5.1.1 </span>Stage 1: Large-Scale Supervised Fine-tuning</h4>
+
+<div id="S5.SS1.SSS1.p1" class="ltx_para">
+<p class="ltx_p">The first fine-tuning stage focused on establishing strong general instruction-following performance through large-scale training.
+We trained on approximately 28 million samples, drawn from both open-source and proprietary datasets, with domain ratios adjusted to maintain a balanced representation across categories.
+Training was conducted with sequence packing up to 16,384 tokens to enable efficient utilization of long-context information.
+All parameters were unfrozen during this stage, allowing full adaptation of model representations to downstream supervision.</p>
+</div>
+<section id="S5.SS1.SSS1.Px1" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Training Setup</h5>
+
+<div id="S5.SS1.SSS1.Px1.p1" class="ltx_para">
+<p class="ltx_p">Training was performed using the Muon-Clip optimizer with a base learning rate of <math id="S5.SS1.SSS1.Px1.p1.m1" class="ltx_Math" alttext="2\times 10^{-5}" display="inline" intent=":literal"><semantics><mrow><mn>2</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2\times 10^{-5}</annotation></semantics></math>, weight decay of 0.1, and a global batch size of 32 million tokens.
+A cosine learning rate scheduler was employed with a warm-up phase corresponding to 5% of the total training steps, followed by smooth decay toward zero.
+Sequence packing was enabled up to a maximum sequence length of 16,384 tokens to ensure efficient utilization of GPU memory and to improve long-context training stability.
+All training was conducted in FP8 precision under Fully Sharded Data Parallel (FSDP) with the Parallel Muon optimization kernels as described in Section <a href="#S4.SS3" title="4.3 Parallel Muon ‣ 4 Training System Optimization ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.3</span></a>, thereby enabling stable and high-throughput large-batch training.</p>
+</div>
+</section>
+</section>
+<section id="S5.SS1.SSS2" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">
+<span class="ltx_tag ltx_tag_subsubsection">5.1.2 </span>Stage 2: Synthetic and Targeted Fine-tuning</h4>
+
+<div id="S5.SS1.SSS2.p1" class="ltx_para">
+<p class="ltx_p">To further enhance higher-order reasoning and domain-specific capabilities, the second fine-tuning phase employed a mixture of open and synthetic instruction datasets.
+We first consolidated a diverse mixture of high-quality open instruction datasets spanning general conversation, STEM, mathematics, and code generation.
+Each dataset was evaluated based on reasoning density, response completeness, and structural consistency.
+The resulting dataset was designed to maintain domain balance while providing comprehensive coverage of general instruction-following and structured reasoning tasks.</p>
+</div>
+<div id="S5.SS1.SSS2.p2" class="ltx_para">
+<p class="ltx_p">Building upon this foundation, we introduced additional synthetic data generated from both internal and external models to strengthen compositional reasoning, algorithmic problem-solving, and multi-step instruction-following performance.
+The synthetic datasets consisted of:</p>
+<ul id="S5.I1" class="ltx_itemize">
+<li id="S5.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Compositional Reasoning:</span> Synthetic examples designed to enhance multi-step logical reasoning and structured task decomposition.</p>
+</div>
+</li>
+<li id="S5.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Algorithmic and Mathematical Skills:</span> Data emphasizing algorithmic reasoning, code generation, and quantitative problem-solving.</p>
+</div>
+</li>
+<li id="S5.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S5.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Quality-Centric Selection:</span> High-quality samples curated through multi-stage filtering and automatic quality scoring.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S5.SS1.SSS2.p3" class="ltx_para">
+<p class="ltx_p">This stage adopted a lower learning rate and shorter training schedule relative to Stage 1, functioning as a form of curriculum continuation.
+Through the combination of large-scale instruction data and carefully designed synthetic augmentation, Motif-2-12.7B-Instruct achieved significant improvements in reasoning quality while preserving conversational fluency.</p>
+</div>
+</section>
+<section id="S5.SS1.SSS3" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">
+<span class="ltx_tag ltx_tag_subsubsection">5.1.3 </span>Stage 3: Data-Pruned Refinement</h4>
+
+<div id="S5.SS1.SSS3.p1" class="ltx_para">
+<p class="ltx_p">In the final stage, we conducted a focused fine-tuning process by selectively excluding a subset of the Stage 2 synthetic data identified as redundant or low-utility.
+This data-pruned refinement stage aimed to reinforce domain diversity and reduce potential overfitting to synthetic distributions by re-training on a carefully filtered subset of Stage 2 data.
+The pruning criteria emphasized diversity, reasoning coherence, and linguistic fidelity, resulting in a leaner but higher-quality dataset.
+This stage served as a lightweight continuation of Stage 2, stabilizing the model’s reasoning and alignment behavior without altering its general conversational fluency.</p>
+</div>
+</section>
+</section>
+<section id="S5.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.2 </span>Post-training Evaluation</h3>
+
+<section id="S5.SS2.SSS0.Px1" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Evaluation Setup</h5>
+
+<div id="S5.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p">Following the same evaluation protocol as Motif-2-12.7B-Base, we conducted a comprehensive assessment of Motif-2-12.7B-Instruct to evaluate its generalization, reasoning, and instruction-following capabilities. To ensure comparability and fairness, we benchmarked our model against strong open-weight baselines, including the Qwen3 and Gemma3 series, using their officially reported scores from the respective technical reports. All evaluations for Motif-2-12.7B-Instruct were performed with a sampling temperature of 0.6 and a maximum sequence length of 32,768 tokens.</p>
+</div>
+</section>
+<section id="S5.SS2.SSS0.Px2" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Benchmark Composition</h5>
+
+<div id="S5.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p">Our evaluation suite spans a wide range of domains to measure both breadth and depth of model ability. The general task benchmarks include MMLU <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">hendrycks2009measuring</span></cite>, MMLU-Redux <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">gema2025we</span></cite>, GPQA-Diamond <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">rein2024gpqa</span></cite>, LiveBench <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">white2024livebench</span></cite>, and IFEval <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">ifeval2024</span></cite>, which collectively test factual knowledge, reasoning, and alignment quality across diverse subjects.
+The mathematics and text reasoning category comprises MATH, MATH-500 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">lightman2023let</span></cite>, AIME24, AIME25 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">AIME25</span></cite>, ZebraLogic <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">lin2025zebralogic</span></cite>, and BBH <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">suzgun2023challenging</span></cite>, emphasizing symbolic reasoning, structured problem-solving, and compositional understanding.
+Finally, agentic and programming-oriented benchmarks, including BFCL v3 <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">xie2023doremi</span></cite>, LiveCodeBench <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">jain2024livecodebench</span></cite>, MBPP <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">austin2021program</span></cite>, and HumanEval <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_ref ltx_missing_citation ltx_ref_self">chen2021evaluating</span></cite>, assess multi-step reasoning, code synthesis, and executional accuracy in practical scenarios.
+This diverse set of tasks allows us to holistically evaluate the instruction-following ability and analytical robustness of Motif-2-12.7B-Instruct across both linguistic and technical domains.</p>
+</div>
+<figure id="S5.T5" class="ltx_table">
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" style="width:433.6pt;height:139.4pt;vertical-align:-67.9pt;"><span class="ltx_transformed_inner" style="transform:translate(-85.1pt,27.3pt) scale(0.718127648055459,0.718127648055459) ;">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_text ltx_font_bold">Benchmark</span></td>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text ltx_font_bold">Metric</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold">Motif-2</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold">Qwen2.5</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="6"><span class="ltx_text ltx_font_bold">Qwen3</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_right ltx_border_t">12.7B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">72B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">14B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">14B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">32B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">32B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">30B-A3B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">30B-A3B</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_right">Instruct</td>
+<td class="ltx_td ltx_align_right">Non-Think</td>
+<td class="ltx_td ltx_align_right">Non-Think</td>
+<td class="ltx_td ltx_align_right">Think</td>
+<td class="ltx_td ltx_align_right">Non-Think</td>
+<td class="ltx_td ltx_align_right">Think</td>
+<td class="ltx_td ltx_align_right">Non-Think</td>
+<td class="ltx_td ltx_align_right">Think</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">MMLU-Redux</td>
+<td class="ltx_td ltx_align_right ltx_border_t">0-shot</td>
+<td class="ltx_td ltx_align_right ltx_border_t">90.02</td>
+<td class="ltx_td ltx_align_right ltx_border_t">86.8</td>
+<td class="ltx_td ltx_align_right ltx_border_t">82</td>
+<td class="ltx_td ltx_align_right ltx_border_t">88.6</td>
+<td class="ltx_td ltx_align_right ltx_border_t">85.7</td>
+<td class="ltx_td ltx_align_right ltx_border_t">90.9</td>
+<td class="ltx_td ltx_align_right ltx_border_t">84.1</td>
+<td class="ltx_td ltx_align_right ltx_border_t">89.5</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">GPQA-Diamond</td>
+<td class="ltx_td ltx_align_right">0-shot, CoT</td>
+<td class="ltx_td ltx_align_right">63.6</td>
+<td class="ltx_td ltx_align_right">49</td>
+<td class="ltx_td ltx_align_right">54.8</td>
+<td class="ltx_td ltx_align_right">64</td>
+<td class="ltx_td ltx_align_right">54.6</td>
+<td class="ltx_td ltx_align_right">68.4</td>
+<td class="ltx_td ltx_align_right">54.8</td>
+<td class="ltx_td ltx_align_right">65.8</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_left">LiveBench</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_left">2024-11-25</td>
+</tr>
+</table></td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">33.8</td>
+<td class="ltx_td ltx_align_right">51.4</td>
+<td class="ltx_td ltx_align_right">59.6</td>
+<td class="ltx_td ltx_align_right">71.3</td>
+<td class="ltx_td ltx_align_right">59.8</td>
+<td class="ltx_td ltx_align_right">74.9</td>
+<td class="ltx_td ltx_align_right">59.4</td>
+<td class="ltx_td ltx_align_right">74.3</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">MATH-500</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">96.8</td>
+<td class="ltx_td ltx_align_right">83.6</td>
+<td class="ltx_td ltx_align_right">90</td>
+<td class="ltx_td ltx_align_right">96.8</td>
+<td class="ltx_td ltx_align_right">88.6</td>
+<td class="ltx_td ltx_align_right">97.2</td>
+<td class="ltx_td ltx_align_right">89.8</td>
+<td class="ltx_td ltx_align_right">98</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">AIME24</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">72.3</td>
+<td class="ltx_td ltx_align_right">18.9</td>
+<td class="ltx_td ltx_align_right">31.7</td>
+<td class="ltx_td ltx_align_right">79.3</td>
+<td class="ltx_td ltx_align_right">31</td>
+<td class="ltx_td ltx_align_right">81.4</td>
+<td class="ltx_td ltx_align_right">32.8</td>
+<td class="ltx_td ltx_align_right">80.4</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">AIME25</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">63.6</td>
+<td class="ltx_td ltx_align_right">15</td>
+<td class="ltx_td ltx_align_right">23.3</td>
+<td class="ltx_td ltx_align_right">70.4</td>
+<td class="ltx_td ltx_align_right">20.2</td>
+<td class="ltx_td ltx_align_right">72.9</td>
+<td class="ltx_td ltx_align_right">21.6</td>
+<td class="ltx_td ltx_align_right">70.9</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">ZebraLogic</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">69.5</td>
+<td class="ltx_td ltx_align_right">26.6</td>
+<td class="ltx_td ltx_align_right">33</td>
+<td class="ltx_td ltx_align_right">88.5</td>
+<td class="ltx_td ltx_align_right">29.2</td>
+<td class="ltx_td ltx_align_right">88.8</td>
+<td class="ltx_td ltx_align_right">33.2</td>
+<td class="ltx_td ltx_align_right">89.5</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">BFCLv3</td>
+<td class="ltx_td ltx_align_right">-</td>
+<td class="ltx_td ltx_align_right">55.34</td>
+<td class="ltx_td ltx_align_right">63.4</td>
+<td class="ltx_td ltx_align_right">61.5</td>
+<td class="ltx_td ltx_align_right">70.4</td>
+<td class="ltx_td ltx_align_right">63</td>
+<td class="ltx_td ltx_align_right">70.3</td>
+<td class="ltx_td ltx_align_right">58.6</td>
+<td class="ltx_td ltx_align_right">69.1</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_left">LiveCodeBench v5</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_left">(2024.10 - 2025.2)</td>
+</tr>
+</table></td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">50.03</td>
+<td class="ltx_td ltx_align_right">30.7</td>
+<td class="ltx_td ltx_align_right">29</td>
+<td class="ltx_td ltx_align_right">63.5</td>
+<td class="ltx_td ltx_align_right">31.3</td>
+<td class="ltx_td ltx_align_right">65.7</td>
+<td class="ltx_td ltx_align_right">29.8</td>
+<td class="ltx_td ltx_align_right">62.6</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">IFEval</td>
+<td class="ltx_td ltx_align_right">strict prompt</td>
+<td class="ltx_td ltx_align_right">75.78</td>
+<td class="ltx_td ltx_align_right">84.1</td>
+<td class="ltx_td ltx_align_right">84.8</td>
+<td class="ltx_td ltx_align_right">85.4</td>
+<td class="ltx_td ltx_align_right">83.2</td>
+<td class="ltx_td ltx_align_right">85</td>
+<td class="ltx_td ltx_align_right">83.7</td>
+<td class="ltx_td ltx_align_right">86.5</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t"><span class="ltx_text ltx_font_bold">Average</span></td>
+<td class="ltx_td ltx_border_bb ltx_border_t"></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">67.08</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">50.95</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">54.97</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">77.82</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">54.66</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">79.55</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">54.78</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">78.66</td>
+</tr>
+</table>
+</span></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 5: </span>Performance comparison across Motif-2, and Qwen families.</figcaption>
+</figure>
+<figure id="S5.T6" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_text ltx_font_bold">Benchmark</span></td>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text ltx_font_bold">Metric</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold">Motif-2</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold">Gemma3</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_right ltx_border_t">12.7B</td>
+<td class="ltx_td ltx_align_right ltx_border_t">12B</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_t">27B</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">MMLU</td>
+<td class="ltx_td ltx_align_right ltx_border_t">0-shot</td>
+<td class="ltx_td ltx_align_right ltx_border_t">86.11</td>
+<td class="ltx_td ltx_align_right ltx_border_t">71.9</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_t">76.9</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">BBH</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">85.78</td>
+<td class="ltx_td ltx_align_right">85.7</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">87.6</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">GSM8k</td>
+<td class="ltx_td ltx_align_right">0-shot, CoT</td>
+<td class="ltx_td ltx_align_right">96.13</td>
+<td class="ltx_td ltx_align_right">94.4</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">95.9</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">MATH</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">97</td>
+<td class="ltx_td ltx_align_right">83.8</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">89</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">MBPP</td>
+<td class="ltx_td ltx_align_right">3-shot</td>
+<td class="ltx_td ltx_align_right">91</td>
+<td class="ltx_td ltx_align_right">73</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">74.4</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">IFEval</td>
+<td class="ltx_td ltx_align_right">soft prompt</td>
+<td class="ltx_td ltx_align_right">76.52</td>
+<td class="ltx_td ltx_align_right">88.9</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">90.4</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">LiveCodeBench v5</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">61.66</td>
+<td class="ltx_td ltx_align_right">32</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">39</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">HumanEval</td>
+<td class="ltx_td ltx_align_right">0-shot</td>
+<td class="ltx_td ltx_align_right">93.2</td>
+<td class="ltx_td ltx_align_right">85.4</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right">87.8</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t"><span class="ltx_text ltx_font_bold">Average</span></td>
+<td class="ltx_td ltx_border_bb ltx_border_t"></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">83.44</td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">72.89</td>
+<td class="ltx_td ltx_nopad_r ltx_align_right ltx_border_bb ltx_border_t">75.93</td>
+</tr>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 6: </span>Performance comparison across Motif-2, Gemma3.</figcaption>
+</figure>
+</section>
+<section id="S5.SS2.SSS0.Px3" class="ltx_paragraph">
+<h5 class="ltx_title ltx_title_paragraph">Evaluation Results</h5>
+
+<div id="S5.SS2.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p">Detailed quantitative results are summarized in Table <a href="#S5.T5" title="Table 5 ‣ Benchmark Composition ‣ 5.2 Post-training Evaluation ‣ 5 Post-training ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> and Table <a href="#S5.T6" title="Table 6 ‣ Benchmark Composition ‣ 5.2 Post-training Evaluation ‣ 5 Post-training ‣ Motif 2 12.7B technical report" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>. Overall, Motif-2-12.7B-Instruct achieves performance comparable to or exceeding that of similarly sized or larger open-weight models, despite being trained on a substantially smaller dataset. Notably, without relying on computationally heavy and reasoning targeted reinforcement learning, the model demonstrates strong results on high-difficulty reasoning and code-oriented benchmarks such as MATH-500, AIME25, and LiveCodeBench, underscoring the effectiveness of its three-stage SFT curriculum.
+While Qwen3 and Gemma3 models benefit from significantly larger training corpora, with Qwen3 trained on 36T tokens and Gemma3 on 12 to 14T tokens, our model attains similar or higher accuracy across several benchmarks using only 5.5T tokens, highlighting the data efficiency and architectural effectiveness of our approach. The integration of Grouped Differential Attention (GDA), curriculum-aware data scheduling, and high-throughput optimization via Parallel Muon collectively contribute to this efficiency, enabling more capable instruction models at a fraction of the compute cost.
+These results illustrate that careful architectural design, optimization-aware training infrastructure, and balanced fine-tuning strategies can bridge much of the performance gap traditionally attributed to massive scale, reaffirming the viability of efficient frontier–oriented model design as a path toward high-quality open-weight systems.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Conclusion</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">Motif-2-12.7B demonstrates that carefully targeted architectural changes and systems-aware training can deliver strong performance without resorting to extreme parameter counts. By scaling Motif-2.6B with width-preserving hypercloning and Llama Pro depth scaling, integrating Grouped Differential Attention for finer-grained information routing, and coupling curriculum-aware pre-training with a three-stage SFT pipeline, we obtain a model that is both efficient and broadly capable. Our fused PolyNorm kernels and Parallel Muon further show how bespoke systems work unlocks practical throughput and memory gains at long context, making large-scale training more accessible. Looking ahead, we will release Motif-2-12.7B-Reasoning, a reinforcement-learning–enhanced variant that explicitly optimizes multi-step reasoning quality (with a focus on mathematics and code) while maintaining conversational fluency. We hope these open weights, transparent recipes, and forthcoming RL results provide a solid baseline for the community to study scalable attention, efficient training, and principled pathways to stronger reasoning.</p>
+</div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</section>
+<section id="S7" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">7 </span>Appendix</h2>
+
+<section id="S7.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">7.1 </span>Contributions</h3>
+
+<div id="S7.SS1.p1" class="ltx_para">
+<p class="ltx_p">All authors are alphabetically sorted by last name.</p>
+</div>
+<div id="S7.SS1.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Technical and management leadership</span>: Sungmin Lee, Junghwan Lim</p>
+</div>
+<div id="S7.SS1.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Core contributors</span>: Dongseok Kim, Taehyun Kim, Eunhwan Park, Jeesoo Lee, Jeongdoo Lee, Junhyeok Lee</p>
+</div>
+<div id="S7.SS1.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Contributors</span>: Wai Ting Cheung, Dahye Choi, Jaeheui Her, Jaeyeon Huh, Hanbin Jung, Changjin Kang, Beomgyu Kim, Minjae Kim, Taewhan Kim, Youngrok Kim, Hyukjin Kweon, Haesol Lee, Kungyu Lee, Dongpin Oh, Yeongjae Park, Bokki Ryu, Dongjoo Weon</p>
+</div>
+</section>
+</section>
+</article>
+</div>
+<div class="ar5iv-footer"><a href="/html/2511.07463" class="ar5iv-nav-button ar5iv-nav-button-prev">◄</a>
+    <a class="ar5iv-home-button" href="/"><img height="40" alt="ar5iv homepage" src="/assets/ar5iv.png"></a>
+    <a href="/feeling_lucky" class="ar5iv-text-button">Feeling<br>lucky?</a>
+    <a href="/land_of_honey_and_milk" rel="nofollow" aria-hidden="true" tabindex="-1"></a>
+    <a href="/log/2511.07464" class="ar5iv-text-button ar5iv-severity-warning">Conversion<br>report</a>
+    <a class="ar5iv-text-button" target="_blank" href="https://github.com/dginev/ar5iv/issues/new?template=improve-article--arxiv-id-.md&title=Improve+article+2511.07464">Report<br>an issue</a>
+    <a href="https://arxiv.org/abs/2511.07464" class="ar5iv-text-button arxiv-ui-theme">View&nbsp;original<br>on&nbsp;arXiv</a><a href="/html/2511.07465" class="ar5iv-nav-button ar5iv-nav-button-next">►</a>
+</div><footer class="ltx_page_footer">
+<a class="ar5iv-toggle-color-scheme" href="javascript:toggleColorScheme()" title="Toggle ar5iv color scheme"><span class="color-scheme-icon"></span></a>
+<a class="ar5iv-footer-button" href="https://arxiv.org/help/license" target="_blank">Copyright</a>
+<a class="ar5iv-footer-button" href="https://arxiv.org/help/policies/privacy_policy" target="_blank">Privacy Policy</a>
+
+<div class="ltx_page_logo">Generated  on Fri Dec  5 14:27:54 2025 by <a target="_blank" href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+
+    <script>
+      var canMathML = typeof(MathMLElement) == "function";
+      if (!canMathML) {
+        var body = document.querySelector("body");
+        body.firstElementChild.setAttribute('style', 'opacity: 0;');
+        var loading = document.createElement("div");
+        loading.setAttribute("id", "mathjax-loading-spinner");
+        var message = document.createElement("div");
+        message.setAttribute("id", "mathjax-loading-message");
+        message.innerText = "Typesetting Equations...";
+        body.prepend(loading);
+        body.prepend(message);
+
+        var el = document.createElement("script");
+        el.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+        document.querySelector("head").appendChild(el);
+
+        window.MathJax = {
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                body.removeChild(loading);
+                body.removeChild(message);
+                body.firstElementChild.removeAttribute('style');
+              }); } } };
+      }
+    </script>
+    <script>
+    // Auxiliary function, building the preview feature when
+    // an inline citation is clicked
+    function clicked_cite(e) {
+      e.preventDefault();
+      let cite = this.closest('.ltx_cite');
+      let next = cite.nextSibling;
+      if (next && next.nodeType == Node.ELEMENT_NODE && next.getAttribute('class') == "ar5iv-bibitem-preview") {
+        next.remove();
+        return; }
+      // Before adding a preview modal,
+      // cleanup older previews, in case they're still open
+      document.querySelectorAll('span.ar5iv-bibitem-preview').forEach(function(node) {
+        node.remove();
+      })
+
+      // Create the preview
+      preview = document.createElement('span');
+      preview.setAttribute('class','ar5iv-bibitem-preview');
+      let target = document.getElementById(this.getAttribute('href').slice(1));
+      target.childNodes.forEach(function (child) {
+        preview.append(child.cloneNode(true));
+      });
+      let close_x = document.createElement('button');
+      close_x.setAttribute("aria-label","Close modal for bibliography item preview");
+      close_x.textContent = "×";
+      close_x.setAttribute('class', 'ar5iv-button-close-preview');
+      close_x.setAttribute('onclick','this.parentNode.remove()');
+      preview.append(close_x);
+      preview.querySelectorAll('.ltx_tag_bibitem').forEach(function(node) {
+        node.remove();
+      });
+      cite.parentNode.insertBefore(preview, cite.nextSibling);
+      return;
+    }
+    // Global Document initialization:
+    // - assign the preview feature to all inline citation links
+    document.querySelectorAll(".ltx_cite .ltx_ref").forEach(function (link) {
+      link.addEventListener("click", clicked_cite);
+    });
+    </script>
+    </body>
+</html>

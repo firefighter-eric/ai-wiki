@@ -11,7 +11,7 @@
 
 ## Summary
 
-- 当前已批量 ingest 273 篇 summary 页，按候选主题分组如下。
+- 当前已批量 ingest 280 篇 summary 页，按候选主题分组如下。
 
 ### Attention / Transformer
 
@@ -85,6 +85,16 @@
 - [Qwen Team - 2026 - Qwen3.5 Towards Native Multimodal Agents](./wiki/summaries/Qwen%20Team%20-%202026%20-%20Qwen3.5%20Towards%20Native%20Multimodal%20Agents.md)：截至 2026-04-12，官方将 Qwen3.5 直接定义为 native multimodal agent 路线节点。
 - [Yuan et al. - 2023 - Scaling Relationship on Learning Mathematical Reasoning with Large Language Models](./wiki/summaries/Yuan%20et%20al.%20-%202023%20-%20Scaling%20Relationship%20on%20Learning%20Mathematical%20Reasoning%20with%20Large%20Language%20Models.md)：Preprint SCALING RELATIONSHIP ON LEARNING MATHEMATI- CAL REASONING WIT...
 - [Zhang et al. - 2022 - OPT Open Pre-trained Transformer Language Models](./wiki/summaries/Zhang%20et%20al.%20-%202022%20-%20OPT%20Open%20Pre-trained%20Transformer%20Language%20Models.md)：Large language models, which are often trained for hundreds of thousan...
+
+### 优化器与训练稳定性
+
+- [Kingma and Ba - 2015 - Adam](./wiki/summaries/Kingma%20and%20Ba%20-%202015%20-%20Adam%20A%20Method%20for%20Stochastic%20Optimization.md)：定义逐元素一阶矩、二阶矩与 bias correction，是 AdamW 和现代 LLM 自适应优化器的算法起点。
+- [Loshchilov and Hutter - 2019 - Decoupled Weight Decay Regularization](./wiki/summaries/Loshchilov%20and%20Hutter%20-%202019%20-%20Decoupled%20Weight%20Decay%20Regularization.md)：说明自适应优化中 L2 regularization 不等同于 weight decay，并提出 AdamW 的 decoupled update。
+- [Keller Jordan - 2024 - Muon](./wiki/summaries/Keller%20Jordan%20-%202024%20-%20Muon%20An%20Optimizer%20for%20Hidden%20Layers%20in%20Neural%20Networks.md)：定义 momentum + Newton–Schulz 的二维矩阵更新正交化，并说明参数适用范围与运行成本。
+- [Liu et al. - 2025 - Muon is Scalable for LLM Training](./wiki/summaries/Liu%20et%20al.%20-%202025%20-%20Muon%20is%20Scalable%20for%20LLM%20Training.md)：以 weight decay、consistent update RMS、Distributed Muon 和 Moonlight scaling law 把 Muon 扩展到大规模预训练。
+- [Kimi Team - 2025 - Kimi K2](./wiki/summaries/Kimi%20Team%20-%202025%20-%20Kimi%20K2%20Open%20Agentic%20Intelligence.md)：MuonClip 以 per-head QK weight clipping 控制 Muon 扩展时的 attention-logit explosion。
+- [OLMo Team - 2025 - 2 OLMo 2 Furious](./wiki/summaries/Team%20OLMo%20-%202025%20-%202%20OLMo%202%20Furious.md)：明确记录 OLMo 2 仍使用 AdamW，并对 epsilon 与 embedding weight decay 做稳定性消融。
+- [Lim et al. - 2025 - Motif-2-12.7B](./wiki/summaries/Lim%20et%20al.%20-%202025%20-%20Motif%202%2012.7B%20Technical%20Report.md)：记录 MuonClip 与 all-to-all Parallel Muon 的跨 rank Newton–Schulz 实现。
 
 ### 文本扩散语言模型
 
@@ -378,7 +388,7 @@
 - [Compressed Sparse Attention](./wiki/concepts/Compressed%20Sparse%20Attention.md)：承接 DeepSeek-V4 中“KV 压缩 + sparse selection”的百万上下文 attention 分支。
 - [Heavily Compressed Attention](./wiki/concepts/Heavily%20Compressed%20Attention.md)：承接 DeepSeek-V4 中更激进的重度 KV 压缩 attention 分支。
 - [Manifold-Constrained Hyper-Connections](./wiki/concepts/Manifold-Constrained%20Hyper-Connections.md)：承接 DeepSeek-V4 中用于稳定 residual signal propagation 的连接结构。
-- [Muon](./wiki/concepts/Muon.md)：连接 DeepSeek-V4 的分布式 Muon 与 Kimi K3 的 Per-Head Muon 更新策略。
+- [Muon](./wiki/concepts/Muon.md)：系统解释 momentum、Newton–Schulz、update RMS、MuonClip、Per-Head/Hybrid/Parallel Muon 与前沿模型采用情况。
 - [StarCoder2](./wiki/concepts/StarCoder2.md)：承接开放代码模型与 The Stack v2 数据治理路线。
 - [DBRX](./wiki/concepts/DBRX.md)：承接平台公司主导的高效开放大模型路线。
 - [OpenELM](./wiki/concepts/OpenELM.md)：承接端侧高效率开放模型与训练/推理框架开放路线。
@@ -514,6 +524,7 @@
 - [RLHF vs DPO vs ORPO vs KTO](./wiki/comparisons/RLHF%20vs%20DPO%20vs%20ORPO%20vs%20KTO.md)：比较经典 RLHF 管线与三条偏好优化简化路线的目标函数、数据接口与适用边界。
 - [开放模型家族与中国重要家族对照](./wiki/comparisons/%E5%BC%80%E6%94%BE%E6%A8%A1%E5%9E%8B%E5%AE%B6%E6%97%8F%E4%B8%8E%E4%B8%AD%E5%9B%BD%E9%87%8D%E8%A6%81%E5%AE%B6%E6%97%8F%E5%AF%B9%E7%85%A7.md)：比较开放模型主线，并记录 Kimi 从 k1.5 API/报告节点到 K3 open-weight custom-license 模型的代际变化。
 - [SGLang 与 vLLM 架构对比](./wiki/comparisons/SGLang%20%E4%B8%8E%20vLLM%20%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94.md)：按系统边界、KV 物理分页、前缀索引、调度与 structured generation 比较两套 serving stack，并区分论文起点与 2026 当前架构。
+- [Muon 与 AdamW](./wiki/comparisons/Muon%20%E4%B8%8E%20AdamW.md)：比较逐元素自适应与矩阵级正交化，解释 52% FLOPs 口径，并整理 Moonlight、Kimi、DeepSeek、Llama、OLMo、Qwen 与 Gemma 的公开优化器证据。
 
 ## Timelines
 

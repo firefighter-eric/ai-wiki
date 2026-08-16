@@ -15,6 +15,8 @@
 
 ## 关键事实
 
+- DeepSeek-V3 预训练明确使用 `AdamW`，配置为 `β1=0.9`、`β2=0.95`、`weight_decay=0.1`，并在 14.8T tokens 上训练。
+- 为降低 optimizer-state memory，报告以 BF16 保存 AdamW 的一阶、二阶矩；master weights 与累计 gradients 保留 FP32。这与后续 DeepSeek-V4 转向“多数矩阵用 Muon、特殊参数用 AdamW”的混合方案形成直接代际对照。
 - 报告明确指出 `DeepSeek-V3` 采用 `Multi-head Latent Attention (MLA)` 以提升推理效率。
 - `MLA` 的核心是对 attention 的 `K/V` 做低秩联合压缩，并在生成时只缓存压缩后的 latent 表示与少量额外向量，而不是缓存完整多头 `K/V`。
 - 该路线关注的主要瓶颈是 `KV cache` 与推理带宽，而不是训练阶段的 `O(n^2)` attention matrix 本身。
@@ -32,3 +34,4 @@
 - 主题：[注意力机制 Attention](../../wiki/topics/注意力机制%20Attention.md)
 - 主题：[LLM 预训练](../../wiki/topics/LLM%20预训练.md)
 - 概念：[DeepSeek](../../wiki/concepts/DeepSeek.md)
+- 对比：[Muon 与 AdamW](../../wiki/comparisons/Muon%20与%20AdamW.md)

@@ -1452,3 +1452,23 @@
 - 补充 Kimi K3 Per-Head Muon 的 head-wise 更新平衡动机，以及 Muon 在 optimizer state、单步计算和 ZeRO 分布式切分上的工程权衡。
 - 在 Kimi K3 概念页单列 Muon 用法：matrix-parameter scope、Q/K/V 按 head 分块正交化、与 weight clipping / QB / cosine schedule 的 recipe 分工，以及 P2P-based distributed orthogonalization。
 - 保留证据边界：现有报告不足以把整体能力或 scaling efficiency 提升单独归因给 Muon。
+
+## [2026-08-05] ingest | Muon 原理、优势与先进模型采用情况
+
+涉及页面：
+
+- 新增 Adam、AdamW、原始 Muon、Moonlight、Kimi K2、OLMo 2、Motif-2 的 7 组 `raw -> text -> summary` 来源链
+- 新增 `wiki/comparisons/Muon 与 AdamW.md`
+- 重写 `wiki/concepts/Muon.md`
+- 更新 Llama 3、DeepSeek-V3、Qwen3、Gemma 3 的 summary 证据边界
+- 更新 `index.md`
+- 更新 `log.md`
+
+关键变更：
+
+- 把 Muon 的完整更新路径写清为：二维矩阵分组、momentum/Nesterov、Frobenius normalization、Newton–Schulz、shape-aware update RMS、decoupled weight decay；明确它不是 Hessian 型二阶优化器。
+- 将 Moonlight 的 `52% training FLOPs` 解释为特定 scaling-law 设置下达到 AdamW 可比 loss 的总计算口径，而不是模型大小、单步速度或 loss 数值的倍数变化。
+- 区分 Scalable Muon、MuonClip、Per-Head Muon、Hybrid Muon 与 Parallel Muon 各自解决的 scale transfer、attention stability、head coupling、奇异值收敛和分布式重复计算问题。
+- 形成模型采用表：Moonlight、Kimi K2/K3、DeepSeek-V4、Motif-2 属于 Muon family；Llama 3、DeepSeek-V3、OLMo 2 明确使用 AdamW；Qwen3、Gemma 3 的当前公开来源未披露优化器，保留未知。
+- 保留预训练与微调 optimizer mismatch、完整矩阵通信、临时 buffers、开发者自报 scaling law 和多变量能力归因等限制。
+- 补充 Kimi 参数分组的证据等级：Moonlight 明确以 AdamW 处理 RMSNorm、LM head 与 embedding；K2 属于继承该 recipe 的强推断；K3 只明确 matrix parameters 使用 Muon，未直接披露非矩阵 fallback 及 embedding/head 是否排除，不能套用 DeepSeek-V4 的确定清单。
