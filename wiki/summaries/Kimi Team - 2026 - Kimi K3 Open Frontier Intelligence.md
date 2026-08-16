@@ -34,6 +34,7 @@
 - Stable LatentMoE 通过 routed aggregate 后的 `RMSNorm`、有界的 `SiTU-GLU` 和 `Quantile Balancing (QB)` 共同处理极端 sparsity 下的 activation explosion 与 load imbalance。
 - `QB` 从 router-score quantile 直接推导下一步 expert bias；bias 只参与 top-k dispatch，不进入 mixture weights，因此其目标是调节负载而不直接改写 router gradient。
 - K3 延续 K2，对 matrix parameters 使用 `Muon`；其中 Q/K/V attention projections 采用 `Per-Head Muon`，不对拼接后的完整 momentum matrix 一次正交化，而是沿 attention-head dimension 分块执行 Newton–Schulz orthogonalization，以减少大尺度下不同 head 更新幅度互相支配的问题。报告称这种做法使 head 间学习动态更平衡，并因 tall per-head blocks 较小而略降 optimizer overhead。
+- 报告只明确划定“matrix parameters 使用 Muon”，全文没有出现 AdamW parameter-group 配置。RMSNorm scale 等 1-D 参数显然不属于该 Muon matrix path；但报告没有命名其 fallback optimizer。Embedding 与 output head 本身是 2-D，是否像 Moonlight 一样从 Muon 中排除也没有被 K3 独立确认。
 - `MoonViT-V2` 是约 `401M` 参数、27 层、patch size 14、12 heads 的视觉编码器；报告称它从随机初始化开始与 LLM 联合训练，而不是先做 SigLIP 式对比预训练再接入。
 
 ### 预训练与长上下文
@@ -77,6 +78,7 @@
 
 - 技术报告由模型开发者发布，架构描述是一手证据，但 benchmark、成本和案例研究仍带有供应方自评性质；第三方结果虽被引用，汇总与叙事仍由 Moonshot 完成。
 - `2.5×` scaling efficiency 依赖作者选择的模型 family、超参数搜索和 OOD loss 拟合方法，目前缺少独立复现。
+- K3 沿 K2/Moonlight 路线，因而“非矩阵参数以及 embedding/head 很可能继续使用 AdamW”是合理推断；但证据等级低于 DeepSeek-V4 的明确清单，不能写成 K3 报告已经确认的事实。
 - KDA、AttnRes、Stable LatentMoE、MoonEP 与 KDA-aware cache 同时变化，报告没有提供足以把最终能力精确归因到每个组件的完整外部消融。
 - 1M context 表示训练与接口上限，不保证任意任务在 1M token 上都能保持等价检索、推理和生成质量；真实成本也高度依赖 cache hit、请求形态与集群拓扑。
 - “open”在此首先表示权重可获得；实际使用受自定义 Kimi K3 License 约束，不能自动等同于 OSI 意义的软件开源或 fully open research release。

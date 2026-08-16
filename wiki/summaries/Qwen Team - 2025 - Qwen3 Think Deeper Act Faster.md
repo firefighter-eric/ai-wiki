@@ -23,14 +23,17 @@ Qwen3 标志着 Qwen 家族从“强通用 LLM”进一步转向“可控思考�
 - 预训练 token 规模从 Qwen2.5 的 `18T` 扩展到约 `36T`，并显式使用 Qwen2.5-VL 处理 PDF 类文档、用 Qwen2.5 / Math / Coder 生成部分高质量合成数据。
 - post-training 采用四阶段流程：长 CoT 冷启动、reasoning RL、thinking/non-thinking 融合、general RL。
 - Qwen3 还被明确优化为更强的 `agentic capabilities` 与 `MCP` 使用能力。
+- 当前公开来源没有披露 Qwen3 预训练优化器的名称；全文中未找到 `Adam`、`AdamW` 或 `Muon` 配置。因此横向表应标为“未披露”，而不是根据惯例猜测为 AdamW。
 
 ## 争议与不确定点
 
 - 当前来源是官方博客，不是独立 technical report。
 - Hybrid thinking 的收益高度依赖预算控制与具体 deployment 方式，博客展示的是官方推荐使用情境。
+- “未披露优化器”不等于“没有使用某优化器”；这里只陈述公开证据边界。
 
 ## 关联页面
 
 - 概念：[Qwen3](../../wiki/concepts/Qwen3.md)
 - 概念：[Qwen3.5](../../wiki/concepts/Qwen3.5.md)
 - 主题：[Qwen 系列](../../wiki/topics/Qwen%20系列.md)
+- 对比：[Muon 与 AdamW](../../wiki/comparisons/Muon%20与%20AdamW.md)

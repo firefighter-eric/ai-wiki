@@ -30,6 +30,16 @@
 
 Kimi K3 延续 Kimi K2，把 `Muon` 用于 **matrix parameters**。这一定义很重要：技术报告并没有说所有标量、向量和非矩阵参数都由 Muon 更新；其明确讨论的核心对象是 Transformer 中的二维权重矩阵。
 
+### AdamW fallback 的证据边界
+
+K3 报告没有像 DeepSeek-V4 那样列出 `embedding / head / RMSNorm -> AdamW` 的完整参数清单，全文也没有披露 AdamW 的 betas 或 epsilon。当前能分三层判断：
+
+- **明确事实**：matrix parameters 使用 Muon；Q/K/V 进一步使用 Per-Head Muon。
+- **结构上确定**：RMSNorm scale 等 1-D 参数不在 Muon matrix path 中，必然由另一条更新路径处理，但 K3 没有命名该 optimizer。
+- **基于谱系的强推断**：Moonlight 明确以 AdamW 处理 RMSNorm、LM head 与 embedding，K3 又写明“Following Kimi K2”；所以沿用 AdamW fallback 很合理。不过 embedding/head 本身是 2-D，不能仅凭“matrix parameters”措辞证明它们在 K3 中是否被排除。
+
+因此知识库把 K3 标成“Muon 为矩阵主路径，AdamW fallback 很可能存在但精确 parameter groups 未披露”，而不采用 DeepSeek-V4 那种已确认的逐模块表述。
+
 ### 从 full-matrix 到 Per-Head Muon
 
 普通 Muon 会先对一个完整权重矩阵的 momentum 做 Newton–Schulz orthogonalization。对 attention 的 Q/K/V projections，如果直接处理拼接后的完整 projection matrix，相当于把所有 attention heads 看成一个耦合块：

@@ -7,7 +7,7 @@
 - 全文文本：../../raw/text/Team, Deepmind - 2025 - Gemma 3 Technical Report.md
 - 作者：Team, Deepmind
 - 年份：2025
-- 状态：已抽取全文，待精读
+- 状态：已核对优化器披露范围；其余部分仍待精读
 
 ## 自动抽取摘要
 
@@ -21,6 +21,7 @@
 
 ## 关键事实
 
+- 报告只明确说明 optimizer state 通过 ZeRO-3 分片，没有披露优化器具体是 AdamW、Muon 或其他方法；横向研究中应标为“未披露”。
 - 已存在可读全文文本，可直接从 `raw/text/Team, Deepmind - 2025 - Gemma 3 Technical Report.md` 继续做深入整理。
 - 当前尚未对方法细节、实验设置和局限做系统提炼。
 - 若该来源对主题主干重要，下一步应提升为精修版来源页。
@@ -30,8 +31,9 @@
 - 自动抽取摘要可能存在 PDF 文本切分误差。
 - 主题归类是启发式结果，不等于最终主题归属。
 - 当前页面不应被视为最终综述，只应作为后续精修入口。
+- “optimizer state 使用 ZeRO-3”描述的是分片方式，不能据此反推优化器算法。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
-- 综合：暂无
+- 对比：[Muon 与 AdamW](../comparisons/Muon%20与%20AdamW.md)
