@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Ethayarajh et al. - 2024 - KTO Model Alignment as Prospect Theoretic Optimization
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已基于 arXiv HTML 提取全文并精修 summary
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `KTO` 试图回答一个不同于 `DPO` 的问题：如果现实里很难持续收集成对偏好数据，能否只凭“这个输出好 / 不好”的二元信号完成对齐。论文借用 prospect theory，把 `DPO`、`PPO` 等现有方法解释为带有人类决策偏置的 `HALO`（human-aware loss functions），并据此提出 `KTO`。在当前知识库中，这篇论文的重要性不在于证明 `KTO` 全面优于 `DPO`，而在于把偏好优化路线从“pairwise preference”进一步扩展到“binary desirability feedback”。
 

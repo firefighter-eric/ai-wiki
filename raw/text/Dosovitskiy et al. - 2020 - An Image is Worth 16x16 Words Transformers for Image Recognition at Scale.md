@@ -1,6 +1,6 @@
 # Dosovitskiy et al. - 2020 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Dosovitskiy et al. - 2020 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale.html`
+- Source HTML: `raw/html/Dosovitskiy et al. - 2020 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2010.11929
 - Generated from: `scripts/fetch_web_text.py`
 

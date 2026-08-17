@@ -38,6 +38,16 @@ def load_fetch_web_text_module():
     return module
 
 
+def load_extract_pdf_text_module():
+    module_path = Path(__file__).with_name("extract_pdf_text.py")
+    spec = importlib.util.spec_from_file_location("extract_pdf_text", module_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load {module_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def download_file(url: str, out_path: Path, force: bool) -> None:
     if out_path.exists() and not force:
         print(f"Skip existing {out_path}")
@@ -85,8 +95,7 @@ def fetch_html_markdown(
             parser = module.ArticleExtractor()
             parser.feed(response.text)
             body = jsonld_body or parser.render()
-            if not body:
-                raise RuntimeError(f"Empty extracted body from {url}")
+            module.validate_extracted_body(body, min_chars=2_000)
 
             final_title = title or jsonld_title or parser.title or arxiv_id
             html_path.parent.mkdir(parents=True, exist_ok=True)
@@ -103,6 +112,26 @@ def fetch_html_markdown(
             last_error = exc
 
     raise RuntimeError(f"Failed to fetch arXiv HTML for {arxiv_id}: {last_error}")
+
+
+def fallback_to_pdf(pdf_path: Path, pdf_root: Path, text_path: Path) -> None:
+    if not pdf_path.is_file():
+        raise RuntimeError(
+            "arXiv HTML extraction failed and no local PDF is available for fallback: "
+            f"{pdf_path}"
+        )
+    module = load_extract_pdf_text_module()
+    extracted = module.extract_pdf_text(pdf_path)
+    if len(extracted.strip()) < 2_000:
+        raise RuntimeError(
+            f"PDF fallback extraction is implausibly short ({len(extracted.strip())} characters)."
+        )
+    text_path.parent.mkdir(parents=True, exist_ok=True)
+    text_path.write_text(
+        module.render_markdown(pdf_path.resolve(), pdf_root.resolve(), extracted),
+        encoding="utf-8",
+    )
+    print(f"Wrote {text_path} from PDF fallback")
 
 
 def main() -> int:
@@ -127,14 +156,19 @@ def main() -> int:
         print("Nothing to do: both --skip-pdf and --skip-text are set.", file=sys.stderr)
         return 1
 
+    pdf_root = Path(args.pdf_root)
+    pdf_path = pdf_root / f"{stem}.pdf"
     if not args.skip_pdf:
-        pdf_path = Path(args.pdf_root) / f"{stem}.pdf"
         download_file(f"https://arxiv.org/pdf/{arxiv_id}.pdf", pdf_path, args.force)
 
     if not args.skip_text:
         html_path = Path(args.html_root) / f"{stem}.html"
         text_path = Path(args.text_root) / f"{stem}.md"
-        fetch_html_markdown(arxiv_id, html_path, text_path, args.title, args.force)
+        try:
+            fetch_html_markdown(arxiv_id, html_path, text_path, args.title, args.force)
+        except RuntimeError as exc:
+            print(f"HTML extraction unavailable: {exc}", file=sys.stderr)
+            fallback_to_pdf(pdf_path, pdf_root, text_path)
 
     return 0
 

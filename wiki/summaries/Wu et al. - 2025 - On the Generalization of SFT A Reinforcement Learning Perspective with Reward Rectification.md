@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wu et al. - 2025 - On the Generalization of SFT A Reinforcement Learning Perspective with Reward Rectification
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2025
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Preprint. Working in Progress. ON THE GENERALIZATION OF SFT: A REINFORCE- MENT LEARNING PERSPECTIVE WITH REWARD REC- TIFICATION Yongliang Wu1∗ Yizhou Zhou2∗† Zhou Ziheng3 Yingzhe Peng1 Xinyu Ye4 Xinting Hu5 Wenbo Zhu6 Lu Qi7 Ming-Hsuan Yang8 Xu Yang1‡ 1Southeast University 2Independent Researcher 3University of California, Los Angeles 4Shanghai Jiao Tong University 5Nanyang Technological University 6University of California, Berkeley 7Wuhan University 8University of California, Merced yongliang0223@gmail.com, zyz0205@hotmail.com, xuyang palm@seu.edu.cn ABSTRACT We present a simple yet theoretically motivated improvement to Supervised Fine- Tuning (SFT) for the Large Language Model (LLM), addressing its limited gener- alization compared to reinforcement learning (RL). Through mathematical anal- ysis, we reveal that standard SFT gradients implicitly encode a problematic re- ward structure 
 

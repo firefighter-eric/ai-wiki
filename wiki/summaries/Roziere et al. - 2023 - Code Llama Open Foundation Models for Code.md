@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Roziere et al. - 2023 - Code Llama Open Foundation Models for Code
 
 ## 来源信息
@@ -30,7 +34,7 @@ Code Llama 是基于 Llama 2 继续特化出的代码大模型家族。它的意
 
 ## 关联页面
 
-- 概念：[Llama](../../wiki/concepts/Llama.md)
+- 概念：[Llama 家族](../../wiki/concepts/Llama%20家族.md)
 - 概念：[Llama 2](../../wiki/concepts/Llama%202.md)
 - 概念：[Code Llama](../../wiki/concepts/Code%20Llama.md)
 - 主题：[LLM预训练](../../wiki/topics/LLM%20预训练.md)

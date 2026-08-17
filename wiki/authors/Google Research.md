@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Google Research
 
 ## 简介

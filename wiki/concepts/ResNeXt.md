@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # ResNeXt
 
 ## 简介

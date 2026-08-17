@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Team, Meta - 2024 - The Llama 3 Herd of Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已核对预训练优化器；其余部分仍待系统精读
 
-## 自动抽取摘要
+## 摘要
 
 The Llama 3 Herd of Models Llama Team, AI @ Meta1 1A detailed contributor list can be found in the appendix of this paper. Modern artiﬁcial intelligence (AI) systems are powered by foundation models. This paper presents a new set of foundation models, called Llama 3. It is a herd of language models that natively support multilinguality, coding, reasoning, and tool usage. Our largest model is a dense Transformer with 405B parameters and a context window of up to 128K tokens. This paper presents an extensive empirical evaluation of Llama 3. We ﬁnd that Llama 3 delivers comparable quality to leading language models such as GPT-4 on a plethora of tasks. We publicly release Llama 3, including pre-trained and post-trained versions of the 405B parameter language model and our Llama Guard 3 model for input and output safety. The paper also presents the results of experiments in which we integrat
 

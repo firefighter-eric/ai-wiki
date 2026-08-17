@@ -1,6 +1,6 @@
 # Roziere et al. - 2023 - Code Llama Open Foundation Models for Code
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Roziere et al. - 2023 - Code Llama Open Foundation Models for Code.html`
+- Source HTML: `raw/html/Roziere et al. - 2023 - Code Llama Open Foundation Models for Code.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2308.12950
 - Generated from: `scripts/fetch_web_text.py`
 

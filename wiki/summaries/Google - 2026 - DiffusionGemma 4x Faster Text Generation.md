@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Google - 2026 - DiffusionGemma 4x Faster Text Generation
 
 ## 来源信息

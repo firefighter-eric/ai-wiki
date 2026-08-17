@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Dean, Scientist, Deepmind - Unknown - Important Trends in AI How Did We Get Here , What Can We Do Now and How Can We Shape AI ’ s Fut
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：Unknown
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Jeff Dean, Chief Scientist, Google Research & Google DeepMind @jeffdean.bsky.social and @JeffDean ai.google/research/people/jeff Presenting the work of many people at Google and elsewhere Important Trends in AI: How Did We Get Here, What Can We Do Now and How Can We Shape AI’s Future? Some observations The kinds of computations we want to run and the hardware on which we run them is changing dramatically Increasing scale (compute, data, model size) delivers better results In recent years, ML has completely changed our expectations of what is possible with computers Algorithmic and model architecture improvements have provided massive improvements as well Fifteen Years of Machine Learning Advances or How Did Today’s Models Come To Be? Key Building Block from Last Century: Neural Networks Key building block: neural networks, made up of artificial neurons, loosely designed to mimic how real
 

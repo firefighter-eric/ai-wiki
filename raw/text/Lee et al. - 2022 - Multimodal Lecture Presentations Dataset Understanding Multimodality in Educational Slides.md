@@ -1,6 +1,6 @@
 # Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides.html`
+- Source HTML: `raw/html/Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2208.08080
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,6 +1,6 @@
 # Nassar et al. - 2025 - SmolDocling An ultra-compact vision-language model for arXiv 2503 . 11576v1 cs . CV 14 Mar 2025
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Nassar et al. - 2025 - SmolDocling An ultra-compact vision-language model for arXiv 2503 . 11576v1 cs . CV 14 Mar 2025.html`
+- Source HTML: `raw/html/Nassar et al. - 2025 - SmolDocling An ultra-compact vision-language model for arXiv 2503 . 11576v1 cs . CV 14 Mar 2025.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2503.11576
 - Generated from: `scripts/fetch_web_text.py`
 

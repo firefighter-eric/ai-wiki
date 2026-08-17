@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2018
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Joint entity recognition and relation extraction as a multi-head selection problem Giannis Bekoulis∗, Johannes Deleu, Thomas Demeester, Chris Develder Ghent University – imec, IDLab, Department of Information Technology, Technologiepark Zwijnaarde 15, 9052 Ghent, Belgium Abstract State-of-the-art models for joint entity recognition and relation extraction strongly rely on external natural language processing (NLP) tools such as POS (part-of-speech) tag- gers and dependency parsers. Thus, the performance of such joint models depends on the quality of the features obtained from these NLP tools. However, these features are not always accurate for various languages and contexts. In this paper, we pro- pose a joint neural model which performs entity recognition and relation extraction simultaneously, without the need of any manually extracted features or the use of any external tool. Speciﬁca
 

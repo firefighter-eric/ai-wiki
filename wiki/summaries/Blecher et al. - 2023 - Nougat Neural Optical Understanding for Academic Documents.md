@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Blecher et al. - 2023 - Nougat Neural Optical Understanding for Academic Documents
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2023
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Scientific knowledge is predominantly stored in books and scientific journals, often in the form of PDFs. However, the PDF format leads to a loss of semantic information, particularly for mathematical expressions. We propose Nougat (Neural Optical Understanding for Academic Documents), a Visual Transformer model that performs an Optical Character Recognition (OCR) task for processing scientific documents into a markup language, and demonstrate the effectiveness of our model on a new dataset of scientific documents. The proposed approach offers a promising solution to enhance the accessibility of scientific knowledge in the digital age, by bridging the gap between human- readable documents and machine-readable text. We release the models and code to accelerate future work on scientific text recognition.
 

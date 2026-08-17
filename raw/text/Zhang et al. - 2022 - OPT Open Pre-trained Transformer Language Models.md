@@ -1,6 +1,6 @@
 # Zhang et al. - 2022 - OPT Open Pre-trained Transformer Language Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zhang et al. - 2022 - OPT Open Pre-trained Transformer Language Models.html`
+- Source HTML: `raw/html/Zhang et al. - 2022 - OPT Open Pre-trained Transformer Language Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2205.01068
 - Generated from: `scripts/fetch_web_text.py`
 

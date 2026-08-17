@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Ai - 2022 - Learning Audio-Visual Speech Representation by Masked Multimodal Cluster Prediction
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Published as a conference paper at ICLR 2022 LEARNING AUDIO-VISUAL SPEECH REPRESENTATION BY MASKED MULTIMODAL CLUSTER PREDICTION Bowen Shi1∗ Wei-Ning Hsu2 Kushal Lakhotia2 Abdelrahman Mohamed2 1Toyota Technological Institute at Chicago 2Meta AI bshi@ttic.edu {wnhsu,kushall,abdo}@fb.com ABSTRACT Video recordings of speech contain correlated audio and visual information, pro- viding a strong signal for speech representation learning from the speaker’s lip movements and the produced sound. We introduce Audio-Visual Hidden Unit BERT (AV-HuBERT), a self-supervised representation learning framework for audio-visual speech, which masks multi-stream video input and predicts automat- ically discovered and iteratively reﬁned multimodal hidden units. AV-HuBERT learns powerful audio-visual speech representation beneﬁting both lip-reading and automatic speech recognition. On the largest public lip-re
 

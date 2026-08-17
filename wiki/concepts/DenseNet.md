@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DenseNet
 
 ## 简介

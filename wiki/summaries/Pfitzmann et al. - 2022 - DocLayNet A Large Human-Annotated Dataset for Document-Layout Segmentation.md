@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Pfitzmann et al. - 2022 - DocLayNet A Large Human-Annotated Dataset for Document-Layout Segmentation
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 DocLayNet: A Large Human-Annotated Dataset for Document-Layout Analysis Birgit Pfitzmann IBM Research Rueschlikon, Switzerland bpf@zurich.ibm.com Christoph Auer IBM Research Rueschlikon, Switzerland cau@zurich.ibm.com Michele Dolfi IBM Research Rueschlikon, Switzerland dol@zurich.ibm.com Ahmed S. Nassar IBM Research Rueschlikon, Switzerland ahn@zurich.ibm.com Peter Staar IBM Research Rueschlikon, Switzerland taa@zurich.ibm.com ABSTRACT Accurate document layout analysis is a key requirement for high- quality PDF document conversion. With the recent availability of public, large ground-truth datasets such as PubLayNet and DocBank, deep-learning models have proven to be very effective at layout detection and segmentation. While these datasets are of adequate size to train such models, they severely lack in layout variability since they are sourced from scientific article repositories such a
 

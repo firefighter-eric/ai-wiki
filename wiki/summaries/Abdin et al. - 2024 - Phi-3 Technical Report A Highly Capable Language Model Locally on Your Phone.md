@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Abdin et al. - 2024 - Phi-3 Technical Report A Highly Capable Language Model Locally on Your Phone
 
 ## 来源信息

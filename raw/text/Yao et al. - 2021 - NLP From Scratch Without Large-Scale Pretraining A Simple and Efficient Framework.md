@@ -1,6 +1,6 @@
 # Yao et al. - 2021 - NLP From Scratch Without Large-Scale Pretraining A Simple and Efficient Framework
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Yao et al. - 2021 - NLP From Scratch Without Large-Scale Pretraining A Simple and Efficient Framework.html`
+- Source HTML: `raw/html/Yao et al. - 2021 - NLP From Scratch Without Large-Scale Pretraining A Simple and Efficient Framework.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2111.04130
 - Generated from: `scripts/fetch_web_text.py`
 

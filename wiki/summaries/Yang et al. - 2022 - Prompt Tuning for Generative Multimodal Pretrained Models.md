@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Yang et al. - 2022 - Prompt Tuning for Generative Multimodal Pretrained Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Prompt tuning has become a new paradigm for model tuning and it has demonstrated success in natural language pretraining and even vision pretraining. In this work, we explore the trans- fer of prompt tuning to multimodal pretrain- ing, with a focus on generative multimodal pretrained models, instead of contrastive ones. Speciﬁcally, we implement prompt tuning on the uniﬁed sequence-to-sequence pretrained model adaptive to both understanding and gen- eration tasks. Experimental results demon- strate that the light-weight prompt tuning can achieve comparable performance with ﬁnetun- ing and surpass other light-weight tuning meth- ods. Besides, in comparison with ﬁnetuned models, the prompt-tuned models demonstrate improved robustness against adversarial at- tacks. We further ﬁgure out that experimental factors, including the prompt length, prompt depth, and reparameteratization, have great impacts on the model performance, and thus we empirically provide a recommendation for the setups of prompt tuning. Despite the ob- served advantages, we still ﬁnd some limita- tions in prompt tuning, and we correspond- ingly point out the directions for future studies. Codes are available at https://github. com/OFA-Sys/OFA
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Google - 2026 - Gemma 4 Byte for Byte Most Capable Open Models
 
 ## 来源信息

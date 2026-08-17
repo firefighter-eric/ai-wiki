@@ -1,6 +1,6 @@
 # Krishnamoorthi - 2018 - Quantizing deep convolutional networks for efficient inference A whitepaper
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Krishnamoorthi - 2018 - Quantizing deep convolutional networks for efficient inference A whitepaper.html`
+- Source HTML: `raw/html/Krishnamoorthi - 2018 - Quantizing deep convolutional networks for efficient inference A whitepaper.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1806.08342
 - Generated from: `scripts/fetch_web_text.py`
 

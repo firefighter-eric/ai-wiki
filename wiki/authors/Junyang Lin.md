@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Junyang Lin
 
 ## 简介

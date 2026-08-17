@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liang et al. - 2021 - R-Drop Regularized Dropout for Neural Networks arXiv 2106 . 14448v2 cs . LG 29 Oct 2021
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Dropout is a powerful and widely used technique to regularize the training of deep neural networks. Though effective and performing well, the randomness introduced by dropout causes unnegligible inconsistency between training and inference. In this paper, we introduce a simple consistency training strategy to regularize dropout, namely R-Drop, which forces the output distributions of different sub models gen- erated by dropout to be consistent with each other. Speciﬁcally, for each training sample, R-Drop minimizes the bidirectional KL-divergence between the output dis- tributions of two sub models sampled by dropout. Theoretical analysis reveals that R-Drop reduces the above inconsistency. Experiments on 5 widely used deep learn- ing tasks (18 datasets in total), including neural machine translation, abstractive summarization, language understanding, language modeling, and image classiﬁca- tion, show that R-Drop is universally effective. In particular, it yields substantial improvements when applied to ﬁne-tune large-scale pre-trained models, e.g., ViT, RoBERTa-large, and BART, and achieves state-of-the-art (SOTA) performances with the vanilla Transformer model on WMT14 English→German translation (30.91 BLEU) and WMT14 English→French translation (43.95 BLEU), even surpassing models trained with extra large-scale data and expert-designed advanced variants of Transformer models. Our code is available at GitHub2.
 

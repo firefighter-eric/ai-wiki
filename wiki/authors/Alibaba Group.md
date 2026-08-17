@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Alibaba Group
 
 ## 简介

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Vision Banana
 
 ## 简介

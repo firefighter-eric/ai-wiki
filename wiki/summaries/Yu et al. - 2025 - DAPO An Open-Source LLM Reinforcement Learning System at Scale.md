@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Yu et al. - 2025 - DAPO An Open-Source LLM Reinforcement Learning System at Scale
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2025
 - 状态：已基于 arXiv HTML 提取全文并精修 summary
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `DAPO` 不是只提出一个新损失，而是把“如何把 reasoning RL 真正跑起来”当成系统问题来处理。论文从 `naive GRPO` 复现效果不佳出发，指出长 CoT RL 会碰到 entropy collapse、reward noise、训练不稳定等问题，并提出 `Clip-Higher`、`Dynamic Sampling`、`Token-Level Policy Gradient Loss`、`Overlong Reward Shaping` 四类改造。它的重要性在于：如果 `DeepSeek-R1` 让社区意识到 `GRPO`/reasoning RL 的潜力，那么 `DAPO` 则试图把这条路线变成更可复现的公开工程体系。
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Duan et al. - 2026 - GLM-OCR Technical Report
 
 ## 来源信息

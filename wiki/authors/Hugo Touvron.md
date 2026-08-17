@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Hugo Touvron
 
 ## 简介
@@ -17,6 +20,6 @@
 
 ## 关联页面
 
-- [Llama](../concepts/Llama.md)
+- [Llama 家族](../concepts/Llama%20家族.md)
 - [Code Llama](../concepts/Code%20Llama.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)

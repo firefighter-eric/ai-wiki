@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # MPT
 
 ## 简介

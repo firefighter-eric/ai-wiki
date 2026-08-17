@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Yang et al. - 2026 - Learning beyond Teacher Generalized On-Policy Distillation with Reward Extrapolation
 
 ## 来源信息

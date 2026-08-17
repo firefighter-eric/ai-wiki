@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Kuaishou Technology
 
 ## 简介

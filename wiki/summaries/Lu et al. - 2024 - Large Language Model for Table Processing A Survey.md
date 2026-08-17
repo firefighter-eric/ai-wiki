@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Lu et al. - 2024 - Large Language Model for Table Processing A Survey
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Tables, typically two-dimensional and structured to store large amounts of data, are essen- tial in daily activities like database queries, spread- sheet manipulations, web table question answer- ing, and image table information extraction. Au- tomating these table-centric tasks with Large Lan- guage Models (LLMs) or Visual Language Models (VLMs) offers significant public benefits, garner- ing interest from academia and industry. This sur- vey provides a comprehensive overview of table- related tasks, examining both user scenarios and technical aspects. It covers traditional tasks like ta- ble question answering as well as emerging fields such as spreadsheet manipulation and table data analysis. We summarize the training techniques for LLMs and VLMs tailored for table processing. Additionally, we discuss prompt engineering, par- ticularly the use of LLM-powered agents, for var- ious table-related tasks. Finally, we highlight sev- eral challenges, including diverse user input when serving and slow thinking using chain-of-thought. Keywords Data Mining and Knowledge Discov- ery, Table Processing, Large Language Model
 

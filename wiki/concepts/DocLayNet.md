@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DocLayNet
 
 ## 简介

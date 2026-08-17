@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Sutskever, Vinyals, Le - 2014 - Sequence to Sequence Learning with Neural Networks
 
 ## 来源信息

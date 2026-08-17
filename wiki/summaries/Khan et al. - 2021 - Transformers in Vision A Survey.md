@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Khan et al. - 2021 - Transformers in Vision A Survey
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 1 Transformers in Vision: A Survey Salman Khan, Muzammal Naseer, Munawar Hayat, Syed Waqas Zamir, Fahad Shahbaz Khan, and Mubarak Shah Abstract—Astounding results from Transformer models on natural language tasks have intrigued the vision community to study their application to computer vision problems. Among their salient beneﬁts, Transformers enable modeling long dependencies between input sequence elements and support parallel processing of sequence as compared to recurrent networks e.g., Long short-term memory (LSTM). Different from convolutional networks, Transformers require minimal inductive biases for their design and are naturally suited as set-functions. Furthermore, the straightforward design of Transformers allows processing multiple modalities (e.g., images, videos, text and speech) using similar processing blocks and demonstrates excellent scalability to very large capacity
 

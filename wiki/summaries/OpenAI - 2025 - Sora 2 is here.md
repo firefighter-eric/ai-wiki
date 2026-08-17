@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # OpenAI - 2025 - Sora 2 is here
 
 ## 来源信息

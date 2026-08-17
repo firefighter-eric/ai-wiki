@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DocLLM
 
 ## 简介

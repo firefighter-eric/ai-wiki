@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Krishnamoorthi - 2018 - Quantizing deep convolutional networks for efficient inference A whitepaper
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2018
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 We present an overview of techniques for quantizing convolutional neural net- works for inference with integer weights and activations. 1. Per-channel quantization of weights and per-layer quantization of activations to 8-bits of precision post-training produces classiﬁcation accuracies within 2% of ﬂoating point networks for a wide variety of CNN architectures (sec- tion 3.1). 2. Model sizes can be reduced by a factor of 4 by quantizing weights to 8- bits, even when 8-bit arithmetic is not supported. This can be achieved with simple, post training quantization of weights (section 3.1). 3. We benchmark latencies of quantized networks on CPUs and DSPs and ob- serve a speedup of 2x-3x for quantized implementations compared to ﬂoat- ing point on CPUs. Speedups of up to 10x are observed on specialized pro- cessors with ﬁxed point SIMD capabilities, like the Qualcomm QDSPs with HVX (section 6). 4. Quantization-aware training can provide further improvements, reducing the gap to ﬂoating point to 1% at 8-bit precision. Quantization-aware training also allows for reducing the precision of weights to four bits with accuracy losses ranging from 2% to 10%, with higher accuracy drop for smaller net- works (section 3.2). 5. We introduce tools in TensorFlow and TensorFlowLite for quantizing con- volutional networks (Section 3). 6. We review best practices for quantization-aware training to obtain high ac- curacy with quantized weights and activations (section 4). 7. We recommend that per-channel quantization of weights and per-layer quan- tization of activations be the preferred quantization scheme for hardware ac- celeration and kernel optimization. We also propose that future processors and hardware accelerators for optimized inference support precisions of 4, 8 and 16 bits (section 7).
 

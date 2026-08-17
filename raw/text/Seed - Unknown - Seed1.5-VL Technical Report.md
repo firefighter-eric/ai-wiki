@@ -1,6 +1,6 @@
 # Seed - Unknown - Seed1.5-VL Technical Report
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Seed - Unknown - Seed1.5-VL Technical Report.html`
+- Source HTML: `raw/html/Seed - Unknown - Seed1.5-VL Technical Report.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2505.07062v1
 - Generated from: `scripts/fetch_web_text.py`
 

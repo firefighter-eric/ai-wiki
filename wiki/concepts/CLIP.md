@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # CLIP
 
 ## 简介

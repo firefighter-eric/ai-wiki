@@ -1,6 +1,6 @@
 # Kong, Kim, Bae - 2020 - HiFi-GAN Generative adversarial networks for efficient and high fidelity speech synthesis
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Kong, Kim, Bae - 2020 - HiFi-GAN Generative adversarial networks for efficient and high fidelity speech synthesis.html`
+- Source HTML: `raw/html/Kong, Kim, Bae - 2020 - HiFi-GAN Generative adversarial networks for efficient and high fidelity speech synthesis.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2010.05646
 - Generated from: `scripts/fetch_web_text.py`
 

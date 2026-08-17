@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations
 
 ## 来源信息

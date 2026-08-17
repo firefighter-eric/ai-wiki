@@ -1,6 +1,6 @@
 # Wu et al. - 2025 - On the Generalization of SFT A Reinforcement Learning Perspective with Reward Rectification
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wu et al. - 2025 - On the Generalization of SFT A Reinforcement Learning Perspective with Reward Rectification.html`
+- Source HTML: `raw/html/Wu et al. - 2025 - On the Generalization of SFT A Reinforcement Learning Perspective with Reward Rectification.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2508.05629
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,6 +1,6 @@
 # Tewari et al. - 2020 - State of the Art on Neural Rendering
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Tewari et al. - 2020 - State of the Art on Neural Rendering.html`
+- Source HTML: `raw/html/Tewari et al. - 2020 - State of the Art on Neural Rendering.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2004.03805
 - Generated from: `scripts/fetch_web_text.py`
 

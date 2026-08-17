@@ -1,3 +1,6 @@
+---
+type: author
+---
 # ShengShu Technology
 
 ## 简介

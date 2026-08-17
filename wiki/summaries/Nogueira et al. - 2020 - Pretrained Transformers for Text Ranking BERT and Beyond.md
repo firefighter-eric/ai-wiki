@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Nogueira et al. - 2020 - Pretrained Transformers for Text Ranking BERT and Beyond
 
 ## 来源信息

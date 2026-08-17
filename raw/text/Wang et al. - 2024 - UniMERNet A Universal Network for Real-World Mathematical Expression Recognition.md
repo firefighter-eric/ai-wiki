@@ -1,6 +1,6 @@
 # Wang et al. - 2024 - UniMERNet A Universal Network for Real-World Mathematical Expression Recognition
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang et al. - 2024 - UniMERNet A Universal Network for Real-World Mathematical Expression Recognition.html`
+- Source HTML: `raw/html/Wang et al. - 2024 - UniMERNet A Universal Network for Real-World Mathematical Expression Recognition.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2404.15254
 - Generated from: `scripts/fetch_web_text.py`
 

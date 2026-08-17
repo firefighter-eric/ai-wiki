@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Redmon et al. - 2015 - You Only Look Once Unified Real-Time Object Detection
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2015
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `YOLOv1` 的关键突破是把目标检测从“proposal + 分类 + 后处理”的复杂流水线重写成单阶段回归问题：模型在一次前向传播中直接预测边界框与类别概率。它强调全图上下文建模与实时推理速度，标志着 `one-stage detection` 作为独立主线的正式成形。
 

@@ -1,6 +1,6 @@
 # Ai - 2022 - Learning Audio-Visual Speech Representation by Masked Multimodal Cluster Prediction
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Ai - 2022 - Learning Audio-Visual Speech Representation by Masked Multimodal Cluster Prediction.html`
+- Source HTML: `raw/html/Ai - 2022 - Learning Audio-Visual Speech Representation by Masked Multimodal Cluster Prediction.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2201.02184
 - Generated from: `scripts/fetch_web_text.py`
 

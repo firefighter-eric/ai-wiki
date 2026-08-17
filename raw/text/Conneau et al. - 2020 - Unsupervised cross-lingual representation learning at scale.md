@@ -1,6 +1,6 @@
 # Conneau et al. - 2020 - Unsupervised cross-lingual representation learning at scale
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Conneau et al. - 2020 - Unsupervised cross-lingual representation learning at scale.html`
+- Source HTML: `raw/html/Conneau et al. - 2020 - Unsupervised cross-lingual representation learning at scale.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1911.02116
 - Generated from: `scripts/fetch_web_text.py`
 

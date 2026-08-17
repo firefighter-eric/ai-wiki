@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Kling VIDEO 3.0 Omni
 
 ## 简介

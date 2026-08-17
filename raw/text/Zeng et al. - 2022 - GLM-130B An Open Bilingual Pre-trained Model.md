@@ -1,6 +1,6 @@
 # [2210.02414] \iconGLM-130B: An Open Bilingual Pre-Trained Model
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zeng et al. - 2022 - GLM-130B An Open Bilingual Pre-trained Model.html`
+- Source HTML: `raw/html/Zeng et al. - 2022 - GLM-130B An Open Bilingual Pre-trained Model.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2210.02414
 - Generated from: `scripts/fetch_web_text.py`
 

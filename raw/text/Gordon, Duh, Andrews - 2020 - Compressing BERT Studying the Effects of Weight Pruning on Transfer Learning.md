@@ -1,6 +1,6 @@
 # Gordon, Duh, Andrews - 2020 - Compressing BERT Studying the Effects of Weight Pruning on Transfer Learning
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Gordon, Duh, Andrews - 2020 - Compressing BERT Studying the Effects of Weight Pruning on Transfer Learning.html`
+- Source HTML: `raw/html/Gordon, Duh, Andrews - 2020 - Compressing BERT Studying the Effects of Weight Pruning on Transfer Learning.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2002.08307v2
 - Generated from: `scripts/fetch_web_text.py`
 

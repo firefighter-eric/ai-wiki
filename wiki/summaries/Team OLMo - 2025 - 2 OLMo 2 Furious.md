@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # OLMo Team - 2025 - 2 OLMo 2 Furious
 
 ## 来源信息

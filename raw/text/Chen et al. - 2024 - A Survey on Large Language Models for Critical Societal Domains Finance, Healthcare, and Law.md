@@ -1,6 +1,6 @@
 # Chen et al. - 2024 - A Survey on Large Language Models for Critical Societal Domains Finance, Healthcare, and Law
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Chen et al. - 2024 - A Survey on Large Language Models for Critical Societal Domains Finance, Healthcare, and Law.html`
+- Source HTML: `raw/html/Chen et al. - 2024 - A Survey on Large Language Models for Critical Societal Domains Finance, Healthcare, and Law.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2405.01769
 - Generated from: `scripts/fetch_web_text.py`
 

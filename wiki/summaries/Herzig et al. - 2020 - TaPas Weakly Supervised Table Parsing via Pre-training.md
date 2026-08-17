@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Herzig et al. - 2020 - TaPas Weakly Supervised Table Parsing via Pre-training
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Answering natural language questions over ta- bles is usually seen as a semantic parsing task. To alleviate the collection cost of full logical forms, one popular approach focuses on weak supervision consisting of denotations instead of logical forms. However, training seman- tic parsers from weak supervision poses difﬁ- culties, and in addition, the generated logical forms are only used as an intermediate step prior to retrieving the denotation. In this pa- per, we present TAPAS, an approach to ques- tion answering over tables without generating logical forms. TAPAS trains from weak super- vision, and predicts the denotation by select- ing table cells and optionally applying a cor- responding aggregation operator to such selec- tion. TAPAS extends BERT’s architecture to encode tables as input, initializes from an ef- fective joint pre-training of text segments and tables crawled from Wikipedia, and is trained end-to-end. We experiment with three differ- ent semantic parsing datasets, and ﬁnd that TAPAS outperforms or rivals semantic parsing models by improving state-of-the-art accuracy on SQA from 55.1 to 67.2 and performing on par with the state-of-the-art on WIKISQL and WIKITQ, but with a simpler model architec- ture. We additionally ﬁnd that transfer learn- ing, which is trivial in our setting, from WIK- ISQL to WIKITQ, yields 48.7 accuracy, 4.2 points above the state-of-the-art.
 

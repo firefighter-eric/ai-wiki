@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zhang et al. - 2022 - OPT Open Pre-trained Transformer Language Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Large language models, which are often trained for hundreds of thousands of compute days, have shown remarkable capabilities for zero- and few-shot learning. Given their com- putational cost, these models are difﬁcult to replicate without signiﬁcant capital. For the few that are available through APIs, no ac- cess is granted to the full model weights, mak- ing them difﬁcult to study. We present Open Pre-trained Transformers (OPT), a suite of decoder-only pre-trained transformers ranging from 125M to 175B parameters, which we aim to fully and responsibly share with interested researchers. We show that OPT-175B is com- parable to GPT-3,1 while requiring only 1/7th the carbon footprint to develop. We are also releasing our logbook detailing the infrastruc- ture challenges we faced, along with code for experimenting with all of the released models.
 

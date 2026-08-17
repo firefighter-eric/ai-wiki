@@ -1,6 +1,6 @@
 # Wang et al. - 2022 - OFA Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang et al. - 2022 - OFA Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework.html`
+- Source HTML: `raw/html/Wang et al. - 2022 - OFA Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2202.03052
 - Generated from: `scripts/fetch_web_text.py`
 

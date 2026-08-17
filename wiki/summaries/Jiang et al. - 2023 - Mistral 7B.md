@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Jiang et al. - 2023 - Mistral 7B
 
 ## 来源信息

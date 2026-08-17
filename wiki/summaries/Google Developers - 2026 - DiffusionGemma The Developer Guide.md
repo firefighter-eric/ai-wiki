@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Google Developers - 2026 - DiffusionGemma The Developer Guide
 
 ## 来源信息

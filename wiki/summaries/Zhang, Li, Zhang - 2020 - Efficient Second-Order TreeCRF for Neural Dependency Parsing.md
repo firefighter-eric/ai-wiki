@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 In the deep learning (DL) era, parsing mod- els are extremely simpliﬁed with little hurt on performance, thanks to the remarkable ca- pability of multi-layer BiLSTMs in context representation. As the most popular graph- based dependency parser due to its high ef- ﬁciency and performance, the biafﬁne parser directly scores single dependencies under the arc-factorization assumption, and adopts a very simple local token-wise cross-entropy training loss. This paper for the ﬁrst time presents a second-order TreeCRF extension to the biafﬁne parser. For a long time, the com- plexity and inefﬁciency of the inside-outside algorithm hinder the popularity of TreeCRF. To address this issue, we propose an effec- tive way to batchify the inside and Viterbi al- gorithms for direct large matrix operation on GPUs, and to avoid the complex outside algo- rithm via efﬁcient back-propagation. Experi- ments and analysis on 27 datasets from 13 lan- guages clearly show that techniques developed before the DL era, such as structural learning (global TreeCRF loss) and high-order model- ing are still useful, and can further boost pars- ing performance over the state-of-the-art bi- afﬁne parser, especially for partially annotated training data. We release our code at https: //github.com/yzhangcs/crfpar.
 

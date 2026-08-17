@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liao et al. - 2023 - DocTr Document Transformer for Structured Information Extraction in Documents
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2023
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 We present a new formulation for structured information extraction (SIE) from visually rich documents. It aims to address the limitations of existing IOB tagging or graph- based formulations, which are either overly reliant on the correct ordering of input text or struggle with decoding a complex graph. Instead, motivated by anchor-based object detectors in vision, we represent an entity as an anchor word and a bounding box, and represent entity linking as the as- sociation between anchor words. This is more robust to text ordering, and maintains a compact graph for entity linking. The formulation motivates us to introduce 1) a DOCument TRansformer (DocTr) that aims at detecting and associating entity bounding boxes in visually rich documents, and 2) a simple pre-training strategy that helps learn entity detection in the context of language. Evaluations on three SIE bench- marks show the effectiveness of the proposed formulation, and the overall approach outperforms existing solutions. 1. Introduction Structured information extraction (SIE) from documents, as shown in Fig 1, is the process of extracting entities and their relationships, and returning them in a structured format. Structured information in a document is usually visually-rich – it is not only determined by the content of text but also the layout, typesetting, and/or figures and tables present in the document. Therefore, unlike the traditional information ex- traction task in nature language processing (NLP) [8, 3, 30] where the input is plain text (usually with a given reading order), SIE assumes the image representation of a document is available, and a pre-built optical character recognition (OCR) system may provide the unstructured text (i.e., with- out proper reading order). This is a practical assumption for day-to-day processing of business documents, where the *Corresponding author liahaofu@amazon.com †Work done at AWS AI Labs 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 CHOCOLATE MILK SHAKE
 

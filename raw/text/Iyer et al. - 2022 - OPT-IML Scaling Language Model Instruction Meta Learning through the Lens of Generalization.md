@@ -1,6 +1,6 @@
 # Iyer et al. - 2022 - OPT-IML Scaling Language Model Instruction Meta Learning through the Lens of Generalization
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Iyer et al. - 2022 - OPT-IML Scaling Language Model Instruction Meta Learning through the Lens of Generalization.html`
+- Source HTML: `raw/html/Iyer et al. - 2022 - OPT-IML Scaling Language Model Instruction Meta Learning through the Lens of Generalization.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2212.12017
 - Generated from: `scripts/fetch_web_text.py`
 

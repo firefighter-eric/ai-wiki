@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Su et al. - 2021 - Whitening Sentence Representations for Better Semantics and Faster Retrieval
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Pre-training models such as BERT have achieved great success in many natural lan- guage processing tasks. However, how to obtain better sentence representation through these pre-training models is still worthy to exploit. Previous work has shown that the anisotropy problem is an critical bottleneck for BERT-based sentence representation which hinders the model to fully utilize the under- lying semantic features. Therefore, some at- tempts of boosting the isotropy of sentence distribution, such as ﬂow-based model, have been applied to sentence representations and achieved some improvement. In this paper, we ﬁnd that the whitening operation in tradi- tional machine learning can similarly enhance the isotropy of sentence representations and achieve competitive results. Furthermore, the whitening technique is also capable of reduc- ing the dimensionality of the sentence repre- sentation. Our experimental results show that it can not only achieve promising performance but also signiﬁcantly reduce the storage cost and accelerate the model retrieval speed.1
 

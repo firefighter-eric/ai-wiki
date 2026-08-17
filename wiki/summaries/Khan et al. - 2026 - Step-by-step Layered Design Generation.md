@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Khan et al. - 2026 - Step-by-step Layered Design Generation
 
 ## 来源信息

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Kimi Delta Attention
 
 ## 简介

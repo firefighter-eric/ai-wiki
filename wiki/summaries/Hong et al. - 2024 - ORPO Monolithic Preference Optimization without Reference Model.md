@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Hong et al. - 2024 - ORPO Monolithic Preference Optimization without Reference Model
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已基于 arXiv HTML 提取全文并精修 summary
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `ORPO` 的问题意识是：现有 preference alignment 通常仍要先做 `SFT`，再额外跑一轮偏好优化，并且常需要 reference model。论文据此提出 monolithic 的 odds-ratio preference optimization，把 SFT 与偏好对齐揉进一个训练目标里，同时去掉 reference model。它不是回到传统 `RLHF`，也不完全等于 `DPO`，而是把“reference-free、单阶段、低资源偏好优化”作为新的工程取向。
 

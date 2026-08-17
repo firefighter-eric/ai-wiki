@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Stability AI
 
 ## 简介

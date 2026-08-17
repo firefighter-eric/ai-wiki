@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wang et al. - 2022 - DAMO-NLP at SemEval-2022 Task 11 A Knowledge-based System for Multilingual Named Entity Recognition
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 The MultiCoNER shared task aims at de- tecting semantically ambiguous and complex named entities in short and low-context set- tings for multiple languages. The lack of contexts makes the recognition of ambigu- ous named entities challenging. To allevi- ate this issue, our team DAMO-NLP pro- poses a knowledge-based system, where we build a multilingual knowledge base based on Wikipedia to provide related context informa- tion to the named entity recognition (NER) model. Given an input sentence, our system effectively retrieves related contexts from the knowledge base. The original input sentences are then augmented with such context informa- tion, allowing signiﬁcantly better contextual- ized token representations to be captured. Our system wins 10 out of 13 tracks in the Multi- CoNER shared task.1
 

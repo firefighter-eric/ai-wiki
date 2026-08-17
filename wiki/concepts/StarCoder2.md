@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # StarCoder2
 
 ## 简介

@@ -1,6 +1,6 @@
 # Fedus, Zoph, Shazeer - 2022 - Switch Transformers Scaling to Trillion Parameter Models with Simple and Efficient Sparsity
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Fedus, Zoph, Shazeer - 2022 - Switch Transformers Scaling to Trillion Parameter Models with Simple and Efficient Sparsity.html`
+- Source HTML: `raw/html/Fedus, Zoph, Shazeer - 2022 - Switch Transformers Scaling to Trillion Parameter Models with Simple and Efficient Sparsity.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2101.03961
 - Generated from: `scripts/fetch_web_text.py`
 

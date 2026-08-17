@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Szegedy et al. - 2014 - Going Deeper with Convolutions
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2014
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 这篇论文提出的 `Inception`/`GoogLeNet` 主线，核心不是单纯“把网络做得更深”，而是重新分配卷积计算：通过多分支、多尺度变换与 `1x1` 降维，在预算受控的前提下同时提升深度与宽度。它代表经典 CNN 从单一路径堆叠，转向显式多尺度分支设计的重要节点。
 

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # MoonViT-V2
 
 ## 简介

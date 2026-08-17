@@ -1,3 +1,6 @@
+---
+type: author
+---
 # MiniCPM - ModelBest
 
 ## 简介

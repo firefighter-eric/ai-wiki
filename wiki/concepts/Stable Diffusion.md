@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Stable Diffusion
 
 ## 简介

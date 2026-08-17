@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Microsoft Research
 
 ## 简介

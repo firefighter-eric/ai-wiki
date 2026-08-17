@@ -1,6 +1,6 @@
 # [2404.14219] Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Abdin et al. - 2024 - Phi-3 Technical Report A Highly Capable Language Model Locally on Your Phone.html`
+- Source HTML: `raw/html/Abdin et al. - 2024 - Phi-3 Technical Report A Highly Capable Language Model Locally on Your Phone.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2404.14219
 - Generated from: `scripts/fetch_web_text.py`
 

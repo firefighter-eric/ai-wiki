@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # FLAN
 
 ## 简介

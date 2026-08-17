@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # BERT
 
 ## 简介

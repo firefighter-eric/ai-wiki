@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Gemma
 
 ## 简介

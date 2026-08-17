@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liu et al. - 2019 - RoBERTa A Robustly Optimized BERT Pretraining Approach
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Language model pretraining has led to sig- niﬁcant performance gains but careful com- parison between different approaches is chal- lenging. Training is computationally expen- sive, often done on private datasets of different sizes, and, as we will show, hyperparameter choices have signiﬁcant impact on the ﬁnal re- sults. We present a replication study of BERT pretraining (Devlin et al., 2019) that carefully measures the impact of many key hyperparam- eters and training data size. We ﬁnd that BERT was signiﬁcantly undertrained, and can match or exceed the performance of every model published after it. Our best model achieves state-of-the-art results on GLUE, RACE and SQuAD. These results highlight the impor- tance of previously overlooked design choices, and raise questions about the source of re- cently reported improvements. We release our models and code.1
 

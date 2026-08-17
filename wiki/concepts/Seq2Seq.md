@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Seq2Seq
 
 ## 简介

@@ -1,6 +1,6 @@
 # Conneau - 2021 - Larger-Scale Transformers for Multilingual Masked Language Modeling
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Conneau - 2021 - Larger-Scale Transformers for Multilingual Masked Language Modeling.html`
+- Source HTML: `raw/html/Conneau - 2021 - Larger-Scale Transformers for Multilingual Masked Language Modeling.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2105.00572
 - Generated from: `scripts/fetch_web_text.py`
 

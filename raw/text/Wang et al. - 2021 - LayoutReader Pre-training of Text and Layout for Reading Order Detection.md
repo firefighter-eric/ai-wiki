@@ -1,6 +1,6 @@
 # Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection.html`
+- Source HTML: `raw/html/Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2108.11591
 - Generated from: `scripts/fetch_web_text.py`
 

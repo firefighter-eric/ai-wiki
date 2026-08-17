@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Prompt Tuning
 
 ## 简介

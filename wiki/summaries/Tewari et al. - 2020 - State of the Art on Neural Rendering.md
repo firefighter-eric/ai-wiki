@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Tewari et al. - 2020 - State of the Art on Neural Rendering
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 EUROGRAPHICS 2020 R. Mantiuk and V. Sundstedt (Guest Editors) Volume 39 (2020), Number 2 STAR – State of The Art Report State of the Art on Neural Rendering A. Tewari1⋆O. Fried2⋆J. Thies3⋆V. Sitzmann2⋆S. Lombardi4 K. Sunkavalli5 R. Martin-Brualla6 T. Simon4 J. Saragih4 M. Nießner3 R. Pandey6 S. Fanello6 G. Wetzstein2 J.-Y. Zhu5 C. Theobalt1 M. Agrawala2 E. Shechtman5 D. B Goldman6 M. Zollhöfer4 1MPI Informatics 2Stanford University 3Technical University of Munich 4Facebook Reality Labs 5Adobe Research 6Google Inc ⋆Equal contribution. Figure 1: Neural renderings of a large variety of scenes. See Section 6 for more details on the various methods. Images from [SBT∗19,SZW19, XBS∗19,KHM17,GLD∗19,MBPY∗18,XSHR18,MGK∗19,FTZ∗19,LXZ∗19,WSS∗19]. Abstract Efﬁcient rendering of photo-realistic virtual worlds is a long standing effort of computer graphics. Modern graphics techniques have succeeded in 
 

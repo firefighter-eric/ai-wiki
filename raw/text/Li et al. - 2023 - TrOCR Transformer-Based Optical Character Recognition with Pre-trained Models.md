@@ -1,6 +1,6 @@
 # Li et al. - 2023 - TrOCR Transformer-Based Optical Character Recognition with Pre-trained Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Li et al. - 2023 - TrOCR Transformer-Based Optical Character Recognition with Pre-trained Models.html`
+- Source HTML: `raw/html/Li et al. - 2023 - TrOCR Transformer-Based Optical Character Recognition with Pre-trained Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2109.10282
 - Generated from: `scripts/fetch_web_text.py`
 

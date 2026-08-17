@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Vidu Q2-Pro
 
 ## 简介

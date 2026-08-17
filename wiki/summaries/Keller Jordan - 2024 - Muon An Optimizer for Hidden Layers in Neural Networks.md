@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Keller Jordan - 2024 - Muon: An Optimizer for Hidden Layers in Neural Networks
 
 ## 来源信息

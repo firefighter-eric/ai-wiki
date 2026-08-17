@@ -1,6 +1,6 @@
 # Yuan et al. - 2023 - Scaling Relationship on Learning Mathematical Reasoning with Large Language Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Yuan et al. - 2023 - Scaling Relationship on Learning Mathematical Reasoning with Large Language Models.html`
+- Source HTML: `raw/html/Yuan et al. - 2023 - Scaling Relationship on Learning Mathematical Reasoning with Large Language Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2308.01825
 - Generated from: `scripts/fetch_web_text.py`
 

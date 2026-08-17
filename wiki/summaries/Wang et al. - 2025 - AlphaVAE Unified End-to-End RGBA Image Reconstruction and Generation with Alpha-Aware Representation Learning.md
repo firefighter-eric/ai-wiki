@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Wang et al. - 2025 - AlphaVAE Unified End-to-End RGBA Image Reconstruction and Generation with Alpha-Aware Representation Learning
 
 ## 来源信息

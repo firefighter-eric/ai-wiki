@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Yang et al. - 2025 - Generative Image Layer Decomposition with Visual Effects
 
 ## 来源信息

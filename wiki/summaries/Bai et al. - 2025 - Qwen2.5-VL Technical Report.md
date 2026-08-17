@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Bai et al. - 2025 - Qwen2.5-VL Technical Report
 
 ## 来源信息

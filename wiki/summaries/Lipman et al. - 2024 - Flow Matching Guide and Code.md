@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Lipman et al. - 2024 - Flow Matching Guide and Code
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Flow Matching Guide and Code Yaron Lipman1, Marton Havasi1, Peter Holderrieth2, Neta Shaul3, Matt Le1, Brian Karrer1, Ricky T. Q. Chen1, David Lopez-Paz1, Heli Ben-Hamu3, Itai Gat1 1FAIR at Meta, 2MIT CSAIL, 3Weizmann Institute of Science Flow Matching (FM) is a recent framework for generative modeling that has achieved state-of-the-art performance across various domains, including image, video, audio, speech, and biological structures. This guide offers a comprehensive and self-contained review of FM, covering its mathematical foun- dations, design choices, and extensions. By also providing a PyTorch package featuring relevant examples (e.g., image and text generation), this work aims to serve as a resource for both novice and experienced researchers interested in understanding, applying and further developing FM. Date: December 10, 2024 Code: flow_matching library at https://github.com
 

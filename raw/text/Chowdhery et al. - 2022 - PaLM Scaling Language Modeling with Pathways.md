@@ -1,6 +1,6 @@
 # Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways.html`
+- Source HTML: `raw/html/Chowdhery et al. - 2022 - PaLM Scaling Language Modeling with Pathways.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2204.02311
 - Generated from: `scripts/fetch_web_text.py`
 

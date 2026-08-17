@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Müller et al. - 2021 - Real-time neural radiance caching for path tracing
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Instant Neural Graphics Primitives with a Multiresolution Hash Encoding THOMAS MÜLLER, NVIDIA, Switzerland ALEX EVANS, NVIDIA, United Kingdom CHRISTOPH SCHIED, NVIDIA, USA ALEXANDER KELLER, NVIDIA, Germany https://nvlabs.github.io/instant-ngp Trained for 1 second 15 seconds 1 second 15 seconds 60 seconds reference Gigapixel image SDF NRC NeRF Fig. 1. We demonstrate instant training of neural graphics primitives on a single GPU for multiple tasks. In Gigapixel image we represent a gigapixel image by a neural network. SDF learns a signed distance function in 3D space whose zero level-set represents a 2D surface. Neural radiance caching (NRC) [Müller et al. 2021] employs a neural network that is trained in real-time to cache costly lighting calculations. Lastly, NeRF [Mildenhall et al. 2020] uses 2D images and their camera poses to reconstruct a volumetric radiance-and-density field that is
 

@@ -1,6 +1,6 @@
 # Mokady, Hertz, Bermano - 2021 - ClipCap CLIP Prefix for Image Captioning
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Mokady, Hertz, Bermano - 2021 - ClipCap CLIP Prefix for Image Captioning.html`
+- Source HTML: `raw/html/Mokady, Hertz, Bermano - 2021 - ClipCap CLIP Prefix for Image Captioning.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2111.09734
 - Generated from: `scripts/fetch_web_text.py`
 

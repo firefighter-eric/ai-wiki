@@ -1,6 +1,6 @@
 # Devlin et al. - 2019 - BERT Pre-training of deep bidirectional transformers for language understanding
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Devlin et al. - 2019 - BERT Pre-training of deep bidirectional transformers for language understanding.html`
+- Source HTML: `raw/html/Devlin et al. - 2019 - BERT Pre-training of deep bidirectional transformers for language understanding.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1810.04805
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Khattab, Zaharia - 2020 - ColBERT Efficient and Effective Passage Search via Contextualized Late Interaction over BERT
 
 ## 来源信息

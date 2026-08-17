@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wei, Zou - 2019 - EDA Easy data augmentation techniques for boosting performance on text classification tasks
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 We present EDA: easy data augmentation techniques for boosting performance on text classiﬁcation tasks. EDA consists of four sim- ple but powerful operations: synonym replace- ment, random insertion, random swap, and random deletion. On ﬁve text classiﬁcation tasks, we show that EDA improves perfor- mance for both convolutional and recurrent neural networks. EDA demonstrates particu- larly strong results for smaller datasets; on av- erage, across ﬁve datasets, training with EDA while using only 50% of the available train- ing set achieved the same accuracy as normal training with all available data. We also per- formed extensive ablation studies and suggest parameters for practical use.
 

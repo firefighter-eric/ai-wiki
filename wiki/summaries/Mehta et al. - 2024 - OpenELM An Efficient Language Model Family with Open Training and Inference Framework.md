@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Mehta et al. - 2024 - OpenELM An Efficient Language Model Family with Open Training and Inference Framework
 
 ## 来源信息

@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wang et al. - 2022 - HPT Hierarchy-aware Prompt Tuning for Hierarchical Text Classification
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Hierarchical text classiﬁcation (HTC) is a chal- lenging subtask of multi-label classiﬁcation due to its complex label hierarchy. Recently, the pretrained language models (PLM) have been widely adopted in HTC through a ﬁne- tuning paradigm. However, in this paradigm, there exists a huge gap between the classiﬁ- cation tasks with sophisticated label hierarchy and the masked language model (MLM) pre- training tasks of PLMs and thus the poten- tials of PLMs can not be fully tapped. To bridge the gap, in this paper, we propose HPT, a Hierarchy-aware Prompt Tuning method to handle HTC from a multi-label MLM perspec- tive. Speciﬁcally, we construct dynamic vir- tual template and label words which take the form of soft prompts to fuse the label hierar- chy knowledge and introduce a zero-bounded multi-label cross entropy loss to harmonize the objectives of HTC and MLM. Extensive exper- iments show HPT achieves the state-of-the-art performances on 3 popular HTC datasets and is adept at handling the imbalance and low re- source situations.
 

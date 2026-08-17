@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Xu, Choi - 2020 - Revealing the Myth of Higher-Order Inference in Coreference Resolution
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 This paper analyzes the impact of higher-order inference (HOI) on the task of coreference res- olution. HOI has been adapted by almost all recent coreference resolution models without taking much investigation on its true effective- ness over representation learning. To make a comprehensive analysis, we implement an end- to-end coreference system as well as four HOI approaches, attended antecedent, entity equal- ization, span clustering, and cluster merging, where the latter two are our original methods. We ﬁnd that given a high-performing encoder such as SpanBERT, the impact of HOI is neg- ative to marginal, providing a new perspective of HOI to this task. Our best model using clus- ter merging shows the Avg-F1 of 80.2 on the CoNLL 2012 shared task dataset in English.
 

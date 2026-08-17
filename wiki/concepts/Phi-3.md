@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Phi-3
 
 ## 简介

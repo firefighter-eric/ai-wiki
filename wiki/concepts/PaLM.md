@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # PaLM
 
 ## 简介

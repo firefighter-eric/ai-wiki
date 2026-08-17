@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Vaswani et al. - 2017 - Attention is all you need
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2017
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 这篇论文的决定性意义不只是提出 `Transformer`，而是把“标准全连接自注意力”确立为序列建模的默认骨架：所有 token 两两交互，依靠 `scaled dot-product attention`、`multi-head attention` 与位置编码取代 RNN/CNN 的主导角色。后续大量 attention 变体基本都以本文的 `O(n^2)` 全注意力为参照物，要么试图近似它、稀疏化它，要么在不改变其语义的前提下优化实现。
 

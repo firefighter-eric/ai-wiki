@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Kim et al. - Unknown - Full Stack Optimization of Transformer Inference a Survey
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：Unknown
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Full Stack Optimization of Transformer Inference: a Survey Sehoon Kim∗ sehoonkim@berkeley.edu UC Berkeley Coleman Hooper∗ chooper@berkeley.edu UC Berkeley Thanakul Wattanawong j.wat@berkeley.edu UC Berkeley Minwoo Kang minwoo_kang@berkeley.edu UC Berkeley Ruohan Yan yrh@berkeley.edu UC Berkeley Hasan Genc hngenc@berkeley.edu UC Berkeley Grace Dinh dinh@berkeley.edu UC Berkeley Qijing Huang jennyhuang@nvidia.com NVIDIA Kurt Keutzer keutzer@berkeley.edu UC Berkeley Michael W. Mahoney mmahoney@stat.berkeley.edu ICSI, LBNL, UC Berkeley Yakun Sophia Shao ysshao@berkeley.edu UC Berkeley Amir Gholami amirgh@berkeley.edu ICSI, UC Berkeley ABSTRACT Recent advances in state-of-the-art neural network architecture de- sign have been moving toward Transformer models. These models achieve superior accuracy across a wide range of applications in computer vision, natural language processing, and speech 
 

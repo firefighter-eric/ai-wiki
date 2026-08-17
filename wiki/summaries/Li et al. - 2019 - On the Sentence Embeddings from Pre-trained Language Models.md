@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Li et al. - 2019 - On the Sentence Embeddings from Pre-trained Language Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Pre-trained contextual representations like BERT have achieved great success in natu- ral language processing. However, the sen- tence embeddings from the pre-trained lan- guage models without ﬁne-tuning have been found to poorly capture semantic meaning of sentences. In this paper, we argue that the se- mantic information in the BERT embeddings is not fully exploited. We ﬁrst reveal the the- oretical connection between the masked lan- guage model pre-training objective and the se- mantic similarity task theoretically, and then analyze the BERT sentence embeddings em- pirically. We ﬁnd that BERT always induces a non-smooth anisotropic semantic space of sentences, which harms its performance of semantic similarity. To address this issue, we propose to transform the anisotropic sen- tence embedding distribution to a smooth and isotropic Gaussian distribution through nor- malizing ﬂows that are learned with an un- supervised objective. Experimental results show that our proposed BERT-ﬂow method ob- tains signiﬁcant performance gains over the state-of-the-art sentence embeddings on a va- riety of semantic textual similarity tasks. The code is available at https://github.com/ bohanli/BERT-flow.
 

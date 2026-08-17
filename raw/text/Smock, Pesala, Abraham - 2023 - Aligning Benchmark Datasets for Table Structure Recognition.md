@@ -1,6 +1,6 @@
 # Smock, Pesala, Abraham - 2023 - Aligning Benchmark Datasets for Table Structure Recognition
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Smock, Pesala, Abraham - 2023 - Aligning Benchmark Datasets for Table Structure Recognition.html`
+- Source HTML: `raw/html/Smock, Pesala, Abraham - 2023 - Aligning Benchmark Datasets for Table Structure Recognition.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2303.00716
 - Generated from: `scripts/fetch_web_text.py`
 

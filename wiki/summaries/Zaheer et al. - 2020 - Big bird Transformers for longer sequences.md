@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Zaheer et al. - 2020 - Big bird Transformers for longer sequences
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2020
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `BigBird` 的核心贡献是把长序列 sparse attention 从“经验上能跑得更长”推进到“仍保留 Transformer 关键表达性质”的理论与实践组合。它使用 `global + local + random` 的混合稀疏连接模式，把复杂度压到近线性，同时试图保留全连接 attention 的信息流与表达能力。
 

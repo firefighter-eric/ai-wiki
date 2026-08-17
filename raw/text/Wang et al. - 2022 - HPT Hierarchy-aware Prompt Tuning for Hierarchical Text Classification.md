@@ -1,6 +1,6 @@
 # Wang et al. - 2022 - HPT Hierarchy-aware Prompt Tuning for Hierarchical Text Classification
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang et al. - 2022 - HPT Hierarchy-aware Prompt Tuning for Hierarchical Text Classification.html`
+- Source HTML: `raw/html/Wang et al. - 2022 - HPT Hierarchy-aware Prompt Tuning for Hierarchical Text Classification.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2204.13413
 - Generated from: `scripts/fetch_web_text.py`
 

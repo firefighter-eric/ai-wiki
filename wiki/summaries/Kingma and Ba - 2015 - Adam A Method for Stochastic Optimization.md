@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kingma and Ba - 2015 - Adam: A Method for Stochastic Optimization
 
 ## 来源信息

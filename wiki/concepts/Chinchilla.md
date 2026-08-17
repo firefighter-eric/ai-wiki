@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Chinchilla
 
 ## 简介

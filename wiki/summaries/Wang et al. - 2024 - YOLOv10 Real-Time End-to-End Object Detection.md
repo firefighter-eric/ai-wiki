@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Wang et al. - 2024 - YOLOv10 Real-Time End-to-End Object Detection
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2024
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `YOLOv10` 的关键价值是把传统 YOLO 系列推进到 `NMS-free`、更接近真正 end-to-end 的阶段。它通过 consistent dual assignments 同时保留一对多监督的训练优势与一对一推理接口，说明 YOLO 路线正在吸收 `DETR` 式 end-to-end 思想，而不是一直停留在经典 NMS 依赖形态。
 

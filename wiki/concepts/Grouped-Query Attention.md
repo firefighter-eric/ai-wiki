@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Grouped-Query Attention
 
 ## 简介

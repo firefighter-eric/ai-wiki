@@ -1,6 +1,6 @@
 # Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations.html`
+- Source HTML: `raw/html/Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2412.07626
 - Generated from: `scripts/fetch_web_text.py`
 

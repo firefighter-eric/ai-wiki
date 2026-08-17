@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2025 - Qwen2.5-Omni See Hear Talk Write Do It All
 
 ## 来源信息

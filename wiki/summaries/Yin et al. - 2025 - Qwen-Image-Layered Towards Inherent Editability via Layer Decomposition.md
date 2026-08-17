@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Yin et al. - 2025 - Qwen-Image-Layered Towards Inherent Editability via Layer Decomposition
 
 ## 来源信息

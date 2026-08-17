@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Jiang et al. - 2024 - Mixtral of Experts
 
 ## 来源信息

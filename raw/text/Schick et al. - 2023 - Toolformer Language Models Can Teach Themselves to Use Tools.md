@@ -1,6 +1,6 @@
 # Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools.html`
+- Source HTML: `raw/html/Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2302.04761
 - Generated from: `scripts/fetch_web_text.py`
 

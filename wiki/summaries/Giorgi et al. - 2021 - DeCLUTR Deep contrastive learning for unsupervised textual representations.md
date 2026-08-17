@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Sentence embeddings are an important com- ponent of many natural language processing (NLP) systems. Like word embeddings, sen- tence embeddings are typically learned on large text corpora and then transferred to var- ious downstream tasks, such as clustering and retrieval. Unlike word embeddings, the highest performing solutions for learning sen- tence embeddings require labelled data, limit- ing their usefulness to languages and domains where labelled data is abundant. In this pa- per, we present DeCLUTR: Deep Contrastive Learning for Unsupervised Textual Represen- tations. Inspired by recent advances in deep metric learning (DML), we carefully design a self-supervised objective for learning univer- sal sentence embeddings that does not require labelled training data. When used to extend the pretraining of transformer-based language models, our approach closes the performance gap between unsupervised and supervised pre- training for universal sentence encoders. Im- portantly, our experiments suggest that the quality of the learned embeddings scale with both the number of trainable parameters and the amount of unlabelled training data. Our code and pretrained models are publicly avail- able and can be easily adapted to new domains or used to embed unseen text.1
 

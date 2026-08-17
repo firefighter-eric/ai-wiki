@@ -1,6 +1,6 @@
 # Vaswani et al. - 2017 - Attention is all you need
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Vaswani et al. - 2017 - Attention is all you need.html`
+- Source HTML: `raw/html/Vaswani et al. - 2017 - Attention is all you need.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1706.03762
 - Generated from: `scripts/fetch_web_text.py`
 

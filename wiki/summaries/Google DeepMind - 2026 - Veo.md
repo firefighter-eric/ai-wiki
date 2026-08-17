@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Google DeepMind - 2026 - Veo
 
 ## 来源信息

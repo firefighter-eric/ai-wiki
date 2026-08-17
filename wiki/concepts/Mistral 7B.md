@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Mistral 7B
 
 ## 简介

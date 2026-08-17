@@ -1,6 +1,6 @@
 # Baker et al. - Unknown - Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Baker et al. - Unknown - Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation.html`
+- Source HTML: `raw/html/Baker et al. - Unknown - Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2503.11926
 - Generated from: `scripts/fetch_web_text.py`
 

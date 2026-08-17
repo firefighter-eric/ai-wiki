@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # data2vec
 
 ## 简介

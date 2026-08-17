@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Seedance 2.0
 
 ## 简介

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Google DeepMind - 2026 - Gemma 4 Model Card
 
 ## 来源信息

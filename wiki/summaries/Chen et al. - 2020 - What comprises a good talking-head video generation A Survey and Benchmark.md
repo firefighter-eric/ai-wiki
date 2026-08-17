@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Chen et al. - 2020 - What comprises a good talking-head video generation A Survey and Benchmark
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Over the years, performance evaluation has become essential in computer vision, enabling tangible progress in many sub-ﬁelds. While talking-head video generation has become an emerging research topic, ex- isting evaluations on this topic present many limitations. For example, most approaches use human subjects (e.g., via Amazon MTurk) to evaluate their research claims directly. This subjective evaluation is cumbersome, un- reproducible, and may impend the evolution of new research. In this work, we present a carefully-designed benchmark for evaluating talking-head video genera- tion with standardized dataset pre-processing strate- gies. As for evaluation, we either propose new met- rics or select the most appropriate ones to evaluate results in what we consider as desired properties for a good talking-head video, namely, identity preserving, lip synchronization, high video quality, and natural- spontaneous motion. By conducting a thoughtful anal- ysis across several state-of-the-art talking-head gener- ation approaches, we aim to uncover the merits and drawbacks of current methods and point out promis- ing directions for future work. All the evaluation code ∗: Equal contribution Lele Chen E-mail: lchen63@ur.rochester.edu Guofeng Cui E-mail: gcui2@ur.rochester.edu Ziyi Kou E-mail: zkou2@ur.rochester.edu Haitian Zheng E-mail: hzheng15@ur.rochester.edu Chenliang Xu E-mail: chenliang.xu@rochester.edu is available at: https://github.com/lelechen63/talking- head-generation-survey. Keywords Talking-head video generation, Video synthesis, Performance evaluation
 

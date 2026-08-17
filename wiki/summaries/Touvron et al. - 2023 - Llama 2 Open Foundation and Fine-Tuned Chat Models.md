@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Touvron et al. - 2023 - Llama 2 Open Foundation and Fine-Tuned Chat Models
 
 ## 来源信息
@@ -28,8 +32,8 @@ Llama 2 是 LLaMA 初代之后的正式升级版本。它不仅继续提供基�
 
 ## 关联页面
 
-- 概念：[Llama](../../wiki/concepts/Llama.md)
-- 概念：[LLaMA](../../wiki/concepts/LLaMA.md)
+- 概念：[Llama 家族](../../wiki/concepts/Llama%20家族.md)
+- 概念：[LLaMA（初代）](../../wiki/concepts/LLaMA%20初代.md)
 - 概念：[Llama 2](../../wiki/concepts/Llama%202.md)
 - 概念：[Code Llama](../../wiki/concepts/Code%20Llama.md)
 - 主题：[LLM预训练](../../wiki/topics/LLM%20预训练.md)

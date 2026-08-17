@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Florence-2
 
 ## 简介

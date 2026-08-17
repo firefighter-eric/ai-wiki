@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Gordon, Duh, Andrews - 2020 - Compressing BERT Studying the Effects of Weight Pruning on Transfer Learning
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Pre-trained feature extractors, such as BERT for natural language processing and VGG for computer vision, have become effective meth- ods for improving deep learning models with- out requiring more labeled data. While ef- fective, these feature extractors may be pro- hibitively large for some deployment scenar- ios. We explore weight pruning for BERT and ask: how does compression during pre- training affect transfer learning? We ﬁnd that pruning affects transfer learning in three broad regimes. Low levels of pruning (30-40%) do not affect pre-training loss or transfer to down- stream tasks at all. Medium levels of pruning increase the pre-training loss and prevent use- ful pre-training information from being trans- ferred to downstream tasks. High levels of pruning additionally prevent models from ﬁt- ting downstream datasets, leading to further degradation. Finally, we observe that ﬁne- tuning BERT on a speciﬁc task does not im- prove its prunability. We conclude that BERT can be pruned once during pre-training rather than separately for each task without affecting performance.
 

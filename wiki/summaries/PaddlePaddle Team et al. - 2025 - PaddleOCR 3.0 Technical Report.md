@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # PaddlePaddle Team et al. - 2025 - PaddleOCR 3.0 Technical Report
 
 ## 来源信息

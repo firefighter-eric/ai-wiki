@@ -1,6 +1,6 @@
 # Khan et al. - 2021 - Transformers in Vision A Survey
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Khan et al. - 2021 - Transformers in Vision A Survey.html`
+- Source HTML: `raw/html/Khan et al. - 2021 - Transformers in Vision A Survey.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2101.01169
 - Generated from: `scripts/fetch_web_text.py`
 

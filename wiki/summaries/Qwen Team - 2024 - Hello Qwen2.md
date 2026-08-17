@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2024 - Hello Qwen2
 
 ## 来源信息

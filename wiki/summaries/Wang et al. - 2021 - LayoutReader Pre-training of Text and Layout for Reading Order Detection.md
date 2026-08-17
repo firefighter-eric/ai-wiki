@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Reading order detection is the cornerstone to understanding visually-rich documents (e.g., receipts and forms). Unfortunately, no existing work took advantage of advanced deep learn- ing models because it is too laborious to anno- tate a large enough dataset. We observe that the reading order of WORD documents is em- bedded in their XML metadata; meanwhile, it is easy to convert WORD documents to PDFs or images. Therefore, in an automated man- ner, we construct ReadingBank, a benchmark dataset that contains reading order, text, and layout information for 500,000 document im- ages covering a wide spectrum of document types. This ﬁrst-ever large-scale dataset un- leashes the power of deep neural networks for reading order detection. Speciﬁcally, our pro- posed LayoutReader captures the text and lay- out information for reading order prediction using the seq2seq model. It performs almost perfectly in reading order detection and signif- icantly improves both open-source and com- mercial OCR engines in ordering text lines in their results in our experiments. We will release the dataset and model at https:// aka.ms/layoutreader.
 

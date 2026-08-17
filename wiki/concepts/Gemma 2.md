@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Gemma 2
 
 ## 简介

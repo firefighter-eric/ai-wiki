@@ -1,6 +1,6 @@
 # Sun et al. - 2019 - How to Fine-Tune BERT for Text Classification
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Sun et al. - 2019 - How to Fine-Tune BERT for Text Classification.html`
+- Source HTML: `raw/html/Sun et al. - 2019 - How to Fine-Tune BERT for Text Classification.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1905.05583
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # RLHF
 
 ## 简介

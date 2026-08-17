@@ -1,6 +1,6 @@
 # Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem.html`
+- Source HTML: `raw/html/Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1804.07847
 - Generated from: `scripts/fetch_web_text.py`
 

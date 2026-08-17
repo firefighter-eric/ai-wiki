@@ -1,6 +1,6 @@
 # Liu et al. - 2019 - RoBERTa A Robustly Optimized BERT Pretraining Approach
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Liu et al. - 2019 - RoBERTa A Robustly Optimized BERT Pretraining Approach.html`
+- Source HTML: `raw/html/Liu et al. - 2019 - RoBERTa A Robustly Optimized BERT Pretraining Approach.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1907.11692
 - Generated from: `scripts/fetch_web_text.py`
 

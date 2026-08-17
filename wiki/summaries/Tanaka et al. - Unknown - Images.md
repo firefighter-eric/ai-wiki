@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Tanaka et al. - Unknown - Images
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：Unknown
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Visual question answering on document images that con- tain textual, visual, and layout information, called document VQA, has received much attention recently. Although many datasets have been proposed for developing document VQA systems, most of the existing datasets focus on understand- ing the content relationships within a single image and not across multiple images. In this study, we propose a new multi- image document VQA dataset, SlideVQA, containing 2.6k+ slide decks composed of 52k+ slide images and 14.5k ques- tions about a slide deck. SlideVQA requires complex rea- soning, including single-hop, multi-hop, and numerical rea- soning, and also provides annotated arithmetic expressions of numerical answers for enhancing the ability of numerical reasoning. Moreover, we developed a new end-to-end docu- ment VQA model that treats evidence selection and question answering in a uniﬁed sequence-to-sequence format. Exper- iments on SlideVQA show that our model outperformed ex- isting state-of-the-art QA models, but that it still has a large gap behind human performance. We believe that our dataset will facilitate research on document VQA.
 

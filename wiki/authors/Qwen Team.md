@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Qwen Team
 
 ## 简介

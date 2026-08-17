@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Lv et al. - 2023 - Kosmos-2.5 A Multimodal Literate Model
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2023
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 We present KOSMOS-2.5, a multimodal literate model for machine reading of text- intensive images. Pre-trained on large-scale text-intensive images, KOSMOS-2.5 excels in two distinct yet cooperative transcription tasks: (1) generating spatially- aware text blocks, where each block of text is assigned its spatial coordinates within the image, and (2) producing structured text output that captures styles and structures into the markdown format. This unified multimodal literate capability is achieved through a shared Transformer architecture, task-specific prompts, and flexible text representations. We evaluate KOSMOS-2.5 on end-to-end document- level text recognition and image-to-markdown text generation. Furthermore, the model can be readily adapted for any text-intensive image understanding task with different prompts through supervised fine-tuning, making it a general-purpose tool for real-world applications involving text-rich images. This work also paves the way for the future scaling of multimodal large language models. KOSMOS 2.5: A Multimodal Literate Model task prompts … [x_119] [y_306] [x_159] [y_319]: Type of [x_119] [y_323] [x_163] [y_336]: Disaster … … | Type of Disaster | No. of disasters occurred | … spatially-aware texts text images markdown-formatted texts Figure 1: KOSMOS-2.5 is a multimodal large language model that takes text images as input and generates spatially-aware texts (i.e., texts with bounding boxes) or markdown-formatted texts (i.e., texts with markdown elements), following different task prompts, respectively. ∗Equal contribution. † Corresponding author. Work in Progress. arXiv:2309.11419v1 [cs.CL] 20 Sep 2023
 

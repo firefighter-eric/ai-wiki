@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Instruction Tuning
 
 ## 简介

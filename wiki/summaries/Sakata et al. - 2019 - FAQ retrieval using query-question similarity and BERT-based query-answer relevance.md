@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance
 
 ## 来源信息

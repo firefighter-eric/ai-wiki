@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Google AI for Developers - 2026 - DiffusionGemma Model Overview
 
 ## 来源信息

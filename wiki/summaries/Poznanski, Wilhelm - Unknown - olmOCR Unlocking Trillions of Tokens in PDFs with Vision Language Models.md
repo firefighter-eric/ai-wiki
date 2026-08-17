@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Poznanski, Wilhelm - Unknown - olmOCR Unlocking Trillions of Tokens in PDFs with Vision Language Models
 
 ## 来源信息

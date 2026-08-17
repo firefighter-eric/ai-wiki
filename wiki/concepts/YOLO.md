@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # YOLO
 
 ## 简介

@@ -1,6 +1,6 @@
 # Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models.html`
+- Source HTML: `raw/html/Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2203.15556
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,3 +1,6 @@
+---
+type: author
+---
 # DeepMind
 
 ## 简介

@@ -1,3 +1,6 @@
+---
+type: timeline
+---
 # Qwen 系列演进
 
 ## 时间线定位

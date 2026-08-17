@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence
 
 ## 来源信息

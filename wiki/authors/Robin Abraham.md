@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Robin Abraham
 
 ## 简介

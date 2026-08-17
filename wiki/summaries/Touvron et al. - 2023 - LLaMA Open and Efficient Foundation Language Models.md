@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Touvron et al. - 2023 - LLaMA Open and Efficient Foundation Language Models
 
 ## 来源信息
@@ -28,7 +32,7 @@ LLaMA 是 Meta 首次系统公开的开放基础语言模型家族之一。论�
 
 ## 关联页面
 
-- 概念：[Llama](../../wiki/concepts/Llama.md)
-- 概念：[LLaMA](../../wiki/concepts/LLaMA.md)
+- 概念：[Llama 家族](../../wiki/concepts/Llama%20家族.md)
+- 概念：[LLaMA（初代）](../../wiki/concepts/LLaMA%20初代.md)
 - 概念：[Llama 2](../../wiki/concepts/Llama%202.md)
 - 主题：[LLM预训练](../../wiki/topics/LLM%20预训练.md)

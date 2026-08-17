@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # RadixAttention
 
 ## 简介

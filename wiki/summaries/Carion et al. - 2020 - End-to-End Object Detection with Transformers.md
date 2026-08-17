@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Carion et al. - 2020 - End-to-End Object Detection with Transformers
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 End-to-End Object Detection with Transformers Nicolas Carion⋆, Francisco Massa⋆, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko Facebook AI Abstract. We present a new method that views object detection as a direct set prediction problem. Our approach streamlines the detection pipeline, eﬀectively removing the need for many hand-designed compo- nents like a non-maximum suppression procedure or anchor generation that explicitly encode our prior knowledge about the task. The main ingredients of the new framework, called DEtection TRansformer or DETR, are a set-based global loss that forces unique predictions via bi- partite matching, and a transformer encoder-decoder architecture. Given a ﬁxed small set of learned object queries, DETR reasons about the re- lations of the objects and the global image context to directly output the ﬁnal set of predictions in paral
 

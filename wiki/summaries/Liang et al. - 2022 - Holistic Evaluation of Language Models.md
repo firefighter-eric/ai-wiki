@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liang et al. - 2022 - Holistic Evaluation of Language Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Holistic Evaluation of Language Models Percy Liang† Rishi Bommasani† Tony Lee†1 Dimitris Tsipras* Dilara Soylu* Michihiro Yasunaga* Yian Zhang* Deepak Narayanan* Yuhuai Wu*2 Ananya Kumar Benjamin Newman Binhang Yuan Bobby Yan Ce Zhang Christian Cosgrove Christopher D. Manning Christopher Ré Diana Acosta-Navas Drew A. Hudson Eric Zelikman Esin Durmus Faisal Ladhak Frieda Rong Hongyu Ren Huaxiu Yao Jue Wang Keshav Santhanam Laurel Orr Lucia Zheng Mert Yuksekgonul Mirac Suzgun Nathan Kim Neel Guha Niladri Chatterji Omar Khattab Peter Henderson Qian Huang Ryan Chi Sang Michael Xie Shibani Santurkar Surya Ganguli Tatsunori Hashimoto Thomas Icard Tianyi Zhang Vishrav Chaudhary William Wang Xuechen Li Yifan Mai Yuhui Zhang Yuta Koreeda Center for Research on Foundation Models (CRFM) Stanford Institute for Human-Centered Artificial Intelligence (HAI) Stanford University Language models (LMs) are
 

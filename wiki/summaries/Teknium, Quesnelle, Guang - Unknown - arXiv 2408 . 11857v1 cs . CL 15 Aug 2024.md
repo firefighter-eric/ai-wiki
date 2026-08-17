@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Teknium, Quesnelle, Guang - Unknown - arXiv 2408 . 11857v1 cs . CL 15 Aug 2024
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：Unknown
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 HERMES 3 TECHNICAL REPORT Ryan Teknium Nous Research X: @Teknium1 teknium@nousresearch.com Jeffrey Quesnelle Nous Research X: @theemozilla emozilla@nousresearch.com Chen Guang Nous Research X: @nullvaluetensor chen@nousresearch.com ABSTRACT Instruct (or “chat”) tuned models have become the primary way in which most people interact with large language models. As opposed to “base” or “foundation” models, instruct-tuned models are optimized to respond to imperative statements. We present Hermes 3, a neutrally-aligned generalist instruct and tool use model with strong reasoning and creative abilities. Its largest version, Hermes 3 405B, achieves state of the art performance among open weight models on several public benchmarks. The weights for all models are available at https://huggingface.co/NousResearch. 1 Introduction Large language models are typically trained on a wide and diverse dist
 

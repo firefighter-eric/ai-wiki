@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Pre-trained language models have demon- strated superior performance in various natu- ral language processing tasks. However, these models usually contain hundreds of millions of parameters, which limits their practical- ity because of latency requirements in real- world applications. Existing methods train small compressed models via knowledge dis- tillation. However, performance of these small models drops signiﬁcantly compared with the pre-trained models due to their re- duced model capacity. We propose MoE- BERT, which uses a Mixture-of-Experts struc- ture to increase model capacity and inference speed. We initialize MoEBERT by adapt- ing the feed-forward neural networks in a pre-trained model into multiple experts. As such, representation power of the pre-trained model is largely retained. During inference, only one of the experts is activated, such that speed can be improved. We also propose a layer-wise distillation method to train MoE- BERT. We validate the efﬁciency and effec- tiveness of MoEBERT on natural language understanding and question answering tasks. Results show that the proposed method out- performs existing task-speciﬁc distillation al- gorithms. For example, our method outper- forms previous approaches by over 2% on the MNLI (mismatched) dataset. Our code is pub- licly available at https://github.com/ SimiaoZuo/MoEBERT.
 

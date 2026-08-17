@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DeepSeek-OCR
 
 ## 简介

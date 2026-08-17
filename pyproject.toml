@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "my-obsidian-wiki-tools"
 version = "0.1.0"
@@ -7,6 +11,9 @@ dependencies = [
   "pymupdf>=1.26.0,<2",
   "requests>=2.32.0,<3",
 ]
+
+[tool.setuptools]
+py-modules = []
 
 [tool.uv]
 package = false

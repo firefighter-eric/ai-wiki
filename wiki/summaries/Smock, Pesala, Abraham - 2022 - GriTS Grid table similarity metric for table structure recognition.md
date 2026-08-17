@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Smock, Pesala, Abraham - 2022 - GriTS Grid table similarity metric for table structure recognition
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 GriTS: Grid table similarity metric for table structure recognition Brandon Smock1[0009−0002−7002−0800], Rohith Pesala1[0009−0004−7373−853X], and Robin Abraham1[0000−0003−1915−8118] Microsoft, Redmond WA, USA {brsmock,ropesala,robin.abraham}@microsoft.com Abstract. In this paper, we propose a new class of metric for table struc- ture recognition (TSR) evaluation, called grid table similarity (GriTS). Unlike prior metrics, GriTS evaluates the correctness of a predicted table directly in its natural form as a matrix. To create a similarity measure between matrices, we generalize the two-dimensional largest common substructure (2D-LCS) problem, which is NP-hard, to the 2D most similar substructures (2D-MSS) problem and propose a polynomial- time heuristic for solving it. This algorithm produces both an upper and a lower bound on the true similarity between matrices. We show using evaluation
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Scao et al. - 2022 - BLOOM A 176B-Parameter Open-Access Multilingual Language Model
 
 ## 来源信息

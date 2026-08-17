@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Bochkovskiy, Wang, Liao - 2020 - YOLOv4 Optimal Speed and Accuracy of Object Detection
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2020
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `YOLOv4` 的意义在于把 YOLO 系列推进为“高效工程优化集合”的代表路线。它并不主要依赖单一新原理，而是系统整合 `CSP`、`Mosaic`、`CIoU loss`、`PAN` 等 bag-of-freebies / bag-of-specials，使 one-stage 检测在单 GPU 可训练、可部署语境中达到更高实用性。
 

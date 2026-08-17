@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Fang et al. - 2021 - Injecting Semantic Concepts into End-to-End Image Captioning
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Injecting Semantic Concepts into End-to-End Image Captioning Zhiyuan Fang♠, Jianfeng Wang♥, Xiaowei Hu♥, Lin Liang♥, Zhe Gan♥, Lijuan Wang♥, Yezhou Yang♠, Zicheng Liu♥ ♠Arizona State University, ♥Microsoft Corporation {zy.fang, yz.yang}@asu.edu {jianfw, xiaowei.hu, lliang, zhe.gan, lijuanw, zliu}@microsoft.com Abstract Tremendous progresses have been made in recent years in developing better image captioning models, yet most of them rely on a separate object detector to extract regional features. Recent vision-language studies are shifting towards the detector-free trend by leveraging grid representations for more ﬂexible model training and faster inference speed. However, such development is primarily focused on image understanding tasks, and remains less investigated for the caption generation task. In this paper, we are concerned with a better-performing detector-free image captioning
 

@@ -1,6 +1,6 @@
 # Wang et al. - 2017 - Tacotron Towards end-To-end speech synthesis
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang et al. - 2017 - Tacotron Towards end-To-end speech synthesis.html`
+- Source HTML: `raw/html/Wang et al. - 2017 - Tacotron Towards end-To-end speech synthesis.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1703.10135
 - Generated from: `scripts/fetch_web_text.py`
 

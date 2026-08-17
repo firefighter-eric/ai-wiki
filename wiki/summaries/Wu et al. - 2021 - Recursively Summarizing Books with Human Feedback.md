@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 A major challenge for scaling machine learning is training models to perform tasks that are very difﬁcult or time-consuming for humans to evaluate. We present progress on this problem on the task of abstractive summarization of entire ﬁction novels. Our method combines learning from human feedback with recursive task decomposition: we use models trained on smaller parts of the task to assist humans in giving feedback on the broader task. We collect a large volume of demonstrations and comparisons from human labelers, and ﬁne-tune GPT-3 using behavioral cloning and reward modeling to do summarization recursively. At inference time, the model ﬁrst summarizes small sections of the book and then recursively summarizes these summaries to produce a summary of the entire book. Our human labelers are able to supervise and evaluate the models quickly, despite not having read the entire books themselves. Our resulting model generates sensible summaries of entire books, even matching the quality of human-written summaries in a few cases (∼5% of books). We achieve state-of-the-art results on the recent BookSum dataset for book-length summarization. A zero-shot question-answering model using these summaries achieves state-of-the-art results on the challenging NarrativeQA benchmark for answering questions about books and movie scripts. We release datasets of samples from our model.2
 

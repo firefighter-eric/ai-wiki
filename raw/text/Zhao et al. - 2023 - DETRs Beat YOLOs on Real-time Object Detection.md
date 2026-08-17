@@ -1,6 +1,6 @@
 # Zhao et al. - 2023 - DETRs Beat YOLOs on Real-time Object Detection
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zhao et al. - 2023 - DETRs Beat YOLOs on Real-time Object Detection.html`
+- Source HTML: `raw/html/Zhao et al. - 2023 - DETRs Beat YOLOs on Real-time Object Detection.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2304.08069
 - Generated from: `scripts/fetch_web_text.py`
 

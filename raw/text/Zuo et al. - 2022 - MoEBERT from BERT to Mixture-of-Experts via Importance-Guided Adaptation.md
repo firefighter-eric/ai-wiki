@@ -1,6 +1,6 @@
 # Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation.html`
+- Source HTML: `raw/html/Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2204.07675
 - Generated from: `scripts/fetch_web_text.py`
 

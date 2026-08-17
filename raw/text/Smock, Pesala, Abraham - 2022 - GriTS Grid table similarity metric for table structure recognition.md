@@ -1,6 +1,6 @@
 # Smock, Pesala, Abraham - 2022 - GriTS Grid table similarity metric for table structure recognition
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Smock, Pesala, Abraham - 2022 - GriTS Grid table similarity metric for table structure recognition.html`
+- Source HTML: `raw/html/Smock, Pesala, Abraham - 2022 - GriTS Grid table similarity metric for table structure recognition.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2203.12555
 - Generated from: `scripts/fetch_web_text.py`
 

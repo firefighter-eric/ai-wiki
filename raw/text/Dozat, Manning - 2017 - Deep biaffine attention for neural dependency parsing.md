@@ -1,6 +1,6 @@
 # Dozat, Manning - 2017 - Deep biaffine attention for neural dependency parsing
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Dozat, Manning - 2017 - Deep biaffine attention for neural dependency parsing.html`
+- Source HTML: `raw/html/Dozat, Manning - 2017 - Deep biaffine attention for neural dependency parsing.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1611.01734
 - Generated from: `scripts/fetch_web_text.py`
 

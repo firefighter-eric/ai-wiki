@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kwon et al. - 2023 - Efficient Memory Management for Large Language Model Serving with PagedAttention
 
 ## 来源信息

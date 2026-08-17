@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Allen, Science - 2018 - Higher-order Coreference Resolution with Coarse-to-fine Inference
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2018
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 We introduce a fully differentiable approxima- tion to higher-order inference for coreference resolution. Our approach uses the antecedent distribution from a span-ranking architecture as an attention mechanism to iteratively re- ﬁne span representations. This enables the model to softly consider multiple hops in the predicted clusters. To alleviate the computa- tional cost of this iterative process, we intro- duce a coarse-to-ﬁne approach that incorpo- rates a less accurate but more efﬁcient bilin- ear factor, enabling more aggressive pruning without hurting accuracy. Compared to the ex- isting state-of-the-art span-ranking approach, our model signiﬁcantly improves accuracy on the English OntoNotes benchmark, while be- ing far more computationally efﬁcient.
 

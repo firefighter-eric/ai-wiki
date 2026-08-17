@@ -1,6 +1,6 @@
 # Li et al. - 2019 - On the Sentence Embeddings from Pre-trained Language Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Li et al. - 2019 - On the Sentence Embeddings from Pre-trained Language Models.html`
+- Source HTML: `raw/html/Li et al. - 2019 - On the Sentence Embeddings from Pre-trained Language Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2011.05864
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wu et al. - 2020 - CorefQA Coreference Resolution as Query-based Span Prediction
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 In this paper, we present CorefQA, an accu- rate and extensible approach for the corefer- ence resolution task. We formulate the prob- lem as a span prediction task, like in ques- tion answering: A query is generated for each candidate mention using its surrounding con- text, and a span prediction module is em- ployed to extract the text spans of the corefer- ences within the document using the generated query. This formulation comes with the fol- lowing key advantages: (1) The span predic- tion strategy provides the ﬂexibility of retriev- ing mentions left out at the mention proposal stage; (2) In the question answering frame- work, encoding the mention and its context ex- plicitly in a query makes it possible to have a deep and thorough examination of cues em- bedded in the context of coreferent mentions; and (3) A plethora of existing question an- swering datasets can be used for data augmen- tation to improve the model’s generalization capability. Experiments demonstrate signiﬁ- cant performance boost over previous models, with 83.1 (+3.5) F1 score on the CoNLL-2012 benchmark and 87.5 (+2.5) F1 score on the GAP benchmark. 1
 

@@ -1,6 +1,6 @@
 # Ła - Unknown - FASTPITCH PARALLEL TEXT-TO-SPEECH WITH PITCH PREDICTION Adrian Ła´ ncucki NVIDIA Corporation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Ła - Unknown - FASTPITCH PARALLEL TEXT-TO-SPEECH WITH PITCH PREDICTION Adrian Ła´ ncucki NVIDIA Corporation.html`
+- Source HTML: `raw/html/Ła - Unknown - FASTPITCH PARALLEL TEXT-TO-SPEECH WITH PITCH PREDICTION Adrian Ła´ ncucki NVIDIA Corporation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2006.06873
 - Generated from: `scripts/fetch_web_text.py`
 

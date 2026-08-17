@@ -1,6 +1,6 @@
 # Raffel et al. - 2020 - Exploring the limits of transfer learning with a unified text-to-text transformer
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Raffel et al. - 2020 - Exploring the limits of transfer learning with a unified text-to-text transformer.html`
+- Source HTML: `raw/html/Raffel et al. - 2020 - Exploring the limits of transfer learning with a unified text-to-text transformer.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1910.10683
 - Generated from: `scripts/fetch_web_text.py`
 

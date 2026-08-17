@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DETR
 
 ## 简介

@@ -1,6 +1,6 @@
 # Lv et al. - 2023 - Kosmos-2.5 A Multimodal Literate Model
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Lv et al. - 2023 - Kosmos-2.5 A Multimodal Literate Model.html`
+- Source HTML: `raw/html/Lv et al. - 2023 - Kosmos-2.5 A Multimodal Literate Model.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2309.11419
 - Generated from: `scripts/fetch_web_text.py`
 

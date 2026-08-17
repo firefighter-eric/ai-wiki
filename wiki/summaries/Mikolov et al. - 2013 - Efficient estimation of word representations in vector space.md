@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Mikolov et al. - 2013 - Efficient estimation of word representations in vector space
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2013
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 We propose two novel model architectures for computing continuous vector repre- sentations of words from very large data sets. The quality of these representations is measured in a word similarity task, and the results are compared to the previ- ously best performing techniques based on different types of neural networks. We observe large improvements in accuracy at much lower computational cost, i.e. it takes less than a day to learn high quality word vectors from a 1.6 billion words data set. Furthermore, we show that these vectors provide state-of-the-art perfor- mance on our test set for measuring syntactic and semantic word similarities.
 

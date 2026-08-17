@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Shuai Bai
 
 ## 简介

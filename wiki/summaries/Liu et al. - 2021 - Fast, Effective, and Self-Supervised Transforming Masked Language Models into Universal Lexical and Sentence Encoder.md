@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liu et al. - 2021 - Fast, Effective, and Self-Supervised Transforming Masked Language Models into Universal Lexical and Sentence Encoder
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Previous work has indicated that pretrained Masked Language Models (MLMs) are not ef- fective as universal lexical and sentence en- coders off-the-shelf, i.e., without further task- speciﬁc ﬁne-tuning on NLI, sentence similar- ity, or paraphrasing tasks using annotated task data. In this work, we demonstrate that it is possible to turn MLMs into effective lexical and sentence encoders even without any addi- tional data, relying simply on self-supervision. We propose an extremely simple, fast, and ef- fective contrastive learning technique, termed Mirror-BERT, which converts MLMs (e.g., BERT and RoBERTa) into such encoders in 20–30 seconds with no access to additional external knowledge. Mirror-BERT relies on identical and slightly modiﬁed string pairs as positive (i.e., synonymous) ﬁne-tuning exam- ples, and aims to maximise their similarity dur- ing “identity ﬁne-tuning”. We report huge gains over off-the-shelf MLMs with Mirror- BERT both in lexical-level and in sentence- level tasks, across different domains and differ- ent languages. Notably, in sentence similarity (STS) and question-answer entailment (QNLI) tasks, our self-supervised Mirror-BERT model even matches the performance of the Sentence- BERT models from prior work which rely on annotated task data. Finally, we delve deeper into the inner workings of MLMs, and sug- gest some evidence on why this simple Mirror- BERT ﬁne-tuning approach can yield effective universal lexical and sentence encoders.
 

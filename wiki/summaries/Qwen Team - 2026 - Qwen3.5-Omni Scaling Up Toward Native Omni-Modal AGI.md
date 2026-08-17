@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2026 - Qwen3.5-Omni Scaling Up Toward Native Omni-Modal AGI
 
 ## 来源信息

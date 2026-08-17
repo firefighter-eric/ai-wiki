@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # MiniCPM
 
 ## 简介

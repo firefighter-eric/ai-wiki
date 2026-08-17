@@ -1,6 +1,6 @@
 # Radford et al. - 2021 - Learning Transferable Visual Models From Natural Language Supervision
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Radford et al. - 2021 - Learning Transferable Visual Models From Natural Language Supervision.html`
+- Source HTML: `raw/html/Radford et al. - 2021 - Learning Transferable Visual Models From Natural Language Supervision.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2103.00020
 - Generated from: `scripts/fetch_web_text.py`
 

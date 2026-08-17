@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2025
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Automatically generating presentations from documents is a challenging task that requires accommodating content quality, visual appeal, and structural coherence. Existing methods pri- marily focus on improving and evaluating the content quality in isolation, overlooking visual appeal and structural coherence, which limits their practical applicability. To address these limitations, we propose PPTAGENT, which comprehensively improves presentation gener- ation through a two-stage, edit-based approach inspired by human workflows. PPTAGENTfirst analyzes reference presenta- tions to extract slide-level functional types and content schemas, then drafts an outline and iteratively generates editing actions based on selected reference slides to create new slides. To comprehensively evaluate the quality of generated presentations, we further introduce PPTEVAL, an evaluation framework that as- sesses presentations across three dimensions: Content, Design, and Coherence. Results demonstrate that PPTAGENTsignificantly out- performs existing automatic presentation gen- eration methods across all three dimensions.
 

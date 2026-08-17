@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Compressed Sparse Attention
 
 ## 简介

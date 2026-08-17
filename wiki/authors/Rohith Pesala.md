@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Rohith Pesala
 
 ## 简介

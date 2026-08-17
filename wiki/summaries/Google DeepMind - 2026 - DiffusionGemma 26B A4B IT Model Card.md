@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Google DeepMind - 2026 - DiffusionGemma 26B A4B IT Model Card
 
 ## 来源信息

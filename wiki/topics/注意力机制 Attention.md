@@ -1,3 +1,7 @@
+---
+type: topic
+status: formal
+---
 # 注意力机制 Attention
 
 ## 页面状态

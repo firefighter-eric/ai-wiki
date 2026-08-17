@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval
 
 ## 来源信息

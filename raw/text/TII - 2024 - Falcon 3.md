@@ -1,6 +1,6 @@
 # Falcon 3
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/TII - 2024 - Falcon 3.html`
+- Source HTML: `raw/html/TII - 2024 - Falcon 3.html`
 - Source URL: https://huggingface.co/tiiuae/Falcon3-7B-Instruct
 - Generated from: `scripts/fetch_web_text.py`
 

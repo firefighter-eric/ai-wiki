@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # NVIDIA - 2026 - Run DiffusionGemma on NVIDIA for Developer-Ready High-Throughput Text Generation
 
 ## 来源信息

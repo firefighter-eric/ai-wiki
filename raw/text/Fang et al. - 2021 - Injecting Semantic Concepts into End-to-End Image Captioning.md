@@ -1,6 +1,6 @@
 # Fang et al. - 2021 - Injecting Semantic Concepts into End-to-End Image Captioning
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Fang et al. - 2021 - Injecting Semantic Concepts into End-to-End Image Captioning.html`
+- Source HTML: `raw/html/Fang et al. - 2021 - Injecting Semantic Concepts into End-to-End Image Captioning.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2112.05230
 - Generated from: `scripts/fetch_web_text.py`
 

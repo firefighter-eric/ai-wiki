@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Tip-Adapter
 
 ## 简介

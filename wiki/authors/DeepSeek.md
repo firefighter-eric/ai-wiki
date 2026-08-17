@@ -1,3 +1,6 @@
+---
+type: author
+---
 # DeepSeek
 
 ## 简介

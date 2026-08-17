@@ -1,6 +1,6 @@
 # Unknown - 2024 - DeepSeek-V3 Technical Report
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Unknown - 2024 - DeepSeek-V3 Technical Report.html`
+- Source HTML: `raw/html/Unknown - 2024 - DeepSeek-V3 Technical Report.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2412.19437
 - Generated from: `scripts/fetch_web_text.py`
 

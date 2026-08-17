@@ -1,6 +1,6 @@
 # Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides.html`
+- Source HTML: `raw/html/Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2501.03936
 - Generated from: `scripts/fetch_web_text.py`
 

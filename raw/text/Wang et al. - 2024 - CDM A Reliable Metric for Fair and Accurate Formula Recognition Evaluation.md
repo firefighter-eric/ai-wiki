@@ -1,6 +1,6 @@
 # Wang et al. - 2024 - CDM A Reliable Metric for Fair and Accurate Formula Recognition Evaluation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang et al. - 2024 - CDM A Reliable Metric for Fair and Accurate Formula Recognition Evaluation.html`
+- Source HTML: `raw/html/Wang et al. - 2024 - CDM A Reliable Metric for Fair and Accurate Formula Recognition Evaluation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2409.03643
 - Generated from: `scripts/fetch_web_text.py`
 

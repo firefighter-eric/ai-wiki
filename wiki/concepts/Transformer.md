@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Transformer
 
 ## 简介

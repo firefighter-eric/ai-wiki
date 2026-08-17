@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DiffusionGemma
 
 ## 简介

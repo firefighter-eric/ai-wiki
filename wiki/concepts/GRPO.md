@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # GRPO
 
 ## 简介

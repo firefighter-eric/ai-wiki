@@ -1,6 +1,6 @@
 # Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval.html`
+- Source HTML: `raw/html/Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2107.13602
 - Generated from: `scripts/fetch_web_text.py`
 

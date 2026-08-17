@@ -1,6 +1,6 @@
 # [2408.00118] Gemma 2: Improving Open Language Models at a Practical Size
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Team, Google DeepMind - 2024 - Gemma 2 Improving Open Language Models at a Practical Size.html`
+- Source HTML: `raw/html/Team, Google DeepMind - 2024 - Gemma 2 Improving Open Language Models at a Practical Size.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2408.00118
 - Generated from: `scripts/fetch_web_text.py`
 

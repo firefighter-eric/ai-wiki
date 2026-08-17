@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Ren et al. - 2015 - Faster R-CNN Towards Real-Time Object Detection with Region Proposal Networks
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2015
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `Faster R-CNN` 的核心贡献不是单纯继续提升 region-based detector 精度，而是把 proposal generation 从外部启发式步骤改写成可学习的 `Region Proposal Network (RPN)`，并与 `Fast R-CNN` 共享卷积特征，从而显著降低 proposal 阶段的额外开销。该工作把“先产生候选框、再分类回归”的两阶段检测流程整合为共享 backbone 的统一网络，确立了后续 proposal-based 检测主线的标准范式。
 

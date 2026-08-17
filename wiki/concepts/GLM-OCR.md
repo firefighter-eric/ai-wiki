@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # GLM-OCR
 
 ## 简介

@@ -1,6 +1,6 @@
 # Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations.html`
+- Source HTML: `raw/html/Inan et al. - 2023 - Llama Guard LLM-based Input-Output Safeguard for Human-AI Conversations.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2312.06674v1
 - Generated from: `scripts/fetch_web_text.py`
 

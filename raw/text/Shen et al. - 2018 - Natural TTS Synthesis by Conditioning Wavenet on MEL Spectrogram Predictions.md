@@ -1,6 +1,6 @@
 # Shen et al. - 2018 - Natural TTS Synthesis by Conditioning Wavenet on MEL Spectrogram Predictions
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Shen et al. - 2018 - Natural TTS Synthesis by Conditioning Wavenet on MEL Spectrogram Predictions.html`
+- Source HTML: `raw/html/Shen et al. - 2018 - Natural TTS Synthesis by Conditioning Wavenet on MEL Spectrogram Predictions.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1712.05884
 - Generated from: `scripts/fetch_web_text.py`
 

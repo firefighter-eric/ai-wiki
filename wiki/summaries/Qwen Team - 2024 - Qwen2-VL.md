@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2024 - Qwen2-VL
 
 ## 来源信息

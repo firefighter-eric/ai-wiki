@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Wei, Sun, Li - 2026 - DeepSeek-OCR 2 Visual Causal Flow
 
 ## 来源信息

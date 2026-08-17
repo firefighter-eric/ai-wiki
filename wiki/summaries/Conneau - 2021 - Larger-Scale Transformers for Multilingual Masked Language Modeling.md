@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Conneau - 2021 - Larger-Scale Transformers for Multilingual Masked Language Modeling
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Recent work has demonstrated the effective- ness of cross-lingual language model pretrain- ing for cross-lingual understanding. In this study, we present the results of two larger mul- tilingual masked language models, with 3.5B and 10.7B parameters. Our two new mod- els dubbed XLM-RXL and XLM-RXXL outper- form XLM-R by 1.8% and 2.4% average ac- curacy on XNLI. Our model also outperforms the RoBERTa-Large model on several English tasks of the GLUE benchmark by 0.3% on av- erage while handling 99 more languages. This suggests pretrained models with larger capac- ity may obtain both strong performance on high-resource languages while greatly improv- ing low-resource languages. We make our code and models publicly available.1
 

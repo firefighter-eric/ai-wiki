@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wang et al. - 2024 - UniMERNet A Universal Network for Real-World Mathematical Expression Recognition
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 The paper introduces the UniMER dataset, marking the first study on Mathematical Expression Recognition (MER) tar- geting complex real-world scenarios. The UniMER dataset includes a large-scale training set, UniMER-1M, which of- fers unprecedented scale and diversity with one million train- ing instances to train high-quality, robust models. Addition- ally, UniMER features a meticulously designed, diverse test set, UniMER-Test, which covers a variety of formula distri- butions found in real-world scenarios, providing a more com- prehensive and fair evaluation. To better utilize the UniMER dataset, the paper proposes a Universal Mathematical Ex- pression Recognition Network (UniMERNet), tailored to the characteristics of formula recognition. UniMERNet consists of a carefully designed encoder that incorporates detail-aware and local context features, and an optimized decoder for ac- celerated performance. Extensive experiments conducted us- ing the UniMER-1M dataset and UniMERNet demonstrate that training on the large-scale UniMER-1M dataset can pro- duce a more generalizable formula recognition model, sig- nificantly outperforming all previous datasets. Furthermore, the introduction of UniMERNet enhances the model’s per- formance in formula recognition, achieving higher accuracy and speeds. All data, models, and code are available at https: //github.com/opendatalab/UniMERNet.
 

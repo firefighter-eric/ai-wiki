@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Jiang, Wang - 2022 - Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 The performance of sentence representation has been remarkably improved by the frame- work of contrastive learning. However, re- cent works still require full ﬁne-tuning, which is quite inefﬁcient for large-scaled pre-trained language models. To this end, we present a novel method which freezes the whole lan- guage model and only optimizes the pre- ﬁx deep continuous prompts. It not only tunes around 0.1% parameters of the origi- nal language model, but avoids the cumber- some computation of searching handcrafted prompts. Experimental results show that our proposed DCPCSE outperforms the state-of- the-art method SimCSE by a large margin. We raise the performance of unsupervised BERTbase and supervised RoBERTalarge by 2.24 and 1.00 points, respectively 1.
 

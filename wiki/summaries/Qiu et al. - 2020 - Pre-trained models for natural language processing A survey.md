@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Qiu et al. - 2020 - Pre-trained models for natural language processing A survey
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 . Invited Review. Pre-trained Models for Natural Language Processing: A Survey Xipeng Qiu*, Tianxiang Sun, Yige Xu, Yunfan Shao, Ning Dai & Xuanjing Huang School of Computer Science, Fudan University, Shanghai 200433, China; Shanghai Key Laboratory of Intelligent Information Processing, Shanghai 200433, China Recently, the emergence of pre-trained models (PTMs)* has brought natural language processing (NLP) to a new era. In this survey, we provide a comprehensive review of PTMs for NLP. We ﬁrst brieﬂy introduce language representation learning and its research progress. Then we systematically categorize existing PTMs based on a taxonomy from four diﬀerent perspectives. Next, we describe how to adapt the knowledge of PTMs to downstream tasks. Finally, we outline some potential directions of PTMs for future research. This survey is purposed to be a hands-on guide for understanding, using, 
 

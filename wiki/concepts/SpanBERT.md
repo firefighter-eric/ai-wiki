@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # SpanBERT
 
 ## 简介

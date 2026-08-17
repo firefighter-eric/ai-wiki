@@ -1,6 +1,6 @@
 # Wang - Unknown - PIKE-RAG sPecIalized KnowledgE and Rationale Augmented Generation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang - Unknown - PIKE-RAG sPecIalized KnowledgE and Rationale Augmented Generation.html`
+- Source HTML: `raw/html/Wang - Unknown - PIKE-RAG sPecIalized KnowledgE and Rationale Augmented Generation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2501.11551
 - Generated from: `scripts/fetch_web_text.py`
 

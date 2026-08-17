@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Ultralytics - 2026 - Ultralytics YOLO Docs Home
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2026
 - 状态：已抓取官网文本
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 截至 `2026-04-13`，`Ultralytics` 官方文档首页已将 `YOLO26` 标为最新版本，并明确写出对稳定生产负载推荐 `YOLO26` 与 `YOLO11`。这份来源的重要性在于提供系列的当前官方语境，补足学术综述通常只覆盖到 `YOLOv11` 的时间缺口。
 

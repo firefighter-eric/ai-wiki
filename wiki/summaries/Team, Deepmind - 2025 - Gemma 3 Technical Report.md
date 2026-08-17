@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Team, Deepmind - 2025 - Gemma 3 Technical Report
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2025
 - 状态：已核对优化器披露范围；其余部分仍待精读
 
-## 自动抽取摘要
+## 摘要
 
 2025-03-12 Gemma 3 Technical Report Gemma Team, Google DeepMind1 We introduce Gemma 3, a multimodal addition to the Gemma family of lightweight open models, ranging in scale from 1 to 27 billion parameters. This version introduces vision understanding abilities, a wider coverage of languages and longer context – at least 128K tokens. We also change the architecture of the model to reduce the KV-cache memory that tends to explode with long context. This is achieved by increasing the ratio of local to global attention layers, and keeping the span on local attention short. The Gemma 3 models are trained with distillation and achieve superior performance to Gemma 2 for both pre-trained and instruction finetuned versions. In particular, our novel post-training recipe significantly improves the math, chat, instruction-following and multilingual abilities, making Gemma3- 4B-IT competitive with 
 

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Gemma 4
 
 ## 简介

@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Dong et al. - 2019 - Unified language model pre-training for natural language understanding and generation
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 This paper presents a new UNIﬁed pre-trained Language Model (UNILM) that can be ﬁne-tuned for both natural language understanding and generation tasks. The model is pre-trained using three types of language modeling tasks: unidirec- tional, bidirectional, and sequence-to-sequence prediction. The uniﬁed modeling is achieved by employing a shared Transformer network and utilizing speciﬁc self-attention masks to control what context the prediction conditions on. UNILM compares favorably with BERT on the GLUE benchmark, and the SQuAD 2.0 and CoQA question answering tasks. Moreover, UNILM achieves new state-of- the-art results on ﬁve natural language generation datasets, including improving the CNN/DailyMail abstractive summarization ROUGE-L to 40.51 (2.04 absolute improvement), the Gigaword abstractive summarization ROUGE-L to 35.75 (0.86 absolute improvement), the CoQA generative question answering F1 score to 82.5 (37.1 absolute improvement), the SQuAD question generation BLEU-4 to 22.12 (3.75 absolute improvement), and the DSTC7 document-grounded dialog response generation NIST-4 to 2.67 (human performance is 2.65). The code and pre-trained models are available at https://github.com/microsoft/unilm.
 

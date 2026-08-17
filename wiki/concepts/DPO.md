@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DPO
 
 ## 简介

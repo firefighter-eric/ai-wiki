@@ -1,6 +1,6 @@
 # Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking.html`
+- Source HTML: `raw/html/Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2204.08387
 - Generated from: `scripts/fetch_web_text.py`
 
