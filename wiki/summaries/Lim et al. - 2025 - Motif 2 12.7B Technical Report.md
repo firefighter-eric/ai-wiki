@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Lim et al. - 2025 - Motif-2-12.7B Technical Report
 
 ## 来源信息

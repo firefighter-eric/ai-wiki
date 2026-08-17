@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # vLLM
 
 ## 简介

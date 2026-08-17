@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Yuan et al. - 2023 - Scaling Relationship on Learning Mathematical Reasoning with Large Language Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2023
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Preprint SCALING RELATIONSHIP ON LEARNING MATHEMATI- CAL REASONING WITH LARGE LANGUAGE MODELS Zheng Yuan∗, Hongyi Yuan∗†, Chengpeng Li†, Guanting Dong†, Keming Lu Chuanqi Tan, Chang Zhou, Jingren Zhou Alibaba DAMO Academy {yuanzheng.yuanzhen,yuanhongyi.yhy}@alibaba-inc.com {lichengpeng.lcp,dongguanting.dgt,lukeming.lkm}@alibaba-inc.com {chuanqi.tcq,ericzhou.zc,jingren.zhou}@alibaba-inc.com ABSTRACT Mathematical reasoning is a challenging task for large language models (LLMs), while the scaling relationship of it with respect to LLM capacity is under-explored. In this paper, we investigate how the pre-training loss, supervised data amount, and augmented data amount influence the reasoning performances of a supervised LLM. We find that pre-training loss is a better indicator of the model’s perfor- mance than the model’s parameter count. We apply supervised fine-tuning (SFT) with different 
 

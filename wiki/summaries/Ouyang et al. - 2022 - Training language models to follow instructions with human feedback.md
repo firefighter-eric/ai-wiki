@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Ouyang et al. - 2022 - Training language models to follow instructions with human feedback
 
 ## 来源信息

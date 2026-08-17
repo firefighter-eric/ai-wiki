@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kuaishou Technology - 2026 - Kling VIDEO 3.0 Omni Model User Guide
 
 ## 来源信息

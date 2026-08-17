@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # GPT-3
 
 ## 简介

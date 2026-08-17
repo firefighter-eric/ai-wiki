@@ -1,6 +1,6 @@
 # Smock, Pesala, Abraham - 2022 - PubTables-1M Towards comprehensive table extraction from unstructured documents
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Smock, Pesala, Abraham - 2022 - PubTables-1M Towards comprehensive table extraction from unstructured documents.html`
+- Source HTML: `raw/html/Smock, Pesala, Abraham - 2022 - PubTables-1M Towards comprehensive table extraction from unstructured documents.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2110.00061
 - Generated from: `scripts/fetch_web_text.py`
 

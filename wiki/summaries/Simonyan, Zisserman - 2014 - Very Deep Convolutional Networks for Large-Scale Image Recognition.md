@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Simonyan, Zisserman - 2014 - Very Deep Convolutional Networks for Large-Scale Image Recognition
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2014
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `VGG` 的关键贡献不是发明某个全新的卷积算子，而是把“更深的卷积网络是否能稳定提升大规模视觉识别效果”系统化为一个可复用的设计原则：用重复的 `3x3` 小卷积堆叠替代更大感受野卷积，并把网络深度一路推到 `16-19` 个带权重层。它的重要性在于把网络设计从早期较多启发式组件的拼装，推进到更规则、可扩展、易迁移的深层卷积 backbone 范式。
 

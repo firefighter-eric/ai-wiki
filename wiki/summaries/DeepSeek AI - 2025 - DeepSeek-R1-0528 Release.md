@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # DeepSeek AI - 2025 - DeepSeek-R1-0528 Release
 
 ## 来源信息

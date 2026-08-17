@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Maarten Grootendorst - 2026 - A Visual Guide to DiffusionGemma
 
 ## 来源信息

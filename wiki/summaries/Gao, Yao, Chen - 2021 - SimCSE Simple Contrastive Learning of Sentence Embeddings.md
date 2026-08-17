@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Gao, Yao, Chen - 2021 - SimCSE Simple Contrastive Learning of Sentence Embeddings
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 This paper presents SimCSE, a simple con- trastive learning framework that greatly ad- vances the state-of-the-art sentence embed- dings. We ﬁrst describe an unsupervised ap- proach, which takes an input sentence and predicts itself in a contrastive objective, with only standard dropout used as noise. This simple method works surprisingly well, per- forming on par with previous supervised coun- terparts. We ﬁnd that dropout acts as mini- mal data augmentation and removing it leads to a representation collapse. Then, we pro- pose a supervised approach, which incorpo- rates annotated pairs from natural language inference datasets into our contrastive learn- ing framework, by using “entailment” pairs as positives and “contradiction” pairs as hard negatives. We evaluate SimCSE on standard semantic textual similarity (STS) tasks, and our unsupervised and supervised models using BERTbase achieve an average of 76.3% and 81.6% Spearman’s correlation respectively, a 4.2% and 2.2% improvement compared to previous best results. We also show—both theoretically and empirically—that contrastive learning objective regularizes pre-trained em- beddings’ anisotropic space to be more uni- form, and it better aligns positive pairs when supervised signals are available.1
 

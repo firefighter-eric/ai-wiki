@@ -1,6 +1,6 @@
 # Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering.html`
+- Source HTML: `raw/html/Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2004.04906
 - Generated from: `scripts/fetch_web_text.py`
 

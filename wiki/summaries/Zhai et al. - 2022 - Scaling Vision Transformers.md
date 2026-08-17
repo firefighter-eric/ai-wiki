@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zhai et al. - 2022 - Scaling Vision Transformers
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Attention-based neural networks such as the Vision Trans- former (ViT) have recently attained state-of-the-art results on many computer vision benchmarks. Scale is a primary ingredient in attaining excellent results, therefore, under- standing a model’s scaling properties is a key to designing future generations effectively. While the laws for scaling Transformer language models have been studied, it is un- known how Vision Transformers scale. To address this, we scale ViT models and data, both up and down, and character- ize the relationships between error rate, data, and compute. Along the way, we reﬁne the architecture and training of ViT, reducing memory consumption and increasing accuracy of the resulting models. As a result, we successfully train a ViT model with two billion parameters, which attains a new state-of-the-art on ImageNet of 90.45% top-1 accuracy. The model also performs well for few-shot transfer, for example, reaching 84.86% top-1 accuracy on ImageNet with only 10 examples per class. 1. Introduction Attention-based Transformer architectures [45] have taken computer vision domain by storm [8,16] and are be- coming an increasingly popular choice in research and prac- tice. Previously, Transformers have been widely adopted in the natural language processing (NLP) domain [7,15]. Opti- mal scaling of Transformers in NLP was carefully studied in [22], with the main conclusion that large models not only perform better, but do use large computational budgets more efﬁciently. However, it remains unclear to what extent these ﬁndings transfer to the vision domain, which has several important differences. For example, the most successful pre-training schemes in vision are supervised, as opposed to unsupervised pre-training in the NLP domain. In this paper we concentrate on scaling laws for transfer performance of ViT models pre-trained on image classiﬁca- ⋆equal contribution
 

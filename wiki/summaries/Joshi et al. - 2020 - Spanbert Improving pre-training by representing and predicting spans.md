@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Joshi et al. - 2020 - Spanbert Improving pre-training by representing and predicting spans
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 We present SpanBERT, a pre-training method that is designed to better represent and predict spans of text. Our approach extends BERT by (1) masking contiguous random spans, rather than random tokens, and (2) training the span boundary represen- tations to predict the entire content of the masked span, without relying on the indi- vidual token representations within it. Span- BERT consistently outperforms BERT and our better-tuned baselines, with substantial gains on span selection tasks such as ques- tion answering and coreference resolution. In particular, with the same training data and model size as BERTlarge, our single model obtains 94.6% and 88.7% F1 on SQuAD 1.1 and 2.0 respectively. We also achieve a new state of the art on the OntoNotes coreference resolution task (79.6% F1), strong perfor- mance on the TACRED relation extraction benchmark, and even gains on GLUE.1
 

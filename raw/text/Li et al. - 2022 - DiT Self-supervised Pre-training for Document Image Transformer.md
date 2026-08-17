@@ -1,6 +1,6 @@
 # Li et al. - 2022 - DiT Self-supervised Pre-training for Document Image Transformer
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Li et al. - 2022 - DiT Self-supervised Pre-training for Document Image Transformer.html`
+- Source HTML: `raw/html/Li et al. - 2022 - DiT Self-supervised Pre-training for Document Image Transformer.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2203.02378
 - Generated from: `scripts/fetch_web_text.py`
 

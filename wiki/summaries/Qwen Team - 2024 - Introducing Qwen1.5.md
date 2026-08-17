@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2024 - Introducing Qwen1.5
 
 ## 来源信息

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # PubTables-1M
 
 ## 简介

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Luo et al. - 2024 - IntrinsicDiffusion Joint Intrinsic Layers from Latent Diffusion Models
 
 ## 来源信息

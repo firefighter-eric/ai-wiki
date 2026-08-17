@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Sun et al. - 2019 - How to Fine-Tune BERT for Text Classification
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Language model pre-training has proven to be useful in learning universal language represen- tations. As a state-of-the-art language model pre-training model, BERT (Bidirectional En- coder Representations from Transformers) has achieved amazing results in many language understanding tasks. In this paper, we con- duct exhaustive experiments to investigate dif- ferent ﬁne-tuning methods of BERT on text classiﬁcation task and provide a general solu- tion for BERT ﬁne-tuning. Finally, the pro- posed solution obtains new state-of-the-art re- sults on eight widely-studied text classiﬁcation datasets.1
 

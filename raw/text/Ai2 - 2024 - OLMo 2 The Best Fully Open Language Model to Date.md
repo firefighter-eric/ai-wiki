@@ -1,6 +1,6 @@
 # OLMo 2: The Best Fully Open Language Model to Date
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Ai2 - 2024 - OLMo 2 The Best Fully Open Language Model to Date.html`
+- Source HTML: `raw/html/Ai2 - 2024 - OLMo 2 The Best Fully Open Language Model to Date.html`
 - Source URL: https://allenai.org/blog/olmo2
 - Generated from: `scripts/fetch_web_text.py`
 

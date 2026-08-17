@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Vlasov, Mosig, Nichol - 2019 - Dialogue Transformers
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Dialogue Transformers Vladimir Vlasov,∗Johannes E. M. Mosig,† and Alan Nichol‡ Rasa We introduce a dialogue policy based on a transformer architecture [1], where the self-attention mechanism operates over the sequence of dialogue turns. Recent work has used hierarchical recurrent neural networks to encode multiple utterances in a dialogue context, but we argue that a pure self- attention mechanism is more suitable. By default, an RNN assumes that every item in a sequence is relevant for producing an encoding of the full sequence, but a single conversation can consist of multiple overlapping discourse segments as speakers interleave multiple topics. A transformer picks which turns to include in its encoding of the current dialogue state, and is naturally suited to selectively ignoring or attending to dialogue history. We compare the performance of the Transformer Embedding Dialogue (TED) 
 

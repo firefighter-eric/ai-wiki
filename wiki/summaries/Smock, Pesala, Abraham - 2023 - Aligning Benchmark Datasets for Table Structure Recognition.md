@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Smock, Pesala, Abraham - 2023 - Aligning Benchmark Datasets for Table Structure Recognition
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2023
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Aligning benchmark datasets for table structure recognition Brandon Smock1[0009−0002−7002−0800], Rohith Pesala1[0009−0004−7373−853X], and Robin Abraham1[0000−0003−1915−8118] Microsoft, Redmond WA, USA {brsmock,ropesala,robin.abraham}@microsoft.com Abstract. Benchmark datasets for table structure recognition (TSR) must be carefully processed to ensure they are annotated consistently. However, even if a dataset’s annotations are self-consistent, there may be significant inconsistency across datasets, which can harm the per- formance of models trained and evaluated on them. In this work, we show that aligning these benchmarks—removing both errors and incon- sistency between them—improves model performance significantly. We demonstrate this through a data-centric approach where we adopt one model architecture, the Table Transformer (TATR), that we hold fixed throughout. Baseline exact match 
 

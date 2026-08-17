@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # DeepSeek AI - 2025 - DeepSeek-V3.2 Release
 
 ## 来源信息

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2020
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `Linformer` 代表 efficient attention 中最典型的低秩投影路线。它的核心判断是：标准 self-attention 形成的上下文映射矩阵在实践中可被低秩近似，因此可以先把序列维上的 `K/V` 投影到更低维空间，再计算 attention，把复杂度从二次压到线性。
 

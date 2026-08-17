@@ -1,6 +1,6 @@
 # Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback.html`
+- Source HTML: `raw/html/Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2109.10862
 - Generated from: `scripts/fetch_web_text.py`
 

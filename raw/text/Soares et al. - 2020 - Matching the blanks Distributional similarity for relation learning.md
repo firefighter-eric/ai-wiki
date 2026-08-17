@@ -1,6 +1,6 @@
 # Soares et al. - 2020 - Matching the blanks Distributional similarity for relation learning
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Soares et al. - 2020 - Matching the blanks Distributional similarity for relation learning.html`
+- Source HTML: `raw/html/Soares et al. - 2020 - Matching the blanks Distributional similarity for relation learning.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1906.03158
 - Generated from: `scripts/fetch_web_text.py`
 

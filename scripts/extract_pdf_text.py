@@ -9,10 +9,10 @@ import fitz
 
 
 def extract_pdf_text(pdf_path: Path) -> str:
-    doc = fitz.open(pdf_path)
     parts = []
-    for page in doc:
-        parts.append(page.get_text())
+    with fitz.open(pdf_path) as doc:
+        for page in doc:
+            parts.append(page.get_text())
     return "\n".join(parts).strip()
 
 
@@ -84,6 +84,9 @@ def main() -> int:
             continue
 
         extracted = extract_pdf_text(pdf_path)
+        if not extracted:
+            print(f"No text extracted from PDF: {pdf_path}", file=sys.stderr)
+            return 1
         markdown = render_markdown(pdf_path, raw_root, extracted)
         out_path.write_text(markdown, encoding="utf-8")
         print(f"Wrote {out_path}")

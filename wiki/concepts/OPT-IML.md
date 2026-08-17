@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # OPT-IML
 
 ## 简介

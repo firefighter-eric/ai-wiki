@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Sun et al. - 2023 - A Comparative Study between Full-Parameter and LoRA-based Fine-Tuning on Chinese Instruction Data for Instruction Fo
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2023
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Recently, the instruction-tuning of large language models is a crucial area of re- search in the ﬁeld of natural language processing. Due to resource and cost limitations, several researchers have em- ployed parameter-efﬁcient tuning tech- niques, such as LoRA, for instruction tun- ing, and have obtained encouraging re- sults. In comparison to full-parameter ﬁne-tuning, LoRA-based tuning demon- strates salient beneﬁts in terms of train- ing costs. In this study, we undertook experimental comparisons between full- parameter ﬁne-tuning and LoRA-based tuning methods, utilizing LLaMA as the base model. The experimental results show that the se- lection of the foundational model, training dataset scale, learnable parameter quan- tity, and model training cost are all im- portant factors. We hope that the experi- mental conclusions of this paper can pro- vide inspiration for training large language models, especially in the ﬁeld of Chinese, and help researchers ﬁnd a better trade-off strategy between training cost and model performance. To facilitate the reproduc- tion of the paper’s results, the dataset, model and code will be released.1.
 

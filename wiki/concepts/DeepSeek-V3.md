@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DeepSeek-V3
 
 ## 简介

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kimi Team - 2025 - Kimi K2: Open Agentic Intelligence
 
 ## 来源信息

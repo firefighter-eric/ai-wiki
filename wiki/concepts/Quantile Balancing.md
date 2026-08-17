@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Quantile Balancing
 
 ## 简介

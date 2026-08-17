@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Llama 3
 
 ## 简介
@@ -24,8 +27,8 @@ Llama 3 是 Meta 发布的 Llama 家族新一代开放模型节点。在当前�
 ## 关联页面
 
 - [LLM 预训练](../topics/LLM%20预训练.md)
-- [Llama](./Llama.md)
-- [LLaMA](./LLaMA.md)
+- [Llama 家族](./Llama%20家族.md)
+- [LLaMA（初代）](./LLaMA%20初代.md)
 - [Llama 2](./Llama 2.md)
 - [PaLM](./PaLM.md)
 - [Qwen](./Qwen.md)

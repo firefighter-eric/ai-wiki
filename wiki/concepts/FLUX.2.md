@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # FLUX.2
 
 ## 简介

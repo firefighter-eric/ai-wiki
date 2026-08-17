@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # FlashAttention
 
 ## 简介

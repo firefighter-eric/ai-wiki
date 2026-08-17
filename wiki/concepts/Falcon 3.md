@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Falcon 3
 
 ## 简介

@@ -1,6 +1,6 @@
 # Li, Fan, Ai - Unknown - Scaling Language-Image Pre-training via Masking
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Li, Fan, Ai - Unknown - Scaling Language-Image Pre-training via Masking.html`
+- Source HTML: `raw/html/Li, Fan, Ai - Unknown - Scaling Language-Image Pre-training via Masking.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2212.00794
 - Generated from: `scripts/fetch_web_text.py`
 

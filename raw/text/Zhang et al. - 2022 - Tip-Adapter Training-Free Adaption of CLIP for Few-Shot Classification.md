@@ -1,6 +1,6 @@
 # Zhang et al. - 2022 - Tip-Adapter Training-Free Adaption of CLIP for Few-Shot Classification
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zhang et al. - 2022 - Tip-Adapter Training-Free Adaption of CLIP for Few-Shot Classification.html`
+- Source HTML: `raw/html/Zhang et al. - 2022 - Tip-Adapter Training-Free Adaption of CLIP for Few-Shot Classification.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2207.09519
 - Generated from: `scripts/fetch_web_text.py`
 

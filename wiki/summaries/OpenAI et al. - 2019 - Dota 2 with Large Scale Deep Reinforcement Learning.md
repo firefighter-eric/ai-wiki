@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # OpenAI et al. - 2019 - Dota 2 with Large Scale Deep Reinforcement Learning
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 On April 13th, 2019, OpenAI Five became the ﬁrst AI system to defeat the world cham- pions at an esports game. The game of Dota 2 presents novel challenges for AI systems such as long time horizons, imperfect information, and complex, continuous state-action spaces, all challenges which will become increasingly central to more capable AI systems. OpenAI Five leveraged existing reinforcement learning techniques, scaled to learn from batches of approxi- mately 2 million frames every 2 seconds. We developed a distributed training system and tools for continual training which allowed us to train OpenAI Five for 10 months. By defeating the Dota 2 world champion (Team OG), OpenAI Five demonstrates that self-play reinforcement learning can achieve superhuman performance on a diﬃcult task.
 

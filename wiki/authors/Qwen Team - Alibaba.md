@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Qwen Team - Alibaba
 
 ## 简介

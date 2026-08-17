@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Nogueira, Cho - 2019 - Passage Re-ranking with BERT
 
 ## 来源信息

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # TrOCR
 
 ## 简介

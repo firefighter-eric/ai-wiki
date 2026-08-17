@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Dumas, Organisciak, Doherty - 2020 - Measuring Divergent Thinking Originality With Human Raters and Text-Mining Models A Psychometric Co
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Psychology of Aesthetics, Creativity, and the Arts Measuring Divergent Thinking Originality With Human Raters and Text-Mining Models: A Psychometric Comparison of Methods Denis Dumas, Peter Organisciak, and Michael Doherty Online First Publication, July 23, 2020. http://dx.doi.org/10.1037/aca0000319 CITATION Dumas, D., Organisciak, P., & Doherty, M. (2020, July 23). Measuring Divergent Thinking Originality With Human Raters and Text-Mining Models: A Psychometric Comparison of Methods. Psychology of Aesthetics, Creativity, and the Arts. Advance online publication. http://dx.doi.org/10.1037/aca0000319 Measuring Divergent Thinking Originality With Human Raters and Text- Mining Models: A Psychometric Comparison of Methods Denis Dumas and Peter Organisciak University of Denver Michael Doherty Actor’s Equity Association, New York, New York Within creativity research, interest and capability in
 

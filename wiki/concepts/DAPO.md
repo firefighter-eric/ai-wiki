@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DAPO
 
 ## 简介

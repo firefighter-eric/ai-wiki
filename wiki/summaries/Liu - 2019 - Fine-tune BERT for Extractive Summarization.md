@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liu - 2019 - Fine-tune BERT for Extractive Summarization
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2019
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 BERT (Devlin et al., 2018), a pre-trained Transformer (Vaswani et al., 2017) model, has achieved ground-breaking performance on multiple NLP tasks. In this paper, we describe BERTSUM, a simple variant of BERT, for ex- tractive summarization. Our system is the state of the art on the CNN/Dailymail dataset, out- performing the previous best-performed sys- tem by 1.65 on ROUGE-L. The codes to repro- duce our results are available at https://github. com/nlpyang/BertSum
 

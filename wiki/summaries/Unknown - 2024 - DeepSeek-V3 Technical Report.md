@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Unknown - 2024 - DeepSeek-V3 Technical Report
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已基于现有全文整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 对 attention 主线而言，`DeepSeek-V3` 的关键价值不是它整体 benchmark，而是它把 `Multi-head Latent Attention (MLA)` 作为现代大模型中的实际架构选择。`MLA` 的目标不是近似 full attention 的连接图，而是通过对 `K/V` 做低秩联合压缩来显著缩小推理阶段 `KV cache`，从而在长上下文和大模型推理中降低内存与带宽压力。
 

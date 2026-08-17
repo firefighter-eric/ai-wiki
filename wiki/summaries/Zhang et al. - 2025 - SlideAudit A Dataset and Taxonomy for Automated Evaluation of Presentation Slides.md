@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zhang et al. - 2025 - SlideAudit A Dataset and Taxonomy for Automated Evaluation of Presentation Slides
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2025
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Automated evaluation of specific graphic designs like presenta- tion slides is an open problem. We present SlideAudit, a dataset for automated slide evaluation. We collaborated with design ex- perts to develop a thorough taxonomy of slide design flaws. Our dataset comprises 2400 slides collected and synthesized from multi- ple sources, including a subset intentionally modified with specific design problems. We then fully annotated them using our taxonomy through strictly trained crowdsourcing from Prolific. To evaluate whether AI is capable of identifying design flaws, we compared multiple large language models under different prompting strate- gies, and with an existing design critique pipeline. We show that AI models struggle to accurately identify slide design flaws, with F1 scores ranging from 0.331 to 0.655. Notably, prompting techniques leveraging our taxonomy achieved the highest performance. We further conducted a remediation study to assess AI’s potential for improving slides. Among 82.0% of slides that showed significant im- provement, 87.8% of them were improved more with our taxonomy, further demonstrating its utility. CCS Concepts • Human-centered computing →Systems and tools for inter- action design; Empirical studies in HCI. Keywords Presentation Slide; LLM; Design Flaws; Design Evaluation ACM Reference Format: Zhuohao (Jerry) Zhang, Ruiqi Chen, Mingyuan Zhong, and Jacob O. Wob- brock. 2025. SlideAudit: A Dataset and Taxonomy for Automated Eval- uation of Presentation Slides. In The 38th Annual ACM Symposium on User Interface Software and Technology (UIST ’25), September 28-October 1, 2025, Busan, Republic of Korea. ACM, New York, NY, USA, 23 pages. https://doi.org/10.1145/3746059.3747736 This work is licensed under a Creative Commons Attribution 4.0 International License. UIST ’25, September 28-October 1, 2025, Busan, Republic of Korea © 2025 Copyright held by the owner/author(s). ACM ISBN 979-8-4007-2037-6/2025/09 https://doi.org/10.1145/3746059.3747736
 

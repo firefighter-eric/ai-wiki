@@ -76,6 +76,8 @@ summary 状态约定：
 
 - 精修 summary：可直接支撑正式 topic 的核心论断。
 - 待精读自动摘要：只作为整理入口，不应直接支撑正式 topic 的关键结论。
+- summary 页必须带 YAML frontmatter：`type: summary`，并用 `status: refined` 或 `status: auto` 表示上述两种状态。
+- 正文中的来源状态与 frontmatter 必须一致；状态迁移统一通过 `scripts/migrate_wiki_metadata.py` 检查。
 
 ### `wiki/topics/`
 
@@ -97,6 +99,8 @@ topic 写作的最低质量线：
 
 - **正式 topic**：满足完整专业模板，且核心论断有足够 `wiki/summaries/` 支撑；正文质量达到 paper 级综述标准，能够体现主线组织、横向比较、证据约束与综合判断，而不是简单罗列材料；可作为稳定入口出现在 `index.md` 主导航。
 - **待建设 topic**：资料不足、主线尚未形成或 summary 支撑不足的页面。可以保留短页，但必须明确标注其待建设性质。
+- topic 页必须带 YAML frontmatter：`type: topic`，并用 `status: formal` 或 `status: building` 表示上述成熟度。
+- 其余 wiki 页也必须用 `type` 标明页面职责：`concept / author / comparison / timeline`。
 
 #### 正式 topic 的固定章节模板
 
@@ -248,6 +252,12 @@ query 约束：
 - 是否存在明显数据空白，值得通过新增来源或后续 web search 补齐
 - 是否有页面虽存在，但几乎没有被其他页面引用，导致 wiki 复利效应不足
 
+机器检查入口：
+
+- `python scripts/lint_wiki.py`：检查来源链、页面 schema、证据成熟度、链接、索引与正文抽取质量；error 必须清零，warning 作为编辑队列处理。
+- `python -m unittest discover -s tests -v`：运行工具链回归测试。
+- `.github/workflows/wiki-ci.yml`：在 push 与 pull request 上执行同一组结构、测试、迁移幂等性与凭据扫描门禁。
+
 ## 6. 本仓库可用工具
 
 当前仓库允许优先使用以下本地工具与脚本来支持 ingest / query / lint：
@@ -259,6 +269,11 @@ query 约束：
 - `scripts/fetch_web_text.py`：用于抓取普通网页，并把正文提取成 markdown；提取逻辑基于标准库 `html.parser` 与页面中的 JSON-LD 信息。
 - `scripts/download_arxiv.py`：用于把 arXiv 来源落到 `raw/pdf/`、`raw/html/`、`raw/text/` 三层，适合 arXiv ingest。
 - `scripts/extract_pdf_text.py`：用于把已有 PDF 批量或单篇转换为 `raw/text/` markdown。
+- `scripts/lint_wiki.py`：统一的 persistent wiki 结构与可追溯性检查入口。
+- `scripts/migrate_wiki_metadata.py`：补齐页面 frontmatter，并在正式 topic 依赖自动摘要时保守降级。
+- `scripts/normalize_raw_text_metadata.py`：把旧机器绝对路径迁移为仓库相对来源路径。
+- `scripts/repair_index_descriptions.py`：清理 index 中被截断的导入摘要，并改用明确的 summary 成熟度说明。
+- `scripts/scan_secrets.py`：扫描受 Git 跟踪的文本；原始快照中的命中仅告警，wiki、脚本与配置中的命中阻断 CI。
 
 辅助规则：
 
@@ -266,6 +281,7 @@ query 约束：
 - 若只是为了读取本地 PDF 内容，优先使用 `PyMuPDF`，不要手工复制 PDF 文本。
 - 若只是为了抓取普通网页正文，优先复用 `scripts/fetch_web_text.py` 的现有提取逻辑，而不是每次从零写抓取代码。
 - 若需要在现有 wiki 中快速定位候选页，优先通过 `scripts/search_wiki.py` 调用 `qmd`，而不是在对话里手工枚举文件。
+- `scripts/search_wiki.py` 默认先执行 qmd 增量更新；只有明确知道索引已刷新时才使用 `--no-update`。
 
 历史脚本说明：
 

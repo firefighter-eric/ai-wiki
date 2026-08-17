@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Black Forest Labs - 2026 - FLUX.2 Overview
 
 ## 来源信息

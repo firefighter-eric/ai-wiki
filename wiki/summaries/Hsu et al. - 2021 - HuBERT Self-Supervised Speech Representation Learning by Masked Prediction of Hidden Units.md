@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Hsu et al. - 2021 - HuBERT Self-Supervised Speech Representation Learning by Masked Prediction of Hidden Units
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 1 HuBERT: Self-Supervised Speech Representation Learning by Masked Prediction of Hidden Units Wei-Ning Hsu, Benjamin Bolte, Yao-Hung Hubert Tsai, Kushal Lakhotia, Ruslan Salakhutdinov, Abdelrahman Mohamed Abstract—Self-supervised approaches for speech representa- tion learning are challenged by three unique problems: (1) there are multiple sound units in each input utterance, (2) there is no lexicon of input sound units during the pre-training phase, and (3) sound units have variable lengths with no explicit segmentation. To deal with these three problems, we propose the Hidden-Unit BERT (HuBERT) approach for self-supervised speech representation learning, which utilizes an ofﬂine clustering step to provide aligned target labels for a BERT-like prediction loss. A key ingredient of our approach is applying the prediction loss over the masked regions only, which forces the model to learn a
 

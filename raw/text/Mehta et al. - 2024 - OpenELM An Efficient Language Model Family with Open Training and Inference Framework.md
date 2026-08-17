@@ -1,6 +1,6 @@
 # [2404.14619] OpenELM: An Efficient Language Model Family with Open Training and Inference Framework
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Mehta et al. - 2024 - OpenELM An Efficient Language Model Family with Open Training and Inference Framework.html`
+- Source HTML: `raw/html/Mehta et al. - 2024 - OpenELM An Efficient Language Model Family with Open Training and Inference Framework.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2404.14619
 - Generated from: `scripts/fetch_web_text.py`
 

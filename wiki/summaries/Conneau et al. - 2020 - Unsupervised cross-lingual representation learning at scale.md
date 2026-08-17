@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Conneau et al. - 2020 - Unsupervised cross-lingual representation learning at scale
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 This paper shows that pretraining multilingual language models at scale leads to signiﬁcant performance gains for a wide range of cross- lingual transfer tasks. We train a Transformer- based masked language model on one hundred languages, using more than two terabytes of ﬁl- tered CommonCrawl data. Our model, dubbed XLM-R, signiﬁcantly outperforms multilingual BERT (mBERT) on a variety of cross-lingual benchmarks, including +14.6% average accu- racy on XNLI, +13% average F1 score on MLQA, and +2.4% F1 score on NER. XLM-R performs particularly well on low-resource lan- guages, improving 15.7% in XNLI accuracy for Swahili and 11.4% for Urdu over previ- ous XLM models. We also present a detailed empirical analysis of the key factors that are required to achieve these gains, including the trade-offs between (1) positive transfer and ca- pacity dilution and (2) the performance of high and low resource languages at scale. Finally, we show, for the ﬁrst time, the possibility of multilingual modeling without sacriﬁcing per- language performance; XLM-R is very compet- itive with strong monolingual models on the GLUE and XNLI benchmarks. We will make our code, data and models publicly available.1
 

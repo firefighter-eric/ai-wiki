@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Manifold-Constrained Hyper-Connections
 
 ## 简介

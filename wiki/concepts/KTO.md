@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # KTO
 
 ## 简介

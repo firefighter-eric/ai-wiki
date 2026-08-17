@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # RGBA 图层图像
 
 ## 简介

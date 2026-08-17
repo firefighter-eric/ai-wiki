@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Sora 2
 
 ## 简介

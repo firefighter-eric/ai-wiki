@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Kimi
 
 ## 简介

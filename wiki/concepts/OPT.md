@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # OPT
 
 ## 简介

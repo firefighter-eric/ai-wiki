@@ -1,6 +1,6 @@
 # Xue et al. - 2021 - mT5 A Massively Multilingual Pre-trained Text-to-Text Transformer
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Xue et al. - 2021 - mT5 A Massively Multilingual Pre-trained Text-to-Text Transformer.html`
+- Source HTML: `raw/html/Xue et al. - 2021 - mT5 A Massively Multilingual Pre-trained Text-to-Text Transformer.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2010.11934
 - Generated from: `scripts/fetch_web_text.py`
 

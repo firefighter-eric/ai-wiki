@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # SGLang Project - 2026 - HiCache System Design and Optimization
 
 ## 来源信息

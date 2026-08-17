@@ -1,6 +1,6 @@
 # Tewari et al. - 2021 - Advances in neural rendering
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Tewari et al. - 2021 - Advances in neural rendering.html`
+- Source HTML: `raw/html/Tewari et al. - 2021 - Advances in neural rendering.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2111.05849
 - Generated from: `scripts/fetch_web_text.py`
 

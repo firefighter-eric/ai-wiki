@@ -1,6 +1,6 @@
 # Wei, Zou - 2019 - EDA Easy data augmentation techniques for boosting performance on text classification tasks
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wei, Zou - 2019 - EDA Easy data augmentation techniques for boosting performance on text classification tasks.html`
+- Source HTML: `raw/html/Wei, Zou - 2019 - EDA Easy data augmentation techniques for boosting performance on text classification tasks.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1901.11196
 - Generated from: `scripts/fetch_web_text.py`
 

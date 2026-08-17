@@ -1,3 +1,6 @@
+---
+type: comparison
+---
 # RLHF vs DPO vs ORPO vs KTO
 
 ## 比较目标

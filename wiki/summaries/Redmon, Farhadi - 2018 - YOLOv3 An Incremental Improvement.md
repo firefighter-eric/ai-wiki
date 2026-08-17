@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2018
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `YOLOv3` 代表 YOLO 系列从早期 one-stage detector 走向成熟工程范式的节点。其核心不是单一大改，而是把 `Darknet-53`、多尺度预测、logistic objectness / multilabel class prediction 等设计组合成更稳健的实时检测框架。
 

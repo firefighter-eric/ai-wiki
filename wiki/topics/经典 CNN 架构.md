@@ -1,3 +1,7 @@
+---
+type: topic
+status: formal
+---
 # 经典 CNN 架构
 
 ## 页面状态

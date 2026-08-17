@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Lozhkov et al. - 2024 - StarCoder 2 and The Stack v2 The Next Generation
 
 ## 来源信息

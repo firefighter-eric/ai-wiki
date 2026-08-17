@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # OLMo 2
 
 ## 简介

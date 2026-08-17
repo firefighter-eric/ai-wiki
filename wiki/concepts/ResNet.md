@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # ResNet
 
 ## 简介

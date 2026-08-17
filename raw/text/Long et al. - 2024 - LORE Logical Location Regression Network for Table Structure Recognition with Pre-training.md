@@ -1,6 +1,6 @@
 # Long et al. - 2024 - LORE Logical Location Regression Network for Table Structure Recognition with Pre-training
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Long et al. - 2024 - LORE Logical Location Regression Network for Table Structure Recognition with Pre-training.html`
+- Source HTML: `raw/html/Long et al. - 2024 - LORE Logical Location Regression Network for Table Structure Recognition with Pre-training.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2401.01522
 - Generated from: `scripts/fetch_web_text.py`
 

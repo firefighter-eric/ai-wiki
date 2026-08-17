@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Liu et al. - 2022 - A ConvNet for the 2020s
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2022
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `ConvNeXt` 的关键意义，不是简单宣称“卷积没有过时”，而是把 `ResNet` 逐步现代化到接近视觉 Transformer 的设计风格，进而证明纯卷积 backbone 仍可在现代训练配方和模块选择下保持强竞争力。它代表经典 CNN 在 `ViT` 时代的一次系统性回写，而不是怀旧式回归。
 

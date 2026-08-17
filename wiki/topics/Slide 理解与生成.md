@@ -1,8 +1,13 @@
+---
+type: topic
+status: building
+---
 # Slide 理解与生成
 
 ## 页面状态
 
-- 状态：正式 topic
+- 状态：待建设 topic
+- 原因：证据基础仍包含待精读自动摘要；对应 summary 精修并复核核心论断后，才可重新升级为正式 topic。
 - 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义

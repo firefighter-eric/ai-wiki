@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kitaev, Kaiser, Levskaya - 2020 - Reformer The Efficient Transformer
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2020
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `Reformer` 代表的是基于 `LSH attention` 的近邻检索式稀疏路线。它不再让每个 token 与全部 token 做精确配对，而是先用局部敏感哈希把相似 token 分桶，再在桶内做 attention，从而把复杂度从 `O(n^2)` 下降到约 `O(n log n)`；同时它还结合 reversible layers 解决训练显存问题。
 

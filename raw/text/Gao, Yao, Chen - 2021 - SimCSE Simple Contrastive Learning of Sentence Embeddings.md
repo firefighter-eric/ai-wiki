@@ -1,6 +1,6 @@
 # Gao, Yao, Chen - 2021 - SimCSE Simple Contrastive Learning of Sentence Embeddings
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Gao, Yao, Chen - 2021 - SimCSE Simple Contrastive Learning of Sentence Embeddings.html`
+- Source HTML: `raw/html/Gao, Yao, Chen - 2021 - SimCSE Simple Contrastive Learning of Sentence Embeddings.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2104.08821
 - Generated from: `scripts/fetch_web_text.py`
 

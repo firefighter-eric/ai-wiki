@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Ai2 - 2024 - OLMo 2 The Best Fully Open Language Model to Date
 
 ## 来源信息

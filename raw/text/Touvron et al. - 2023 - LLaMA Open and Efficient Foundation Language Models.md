@@ -1,6 +1,6 @@
 # Touvron et al. - 2023 - LLaMA Open and Efficient Foundation Language Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Touvron et al. - 2023 - LLaMA Open and Efficient Foundation Language Models.html`
+- Source HTML: `raw/html/Touvron et al. - 2023 - LLaMA Open and Efficient Foundation Language Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2302.13971
 - Generated from: `scripts/fetch_web_text.py`
 

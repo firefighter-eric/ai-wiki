@@ -1,6 +1,6 @@
 # [2403.08295] Gemma: Open Models Based on Gemini Research and Technology
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Team, Google - 2024 - Gemma Open Models Based on Gemini Research and Technology.html`
+- Source HTML: `raw/html/Team, Google - 2024 - Gemma Open Models Based on Gemini Research and Technology.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2403.08295
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,6 +1,6 @@
 # Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing.html`
+- Source HTML: `raw/html/Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2005.00975
 - Generated from: `scripts/fetch_web_text.py`
 

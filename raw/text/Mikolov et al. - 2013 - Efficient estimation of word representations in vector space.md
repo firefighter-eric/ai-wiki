@@ -1,6 +1,6 @@
 # Mikolov et al. - 2013 - Efficient estimation of word representations in vector space
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Mikolov et al. - 2013 - Efficient estimation of word representations in vector space.html`
+- Source HTML: `raw/html/Mikolov et al. - 2013 - Efficient estimation of word representations in vector space.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1301.3781
 - Generated from: `scripts/fetch_web_text.py`
 

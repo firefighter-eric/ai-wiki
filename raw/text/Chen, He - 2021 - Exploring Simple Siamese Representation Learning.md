@@ -1,6 +1,6 @@
 # Chen, He - 2021 - Exploring Simple Siamese Representation Learning
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Chen, He - 2021 - Exploring Simple Siamese Representation Learning.html`
+- Source HTML: `raw/html/Chen, He - 2021 - Exploring Simple Siamese Representation Learning.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2011.10566
 - Generated from: `scripts/fetch_web_text.py`
 

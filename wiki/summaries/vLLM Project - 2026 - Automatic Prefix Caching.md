@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # vLLM Project - 2026 - Automatic Prefix Caching
 
 ## 来源信息

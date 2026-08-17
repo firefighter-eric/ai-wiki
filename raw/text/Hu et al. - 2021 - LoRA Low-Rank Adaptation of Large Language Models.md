@@ -1,6 +1,6 @@
 # Hu et al. - 2021 - LoRA Low-Rank Adaptation of Large Language Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Hu et al. - 2021 - LoRA Low-Rank Adaptation of Large Language Models.html`
+- Source HTML: `raw/html/Hu et al. - 2021 - LoRA Low-Rank Adaptation of Large Language Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2106.09685
 - Generated from: `scripts/fetch_web_text.py`
 

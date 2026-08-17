@@ -1,6 +1,6 @@
 # [2403.08275] Fully discrete finite difference schemes for the Fractional Korteweg-de Vries equation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Databricks - 2024 - DBRX A Highly Efficient Open LLM.html`
+- Source HTML: `raw/html/Databricks - 2024 - DBRX A Highly Efficient Open LLM.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2403.08275
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zhang et al. - 2022 - Tip-Adapter Training-Free Adaption of CLIP for Few-Shot Classification
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Tip-Adapter: Training-free Adaption of CLIP for Few-shot Classification Renrui Zhang∗1,2, Wei Zhang∗1, Rongyao Fang2, Peng Gao†1, Kunchang Li1, Jifeng Dai3, Yu Qiao1, and Hongsheng Li2,4 1 Shanghai AI Laboratory 2 The Chinese University of Hong Kong 3 SenseTime Research 4 Centre for Perceptual and Interactive Intelligence (CPII) {zhangrenrui, gaopeng, qiaoyu}@pjlab.org.cn, hsli@ee.cuhk.edu.hk Abstract. Contrastive Vision-Language Pre-training, known as CLIP, has provided a new paradigm for learning visual representations us- ing large-scale image-text pairs. It shows impressive performance on downstream tasks by zero-shot knowledge transfer. To further enhance CLIP’s adaption capability, existing methods proposed to fine-tune ad- ditional learnable modules, which significantly improves the few-shot performance but introduces extra training time and computational re- sources. In this pape
 

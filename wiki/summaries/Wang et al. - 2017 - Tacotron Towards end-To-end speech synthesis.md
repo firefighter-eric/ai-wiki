@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wang et al. - 2017 - Tacotron Towards end-To-end speech synthesis
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2017
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 TACOTRON: TOWARDS END-TO-END SPEECH SYN- THESIS Yuxuan Wang∗, RJ Skerry-Ryan∗, Daisy Stanton, Yonghui Wu, Ron J. Weiss†, Navdeep Jaitly, Zongheng Yang, Ying Xiao∗, Zhifeng Chen, Samy Bengio†, Quoc Le, Yannis Agiomyrgiannakis, Rob Clark, Rif A. Saurous∗ Google, Inc. {yxwang,rjryan,rif}@google.com ABSTRACT A text-to-speech synthesis system typically consists of multiple stages, such as a text analysis frontend, an acoustic model and an audio synthesis module. Build- ing these components often requires extensive domain expertise and may contain brittle design choices. In this paper, we present Tacotron, an end-to-end genera- tive text-to-speech model that synthesizes speech directly from characters. Given <text, audio> pairs, the model can be trained completely from scratch with ran- dom initialization. We present several key techniques to make the sequence-to- sequence framework perform we
 

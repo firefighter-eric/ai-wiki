@@ -1,6 +1,6 @@
 # Kumar et al. - 2019 - MelGAN Generative adversarial networks for conditional waveform synthesis
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Kumar et al. - 2019 - MelGAN Generative adversarial networks for conditional waveform synthesis.html`
+- Source HTML: `raw/html/Kumar et al. - 2019 - MelGAN Generative adversarial networks for conditional waveform synthesis.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1910.06711
 - Generated from: `scripts/fetch_web_text.py`
 

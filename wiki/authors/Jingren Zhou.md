@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Jingren Zhou
 
 ## 简介

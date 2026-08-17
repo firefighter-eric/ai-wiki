@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Jinze Bai
 
 ## 简介

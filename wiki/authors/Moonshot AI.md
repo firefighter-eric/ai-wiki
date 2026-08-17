@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Moonshot AI
 
 ## 简介

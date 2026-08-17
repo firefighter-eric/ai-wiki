@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # InstructGPT
 
 ## 简介

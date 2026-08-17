@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Llama 2
 
 ## 简介
@@ -23,8 +26,8 @@ Llama 2 是 Llama 家族从开放 base model 走向开放 chat model 的关键�
 
 ## 关联页面
 
-- [Llama](./Llama.md)
-- [LLaMA](./LLaMA.md)
+- [Llama 家族](./Llama%20家族.md)
+- [LLaMA（初代）](./LLaMA%20初代.md)
 - [Code Llama](./Code Llama.md)
 - [Llama 3](./Llama 3.md)
 - [LLM预训练](../topics/LLM%20预训练.md)

@@ -1,3 +1,6 @@
+---
+type: author
+---
 # OpenAI
 
 ## 简介

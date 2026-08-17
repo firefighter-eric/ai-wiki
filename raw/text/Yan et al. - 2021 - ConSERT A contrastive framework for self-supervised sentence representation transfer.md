@@ -1,6 +1,6 @@
 # Yan et al. - 2021 - ConSERT A contrastive framework for self-supervised sentence representation transfer
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Yan et al. - 2021 - ConSERT A contrastive framework for self-supervised sentence representation transfer.html`
+- Source HTML: `raw/html/Yan et al. - 2021 - ConSERT A contrastive framework for self-supervised sentence representation transfer.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2105.11741
 - Generated from: `scripts/fetch_web_text.py`
 

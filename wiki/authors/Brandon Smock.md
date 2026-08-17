@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Brandon Smock
 
 ## 简介

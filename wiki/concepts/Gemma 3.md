@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Gemma 3
 
 ## 简介

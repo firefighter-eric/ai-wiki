@@ -29,6 +29,11 @@ BLOCK_TAGS = {
 }
 HEADING_TAGS = {"h1", "h2", "h3", "h4", "h5", "h6"}
 SKIP_TAGS = {"script", "style", "noscript", "svg"}
+FATAL_EXTRACTION_MARKERS = (
+    "Conversion to HTML had a Fatal error",
+    "LaTeXML encountered an error",
+    "Fatal error occurred",
+)
 
 
 def normalize_whitespace(text: str) -> str:
@@ -37,6 +42,18 @@ def normalize_whitespace(text: str) -> str:
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
+
+
+def validate_extracted_body(body: str, min_chars: int = 300) -> None:
+    """Reject upstream error pages and implausibly short extraction results."""
+    normalized = normalize_whitespace(body)
+    for marker in FATAL_EXTRACTION_MARKERS:
+        if marker.casefold() in normalized.casefold():
+            raise ValueError(f"Upstream conversion failure detected: {marker}")
+    if len(normalized) < min_chars:
+        raise ValueError(
+            f"Extracted body is too short ({len(normalized)} characters; minimum {min_chars})."
+        )
 
 
 class ArticleExtractor(HTMLParser):
@@ -202,6 +219,12 @@ def main() -> int:
     parser.add_argument("output", help="Output markdown path.")
     parser.add_argument("--title", help="Override output title.")
     parser.add_argument("--html-out", help="Optional path to save the raw HTML response.")
+    parser.add_argument(
+        "--min-chars",
+        type=int,
+        default=300,
+        help="Minimum extracted body length. Default: 300.",
+    )
     args = parser.parse_args()
 
     response = requests.get(
@@ -216,8 +239,10 @@ def main() -> int:
     parser_ = ArticleExtractor()
     parser_.feed(response.text)
     body = jsonld_body or parser_.render()
-    if not body:
-        print(f"Failed to extract body from {args.url}", file=sys.stderr)
+    try:
+        validate_extracted_body(body, min_chars=args.min_chars)
+    except ValueError as exc:
+        print(f"Failed to extract body from {args.url}: {exc}", file=sys.stderr)
         return 1
 
     title = args.title or jsonld_title or parser_.title or Path(urlparse(args.url).path).name or "Untitled"

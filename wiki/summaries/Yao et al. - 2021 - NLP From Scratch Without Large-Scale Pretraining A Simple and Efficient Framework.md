@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Yao et al. - 2021 - NLP From Scratch Without Large-Scale Pretraining A Simple and Efficient Framework
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Pretrained language models have become the standard approach for many NLP tasks due to strong performance, but they are very expen- sive to train. We propose a simple and efﬁ- cient learning framework TLM that does not rely on large-scale pretraining1. Given some labeled task data and a large general corpus, TLM uses task data as queries to retrieve a tiny subset of the general corpus and jointly opti- mizes the task objective and the language mod- eling objective from scratch. On eight classiﬁ- cation datasets in four domains, TLM achieves results better than or similar to pretrained lan- guage models (e.g., RoBERTa-Large) while re- ducing the training FLOPs by two orders of magnitude. With high accuracy and efﬁciency, we hope TLM will contribute to democratizing NLP and expediting its development2.
 

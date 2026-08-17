@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Liu et al. - 2025 - Muon is Scalable for LLM Training
 
 ## 来源信息

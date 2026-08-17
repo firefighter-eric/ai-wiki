@@ -1,6 +1,6 @@
 # Touvron et al. - 2023 - Llama 2 Open Foundation and Fine-Tuned Chat Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Touvron et al. - 2023 - Llama 2 Open Foundation and Fine-Tuned Chat Models.html`
+- Source HTML: `raw/html/Touvron et al. - 2023 - Llama 2 Open Foundation and Fine-Tuned Chat Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2307.09288
 - Generated from: `scripts/fetch_web_text.py`
 

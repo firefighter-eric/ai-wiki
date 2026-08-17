@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Switch Transformer
 
 ## 简介

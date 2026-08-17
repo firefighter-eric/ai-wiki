@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Shazeer - 2019 - Fast Transformer Decoding One Write-Head is All You Need
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2019
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 这篇论文提出的 `Multi-Query Attention (MQA)` 是现代 LLM 推理优化中的关键分支。它保留多个 query heads，但让所有头共享同一组 `K/V`，从而显著缩小自回归解码时需要重复加载的 `KV cache`，重点优化的是增量推理的内存带宽成本，而不是训练时的全序列 attention 复杂度。
 

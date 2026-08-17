@@ -1,6 +1,6 @@
 # Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance.html`
+- Source HTML: `raw/html/Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1905.02851
 - Generated from: `scripts/fetch_web_text.py`
 

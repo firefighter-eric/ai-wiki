@@ -1,6 +1,6 @@
 # Ai - Unknown - Robust Self-Supervised Audio-Visual Speech Recognition
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Ai - Unknown - Robust Self-Supervised Audio-Visual Speech Recognition.html`
+- Source HTML: `raw/html/Ai - Unknown - Robust Self-Supervised Audio-Visual Speech Recognition.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2201.01763
 - Generated from: `scripts/fetch_web_text.py`
 

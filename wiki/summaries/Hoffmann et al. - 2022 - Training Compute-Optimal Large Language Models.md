@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Training Compute-Optimal Large Language Models Jordan Hoﬀmann★, Sebastian Borgeaud★, Arthur Mensch★, Elena Buchatskaya, Trevor Cai, Eliza Rutherford, Diego de Las Casas, Lisa Anne Hendricks, Johannes Welbl, Aidan Clark, Tom Hennigan, Eric Noland, Katie Millican, George van den Driessche, Bogdan Damoc, Aurelia Guy, Simon Osindero, Karen Simonyan, Erich Elsen, Jack W. Rae, Oriol Vinyals and Laurent Sifre★ ★Equal contributions We investigate the optimal model size and number of tokens for training a transformer language model under a given compute budget. We ﬁnd that current large language models are signiﬁcantly under- trained, a consequence of the recent focus on scaling language models whilst keeping the amount of training data constant. By training over 400 language models ranging from 70 million to over 16 billion parameters on 5 to 500 billion tokens, we ﬁnd that for compute-optimal t
 

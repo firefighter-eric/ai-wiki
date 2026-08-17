@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2025 - Qwen3 Think Deeper Act Faster
 
 ## 来源信息

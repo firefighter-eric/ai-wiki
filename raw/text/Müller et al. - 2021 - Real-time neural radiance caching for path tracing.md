@@ -1,6 +1,6 @@
 # Müller et al. - 2021 - Real-time neural radiance caching for path tracing
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Müller et al. - 2021 - Real-time neural radiance caching for path tracing.html`
+- Source HTML: `raw/html/Müller et al. - 2021 - Real-time neural radiance caching for path tracing.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2201.05989
 - Generated from: `scripts/fetch_web_text.py`
 

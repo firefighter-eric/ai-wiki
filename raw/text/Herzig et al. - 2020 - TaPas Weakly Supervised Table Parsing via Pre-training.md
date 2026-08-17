@@ -1,6 +1,6 @@
 # Herzig et al. - 2020 - TaPas Weakly Supervised Table Parsing via Pre-training
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Herzig et al. - 2020 - TaPas Weakly Supervised Table Parsing via Pre-training.html`
+- Source HTML: `raw/html/Herzig et al. - 2020 - TaPas Weakly Supervised Table Parsing via Pre-training.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2004.02349
 - Generated from: `scripts/fetch_web_text.py`
 

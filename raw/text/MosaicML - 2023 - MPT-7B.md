@@ -1,6 +1,6 @@
 # MPT-7B
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/MosaicML - 2023 - MPT-7B.html`
+- Source HTML: `raw/html/MosaicML - 2023 - MPT-7B.html`
 - Source URL: https://www.databricks.com/blog/mpt-7b
 - Generated from: `scripts/fetch_web_text.py`
 

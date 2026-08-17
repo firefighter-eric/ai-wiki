@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Wan2.6
 
 ## 简介

@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Ła - Unknown - FASTPITCH PARALLEL TEXT-TO-SPEECH WITH PITCH PREDICTION Adrian Ła´ ncucki NVIDIA Corporation
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：Unknown
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 FASTPITCH: PARALLEL TEXT-TO-SPEECH WITH PITCH PREDICTION Adrian Ła´ncucki NVIDIA Corporation ABSTRACT We present FastPitch, a fully-parallel text-to-speech model based on FastSpeech, conditioned on fundamental frequency contours. The model predicts pitch contours during inference. By altering these predictions, the generated speech can be more expressive, better match the semantic of the utterance, and in the end more engaging to the listener. Uniformly in- creasing or decreasing pitch with FastPitch generates speech that resembles the voluntary modulation of voice. Condi- tioning on frequency contours improves the overall quality of synthesized speech, making it comparable to state-of-the-art. It does not introduce an overhead, and FastPitch retains the favorable, fully-parallel Transformer architecture, with over 900× real-time factor for mel-spectrogram synthesis of a typ- ical uttera
 

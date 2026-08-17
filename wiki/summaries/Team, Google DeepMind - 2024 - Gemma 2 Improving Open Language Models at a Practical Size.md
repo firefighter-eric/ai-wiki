@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Team, Google DeepMind - 2024 - Gemma 2 Improving Open Language Models at a Practical Size
 
 ## 来源信息

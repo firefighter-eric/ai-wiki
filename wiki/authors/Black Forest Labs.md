@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Black Forest Labs
 
 ## 简介

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Code Llama
 
 ## 简介
@@ -23,7 +26,7 @@ Code Llama 是 Llama 家族中的代码专门模型分支。在当前知识库�
 
 ## 关联页面
 
-- [Llama](./Llama.md)
+- [Llama 家族](./Llama%20家族.md)
 - [Llama 2](./Llama 2.md)
 - [Llama 3](./Llama 3.md)
 - [LLM预训练](../topics/LLM%20预训练.md)

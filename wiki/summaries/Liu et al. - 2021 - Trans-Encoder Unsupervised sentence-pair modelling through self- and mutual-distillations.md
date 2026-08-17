@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liu et al. - 2021 - Trans-Encoder Unsupervised sentence-pair modelling through self- and mutual-distillations
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 TRANS-ENCODER: UNSUPERVISED SENTENCE-PAIR MODELLING THROUGH SELF- AND MUTUAL-DISTILLATIONS Fangyu Liu1∗Yunlong Jiao2 Jordan Massiah2 Emine Yilmaz2 Serhii Havrylov2 1University of Cambridge 2Amazon fl399@cam.ac.uk {jyunlong,jormas,eminey,havrys}@amazon.com ABSTRACT In NLP, a large volume of tasks involve pairwise comparison between two se- quences (e.g., sentence similarity and paraphrase identiﬁcation). Predominantly, two formulations are used for sentence-pair tasks: bi-encoders and cross-encoders. Bi-encoders produce ﬁxed-dimensional sentence representations and are compu- tationally efﬁcient, however, they usually underperform cross-encoders. Cross- encoders can leverage their attention heads to exploit inter-sentence interactions for better performance but they require task ﬁnetuning and are computationally more expensive. In this paper, we present a completely unsupervised sentence-
 

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Qwen
 
 ## 简介

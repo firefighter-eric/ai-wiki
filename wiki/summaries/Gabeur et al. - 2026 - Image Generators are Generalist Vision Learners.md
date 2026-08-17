@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Gabeur et al. - 2026 - Image Generators are Generalist Vision Learners
 
 ## 来源信息

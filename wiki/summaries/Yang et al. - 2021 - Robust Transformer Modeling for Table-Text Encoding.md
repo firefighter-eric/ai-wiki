@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Yang et al. - 2021 - Robust Transformer Modeling for Table-Text Encoding
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Understanding tables is an important aspect of natural language understanding. Existing mod- els for table understanding require lineariza- tion of the table structure, where row or col- umn order is encoded as an unwanted bias. Such spurious biases make the model vulner- able to row and column order perturbations. Additionally, prior work has not thoroughly modeled the table structures or table-text align- ments, hindering the table-text understanding ability. In this work, we propose a robust and structurally aware table-text encoding architec- ture TABLEFORMER, where tabular structural biases are incorporated completely through learnable attention biases. TABLEFORMER is (1) strictly invariant to row and column or- ders, and, (2) could understand tables better due to its tabular inductive biases. Our eval- uations showed that TABLEFORMER outper- forms strong baselines in all settings on SQA, WTQ and TABFACT table reasoning datasets, and achieves state-of-the-art performance on SQA, especially when facing answer-invariant row and column order perturbations (6% im- provement over the best baseline), because pre- vious SOTA models’ performance drops by 4% - 6% when facing such perturbations while TABLEFORMER is not affected.1
 

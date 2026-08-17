@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Stable LatentMoE
 
 ## 简介

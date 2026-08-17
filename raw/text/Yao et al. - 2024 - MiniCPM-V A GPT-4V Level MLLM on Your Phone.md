@@ -1,6 +1,6 @@
 # Yao et al. - 2024 - MiniCPM-V A GPT-4V Level MLLM on Your Phone
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Yao et al. - 2024 - MiniCPM-V A GPT-4V Level MLLM on Your Phone.html`
+- Source HTML: `raw/html/Yao et al. - 2024 - MiniCPM-V A GPT-4V Level MLLM on Your Phone.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2408.01800
 - Generated from: `scripts/fetch_web_text.py`
 

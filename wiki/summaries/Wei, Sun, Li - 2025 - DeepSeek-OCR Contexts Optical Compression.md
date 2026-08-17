@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Wei, Sun, Li - 2025 - DeepSeek-OCR Contexts Optical Compression
 
 ## 来源信息

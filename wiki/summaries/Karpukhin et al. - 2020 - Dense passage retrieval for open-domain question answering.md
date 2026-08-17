@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Karpukhin et al. - 2020 - Dense passage retrieval for open-domain question answering
 
 ## 来源信息

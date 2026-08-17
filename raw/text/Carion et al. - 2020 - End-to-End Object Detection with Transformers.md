@@ -1,6 +1,6 @@
 # Carion et al. - 2020 - End-to-End Object Detection with Transformers
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Carion et al. - 2020 - End-to-End Object Detection with Transformers.html`
+- Source HTML: `raw/html/Carion et al. - 2020 - End-to-End Object Detection with Transformers.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2005.12872
 - Generated from: `scripts/fetch_web_text.py`
 

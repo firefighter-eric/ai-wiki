@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Xiong et al. - 2021 - Nyströmformer A Nystrom-Based Algorithm for Approximating Self-Attention
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2021
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `Nyströmformer` 代表 efficient attention 中基于 landmark / Nyström 近似的路线。它把 softmax attention matrix 看成可由少量代表性列与行重建的对象，通过 landmark points 逼近完整 attention，从而在保持 global interaction 语义的同时把复杂度降到线性级别。
 

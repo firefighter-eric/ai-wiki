@@ -1,8 +1,13 @@
+---
+type: topic
+status: building
+---
 # LLM 预训练
 
 ## 页面状态
 
-- 状态：正式 topic
+- 状态：待建设 topic
+- 原因：证据基础仍包含待精读自动摘要；对应 summary 精修并复核核心论断后，才可重新升级为正式 topic。
 - 事实基座：`wiki/summaries/` 优先
 
 ## 主题定义
@@ -84,8 +89,8 @@
 - [OPT](../concepts/OPT.md)
 - [mT5](../concepts/mT5.md)
 - [Qwen](../concepts/Qwen.md)
-- [Llama](../concepts/Llama.md)
-- [LLaMA](../concepts/LLaMA.md)
+- [Llama 家族](../concepts/Llama%20家族.md)
+- [LLaMA（初代）](../concepts/LLaMA%20初代.md)
 - [Llama 2](../concepts/Llama%202.md)
 - [Code Llama](../concepts/Code%20Llama.md)
 - [Llama 3](../concepts/Llama%203.md)

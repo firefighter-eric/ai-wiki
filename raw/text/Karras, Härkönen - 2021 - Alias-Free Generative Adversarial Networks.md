@@ -1,6 +1,6 @@
 # Karras, Härkönen - 2021 - Alias-Free Generative Adversarial Networks
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Karras, Härkönen - 2021 - Alias-Free Generative Adversarial Networks.html`
+- Source HTML: `raw/html/Karras, Härkönen - 2021 - Alias-Free Generative Adversarial Networks.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2106.12423
 - Generated from: `scripts/fetch_web_text.py`
 

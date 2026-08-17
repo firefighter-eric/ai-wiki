@@ -1,6 +1,6 @@
 # Alabdulmohsin et al. - 2023 - Getting ViT in Shape Scaling Laws for Compute-Optimal Model Design
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Alabdulmohsin et al. - 2023 - Getting ViT in Shape Scaling Laws for Compute-Optimal Model Design.html`
+- Source HTML: `raw/html/Alabdulmohsin et al. - 2023 - Getting ViT in Shape Scaling Laws for Compute-Optimal Model Design.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2305.13035
 - Generated from: `scripts/fetch_web_text.py`
 

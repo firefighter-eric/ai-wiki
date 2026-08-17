@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Yan et al. - 2021 - ConSERT A contrastive framework for self-supervised sentence representation transfer
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Learning high-quality sentence representa- tions beneﬁts a wide range of natural language processing tasks. Though BERT-based pre- trained language models achieve high perfor- mance on many downstream tasks, the native derived sentence representations are proved to be collapsed and thus produce a poor perfor- mance on the semantic textual similarity (STS) tasks. In this paper, we present ConSERT, a Contrastive Framework for Self-Supervised SEntence Representation Transfer, that adopts contrastive learning to ﬁne-tune BERT in an unsupervised and effective way. By making use of unlabeled texts, ConSERT solves the collapse issue of BERT-derived sentence rep- resentations and make them more applicable for downstream tasks. Experiments on STS datasets demonstrate that ConSERT achieves an 8% relative improvement over the previous state-of-the-art, even comparable to the super- vised SBERT-NLI. And when further incorpo- rating NLI supervision, we achieve new state- of-the-art performance on STS tasks. More- over, ConSERT obtains comparable results with only 1000 samples available, showing its robustness in data scarcity scenarios.
 

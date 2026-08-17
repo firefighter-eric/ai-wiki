@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2026 - Qwen3.5 Towards Native Multimodal Agents
 
 ## 来源信息

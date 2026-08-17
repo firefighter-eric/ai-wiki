@@ -1,6 +1,6 @@
 # Zhang et al. - 2025 - SlideAudit A Dataset and Taxonomy for Automated Evaluation of Presentation Slides
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zhang et al. - 2025 - SlideAudit A Dataset and Taxonomy for Automated Evaluation of Presentation Slides.html`
+- Source HTML: `raw/html/Zhang et al. - 2025 - SlideAudit A Dataset and Taxonomy for Automated Evaluation of Presentation Slides.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2508.03630
 - Generated from: `scripts/fetch_web_text.py`
 

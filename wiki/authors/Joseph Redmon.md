@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Joseph Redmon
 
 ## 简介

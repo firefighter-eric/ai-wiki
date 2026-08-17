@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Alibaba Cloud - 2025 - Alibaba Unveils Wan2.6 Series Enabling Everyone to Star in Videos
 
 ## 来源信息

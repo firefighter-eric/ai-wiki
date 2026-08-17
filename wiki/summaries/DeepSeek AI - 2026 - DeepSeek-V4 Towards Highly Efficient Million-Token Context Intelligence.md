@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence
 
 ## 来源信息

@@ -1,3 +1,6 @@
+---
+type: author
+---
 # ByteDance Seed
 
 ## 简介

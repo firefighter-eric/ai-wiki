@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # vLLM Project - 2026 - Architecture Overview
 
 ## 来源信息

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Attention Residuals
 
 ## 简介

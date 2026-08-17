@@ -1,6 +1,6 @@
 # Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations.html`
+- Source HTML: `raw/html/Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2006.03659
 - Generated from: `scripts/fetch_web_text.py`
 

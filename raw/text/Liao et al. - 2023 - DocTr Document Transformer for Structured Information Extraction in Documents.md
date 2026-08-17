@@ -1,6 +1,6 @@
 # Liao et al. - 2023 - DocTr Document Transformer for Structured Information Extraction in Documents
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Liao et al. - 2023 - DocTr Document Transformer for Structured Information Extraction in Documents.html`
+- Source HTML: `raw/html/Liao et al. - 2023 - DocTr Document Transformer for Structured Information Extraction in Documents.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2307.07929
 - Generated from: `scripts/fetch_web_text.py`
 

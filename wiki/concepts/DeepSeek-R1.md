@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DeepSeek-R1
 
 ## 简介

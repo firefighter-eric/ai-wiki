@@ -1,6 +1,6 @@
 # [2310.06825] Mistral 7B
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Jiang et al. - 2023 - Mistral 7B.html`
+- Source HTML: `raw/html/Jiang et al. - 2023 - Mistral 7B.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2310.06825
 - Generated from: `scripts/fetch_web_text.py`
 

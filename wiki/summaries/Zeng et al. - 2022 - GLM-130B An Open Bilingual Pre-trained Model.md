@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Zeng et al. - 2022 - GLM-130B An Open Bilingual Pre-trained Model
 
 ## 来源信息

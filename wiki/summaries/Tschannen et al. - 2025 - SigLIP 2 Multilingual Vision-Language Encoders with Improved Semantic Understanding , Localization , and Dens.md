@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Tschannen et al. - 2025 - SigLIP 2 Multilingual Vision-Language Encoders with Improved Semantic Understanding , Localization , and Dens
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2025
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 February 2025 SigLIP 2: Multilingual Vision-Language Encoders with Improved Semantic Understanding, Localization, and Dense Features Michael Tschannen*,†, Alexey Gritsenko*, Xiao Wang*, Muhammad Ferjad Naeem*, Ibrahim Alabdulmohsin*, Nikhil Parthasarathy*, Talfan Evans*,◦, Lucas Beyer*,◦, Ye Xia, Basil Mustafa, Olivier Hénaff◦, Jeremiah Harmsen, Andreas Steiner and Xiaohua Zhai*,◦,† Google DeepMind, *Core contributor, †Project lead, ◦Work done while at Google DeepMind We introduce SigLIP 2, a family of new multilingual vision-language encoders that build on the success of the original SigLIP. In this second iteration, we extend the original image-text training objective with several prior, independently developed techniques into a unified recipe—this includes captioning- based pretraining, self-supervised losses (self-distillation, masked prediction) and online data curation. With these 
 

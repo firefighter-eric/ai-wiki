@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # BLOOM
 
 ## 简介
@@ -24,7 +27,7 @@ BLOOM 是当前知识库中“早期超大规模开放多语言模型”路线�
 ## 关联页面
 
 - [OPT](./OPT.md)
-- [LLaMA](./LLaMA.md)
+- [LLaMA（初代）](./LLaMA%20初代.md)
 - [GLM](./GLM.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
 - [开放模型家族与中国重要家族对照](../comparisons/开放模型家族与中国重要家族对照.md)

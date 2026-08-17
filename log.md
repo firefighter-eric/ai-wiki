@@ -1472,3 +1472,21 @@
 - 形成模型采用表：Moonlight、Kimi K2/K3、DeepSeek-V4、Motif-2 属于 Muon family；Llama 3、DeepSeek-V3、OLMo 2 明确使用 AdamW；Qwen3、Gemma 3 的当前公开来源未披露优化器，保留未知。
 - 保留预训练与微调 optimizer mismatch、完整矩阵通信、临时 buffers、开发者自报 scaling law 和多变量能力归因等限制。
 - 补充 Kimi 参数分组的证据等级：Moonlight 明确以 AdamW 处理 RMSNorm、LM head 与 embedding；K2 属于继承该 recipe 的强推断；K3 只明确 matrix parameters 使用 Muon，未直接披露非矩阵 fallback 及 embedding/head 是否排除，不能套用 DeepSeek-V4 的确定清单。
+
+## [2026-08-17] lint | 全面修复知识库结构、证据门禁与工具链
+
+涉及范围：
+
+- 全量检查 `raw/ -> raw/text/ -> wiki/summaries/` 来源链与 461 个 wiki 页面
+- 修复 index、内部链接、Llama 命名冲突、正文抽取与 qmd 检索
+- 新增结构 lint、迁移、凭据扫描、单元测试与 GitHub Actions 门禁
+
+关键变更：
+
+- 为全部 wiki 页面补齐机器可读 frontmatter；summary 收敛为 `158 auto / 122 refined`，topic 收敛为 `14 building / 6 formal`。
+- 将 13 个仍依赖自动摘要的正式 topic 保守降级为待建设，并在 `index.md` 同步显式标注；正式 topic 不再绕过精修 summary 证据门槛。
+- 将大小写冲突的 `Llama.md / LLaMA.md` 拆为 `Llama 家族.md` 与 `LLaMA 初代.md`，修复 Qwen topic、Kosmos 摘要、YOLOv4 索引及重复索引项。
+- 把 174 份 `raw/text` 中的旧机器绝对路径迁移为仓库相对路径；对 10 份包含 HTML 转换失败或截断内容的正文改用现有 PDF 完整重建。
+- 为网页抽取增加错误页和最小正文校验，为 arXiv ingest 增加 HTML 失败后的 PDF fallback；修复中英混合检索分词、qmd 自动增量更新与 comparison/timeline 意图排序。
+- 新增 `scripts/lint_wiki.py`、迁移与索引修复脚本、脱敏凭据扫描、12 项单元测试、跟踪版 `uv.lock` 和 `.github/workflows/wiki-ci.yml`。
+- 当前结构 lint 为 `0 error`；剩余 warning 仅用于孤儿页编辑队列。当前树无非 raw 凭据命中；不可变 raw HTML 中的示例字符串只告警，历史匹配仅报告计数、不输出值。

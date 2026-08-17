@@ -1,6 +1,6 @@
 # OpenAI et al. - 2019 - Dota 2 with Large Scale Deep Reinforcement Learning
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/OpenAI et al. - 2019 - Dota 2 with Large Scale Deep Reinforcement Learning.html`
+- Source HTML: `raw/html/OpenAI et al. - 2019 - Dota 2 with Large Scale Deep Reinforcement Learning.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1912.06680
 - Generated from: `scripts/fetch_web_text.py`
 

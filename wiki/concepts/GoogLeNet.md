@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # GoogLeNet
 
 ## 简介

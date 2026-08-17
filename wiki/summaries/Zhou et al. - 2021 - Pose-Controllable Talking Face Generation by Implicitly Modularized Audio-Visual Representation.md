@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Zhou et al. - 2021 - Pose-Controllable Talking Face Generation by Implicitly Modularized Audio-Visual Representation
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 While accurate lip synchronization has been achieved for arbitrary-subject audio-driven talking face generation, the problem of how to efﬁciently drive the head pose re- mains. Previous methods rely on pre-estimated structural information such as landmarks and 3D parameters, aiming to generate personalized rhythmic movements. However, the inaccuracy of such estimated information under extreme con- ditions would lead to degradation problems. In this paper, we propose a clean yet effective framework to generate pose- controllable talking faces. We operate on non-aligned raw face images, using only a single photo as an identity refer- ence. The key is to modularize audio-visual representations by devising an implicit low-dimension pose code. Substan- tially, both speech content and head pose information lie in a joint non-identity embedding space. While speech content information can be deﬁned by learning the intrinsic synchro- nization between audio-visual modalities, we identify that a pose code will be complementarily learned in a modulated convolution-based reconstruction framework. Extensive experiments show that our method generates accurately lip-synced talking faces whose poses are con- trollable by other videos. Moreover, our model has multiple advanced capabilities including extreme view robustness and talking face frontalization.1 1. Introduction Driving a static portrait with audio is of great impor- tance to a variety of applications in the ﬁeld of enter- tainment, such as digital human animation, visual dub- bing in movies, and fast creation of short videos. Armed with deep learning, previous researchers take two differ- ent paths towards analyzing audio-driven talking human 1Code, models, and demo videos are available at https://hangz- nju-cuhk.github.io/projects/PC-AVS.
 

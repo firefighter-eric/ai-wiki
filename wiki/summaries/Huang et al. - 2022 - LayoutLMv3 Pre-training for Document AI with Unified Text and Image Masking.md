@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 LayoutLMv3: Pre-training for Document AI with Unified Text and Image Masking Yupan Huang∗ Sun Yat-sen University huangyp28@mail2.sysu.edu.cn Tengchao Lv Microsoft Research Asia tengchaolv@microsoft.com Lei Cui Microsoft Research Asia lecu@microsoft.com Yutong Lu Sun Yat-sen University luyutong@mail.sysu.edu.cn Furu Wei Microsoft Research Asia fuwei@microsoft.com ABSTRACT Self-supervised pre-training techniques have achieved remarkable progress in Document AI. Most multimodal pre-trained models use a masked language modeling objective to learn bidirectional representations on the text modality, but they differ in pre-training objectives for the image modality. This discrepancy adds difficulty to multimodal representation learning. In this paper, we propose LayoutLMv3 to pre-train multimodal Transformers for Document AI with unified text and image masking. Additionally, LayoutLMv3 is pre-t
 

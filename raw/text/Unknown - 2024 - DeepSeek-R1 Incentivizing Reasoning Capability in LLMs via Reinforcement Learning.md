@@ -1,6 +1,6 @@
 # Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.html`
+- Source HTML: `raw/html/Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2501.12948
 - Generated from: `scripts/fetch_web_text.py`
 

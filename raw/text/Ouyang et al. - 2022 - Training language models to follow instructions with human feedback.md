@@ -1,6 +1,6 @@
 # Ouyang et al. - 2022 - Training language models to follow instructions with human feedback
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Ouyang et al. - 2022 - Training language models to follow instructions with human feedback.html`
+- Source HTML: `raw/html/Ouyang et al. - 2022 - Training language models to follow instructions with human feedback.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2203.02155
 - Generated from: `scripts/fetch_web_text.py`
 

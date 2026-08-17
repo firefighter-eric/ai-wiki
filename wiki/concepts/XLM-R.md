@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # XLM-R
 
 ## 简介

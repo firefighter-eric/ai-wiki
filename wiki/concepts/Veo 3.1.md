@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Veo 3.1
 
 ## 简介

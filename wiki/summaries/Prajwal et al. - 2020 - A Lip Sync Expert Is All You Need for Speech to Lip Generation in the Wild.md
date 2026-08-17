@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Prajwal et al. - 2020 - A Lip Sync Expert Is All You Need for Speech to Lip Generation in the Wild
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 A Lip Sync Expert Is All You Need for Speech to Lip Generation In The Wild K R Prajwal∗ prajwal.k@research.iiit.ac.in IIIT, Hyderabad, India Rudrabha Mukhopadhyay∗ radrabha.m@research.iiit.ac.in IIIT, Hyderabad, India Vinay P. Namboodiri vpn22@bath.ac.uk University of Bath, England C V Jawahar jawahar@iiit.ac.in IIIT, Hyderabad, India Figure 1: Our novel Wav2Lip model produces significantly more accurate lip-synchronization in dynamic, unconstrained talk- ing face videos. Quantitative metrics indicate that the lip-sync in our generated videos are almost as good as real-synced videos. Thus, we believe that our model can enable a wide range of real-world applications where previous speaker-independent lip- syncing approaches [17, 18] struggle to produce satisfactory results. ABSTRACT In this work, we investigate the problem of lip-syncing a talking face video of an arbitrary identity to ma
 

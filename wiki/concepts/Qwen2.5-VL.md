@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Qwen2.5-VL
 
 ## 简介

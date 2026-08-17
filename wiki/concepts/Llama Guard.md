@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Llama Guard
 
 ## 简介

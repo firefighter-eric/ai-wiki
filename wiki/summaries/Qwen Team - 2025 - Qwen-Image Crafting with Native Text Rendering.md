@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering
 
 ## 来源信息

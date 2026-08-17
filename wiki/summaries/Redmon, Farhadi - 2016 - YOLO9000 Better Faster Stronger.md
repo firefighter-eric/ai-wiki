@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2016
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `YOLO9000 / YOLOv2` 的意义在于把 `YOLOv1` 的单阶段框架从“快但相对粗糙”的原型推进为更成熟的 one-stage 检测路线。它引入 anchor boxes、dimension clustering、多尺度训练与联合分类/检测训练，不只提升定位与召回，也尝试把检测类别规模扩展到 `9000+`。
 

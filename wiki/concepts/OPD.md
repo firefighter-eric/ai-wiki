@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # OPD
 
 ## 简介

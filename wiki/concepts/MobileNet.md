@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # MobileNet
 
 ## 简介

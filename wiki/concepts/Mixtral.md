@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Mixtral
 
 ## 简介

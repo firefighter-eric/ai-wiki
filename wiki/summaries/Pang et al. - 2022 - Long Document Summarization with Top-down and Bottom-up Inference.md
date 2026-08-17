@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Pang et al. - 2022 - Long Document Summarization with Top-down and Bottom-up Inference
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 LONG DOCUMENT SUMMARIZATION WITH TOP-DOWN AND BOTTOM-UP INFERENCE Bo Pang, Erik Nijkamp, Wojciech Kry´sci´nski, Silvio Savarese, Yingbo Zhou, Caiming Xiong Salesforce Research {b.pang, erik.nijkamp, wojciech.kryscinski}@salesforce.com {ssavarese, yingbo.zhou, cxiong}@salesforce.com ABSTRACT Text summarization aims to condense long documents and retain key informa- tion. Critical to the success of a summarization model is the faithful inference of latent representations of words or tokens in the source documents. Most re- cent models infer the latent representations with a transformer encoder, which is purely bottom-up. Also, self-attention-based inference models face the challenge of quadratic complexity with respect to sequence length. We propose a principled inference framework to improve summarization models on these two aspects. Our framework assumes a hierarchical latent structure o
 

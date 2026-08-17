@@ -1,6 +1,6 @@
 # Xu, Choi - 2020 - Revealing the Myth of Higher-Order Inference in Coreference Resolution
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Xu, Choi - 2020 - Revealing the Myth of Higher-Order Inference in Coreference Resolution.html`
+- Source HTML: `raw/html/Xu, Choi - 2020 - Revealing the Myth of Higher-Order Inference in Coreference Resolution.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2009.12013
 - Generated from: `scripts/fetch_web_text.py`
 

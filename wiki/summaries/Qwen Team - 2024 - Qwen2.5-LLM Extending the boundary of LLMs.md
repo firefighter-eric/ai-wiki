@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Qwen Team - 2024 - Qwen2.5-LLM Extending the boundary of LLMs
 
 ## 来源信息

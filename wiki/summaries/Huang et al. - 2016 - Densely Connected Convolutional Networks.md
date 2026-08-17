@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Huang et al. - 2016 - Densely Connected Convolutional Networks
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2016
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `DenseNet` 将跨层连接从 `ResNet` 的逐块残差相加进一步推进为“每层接收此前所有层特征”的密集连接模式。它的重要性不只是又一个更深 backbone，而是在经典 CNN 中明确提出：跨层信息流可以通过特征复用而非重复学习来改善训练效率和参数效率。
 

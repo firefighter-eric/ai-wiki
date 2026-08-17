@@ -1,6 +1,6 @@
 # Jiang, Lu - Unknown - InfiniteYou Flexible Photo Recrafting While Preserving Your Identity
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Jiang, Lu - Unknown - InfiniteYou Flexible Photo Recrafting While Preserving Your Identity.html`
+- Source HTML: `raw/html/Jiang, Lu - Unknown - InfiniteYou Flexible Photo Recrafting While Preserving Your Identity.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2503.16418
 - Generated from: `scripts/fetch_web_text.py`
 

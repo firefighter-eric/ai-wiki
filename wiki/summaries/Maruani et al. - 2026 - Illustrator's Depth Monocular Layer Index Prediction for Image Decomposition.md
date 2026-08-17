@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Maruani et al. - 2026 - Illustrator's Depth Monocular Layer Index Prediction for Image Decomposition
 
 ## 来源信息

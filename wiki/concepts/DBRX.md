@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DBRX
 
 ## 简介

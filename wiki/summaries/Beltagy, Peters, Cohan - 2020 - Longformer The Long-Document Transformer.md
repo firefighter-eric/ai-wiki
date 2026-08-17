@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Beltagy, Peters, Cohan - 2020 - Longformer The Long-Document Transformer
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2020
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `Longformer` 代表长文档建模里最实用的一类 attention：`local window + task-motivated global attention`。它不试图近似 full attention 的所有连接，而是承认大多数 token 主要依赖局部邻域，仅为少数任务关键 token 开放全局访问，因此可以把复杂度降为线性并保持对文档任务友好。
 

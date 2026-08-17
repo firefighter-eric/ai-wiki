@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Xie et al. - 2016 - Aggregated Residual Transformations for Deep Neural Networks
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2016
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `ResNeXt` 的关键贡献，是在 `ResNet` 已经证明残差连接有效之后，把网络容量的主调节维度从“只看深度和宽度”扩展到第三个维度 `cardinality`。它试图保留残差家族的规则结构，同时吸收 `Inception` 的多分支思想，但用更统一、更易扩展的模块化方式实现。
 

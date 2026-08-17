@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Liu, Lapata - 2020 - Text summarization with pretrained encoders
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Bidirectional Encoder Representations from Transformers (BERT; Devlin et al. 2019) rep- resents the latest incarnation of pretrained lan- guage models which have recently advanced a wide range of natural language processing tasks. In this paper, we showcase how BERT can be usefully applied in text summariza- tion and propose a general framework for both extractive and abstractive models. We intro- duce a novel document-level encoder based on BERT which is able to express the semantics of a document and obtain representations for its sentences. Our extractive model is built on top of this encoder by stacking several inter- sentence Transformer layers. For abstractive summarization, we propose a new ﬁne-tuning schedule which adopts different optimizers for the encoder and the decoder as a means of al- leviating the mismatch between the two (the former is pretrained while the latter is not). We also demonstrate that a two-staged ﬁne-tuning approach can further boost the quality of the generated summaries. Experiments on three datasets show that our model achieves state- of-the-art results across the board in both ex- tractive and abstractive settings.1
 

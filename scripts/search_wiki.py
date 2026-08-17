@@ -59,6 +59,11 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Override qmd result count for each collection search.",
     )
+    parser.add_argument(
+        "--no-update",
+        action="store_true",
+        help="Skip qmd's incremental index refresh before searching.",
+    )
     return parser.parse_args()
 
 
@@ -96,10 +101,28 @@ def query_terms(query: str) -> list[str]:
     text = query.strip().lower()
     if not text:
         return []
-    if re.search(r"[\u4e00-\u9fff]", text):
-        return [text]
-    terms = [part for part in re.split(r"[^a-z0-9]+", text) if len(part) >= 3]
+    latin_terms = re.findall(r"[a-z0-9][a-z0-9._+-]+", text)
+    cjk_chunks = re.findall(r"[\u4e00-\u9fff]+", text)
+    cjk_stopwords = re.compile(
+        r"(?:为什么|是什么|有什么|有哪些|如何|怎么|以及|比较|对比|区别|差异|和|与|及|的)"
+    )
+    cjk_terms = [
+        part
+        for chunk in cjk_chunks
+        for part in cjk_stopwords.split(chunk)
+        if len(part) >= 2
+    ]
+    terms = list(dict.fromkeys([*latin_terms, *cjk_terms]))
     return terms or [text]
+
+
+def qmd_search_query(query: str) -> str:
+    """Turn a natural-language question into stable BM25 search terms."""
+    terms = query_terms(query)
+    latin = [term for term in terms if re.fullmatch(r"[a-z0-9][a-z0-9._+-]+", term)]
+    if len(latin) >= 2:
+        return " ".join(latin)
+    return " ".join(terms)
 
 
 def matches_query_text(query: str, result: dict[str, Any]) -> bool:
@@ -114,7 +137,7 @@ def matches_query_text(query: str, result: dict[str, Any]) -> bool:
         ]
     ).lower()
     matched = sum(1 for term in terms if term in haystack)
-    required = len(terms) if len(terms) <= 2 else 2
+    required = 1 if len(terms) == 1 else 2
     return matched >= required
 
 
@@ -132,18 +155,40 @@ def installation_error() -> str:
     )
 
 
-def subtype_priority(path: str) -> int:
+def subtype_priority(path: str, query: str = "") -> int:
     if path == "index.md":
         return 0
-    order = (
-        "wiki/topics/",
-        "wiki/concepts/",
-        "wiki/comparisons/",
-        "wiki/timelines/",
-        "wiki/summaries/",
-        "wiki/authors/",
-        "raw/text/",
-    )
+    lowered = query.casefold()
+    if re.search(r"(?:对比|比较|区别|差异|\bvs\b)", lowered):
+        order = (
+            "wiki/comparisons/",
+            "wiki/topics/",
+            "wiki/concepts/",
+            "wiki/timelines/",
+            "wiki/summaries/",
+            "wiki/authors/",
+            "raw/text/",
+        )
+    elif re.search(r"(?:时间线|演进|历史|timeline)", lowered):
+        order = (
+            "wiki/timelines/",
+            "wiki/topics/",
+            "wiki/concepts/",
+            "wiki/comparisons/",
+            "wiki/summaries/",
+            "wiki/authors/",
+            "raw/text/",
+        )
+    else:
+        order = (
+            "wiki/topics/",
+            "wiki/concepts/",
+            "wiki/comparisons/",
+            "wiki/timelines/",
+            "wiki/summaries/",
+            "wiki/authors/",
+            "raw/text/",
+        )
     for index, prefix in enumerate(order, start=1):
         if path.startswith(prefix):
             return index
@@ -165,7 +210,10 @@ def run_qmd(args: list[str], check: bool = True) -> subprocess.CompletedProcess[
 
 def ensure_collection(spec: CollectionSpec) -> None:
     name = collection_name(spec)
-    probe = run_qmd(["ls", name], check=False)
+    # `qmd ls` opens the SQLite index and can fail before collection lookup
+    # when the cache is temporarily unavailable. `collection show` is the
+    # authoritative, lightweight existence check.
+    probe = run_qmd(["collection", "show", name], check=False)
     if probe.returncode == 0:
         return
 
@@ -182,7 +230,7 @@ def ensure_collection(spec: CollectionSpec) -> None:
         check=False,
     )
     if add.returncode != 0:
-        reprobe = run_qmd(["ls", name], check=False)
+        reprobe = run_qmd(["collection", "show", name], check=False)
         if reprobe.returncode == 0:
             return
         stderr = add.stderr.strip()
@@ -275,7 +323,7 @@ def search_collection(
     completed = run_qmd(
         [
             "search",
-            query,
+            qmd_search_query(query),
             "-c",
             name,
             "--json",
@@ -324,7 +372,7 @@ def merged_results(mode: str, query: str, per_collection_limit: int) -> list[dic
         results.sort(
             key=lambda item: (
                 item["priority"],
-                subtype_priority(item["path"]),
+                subtype_priority(item["path"], query),
                 -item["score"],
                 item["path"],
             )
@@ -334,7 +382,7 @@ def merged_results(mode: str, query: str, per_collection_limit: int) -> list[dic
             key=lambda item: (
                 -item["score"],
                 item["priority"],
-                subtype_priority(item["path"]),
+                subtype_priority(item["path"], query),
                 item["path"],
             )
         )
@@ -368,6 +416,8 @@ def main() -> int:
     try:
         for spec in COLLECTION_SPECS:
             ensure_collection(spec)
+        if not args.no_update:
+            run_qmd(["update"])
 
         per_collection_limit = args.per_collection_limit or max(args.limit * 3, 12)
         results = merged_results(args.mode, args.query, per_collection_limit)

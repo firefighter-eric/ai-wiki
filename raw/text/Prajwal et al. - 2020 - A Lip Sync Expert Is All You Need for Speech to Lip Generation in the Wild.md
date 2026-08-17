@@ -1,6 +1,6 @@
 # Prajwal et al. - 2020 - A Lip Sync Expert Is All You Need for Speech to Lip Generation in the Wild
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Prajwal et al. - 2020 - A Lip Sync Expert Is All You Need for Speech to Lip Generation in the Wild.html`
+- Source HTML: `raw/html/Prajwal et al. - 2020 - A Lip Sync Expert Is All You Need for Speech to Lip Generation in the Wild.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2008.10010
 - Generated from: `scripts/fetch_web_text.py`
 

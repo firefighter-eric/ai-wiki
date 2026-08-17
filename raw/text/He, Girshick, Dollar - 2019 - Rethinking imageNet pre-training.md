@@ -1,6 +1,6 @@
 # He, Girshick, Dollar - 2019 - Rethinking imageNet pre-training
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/He, Girshick, Dollar - 2019 - Rethinking imageNet pre-training.html`
+- Source HTML: `raw/html/He, Girshick, Dollar - 2019 - Rethinking imageNet pre-training.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1811.08883v1
 - Generated from: `scripts/fetch_web_text.py`
 

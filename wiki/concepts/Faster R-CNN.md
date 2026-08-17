@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Faster R-CNN
 
 ## 简介

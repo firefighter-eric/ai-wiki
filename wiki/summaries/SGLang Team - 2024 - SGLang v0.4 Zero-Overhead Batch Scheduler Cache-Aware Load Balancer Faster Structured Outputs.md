@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # SGLang Team - 2024 - SGLang v0.4 Zero-Overhead Batch Scheduler Cache-Aware Load Balancer Faster Structured Outputs
 
 ## 来源信息

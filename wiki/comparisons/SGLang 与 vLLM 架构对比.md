@@ -1,3 +1,6 @@
+---
+type: comparison
+---
 # SGLang 与 vLLM 架构对比
 
 ## 比较目标

@@ -1,6 +1,6 @@
 # Baevski et al. - 2021 - data2vec A General Framework for Self-supervised Learning in Speech , Vision and Language
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Baevski et al. - 2021 - data2vec A General Framework for Self-supervised Learning in Speech , Vision and Language.html`
+- Source HTML: `raw/html/Baevski et al. - 2021 - data2vec A General Framework for Self-supervised Learning in Speech , Vision and Language.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2202.03555v3
 - Generated from: `scripts/fetch_web_text.py`
 

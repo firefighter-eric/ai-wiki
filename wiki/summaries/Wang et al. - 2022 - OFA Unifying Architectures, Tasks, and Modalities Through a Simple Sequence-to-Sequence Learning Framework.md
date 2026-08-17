@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Wang et al. - 2022 - OFA Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 OFA: UNIFYING ARCHITECTURES, TASKS, AND MODALITIES THROUGH A SIMPLE SEQUENCE-TO-SEQUENCE LEARNING FRAMEWORK Peng Wang, An Yang, Rui Men, Junyang Lin, Shuai Bai Zhikang Li, Jianxin Ma, Chang Zhou, Jingren Zhou, Hongxia Yang DAMO Academy, Alibaba Group ∗ {zheluo.wp, ya235025, menrui.mr, junyang.ljy, baishuai.bs, zhikang.lzk, jason.mjx, ericzhou.zc, jingren.zhou, yang.yhx}@alibaba-inc.com Figure 1: Examples of various tasks supported by OFA. ABSTRACT In this work, we pursue a uniﬁed paradigm for multimodal pretraining to break the scaffolds of complex task/modality-speciﬁc customization. We propose OFA, a Task-Agnostic and Modality- Agnostic framework that supports Task Comprehensiveness. OFA uniﬁes a diverse set of cross- modal and unimodal tasks, including image generation, visual grounding, image captioning, image classiﬁcation, language modeling, etc., in a simple sequence-to-sequence l
 

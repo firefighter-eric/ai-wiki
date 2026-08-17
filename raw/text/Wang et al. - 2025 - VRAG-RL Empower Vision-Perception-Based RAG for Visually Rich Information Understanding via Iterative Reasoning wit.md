@@ -1,6 +1,6 @@
 # Wang et al. - 2025 - VRAG-RL Empower Vision-Perception-Based RAG for Visually Rich Information Understanding via Iterative Reasoning wit
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wang et al. - 2025 - VRAG-RL Empower Vision-Perception-Based RAG for Visually Rich Information Understanding via Iterative Reasoning wit.html`
+- Source HTML: `raw/html/Wang et al. - 2025 - VRAG-RL Empower Vision-Perception-Based RAG for Visually Rich Information Understanding via Iterative Reasoning wit.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2505.22019
 - Generated from: `scripts/fetch_web_text.py`
 

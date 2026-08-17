@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Sciavolino et al. - 2021 - Simple Entity-Centric Questions Challenge Dense Retrievers
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Open-domain question answering has ex- ploded in popularity recently due to the suc- cess of dense retrieval models, which have sur- passed sparse models using only a few super- vised training examples. However, in this pa- per, we demonstrate current dense models are not yet the holy grail of retrieval. We ﬁrst con- struct EntityQuestions, a set of simple, entity- rich questions based on facts from Wikidata (e.g., “Where was Arve Furset born?”), and observe that dense retrievers drastically under- perform sparse methods. We investigate this issue and uncover that dense retrievers can only generalize to common entities unless the question pattern is explicitly observed during training. We discuss two simple solutions to- wards addressing this critical problem. First, we demonstrate that data augmentation is un- able to ﬁx the generalization problem. Second, we argue a more robust passage encoder helps facilitate better question adaptation using spe- cialized question encoders. We hope our work can shed light on the challenges in creating a robust, universal dense retriever that works well across different input distributions.1
 

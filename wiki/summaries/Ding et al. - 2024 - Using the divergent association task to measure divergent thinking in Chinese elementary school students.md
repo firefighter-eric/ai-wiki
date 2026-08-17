@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Ding et al. - 2024 - Using the divergent association task to measure divergent thinking in Chinese elementary school students
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Thinking Skills and Creativity 52 (2024) 101503 Available online 11 March 2024 1871-1871/© 2024 Elsevier Ltd. All rights reserved. Using the divergent association task to measure divergent thinking in Chinese elementary school students Guozhu Ding a,*, Yiwei He a, Kaixu Yi a, Shan Li b a School of Education (Teachers College), Guangzhou University, 230 Wai Huan Xi Road, Guangzhou Higher Education Mega Center, Guangzhou, China, 510006 b College of Education/College of Health, Lehigh University, HST Building 132, 124 E. Morton Street, Lehigh University, Bethlehem, PA, USA, 18105 A R T I C L E I N F O Keywords: Divergent thinking Semantic distance Creativity Natural language processing Elementary school student A B S T R A C T The Divergent Association Task (DAT), published in July 2021, is a psychological test designed to measure an individual’s divergent thinking. The test requires partic
 

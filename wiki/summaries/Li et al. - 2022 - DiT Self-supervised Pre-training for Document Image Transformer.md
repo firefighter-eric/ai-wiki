@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Li et al. - 2022 - DiT Self-supervised Pre-training for Document Image Transformer
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 DiT: Self-supervised Pre-training for Document Image Transformer Junlong Li∗ lockonn@sjtu.edu.cn Shanghai Jiao Tong University Shanghai, China Yiheng Xu∗ t-yihengxu@microsoft.com Microsoft Research Asia Beijing, China Tengchao Lv tengchaolv@microsoft.com Microsoft Research Asia Beijing, China Lei Cui lecu@microsoft.com Microsoft Research Asia Beijing, China Cha Zhang chazhang@microsoft.com Microsoft Azure AI Redmond, United States Furu Wei fuwei@microsoft.com Microsoft Research Asia Beijing, China ABSTRACT Image Transformer has recently achieved significant progress for natural image understanding, either using supervised (ViT, DeiT, etc.) or self-supervised (BEiT, MAE, etc.) pre-training techniques. In this paper, we propose DiT, a self-supervised pre-trained Document Image Transformer model using large-scale unlabeled text images for Document AI tasks, which is essential since no super
 

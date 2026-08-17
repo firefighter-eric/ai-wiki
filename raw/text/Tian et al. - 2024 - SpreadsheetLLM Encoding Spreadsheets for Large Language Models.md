@@ -1,6 +1,6 @@
 # Tian et al. - 2024 - SpreadsheetLLM Encoding Spreadsheets for Large Language Models
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Tian et al. - 2024 - SpreadsheetLLM Encoding Spreadsheets for Large Language Models.html`
+- Source HTML: `raw/html/Tian et al. - 2024 - SpreadsheetLLM Encoding Spreadsheets for Large Language Models.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2407.09025
 - Generated from: `scripts/fetch_web_text.py`
 

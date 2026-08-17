@@ -1,6 +1,6 @@
 # Hsu et al. - 2021 - HuBERT Self-Supervised Speech Representation Learning by Masked Prediction of Hidden Units
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Hsu et al. - 2021 - HuBERT Self-Supervised Speech Representation Learning by Masked Prediction of Hidden Units.html`
+- Source HTML: `raw/html/Hsu et al. - 2021 - HuBERT Self-Supervised Speech Representation Learning by Masked Prediction of Hidden Units.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2106.07447
 - Generated from: `scripts/fetch_web_text.py`
 

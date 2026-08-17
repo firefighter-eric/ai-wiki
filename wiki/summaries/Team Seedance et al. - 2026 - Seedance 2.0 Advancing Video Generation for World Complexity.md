@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity
 
 ## 来源信息

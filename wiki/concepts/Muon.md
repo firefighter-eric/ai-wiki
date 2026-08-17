@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Muon
 
 ## 简介

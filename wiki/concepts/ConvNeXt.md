@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # ConvNeXt
 
 ## 简介

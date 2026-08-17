@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Databricks - 2024 - DBRX A Highly Efficient Open LLM
 
 ## 来源信息

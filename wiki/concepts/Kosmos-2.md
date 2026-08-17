@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Kosmos-2
 
 ## 简介

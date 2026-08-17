@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Zheng et al. - 2024 - SGLang Efficient Execution of Structured Language Model Programs
 
 ## 来源信息

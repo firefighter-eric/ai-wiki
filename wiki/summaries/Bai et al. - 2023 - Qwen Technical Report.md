@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Bai et al. - 2023 - Qwen Technical Report
 
 ## 来源信息

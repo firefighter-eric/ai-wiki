@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # AlphaVAE
 
 ## 简介

@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Dense Retrieval
 
 ## 简介

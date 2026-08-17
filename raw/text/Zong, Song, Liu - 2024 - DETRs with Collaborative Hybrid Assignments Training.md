@@ -1,6 +1,6 @@
 # Zong, Song, Liu - 2024 - DETRs with Collaborative Hybrid Assignments Training
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zong, Song, Liu - 2024 - DETRs with Collaborative Hybrid Assignments Training.html`
+- Source HTML: `raw/html/Zong, Song, Liu - 2024 - DETRs with Collaborative Hybrid Assignments Training.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2211.12860
 - Generated from: `scripts/fetch_web_text.py`
 

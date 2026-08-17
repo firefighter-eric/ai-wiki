@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # VGG
 
 ## 简介

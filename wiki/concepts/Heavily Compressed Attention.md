@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Heavily Compressed Attention
 
 ## 简介

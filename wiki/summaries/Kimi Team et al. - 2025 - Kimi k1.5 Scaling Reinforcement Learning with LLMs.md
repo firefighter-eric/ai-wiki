@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kimi Team et al. - 2025 - Kimi k1.5 Scaling Reinforcement Learning with LLMs
 
 ## 来源信息

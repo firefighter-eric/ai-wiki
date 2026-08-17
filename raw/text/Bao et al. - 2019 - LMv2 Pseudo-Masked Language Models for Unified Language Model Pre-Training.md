@@ -1,6 +1,6 @@
 # Bao et al. - 2019 - LMv2 Pseudo-Masked Language Models for Unified Language Model Pre-Training
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Bao et al. - 2019 - LMv2 Pseudo-Masked Language Models for Unified Language Model Pre-Training.html`
+- Source HTML: `raw/html/Bao et al. - 2019 - LMv2 Pseudo-Masked Language Models for Unified Language Model Pre-Training.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2002.12804
 - Generated from: `scripts/fetch_web_text.py`
 

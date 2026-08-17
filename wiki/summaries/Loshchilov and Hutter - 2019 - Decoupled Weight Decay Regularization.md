@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Loshchilov and Hutter - 2019 - Decoupled Weight Decay Regularization
 
 ## 来源信息

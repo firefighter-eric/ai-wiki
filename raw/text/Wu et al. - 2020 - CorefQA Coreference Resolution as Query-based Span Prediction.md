@@ -1,6 +1,6 @@
 # Wu et al. - 2020 - CorefQA Coreference Resolution as Query-based Span Prediction
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Wu et al. - 2020 - CorefQA Coreference Resolution as Query-based Span Prediction.html`
+- Source HTML: `raw/html/Wu et al. - 2020 - CorefQA Coreference Resolution as Query-based Span Prediction.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1911.01746
 - Generated from: `scripts/fetch_web_text.py`
 

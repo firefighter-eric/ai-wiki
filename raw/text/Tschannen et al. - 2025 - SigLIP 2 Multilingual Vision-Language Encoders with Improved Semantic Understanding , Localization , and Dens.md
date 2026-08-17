@@ -1,6 +1,6 @@
 # Tschannen et al. - 2025 - SigLIP 2 Multilingual Vision-Language Encoders with Improved Semantic Understanding , Localization , and Dens
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Tschannen et al. - 2025 - SigLIP 2 Multilingual Vision-Language Encoders with Improved Semantic Understanding , Localization , and Dens.html`
+- Source HTML: `raw/html/Tschannen et al. - 2025 - SigLIP 2 Multilingual Vision-Language Encoders with Improved Semantic Understanding , Localization , and Dens.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2502.14786
 - Generated from: `scripts/fetch_web_text.py`
 

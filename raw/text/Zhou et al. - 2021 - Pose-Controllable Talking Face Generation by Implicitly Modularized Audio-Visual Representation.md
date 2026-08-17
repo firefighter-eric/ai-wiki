@@ -1,6 +1,6 @@
 # Zhou et al. - 2021 - Pose-Controllable Talking Face Generation by Implicitly Modularized Audio-Visual Representation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Zhou et al. - 2021 - Pose-Controllable Talking Face Generation by Implicitly Modularized Audio-Visual Representation.html`
+- Source HTML: `raw/html/Zhou et al. - 2021 - Pose-Controllable Talking Face Generation by Implicitly Modularized Audio-Visual Representation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2104.11116
 - Generated from: `scripts/fetch_web_text.py`
 

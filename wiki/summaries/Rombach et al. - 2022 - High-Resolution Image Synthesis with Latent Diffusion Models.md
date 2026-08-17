@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Rombach et al. - 2022 - High-Resolution Image Synthesis with Latent Diffusion Models
 
 ## 来源信息

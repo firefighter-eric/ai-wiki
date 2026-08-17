@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # PaddleOCR
 
 ## 简介

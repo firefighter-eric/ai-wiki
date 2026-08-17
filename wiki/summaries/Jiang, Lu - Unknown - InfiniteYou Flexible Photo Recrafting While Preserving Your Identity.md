@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Jiang, Lu - Unknown - InfiniteYou Flexible Photo Recrafting While Preserving Your Identity
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：Unknown
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Achieving flexible and high-fidelity identity-preserved im- age generation remains formidable, particularly with ad- vanced Diffusion Transformers (DiTs) like FLUX. We intro- duce InfiniteYou (InfU), one of the earliest robust frame- works leveraging DiTs for this task. InfU addresses signif- icant issues of existing methods, such as insufficient iden- tity similarity, poor text-image alignment, and low genera- tion quality and aesthetics. Central to InfU is InfuseNet, a component that injects identity features into the DiT base model via residual connections, enhancing identity similar- ity while maintaining generation capabilities. A multi-stage training strategy, including pretraining and supervised fine-
 

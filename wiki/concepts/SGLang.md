@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # SGLang
 
 ## 简介

@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Li et al. - 2021 - TrOCR Transformer-based Optical Character Recognition with Pre-trained Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2021
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Text recognition is a long-standing research problem for document digitalization. Exist- ing approaches for text recognition are usu- ally built based on CNN for image under- standing and RNN for char-level text gener- ation. In addition, another language model is usually needed to improve the overall ac- curacy as a post-processing step. In this pa- per, we propose an end-to-end text recogni- tion approach with pre-trained image Trans- former and text Transformer models, namely TrOCR, which leverages the Transformer ar- chitecture for both image understanding and wordpiece-level text generation. The TrOCR model is simple but effective, and can be pre- trained with large-scale synthetic data and ﬁne- tuned with human-labeled datasets. Exper- iments show that the TrOCR model outper- forms the current state-of-the-art models on both printed and handwritten text recognition tasks. The code and models will be publicly available at https://aka.ms/TrOCR.
 

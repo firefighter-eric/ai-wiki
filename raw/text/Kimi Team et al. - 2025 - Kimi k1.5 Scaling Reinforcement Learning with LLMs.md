@@ -1,6 +1,6 @@
 # [2501.12599] Kimi k1.5: Scaling Reinforcement Learning with LLMs
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Kimi Team et al. - 2025 - Kimi k1.5 Scaling Reinforcement Learning with LLMs.html`
+- Source HTML: `raw/html/Kimi Team et al. - 2025 - Kimi k1.5 Scaling Reinforcement Learning with LLMs.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2501.12599
 - Generated from: `scripts/fetch_web_text.py`
 

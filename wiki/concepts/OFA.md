@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # OFA
 
 ## 简介

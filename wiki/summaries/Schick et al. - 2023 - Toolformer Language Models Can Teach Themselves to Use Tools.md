@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Schick et al. - 2023 - Toolformer Language Models Can Teach Themselves to Use Tools
 
 ## 来源信息

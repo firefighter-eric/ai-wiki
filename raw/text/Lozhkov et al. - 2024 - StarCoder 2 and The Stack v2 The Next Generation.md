@@ -1,6 +1,6 @@
 # [2402.19173] \emojidizzyStarCoder 2 and The Stack v2: The Next Generation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Lozhkov et al. - 2024 - StarCoder 2 and The Stack v2 The Next Generation.html`
+- Source HTML: `raw/html/Lozhkov et al. - 2024 - StarCoder 2 and The Stack v2 The Next Generation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2402.19173
 - Generated from: `scripts/fetch_web_text.py`
 

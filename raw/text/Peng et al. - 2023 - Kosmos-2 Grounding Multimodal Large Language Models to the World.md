@@ -1,6 +1,6 @@
 # Peng et al. - 2023 - Kosmos-2 Grounding Multimodal Large Language Models to the World
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Peng et al. - 2023 - Kosmos-2 Grounding Multimodal Large Language Models to the World.html`
+- Source HTML: `raw/html/Peng et al. - 2023 - Kosmos-2 Grounding Multimodal Large Language Models to the World.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2306.14824
 - Generated from: `scripts/fetch_web_text.py`
 

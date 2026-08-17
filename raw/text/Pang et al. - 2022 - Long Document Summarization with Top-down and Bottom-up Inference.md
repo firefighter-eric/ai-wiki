@@ -1,6 +1,6 @@
 # Pang et al. - 2022 - Long Document Summarization with Top-down and Bottom-up Inference
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Pang et al. - 2022 - Long Document Summarization with Top-down and Bottom-up Inference.html`
+- Source HTML: `raw/html/Pang et al. - 2022 - Long Document Summarization with Top-down and Bottom-up Inference.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2203.07586
 - Generated from: `scripts/fetch_web_text.py`
 

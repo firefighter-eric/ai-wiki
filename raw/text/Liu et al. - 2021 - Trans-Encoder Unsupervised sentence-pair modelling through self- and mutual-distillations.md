@@ -1,6 +1,6 @@
 # Liu et al. - 2021 - Trans-Encoder Unsupervised sentence-pair modelling through self- and mutual-distillations
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Liu et al. - 2021 - Trans-Encoder Unsupervised sentence-pair modelling through self- and mutual-distillations.html`
+- Source HTML: `raw/html/Liu et al. - 2021 - Trans-Encoder Unsupervised sentence-pair modelling through self- and mutual-distillations.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2109.13059
 - Generated from: `scripts/fetch_web_text.py`
 

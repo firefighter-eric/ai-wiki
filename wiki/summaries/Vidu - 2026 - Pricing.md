@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Vidu - 2026 - Pricing
 
 ## 来源信息

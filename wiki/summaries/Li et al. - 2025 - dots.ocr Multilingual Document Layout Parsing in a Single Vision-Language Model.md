@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Li et al. - 2025 - dots.ocr Multilingual Document Layout Parsing in a Single Vision-Language Model
 
 ## 来源信息

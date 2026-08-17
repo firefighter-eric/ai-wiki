@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Shen et al. - 2018 - Natural TTS Synthesis by Conditioning Wavenet on MEL Spectrogram Predictions
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2018
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 NATURAL TTS SYNTHESIS BY CONDITIONING WAVENET ON MEL SPECTROGRAM PREDICTIONS Jonathan Shen1, Ruoming Pang1, Ron J. Weiss1, Mike Schuster1, Navdeep Jaitly1, Zongheng Yang∗2, Zhifeng Chen1, Yu Zhang1, Yuxuan Wang1, RJ Skerry-Ryan1, Rif A. Saurous1, Yannis Agiomyrgiannakis1, and Yonghui Wu1 1Google, Inc., 2University of California, Berkeley, {jonathanasdf,rpang,yonghui}@google.com ABSTRACT This paper describes Tacotron 2, a neural network architecture for speech synthesis directly from text. The system is composed of a recurrent sequence-to-sequence feature prediction network that maps character embeddings to mel-scale spectrograms, followed by a mod- iﬁed WaveNet model acting as a vocoder to synthesize time-domain waveforms from those spectrograms. Our model achieves a mean opinion score (MOS) of 4.53 comparable to a MOS of 4.58 for profes- sionally recorded speech. To validate our design 
 

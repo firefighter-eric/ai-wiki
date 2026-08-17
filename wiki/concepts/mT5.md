@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # mT5
 
 ## 简介

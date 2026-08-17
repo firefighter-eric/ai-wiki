@@ -1,3 +1,6 @@
+---
+type: comparison
+---
 # Muon 与 AdamW
 
 ## 比较范围

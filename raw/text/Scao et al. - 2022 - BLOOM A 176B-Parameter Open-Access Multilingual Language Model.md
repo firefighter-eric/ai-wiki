@@ -1,6 +1,6 @@
 # [2211.05100] BLOOM: A 176B-Parameter Open-Access Multilingual Language Model
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Scao et al. - 2022 - BLOOM A 176B-Parameter Open-Access Multilingual Language Model.html`
+- Source HTML: `raw/html/Scao et al. - 2022 - BLOOM A 176B-Parameter Open-Access Multilingual Language Model.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2211.05100
 - Generated from: `scripts/fetch_web_text.py`
 

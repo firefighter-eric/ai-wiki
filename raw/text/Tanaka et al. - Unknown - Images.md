@@ -1,6 +1,6 @@
 # Tanaka et al. - Unknown - Images
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Tanaka et al. - Unknown - Images.html`
+- Source HTML: `raw/html/Tanaka et al. - Unknown - Images.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2301.04883
 - Generated from: `scripts/fetch_web_text.py`
 

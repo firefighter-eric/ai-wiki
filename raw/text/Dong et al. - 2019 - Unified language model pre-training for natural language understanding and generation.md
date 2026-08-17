@@ -1,6 +1,6 @@
 # Dong et al. - 2019 - Unified language model pre-training for natural language understanding and generation
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Dong et al. - 2019 - Unified language model pre-training for natural language understanding and generation.html`
+- Source HTML: `raw/html/Dong et al. - 2019 - Unified language model pre-training for natural language understanding and generation.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1905.03197
 - Generated from: `scripts/fetch_web_text.py`
 

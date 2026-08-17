@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Ainslie et al. - 2023 - GQA Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2023
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `GQA` 的价值在于，它把 `MHA -> MQA` 之间原本过于激进的结构切换，改写成可连续调节的折中谱系。它让一组 query heads 共享一组 `K/V`，从而在推理速度与模型质量之间找到比 `MQA` 更稳妥的中间点，也解释了为什么后来大量 LLM 采用 `GQA` 而不是极端的 `MQA` 或完全标准的 `MHA`。
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Moonshot AI - 2026 - Kimi K3 Model Repository
 
 ## 来源信息

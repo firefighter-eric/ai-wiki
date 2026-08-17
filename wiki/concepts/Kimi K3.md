@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Kimi K3
 
 ## 简介

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # MosaicML - 2023 - MPT-7B
 
 ## 来源信息

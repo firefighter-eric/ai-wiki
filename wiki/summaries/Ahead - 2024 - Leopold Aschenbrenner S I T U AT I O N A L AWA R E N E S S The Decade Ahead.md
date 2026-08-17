@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead JUNE 2024 2 Dedicated to Ilya Sutskever. While I used to work at OpenAI, all of this is based on publicly- available information, my own ideas, general field-knowledge, or SF-gossip. Thank you to Collin Burns, Avital Balwit, Carl Shulman, Jan Leike, Ilya Sutskever, Holden Karnofsky, Sholto Douglas, James Bradbury, Dwarkesh Patel, and many others for formative discussions. Thank you to many friends for feedback on earlier drafts. Thank you to Joe Ronan for help with graphics, and Nick Whitaker for publishing help. situational-awareness.ai leopold@situational-awareness.ai Updated June 6, 2024 San Francisco, California You can see the future first in San Francisco. Over the past year, the talk of the town has shifted from $10 billion compute clusters to $100 billion clusters to trillion-dollar clusters. Ev- ery six 
 

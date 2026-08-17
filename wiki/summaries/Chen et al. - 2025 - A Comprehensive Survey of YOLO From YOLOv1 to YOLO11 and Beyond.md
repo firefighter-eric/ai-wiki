@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Chen et al. - 2025 - A Comprehensive Survey of YOLO From YOLOv1 to YOLO11 and Beyond
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2025
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 这篇综述的主要价值不是提出新模型，而是把 `YOLOv1` 到 `YOLOv11` 的演化从“按版本号堆叠”整理为若干稳定改进轴：backbone、neck、head、loss/assignment 与 training strategy。它为知识库中写 `YOLO` 家族总览提供了跨版本证据基础。
 

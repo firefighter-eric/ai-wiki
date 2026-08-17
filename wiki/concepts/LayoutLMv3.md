@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # LayoutLMv3
 
 ## 简介

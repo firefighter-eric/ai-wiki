@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # GLM
 
 ## 简介

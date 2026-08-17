@@ -1,6 +1,6 @@
 # Su et al. - 2021 - Whitening Sentence Representations for Better Semantics and Faster Retrieval
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Su et al. - 2021 - Whitening Sentence Representations for Better Semantics and Faster Retrieval.html`
+- Source HTML: `raw/html/Su et al. - 2021 - Whitening Sentence Representations for Better Semantics and Faster Retrieval.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2103.15316
 - Generated from: `scripts/fetch_web_text.py`
 

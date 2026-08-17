@@ -1,3 +1,6 @@
+---
+type: author
+---
 # Ali Farhadi
 
 ## 简介

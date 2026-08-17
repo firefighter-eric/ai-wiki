@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # DPR
 
 ## 简介

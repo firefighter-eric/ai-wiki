@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kimi - 2026 - Kimi K3 Open Frontier Intelligence Release
 
 ## 来源信息

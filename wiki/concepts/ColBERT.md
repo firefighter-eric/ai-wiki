@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # ColBERT
 
 ## 简介

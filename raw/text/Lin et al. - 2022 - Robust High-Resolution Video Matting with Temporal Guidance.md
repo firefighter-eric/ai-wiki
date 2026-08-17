@@ -1,6 +1,6 @@
 # Lin et al. - 2022 - Robust High-Resolution Video Matting with Temporal Guidance
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Lin et al. - 2022 - Robust High-Resolution Video Matting with Temporal Guidance.html`
+- Source HTML: `raw/html/Lin et al. - 2022 - Robust High-Resolution Video Matting with Temporal Guidance.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2108.11515
 - Generated from: `scripts/fetch_web_text.py`
 

@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # vLLM Project - 2026 - vLLM V1 Guide
 
 ## 来源信息

@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Rothe, Narayan, Severyn - 2020 - Leveraging pre-trained checkpoints for sequence generation tasks
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2020
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Unsupervised pre-training of large neural models has recently revolutionized Natu- ral Language Processing. By warm-starting from the publicly released checkpoints, NLP practitioners have pushed the state-of- the-art on multiple benchmarks while sav- ing signiﬁcant amounts of compute time. So far the focus has been mainly on the Natu- ral Language Understanding tasks. In this paper, we demonstrate the efﬁcacy of pre- trained checkpoints for Sequence Genera- tion. We developed a Transformer-based sequence-to-sequence model that is com- patible with publicly available pre-trained BERT, GPT-2 and RoBERTa checkpoints and conducted an extensive empirical study on the utility of initializing our model, both encoder and decoder, with these check- points. Our models result in new state- of-the-art results on Machine Translation, Text Summarization, Sentence Splitting, and Sentence Fusion.
 

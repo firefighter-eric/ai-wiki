@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Team, Google - 2024 - Gemma Open Models Based on Gemini Research and Technology
 
 ## 来源信息

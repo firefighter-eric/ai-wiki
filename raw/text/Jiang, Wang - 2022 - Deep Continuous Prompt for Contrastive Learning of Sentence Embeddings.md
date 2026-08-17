@@ -1,6 +1,6 @@
 # Jiang, Wang - 2022 - Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Jiang, Wang - 2022 - Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings.html`
+- Source HTML: `raw/html/Jiang, Wang - 2022 - Deep Continuous Prompt for Contrastive Learning of Sentence Embeddings.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2203.06875
 - Generated from: `scripts/fetch_web_text.py`
 

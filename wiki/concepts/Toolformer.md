@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Toolformer
 
 ## 简介

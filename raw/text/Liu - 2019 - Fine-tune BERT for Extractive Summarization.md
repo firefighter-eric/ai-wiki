@@ -1,6 +1,6 @@
 # Liu - 2019 - Fine-tune BERT for Extractive Summarization
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Liu - 2019 - Fine-tune BERT for Extractive Summarization.html`
+- Source HTML: `raw/html/Liu - 2019 - Fine-tune BERT for Extractive Summarization.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/1903.10318
 - Generated from: `scripts/fetch_web_text.py`
 

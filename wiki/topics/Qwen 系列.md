@@ -1,3 +1,7 @@
+---
+type: topic
+status: formal
+---
 # Qwen 系列
 
 ## 页面状态
@@ -87,7 +91,7 @@
 
 ## 关联页面
 
-- [LLM预训练](./LLM%E9%A2%84%E8%AE%AD.md)
+- [LLM 预训练](./LLM%20预训练.md)
 - [Qwen](../concepts/Qwen.md)
 - [Qwen-Image](../concepts/Qwen-Image.md)
 - [Qwen-Image-Layered](../concepts/Qwen-Image-Layered.md)

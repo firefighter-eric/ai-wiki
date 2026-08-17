@@ -1,3 +1,7 @@
+---
+type: topic
+status: formal
+---
 # 图像分层 layered
 
 ## 页面状态

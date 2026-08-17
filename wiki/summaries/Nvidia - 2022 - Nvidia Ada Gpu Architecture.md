@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Nvidia - 2022 - Nvidia Ada Gpu Architecture
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2022
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 V2.01 NVIDIA ADA GPU ARCHITECTURE Designed to deliver outstanding gaming and creating, professional graphics, AI, and compute performance. *Updated to include information on NVIDIA L40 and L4 Data Center GPUs ii NVIDIA Ada GPU Architecture Table of Contents Introduction ........................................................................................................................................................... 4 Ada GPU Architecture In-Depth ....................................................................................................................... 6 Ada AD102 GPU .............................................................................................................................................................. 7 Memory Subsystem ...............................................................................................................................
 

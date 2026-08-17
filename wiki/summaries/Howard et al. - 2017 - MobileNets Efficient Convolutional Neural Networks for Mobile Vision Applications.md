@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Howard et al. - 2017 - MobileNets Efficient Convolutional Neural Networks for Mobile Vision Applications
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2017
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `MobileNet` 把经典 CNN 主线中的核心问题从“如何继续提升精度”明确扩展为“如何在移动端和嵌入式场景下做可调节的精度-延迟-模型大小折中”。它的代表性不只是轻量，而是把 `depthwise separable convolution` 与全局缩放超参数一起做成一套工程化 backbone 设计语言。
 

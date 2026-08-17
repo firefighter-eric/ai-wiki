@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Kimi - 2026 - Kimi API Model Selection
 
 ## 来源信息

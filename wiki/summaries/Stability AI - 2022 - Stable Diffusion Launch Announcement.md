@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Stability AI - 2022 - Stable Diffusion Launch Announcement
 
 ## 来源信息

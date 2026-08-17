@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # SimCSE
 
 ## 简介

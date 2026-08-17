@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # Qwen-Image
 
 ## 简介

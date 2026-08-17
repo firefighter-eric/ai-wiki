@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Mitra, Craswell - 2019 - A Deep Look into Neural Ranking Models for Information Retrieval
 
 ## 来源信息

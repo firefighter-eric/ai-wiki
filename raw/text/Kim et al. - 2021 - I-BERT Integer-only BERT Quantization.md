@@ -1,6 +1,6 @@
 # Kim et al. - 2021 - I-BERT Integer-only BERT Quantization
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Kim et al. - 2021 - I-BERT Integer-only BERT Quantization.html`
+- Source HTML: `raw/html/Kim et al. - 2021 - I-BERT Integer-only BERT Quantization.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2101.01321
 - Generated from: `scripts/fetch_web_text.py`
 

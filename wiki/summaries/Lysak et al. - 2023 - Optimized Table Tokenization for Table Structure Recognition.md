@@ -1,3 +1,7 @@
+---
+type: summary
+status: auto
+---
 # Lysak et al. - 2023 - Optimized Table Tokenization for Table Structure Recognition
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2023
 - 状态：已抽取全文，待精读
 
-## 自动抽取摘要
+## 摘要
 
 Optimized Table Tokenization for Table Structure Recognition Maksym Lysak[0000−0002−3723−6960], Ahmed Nassar[0000−0002−9468−0822], Nikolaos Livathinos[0000−0001−8513−3491], Christoph Auer[0000−0001−5761−0422], and Peter Staar[0000−0002−8088−0823] IBM Research {mly,ahn,nli,cau,taa}@zurich.ibm.com Abstract. Extracting tables from documents is a crucial task in any document conversion pipeline. Recently, transformer-based models have demonstrated that table-structure can be recognized with impressive ac- curacy using Image-to-Markup-Sequence (Im2Seq) approaches. Taking only the image of a table, such models predict a sequence of tokens (e.g. in HTML, LaTeX) which represent the structure of the table. Since the token representation of the table structure has a signiﬁcant impact on the accuracy and run-time performance of any Im2Seq model, we inves- tigate in this paper how table-structure re
 

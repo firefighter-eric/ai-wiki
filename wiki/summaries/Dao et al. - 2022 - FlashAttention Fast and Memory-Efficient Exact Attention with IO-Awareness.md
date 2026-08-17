@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Dao et al. - 2022 - FlashAttention Fast and Memory-Efficient Exact Attention with IO-Awareness
 
 ## 来源信息
@@ -10,7 +14,7 @@
 - 年份：2022
 - 状态：已基于 arXiv HTML 整理
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `FlashAttention` 的关键意义在于：它不是重新发明一种近似 attention，而是在保持标准 softmax attention 精确语义的前提下，从硬件 IO 成本而不是 FLOPs 角度重写实现。它说明 attention 优化不只有“改连接图 / 改数学近似”这一条路，还可以通过 tile 化与 kernel fusion 显著减少 GPU 高带宽显存读写。
 

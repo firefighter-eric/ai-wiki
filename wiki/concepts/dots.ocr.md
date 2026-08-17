@@ -1,3 +1,6 @@
+---
+type: concept
+---
 # dots.ocr
 
 ## 简介

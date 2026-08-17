@@ -1,6 +1,6 @@
 # Sciavolino et al. - 2021 - Simple Entity-Centric Questions Challenge Dense Retrievers
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Sciavolino et al. - 2021 - Simple Entity-Centric Questions Challenge Dense Retrievers.html`
+- Source HTML: `raw/html/Sciavolino et al. - 2021 - Simple Entity-Centric Questions Challenge Dense Retrievers.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2109.08535
 - Generated from: `scripts/fetch_web_text.py`
 

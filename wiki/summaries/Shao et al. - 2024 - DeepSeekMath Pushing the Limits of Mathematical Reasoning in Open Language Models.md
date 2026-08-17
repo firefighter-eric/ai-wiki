@@ -1,3 +1,7 @@
+---
+type: summary
+status: refined
+---
 # Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models
 
 ## 来源信息
@@ -9,7 +13,7 @@
 - 年份：2024
 - 状态：已基于 arXiv HTML 提取全文并精修 summary
 
-## 自动抽取摘要或人工摘要
+## 摘要
 
 `DeepSeekMath` 的核心贡献不只是数学领域继续预训练，还包括把 `GRPO` 明确提出为面向 LLM reasoning 的高效 RL 变体。论文将数学推理提升归因于两层因素：一是通过高质量数学网页数据构建 120B token 的数学语料，二是在 instruction-tuned 模型上使用 `GRPO` 做强化学习。与传统 `PPO` 相比，`GRPO` 去掉 critic model，改用组内相对分数估计 baseline，以更低训练成本提升数学与跨域推理表现。文中还尝试用统一视角解释 `RFT / DPO / PPO / GRPO`，因此它在当前知识库里不仅是数学模型论文，也是 `reasoning-oriented RL` 方法分化的重要来源。
 

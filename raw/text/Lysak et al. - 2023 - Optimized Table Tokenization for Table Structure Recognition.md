@@ -1,6 +1,6 @@
 # Lysak et al. - 2023 - Optimized Table Tokenization for Table Structure Recognition
 
-- Source HTML: `/Users/eric/Library/Mobile Documents/iCloud~md~obsidian/Documents/my_obsidian/raw/html/Lysak et al. - 2023 - Optimized Table Tokenization for Table Structure Recognition.html`
+- Source HTML: `raw/html/Lysak et al. - 2023 - Optimized Table Tokenization for Table Structure Recognition.html`
 - Source URL: https://ar5iv.labs.arxiv.org/html/2305.03393
 - Generated from: `scripts/fetch_web_text.py`
 
