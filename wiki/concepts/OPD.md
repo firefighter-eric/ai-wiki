@@ -3,11 +3,19 @@ type: concept
 ---
 # OPD
 
+## TL;DR（快速导读）
+
+在线策略蒸馏让学生先按自己的当前模型生成，再由教师在这些轨迹上提供分布监督，缓解只模仿教师轨迹的偏差。
+
 ## 简介
 
-`OPD` 是 `On-Policy Distillation` 的缩写，中文可译为“在线策略蒸馏”或“on-policy 蒸馏”。在当前知识库中，它表示一类 LLM 后训练方法：让 student model 先按自己的当前策略生成轨迹，再在这些 student-generated trajectories 上接受 teacher model 的 token 级分布监督。
+在线策略蒸馏让学生先按自己的当前模型生成，再由教师在这些轨迹上提供分布监督，缓解只模仿教师轨迹的偏差。
 
 它的关键位置在 `SFT`、普通知识蒸馏与 reasoning RL 之间：它不像 off-policy distillation 那样只模仿 teacher 生成的数据，也不像 `GRPO / RLVR` 那样主要依赖稀疏 outcome reward，而是试图把 **on-policy rollout** 与 **dense token-level supervision** 结合起来。
+
+## 具体怎么理解
+
+学生自己走到某一步后，教师对这一状态给指导；这与始终跟着教师预先写好的完整答案不同。
 
 ## 关键属性
 
@@ -35,3 +43,11 @@ type: concept
 - [DAPO](./DAPO.md)
 - [DPO](./DPO.md)
 - [Instruction Tuning](./Instruction%20Tuning.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **rollout**：采样执行：用当前策略生成回答或连续行动，形成后续训练与评价的材料。
+- **distillation**：蒸馏：利用教师模型提供的答案或分布训练学生模型。
+- **SFT**：监督微调：用输入与参考输出继续训练已有模型。
+- **GRPO**：组相对策略优化：利用同一问题多份回答的相对奖励进行更新。

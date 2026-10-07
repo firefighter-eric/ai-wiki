@@ -1,41 +1,67 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Seed - Unknown - Seed1.5-VL Technical Report
+
+## TL;DR（快速导读）
+
+Seed1.5-VL 将视觉编码器与专家混合语言模型结合，用于多模态理解和推理；报告的比较需保留模型与评测条件。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+模型需要把图像信息接到语言推理接口。报告介绍视觉与语言组件，并在公共和内部任务上评估。不同任务、推理预算及输入分辨率可能影响结果，作者报告不能直接替代独立复现。
+
+## 具体怎么理解
+
+例如看一张图表后回答数值问题，既要辨认图中文字和位置，也要完成后续计算。
+
+## 关键事实
+
+- **C1**：由 SeedViT、MLP adapter 与 MoE LLM 组成，视频使用动态帧率和分辨率采样并加时间标记。
+- **C2**：作者报告细粒度视觉和复杂三维推理仍有局限。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Seed - Unknown - Seed1.5-VL Technical Report.pdf
-- 全文文本：../../raw/text/Seed - Unknown - Seed1.5-VL Technical Report.md
+- 原始文件：[打开原始文件](../../raw/pdf/Seed%20-%20Unknown%20-%20Seed1.5-VL%20Technical%20Report.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Seed%20-%20Unknown%20-%20Seed1.5-VL%20Technical%20Report.md)
 - 作者：Seed
 - 年份：Unknown
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-We present Seed1.5-VL, a vision-language foundation model designed to advance general-purpose multimodal understanding and reasoning. Seed1.5-VL is composed with a 532M-parameter vision encoder and a Mixture-of-Experts (MoE) LLM of 20B active parameters. Despite its relatively compact architecture, it delivers strong performance across a wide spectrum of public VLM benchmarks and internal evaluation suites, achieving the state-of-the-art performance on 38 out of 60 public benchmarks. Moreover, in agent-centric tasks such as GUI control and gameplay, Seed1.5-VL outperforms leading multimodal systems, including OpenAI CUA and Claude 3.7. Beyond visual and video understanding, it also demonstrates strong reasoning abilities, making it particularly effective for multimodal reasoning challenges such as visual puzzles. We believe these capabilities will empower broader applications across diverse tasks. In this report, we mainly provide a comprehensive review of our experiences in building Seed1.5-VL across model design, data construction, and training at various stages, hoping that this report can inspire further research. Seed1.5-VL is now accessible on Volcano Enginea. Date: May 12, 2025 Correspondence: shiguang.sg@bytedance.com aModel ID: doubao-1-5-thinking-vision-pro-250428 1 Contents
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Seed - Unknown - Seed1.5-VL Technical Report.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Seed%20-%20Unknown%20-%20Seed1.5-VL%20Technical%20Report.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 长上下文上限不直接代表能准确记住全部帧信息。
+- 不同任务的提示和推理预算影响成绩。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 综合：暂无
+- [文档与表格的输入输出接口](../comparisons/%E6%96%87%E6%A1%A3%E4%B8%8E%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8E%A5%E5%8F%A3.md)：把本篇方法放到相关任务与比较条件中阅读。
+
+## 方法与实验解读
+
+Seed1.5-VL 将不同分辨率视觉输入压到语言模型可处理的序列。视频任务还涉及采样损失与上下文预算；读结果时要区分短视频、长视频、流式任务和实际所用帧数。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Seed%20-%20Unknown%20-%20Seed1.5-VL%20Technical%20Report.md#source-section-4 ) | 时间标记与采样不等于读取每个视频瞬间 |
+| C2 | [原文]( ../../raw/text/Seed%20-%20Unknown%20-%20Seed1.5-VL%20Technical%20Report.md#source-section-74 ) | 多项基准强不等于可靠掌握三维世界 |
+
+## 核证范围
+
+核对 §2 架构、视频评测的上下文设置与 §6.4 局限。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

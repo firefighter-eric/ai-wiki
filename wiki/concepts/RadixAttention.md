@@ -3,11 +3,19 @@ type: concept
 ---
 # RadixAttention
 
+## TL;DR（快速导读）
+
+RadixAttention 用基数树保存并匹配请求前缀的缓存，让共享提示的多次调用少做重复计算，是运行时复用机制。
+
 ## 简介
 
 `RadixAttention` 是 SGLang 提出的跨请求 KV cache 复用机制。它用 radix tree 把 token prefix 映射到相应 KV tensors，在请求结束后仍把可复用的 prompt 与 generation states 作为 cache 保留；新请求到来时执行最长前缀匹配，只计算尚未缓存的 suffix。
 
-这个名称容易让人误解为一种新的模型级 attention 公式。更准确地说，它是 serving runtime 中的 **prefix index + cache lifecycle + cache-aware scheduling** 设计，底层 KV tensors 仍可存放在 paged memory layout 中。
+这个名称容易让人误解为一种新的模型级 attention 公式。更准确地说，它是 服务运行时 中的 **prefix index + cache lifecycle + cache-aware scheduling** 设计，底层 KV tensors 仍可存放在 paged memory layout 中。
+
+## 具体怎么理解
+
+多次请求都先输入同一篇长文章，缓存匹配后只需处理新问题部分；文本相似但词元不同不一定能复用。
 
 ## 关键属性
 
@@ -42,3 +50,12 @@ type: concept
 - [vLLM](./vLLM.md)
 - [SGLang 与 vLLM 架构对比](../comparisons/SGLang%20与%20vLLM%20架构对比.md)
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **prefill**：提示计算阶段：先处理输入提示，再开始逐步生成输出。
+- **decode**：解码阶段：利用已有输入与生成历史，产生后续输出。
+- **scheduler**：调度器：决定请求何时进入计算、每次处理多少，以及如何共享资源。
+- **agent**：代理：围绕任务读材料、调用工具和连续执行的系统；名称本身不保证自主性或质量。

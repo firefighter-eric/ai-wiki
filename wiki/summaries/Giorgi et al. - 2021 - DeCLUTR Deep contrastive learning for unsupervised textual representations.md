@@ -1,41 +1,68 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations
+
+## TL;DR（快速导读）
+
+DeCLUTR 从未标注文本构造对比学习任务，让句子表示更适合聚类和检索，减少对人工语义配对数据的依赖。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+高质量句向量往往依赖标注数据。本文设计自监督目标，从文本片段中形成训练信号，学习可迁移的表示。阅读重点是片段如何采样、什么算正例，以及语料和任务对结果的影响。
+
+## 具体怎么理解
+
+例如对一批文章做主题聚类，需要让语义相关的片段靠近；训练中的相关片段定义会直接影响最终向量。
+
+## 关键事实
+
+- **C1**：从同一文档邻近片段构造正对，以对比目标训练文本表示，不要求人工相似度标签。
+- **C2**：SentEval 包括下游与探测任务；其中需训练分类器的结果不能等同于未经训练的向量检索质量。
+- **C3**：采样多个 anchor 有益，但更多 positive 并未同样稳定改善结果。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations.pdf
-- 全文文本：../../raw/text/Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations.md
+- 原始文件：[打开原始文件](../../raw/pdf/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.md)
 - 作者：Giorgi et al.
 - 年份：2021
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Sentence embeddings are an important com- ponent of many natural language processing (NLP) systems. Like word embeddings, sen- tence embeddings are typically learned on large text corpora and then transferred to var- ious downstream tasks, such as clustering and retrieval. Unlike word embeddings, the highest performing solutions for learning sen- tence embeddings require labelled data, limit- ing their usefulness to languages and domains where labelled data is abundant. In this pa- per, we present DeCLUTR: Deep Contrastive Learning for Unsupervised Textual Represen- tations. Inspired by recent advances in deep metric learning (DML), we carefully design a self-supervised objective for learning univer- sal sentence embeddings that does not require labelled training data. When used to extend the pretraining of transformer-based language models, our approach closes the performance gap between unsupervised and supervised pre- training for universal sentence encoders. Im- portantly, our experiments suggest that the quality of the learned embeddings scale with both the number of trainable parameters and the amount of unlabelled training data. Our code and pretrained models are publicly avail- able and can be easily adapted to new domains or used to embed unseen text.1
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Giorgi et al. - 2021 - DeCLUTR Deep contrastive learning for unsupervised textual representations.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 邻近片段可能主题相关而事实不同，正对构造不是语义等价保证。
+- 模型规模、数据量、采样与持续 MLM 均影响表现。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+DeCLUTR 利用文档内连续语境生成训练对，避免手工标注句子关系。它学习的是可迁移表示，是否适合知识库检索还要在查询与相关文档上评估；SentEval 的综合分不能直接替代检索 recall。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.md#source-section-8 ) | 局部邻近是自监督假设，不是真实相似度标签 |
+| C2 | [原文]( ../../raw/text/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.md#source-section-16 ) | 按任务是否有监督分别解读 |
+| C3 | [原文]( ../../raw/text/Giorgi%20et%20al.%20-%202021%20-%20DeCLUTR%20Deep%20contrastive%20learning%20for%20unsupervised%20textual%20representations.md#source-section-23 ) | 该消融依赖具体采样和模型设置 |
+
+## 核证范围
+
+核对 §3.1–3.3、§4.2 的评测以及 §5.2 的采样消融。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

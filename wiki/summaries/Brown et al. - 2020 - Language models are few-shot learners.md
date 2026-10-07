@@ -1,41 +1,71 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Brown et al. - 2020 - Language models are few-shot learners
+
+## TL;DR（快速导读）
+
+GPT-3 展示了上下文少样本学习：给模型几组任务示例，再让它回答新问题，过程中不必为这个任务更新模型参数。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+传统迁移学习常先预训练，再使用任务数据微调。本文研究大规模自回归语言模型能否仅凭提示中的示例完成新任务。需要区分提示内学习和参数训练，也要注意示例选择、任务类型与结果波动。
+
+## 具体怎么理解
+
+例如提示先给出几组“英文词 → 中文词”，再问一个新词；这些示例出现在输入里，不等于模型完成了一轮微调。
+
+## 关键事实
+
+- **C1**：GPT-3 研究 zero/one/few-shot 的上下文学习，测试时只做前向计算，将任务说明与少量例子放进提示，不按该任务更新权重。
+- **C2**：模型规模从 125M 到 175B，采用 decoder-only 架构并交替使用密集和局部带状稀疏注意力；语料包含过滤与模糊去重后的网络文本及其他参考语料。
+- **C3**：实验覆盖语言建模、闭卷问答、翻译及其他 NLP 任务，但原文明确报告长文本重复、失去连贯性和部分任务弱点。
+- **C4**：作者承认上下文学习究竟是识别预训练中已学会的任务，还是从头学新任务，可能随任务而变化。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Brown et al. - 2020 - Language models are few-shot learners.pdf
-- 全文文本：../../raw/text/Brown et al. - 2020 - Language models are few-shot learners.md
+- 原始文件：[打开原始文件](../../raw/pdf/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md)
 - 作者：Brown et al.
 - 年份：2020
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Recent work has demonstrated substantial gains on many NLP tasks and benchmarks by pre-training on a large corpus of text followed by ﬁne-tuning on a speciﬁc task. While typically task-agnostic in architecture, this method still requires task-speciﬁc ﬁne-tuning datasets of thousands or tens of thousands of examples. By contrast, humans can generally perform a new language task from only a few examples or from simple instructions – something which current NLP systems still largely struggle to do. Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art ﬁne- tuning approaches. Speciﬁcally, we train GPT-3, an autoregressive language model with 175 billion parameters, 10x more than any previous non-sparse language model, and test its performance in the few-shot setting. For all tasks, GPT-3 is applied without any gradient updates or ﬁne-tuning, with tasks and few-shot demonstrations speciﬁed purely via text interaction with the model. GPT-3 achieves strong performance on many NLP datasets, including translation, question-answering, and cloze tasks, as well as several tasks that require on-the-ﬂy reasoning or domain adaptation, such as unscrambling words, using a novel word in a sentence, or performing 3-digit arithmetic. At the same time, we also identify some datasets where GPT-3’s few-shot learning still struggles, as well as some datasets where GPT-3 faces methodological issues related to training on large web corpora. Finally, we ﬁnd that GPT-3 can generate samples of news articles which human evaluators have difﬁculty distinguishing from articles written by humans. We discuss broader societal impacts of this ﬁnding and of GPT-3 in general. ∗Equal contribution †Johns Hopkins University, OpenAI Author contributions listed at end of paper. arXiv:2005.14165v4 [cs.CL] 22 Jul 2020 Contents
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Brown et al. - 2020 - Language models are few-shot learners.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 存在基准污染、偏见、校准和长文本连贯性问题。
+- 测试时示例少不能抵消预训练已使用的巨大数据量。
+- 原报告是基础模型实验，不能与后来聊天模型的指令或安全行为混同。
 
 ## 关联页面
 
 - 主题：[LLM预训练](../topics/LLM%20预训练.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+给模型‘英文→法文’的几组例子后，再接一个新英文句子，模型通过续写完成翻译。它的权重保持不变，但输入上下文改变了输出分布。这提供一种快捷任务适配方式，同时提示顺序、样例与训练语料覆盖都可能影响效果。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md#source-section-4 ) | few-shot 不等于用几个例子进行梯度微调。 |
+| C2 | [原文]( ../../raw/text/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md#source-section-5 ) | 原报告的 GPT-3 架构不能简化成所有层都是完整密集注意力。 |
+| C3 | [原文]( ../../raw/text/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md#source-section-30 ) | 若干任务接近微调系统，不代表所有任务都能替代微调。 |
+| C4 | [原文]( ../../raw/text/Brown%20et%20al.%20-%202020%20-%20Language%20models%20are%20few-shot%20learners.md#source-section-30 ) | 不能由 few-shot 成功直接断言预训练中没有相关技能或内容。 |
+
+## 核证范围
+
+核对 §2 上下文设置、架构与语料，§3 评测类别、§4 污染问题、§5 主要限制。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

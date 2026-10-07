@@ -1,43 +1,70 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Team, Deepmind - 2025 - Gemma 3 Technical Report
+
+## TL;DR（快速导读）
+
+Gemma 3 用局部与全局注意力降低长上下文缓存成本；4B、12B、27B 支持图文与 128K 上下文，1B 是 32K 的文本模型。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+不同尺寸模型和能力配置需要分别核对。报告将模型能力、局部与全局注意力安排及评测联系起来；缓存减少与每类任务质量的关系也要看实验。这里整理的是报告版本，不代表最新产品状态。
+
+## 具体怎么理解
+
+读一段很长的材料时，缓存负担会上升；局部与全局注意力怎样配合，会影响成本与可访问的信息。
+
+## 关键事实
+
+- **C1**：Gemma 3 按五层局部注意力接一层全局注意力交替，配合 GQA；全局上下文为 128K，1B 例外为 32K。
+- **C2**：4B、12B、27B 共享冻结的约 400M SigLIP 视觉编码器；1B 没有视觉编码器。
+- **C3**：局部/全局比例与窗口大小消融主要衡量困惑度及缓存成本，比例由 1:1 变为 5:1 对所测困惑度影响较小。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Team, Deepmind - 2025 - Gemma 3 Technical Report.pdf
-- 全文文本：../../raw/text/Team, Deepmind - 2025 - Gemma 3 Technical Report.md
+- 原始文件：[打开原始文件](../../raw/pdf/Team%2C%20Deepmind%20-%202025%20-%20Gemma%203%20Technical%20Report.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Team%2C%20Deepmind%20-%202025%20-%20Gemma%203%20Technical%20Report.md)
 - 作者：Team, Deepmind
 - 年份：2025
-- 状态：已核对优化器披露范围；其余部分仍待精读
-
-## 摘要
-
-2025-03-12 Gemma 3 Technical Report Gemma Team, Google DeepMind1 We introduce Gemma 3, a multimodal addition to the Gemma family of lightweight open models, ranging in scale from 1 to 27 billion parameters. This version introduces vision understanding abilities, a wider coverage of languages and longer context – at least 128K tokens. We also change the architecture of the model to reduce the KV-cache memory that tends to explode with long context. This is achieved by increasing the ratio of local to global attention layers, and keeping the span on local attention short. The Gemma 3 models are trained with distillation and achieve superior performance to Gemma 2 for both pre-trained and instruction finetuned versions. In particular, our novel post-training recipe significantly improves the math, chat, instruction-following and multilingual abilities, making Gemma3- 4B-IT competitive with 
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 报告只明确说明 optimizer state 通过 ZeRO-3 分片，没有披露优化器具体是 AdamW、Muon 或其他方法；横向研究中应标为“未披露”。
-- 已存在可读全文文本，可直接从 `raw/text/Team, Deepmind - 2025 - Gemma 3 Technical Report.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Team%2C%20Deepmind%20-%202025%20-%20Gemma%203%20Technical%20Report.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
-- “optimizer state 使用 ZeRO-3”描述的是分片方式，不能据此反推优化器算法。
+- 1B 的模态与长度都不同，不能用统一家族标签抹掉差异。
+- KV 缓存节省不等于总权重显存或整个推理成本按相同比例下降。
+- 预训练消融与 IT 模型的人工评价衡量不同层面的行为。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 对比：[Muon 与 AdamW](../comparisons/Muon%20与%20AdamW.md)
+- [DeepMind](../authors/DeepMind.md)：沿作者或机构继续阅读相关来源。
+
+## 方法与实验解读
+
+多数层只维护局部上下文，少量层连接更远的信息，使缓存占用下降；视觉编码器把图像转成可供语言模型使用的表示。这是任务表现、上下文长度与硬件成本的折中，挑模型时需要明确规模与模态例外。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Team%2C%20Deepmind%20-%202025%20-%20Gemma%203%20Technical%20Report.md#source-section-4 ) | 局部连接与 KV 缓存设计是效率选择，不表示所有层完整读取全篇。 |
+| C2 | [原文]( ../../raw/text/Team%2C%20Deepmind%20-%202025%20-%20Gemma%203%20Technical%20Report.md#source-section-5 ) | 不能把家族的多模态能力标到每个模型规模上。 |
+| C3 | [原文]( ../../raw/text/Team%2C%20Deepmind%20-%202025%20-%20Gemma%203%20Technical%20Report.md#source-section-15 ) | 困惑度接近不能证明所有长程任务与复杂图文任务无差别。 |
+
+## 核证范围
+
+核对 §2 架构及 1B 例外、§2.1 视觉编码器、§2.2 训练数据、§4 IT 评价范围、§5.2 注意力消融。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

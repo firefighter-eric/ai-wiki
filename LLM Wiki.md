@@ -1,5 +1,11 @@
 # LLM Wiki
 
+## TL;DR（快速导读）
+
+让 LLM 把读过的资料持续整理成可阅读、可链接、可修订的 wiki。原文是核对依据；wiki 保存摘要、比较和已经形成的判断；AGENTS.md 规定本库怎样执行。新资料要更新已有知识，好的回答也要写回来。
+
+例如，读到一篇推翻旧结论的论文时，不能只多存一个摘要：还要修订相关主题、注明分歧并保留证据链接。以下保留英文方法原文；中文解释见 [LLM Wiki_zh](./LLM%20Wiki_zh.md)，实际阅读入口见 [index](./index.md)。
+
 A pattern for building personal knowledge bases using LLMs.
 
 This is an idea file, it is designed to be copy pasted to your own LLM Agent (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.). Its goal is to communicate the high level idea, but your agent will build out the specifics in collaboration with you.

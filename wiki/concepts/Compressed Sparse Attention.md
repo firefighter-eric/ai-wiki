@@ -3,9 +3,17 @@ type: concept
 ---
 # Compressed Sparse Attention
 
+## TL;DR（快速导读）
+
+CSA 先压缩长上下文的键值缓存，再从压缩块中选择相关部分做注意力，目标是减少长文本推理负担。
+
 ## 简介
 
 `Compressed Sparse Attention (CSA)` 是 `DeepSeek-V4` 中用于百万 token 长上下文的 attention 机制之一。它先把连续 token 的 `KV cache` 压缩成更少的 compressed KV entries，再用 `DeepSeek Sparse Attention (DSA)` 从压缩后的 KV 块中选择 top-k 参与核心 attention。
+
+## 具体怎么理解
+
+可将长文分块形成较少的缓存条目，再挑选与当前问题相关的块；压缩与选择都会影响可保留的信息。
 
 ## 关键属性
 
@@ -34,3 +42,8 @@ type: concept
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
 
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **sparse**：稀疏计算或连接：只使用选中的部分，具体省略什么取决于方法。

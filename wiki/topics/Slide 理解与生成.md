@@ -1,14 +1,24 @@
 ---
 type: topic
-status: building
+status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # Slide 理解与生成
 
+## TL;DR（快速导读）
+
+读懂幻灯片、从多页找到答案、检查设计缺陷和生成可编辑演示，是四个不同任务。应把内容正确、页面设计和跨页叙事分别验收，单个自动总分无法覆盖它们。
+
+阅读重点：先按问题选择路线，再核对比较条件与证据边界。
+
+## 先用一个问题理解
+
+一份五页汇报可以每页文字都对，却缺少问题、证据和结论的顺序。检查时先看内容依据，再看单页可读性，最后连起来看叙事；跨页问答还需要追踪答案用了哪些页面。
+
 ## 页面状态
 
-- 状态：待建设 topic
-- 原因：证据基础仍包含待精读自动摘要；对应 summary 精修并复核核心论断后，才可重新升级为正式 topic。
-- 事实基座：`wiki/summaries/` 优先
+正式 topic；2026-10-07 复核核心来源并补充方法比较。正文区分论文实验、作者报告和本文综合判断；开放问题表示研究证据的边界。
 
 ## 主题定义
 
@@ -36,6 +46,24 @@ status: building
 
 把这四层连起来，当前可以形成一个更强的 topic 主线：**slide 理解与生成的核心，不是单页识别，而是把元素层、页面层、序列层和演示层同时纳入同一个工作流。** 底层解析负责“这一页有什么”，多模态理解负责“为什么这样讲”，评测负责“这样讲得好不好”，生成工作流负责“怎样把内容、设计与 coherence 一起构造出来”。
 
+### 不同来源分别证明了哪一层
+
+[MLP](../summaries/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md)的主要任务是讲述文字与幻灯片的跨模态检索，利用多实例学习处理弱对齐。它支持“口述内容与图中文字并非一一对应”，却不直接证明能回答任意演示问题。[SlideVQA](../summaries/Tanaka%20et%20al.%20-%20Unknown%20-%20Images.md)才把多页证据与问答放入测试；找到相关页、读取图表和推导答案仍需分开诊断，检索成功不能自动等于回答正确。
+
+[SlideAudit](../summaries/Zhang%20et%20al.%20-%202025%20-%20SlideAudit%20A%20Dataset%20and%20Taxonomy%20for%20Automated%20Evaluation%20of%20Presentation%20Slides.md)针对设计缺陷建立 taxonomy，其标签表达可检测的局部问题，而非普遍的审美真值。[PPTAgent](../summaries/Zheng%20et%20al.%20-%202025%20-%20PPTAgent%20Generating%20and%20Evaluating%20Presentations%20Beyond%20Text-to-Slides.md)则从参考演示分析、规划与编辑动作生成页面。复用参考能维持风格，也带来内容适配约束；保留模板不保证新内容装得下，成功生成文件也不保证没有溢出、不可编辑对象或跨页矛盾。
+
+| 阶段 | 最小验收对象 | 常见的隐藏失败 |
+| --- | --- | --- |
+| 读入 | 文本、图、表、层级与来源页对应 | PDF 转写丢失图表关系 |
+| 问答 | 答案对应的证据页和推导 | 相关页正确但数字解释错误 |
+| 规划 | 页角色、内容取舍与先后关系 | 每页都对，整套仍重复或跳跃 |
+| 编辑 | 可编辑元素、页面渲染与布局 | 文件能打开，但字体/边界出错 |
+| 评审 | 内容、设计、coherence 分项 | 美观总分掩盖事实遗漏 |
+
+这张验收表是本文对不同来源接口的综合，不是某篇论文共同测过的指标。文档基础研究提供底层解析方法，但不能直接把 OmniDocBench 的 PDF parsing 分数换算为 PPT 生成质量。原生 PPT 对象、PDF 页面截图与讲者录音拥有不同信息；输入丢掉的动画、备注和对象关系不能靠综述假定恢复。
+
+较稳定的结论是 slide 任务需要页面与序列两个尺度；对企业模板、商业 pitch 或教学效果的最优工作流，当前来源覆盖仍有限。按受众检验信息是否足够，比只比较生成时间更接近任务目标，但效果提升需要实际用户或课程评价。
+
 ## 关键争论与分歧
 
 - **slide 是否只是文档理解的一个子任务**：底层解析确实与文档 AI 高度共享，但现有证据已经足够支持 slide 在 topic 层独立成题。原因在于 `Lee et al.` 和 `PPTAgent` 都表明，跨页叙事、讲者语音、页面功能角色和 coherence 不是一般文档解析的边角料，而是 slide 问题本体的一部分。
@@ -44,14 +72,19 @@ status: building
 - **lecture slides 能否代表所有 slide 场景**：不能直接外推。教育课件提供了多模态对齐和长序列理解的优质测试床，但商业 pitch、学术报告、产品发布在风格、目标受众和成功标准上差异明显。因此当前页可以用 lecture slides 支撑“slide 不是单页问题”，却不能把教育场景里的结论无条件推广到所有 presentation 类型。
 - **“text-to-slides” 是否是正确的问题表述**：从 `PPTAgent` 的结果看，这个表述明显过窄。若忽略参考模板、页面功能、编辑动作和跨页 coherence，把问题表述成纯文本到页面生成，会低估真实工作流的结构复杂度。
 
+### 自动评审应该提供诊断，而不是单一裁决
+
+同一个模型生成再评分可能偏向自己的风格；缺陷分类也存在标注分歧。模型评分适合发现待检查页，人工和可确定的渲染检查仍需参与事实、设计和交付验收。本文不把 lecture 数据集上的效果外推到商业说服力，也不把参考驱动的生成路线宣布为全部演示场景的最优方案。
+
 ## 证据基础
 
 - [Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking](../../wiki/summaries/Huang%20et%20al.%20-%202022%20-%20LayoutLMv3%20Pre-training%20for%20Document%20AI%20with%20Unified%20Text%20and%20Image%20Masking.md)
-- [Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
+- [DocLLM：布局感知文档语言模型（2024）](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
 - [Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations](../../wiki/summaries/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md)
 - [Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides](../../wiki/summaries/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md)
 - [Zhang et al. - 2025 - SlideAudit A Dataset and Taxonomy for Automated Evaluation of Presentation Slides](../../wiki/summaries/Zhang%20et%20al.%20-%202025%20-%20SlideAudit%20A%20Dataset%20and%20Taxonomy%20for%20Automated%20Evaluation%20of%20Presentation%20Slides.md)
 - [Zheng et al. - 2025 - PPTAgent Generating and Evaluating Presentations Beyond Text-to-Slides](../../wiki/summaries/Zheng%20et%20al.%20-%202025%20-%20PPTAgent%20Generating%20and%20Evaluating%20Presentations%20Beyond%20Text-to-Slides.md)
+- [SlideVQA：多页幻灯片视觉问答（2023）](../summaries/Tanaka%20et%20al.%20-%20Unknown%20-%20Images.md)：补充 SlideVQA 多页问答任务，区别于 MLP 图文检索。
 
 ## 代表页面
 
@@ -62,10 +95,9 @@ status: building
 
 ## 未解决问题
 
-- 当前页面已经可以较稳地把 slide 问题拆成**底层解析、多模态理解、质量评测、edit-based 生成**四层，但证据面仍明显偏少，尤其缺商业汇报、学术演示、企业模板库等场景来源。
-- `DocLLM`、`OmniDocBench`、`Lee et al.`、`PPTAgent` 之间目前更多是 topic 层综合，而不是同一 benchmark 下的直接可比路线，因此本页只能写结构性判断，尚不宜写更细的性能主张。
-- slide 评测中的审美一致性、信息密度控制、演讲节奏和受众适配性，仍缺稳定、可迁移的自动指标；因此“评测闭环已形成”不能写成稳定结论。
-- 现有来源更支持 reference-heavy、edit-based 工作流，但是否未来会被更强的端到端 multimodal agent 统一解决，当前证据明显不足。
+- 跨页事实、叙事节奏和视觉层级如何共同可测？现有检索、问答、设计与生成指标只覆盖部分目标。
+- 参考模板何时在新内容和长演示中失效？内容装配、溢出和不可编辑对象需要渲染及编辑检查。
+- 怎样处理模型评审与人工分歧？教学数据不能直接代表商业说服力、研究演示或所有受众效果。
 
 ## 关联页面
 
@@ -73,3 +105,8 @@ status: building
 - [DocLLM](../concepts/DocLLM.md)
 - [LayoutLMv3](../concepts/LayoutLMv3.md)
 - [Florence-2](../concepts/Florence-2.md)
+- [文档与表格的输入输出接口](../comparisons/%E6%96%87%E6%A1%A3%E4%B8%8E%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8E%A5%E5%8F%A3.md)：页面转写、表格结构恢复、单表问答和电子表格压缩需要不同表示。先决定保留哪些行列、坐标、样式与运算，再选模型；结构合法和答案正确要分别验收。
+
+## 这里的术语是什么意思
+
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。

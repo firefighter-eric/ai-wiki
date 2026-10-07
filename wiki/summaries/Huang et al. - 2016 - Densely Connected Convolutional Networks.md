@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Huang et al. - 2016 - Densely Connected Convolutional Networks
+
+## TL;DR（快速导读）
+
+DenseNet 将前面各层的特征直接拼接给后面的层，研究怎样复用特征并改善信息传播。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -12,25 +21,22 @@ status: refined
 - 全文文本：../../raw/text/Huang et al. - 2016 - Densely Connected Convolutional Networks.md
 - 作者：Huang et al.
 - 年份：2016
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`DenseNet` 将跨层连接从 `ResNet` 的逐块残差相加进一步推进为“每层接收此前所有层特征”的密集连接模式。它的重要性不只是又一个更深 backbone，而是在经典 CNN 中明确提出：跨层信息流可以通过特征复用而非重复学习来改善训练效率和参数效率。
+这种连接与残差相加不同：后续层接收已有特征集合，再学习新的特征。它可减少重复学习，但特征存储和拼接也有成本；参数效率和实际内存需求需要分别比较。
 
 ## 关键事实
 
-- 论文把每一层的输入定义为此前所有层特征图的串接，而不是只接前一层或通过残差相加接一个 shortcut。
-- 这种 dense connectivity 被论文解释为缓解梯度消失、加强 feature propagation、鼓励 feature reuse，并减少冗余参数。
-- `DenseNet` 在 `CIFAR-10 / CIFAR-100 / SVHN / ImageNet` 上报告了强结果，同时强调较高参数效率。
-- 与 `ResNet` 相比，`DenseNet` 的关键差异不在“有没有跨层连接”，而在连接是 `summation` 还是 `concatenation`，以及由此带来的信息复用逻辑。
-- 从演化视角看，`DenseNet` 代表经典 CNN 一条“通过更强连接结构提高效率”的分支，而不是继续单纯加深或加宽网络。
+- **C1**：DenseNet让每层接收同尺寸block内全部先前特征的concatenation。
+- **C2**：与ResNet相加不同，串接保留各层特征通道供后续复用。
+- **C3**：报告在CIFAR/SVHN/ImageNet验证参数效率；表格区分数据增强和dropout。
 
 ## 争议与不确定点
 
-- 密集连接提升了特征复用，但也带来更重的特征拼接与内存访问负担；因此它不是所有部署场景下的默认优选。
-- `DenseNet` 的参数效率很强，但其整体系统效率未必在所有硬件上都优于更规则的残差家族。
-- 当前 summary 聚焦其连接思想与结构位置，尚未细拆 growth rate、transition layer 等实现超参数。
+- 强串接可能增加激活和数据搬运，部署内存需实测。
+- 论文的参数优势依赖所选深度、growth rate、压缩与数据设置。
 
 ## 关联页面
 
@@ -38,3 +44,23 @@ status: refined
 - 主题：[传统 CV](../../wiki/topics/传统%20CV.md)
 - 概念：[DenseNet](../../wiki/concepts/DenseNet.md)
 - 概念：[ResNet](../../wiki/concepts/ResNet.md)
+
+## 方法与实验解读
+
+Dense connectivity把特征保留与新增特征分开：增长率控制每层加入的通道数，后层复用早期表示。瓶颈/压缩设计控制串接带来的通道膨胀。比较ResNet时应同时看参数、激活、计算和任务精度，不能把参数效率泛化为所有资源维度占优。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Huang%20et%20al.%20-%202016%20-%20Densely%20Connected%20Convolutional%20Networks.md#source-section-7 ) | 跨block用transition改变空间尺寸。 |
+| C2 | [原文]( ../../raw/text/Huang%20et%20al.%20-%202016%20-%20Densely%20Connected%20Convolutional%20Networks.md#source-section-26 ) | 是结构性差异，不是简单多一条shortcut。 |
+| C3 | [原文]( ../../raw/text/Huang%20et%20al.%20-%202016%20-%20Densely%20Connected%20Convolutional%20Networks.md#source-section-14 ) | 较少参数不等于峰值激活或实际运行内存更低。 |
+
+## 核证范围
+
+核读dense定义、ResNet差异、实验表与discussion。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -1,14 +1,24 @@
 ---
 type: topic
-status: building
+status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # 传统 CV
 
+## TL;DR（快速导读）
+
+视觉方法可以按三层阅读：如何学习表示、如何定义任务输出、如何在真实设备运行。CNN、ViT、文档模型与生成式感知改变的是不同层，不能用一个“统一视觉”的口号合并。
+
+阅读重点：先按问题选择路线，再核对比较条件与证据边界。
+
+## 先用一个问题理解
+
+图像分类输出类别，检测还输出位置，OCR 输出文字，表格解析还要输出结构。它们都处理图像，但监督与评价不同；下文用任务接口连接各条研究主线。
+
 ## 页面状态
 
-- 状态：待建设 topic
-- 原因：证据基础仍包含待精读自动摘要；对应 summary 精修并复核核心论断后，才可重新升级为正式 topic。
-- 事实基座：`wiki/summaries/` 优先
+正式 topic；2026-10-07 复核核心来源并补充方法比较。正文区分论文实验、作者报告和本文综合判断；开放问题表示研究证据的边界。
 
 ## 主题定义
 
@@ -40,6 +50,23 @@ status: building
 
 把这几层放在一起，当前可以得到一个比原页更稳的综述判断：**传统 CV 在本库中的主线，不是“旧方法大全”，而是视觉 backbone 与任务接口如何从经典卷积谱系，转向更统一的 token 表示、layout-aware 预训练和生成式解码。** 其中经典 CNN 主线解决的是视觉 backbone 如何持续演化，`ViT` 改写基础表征范式，`LayoutLMv3` 解决结构化文档问题，`TrOCR` 解决识别接口生成化问题，`Vision Banana` 则把生成式图像预训练推向通用感知任务，而检测已经外溢成独立主题。
 
+### 表征训练、感知输出与图像合成的边界
+
+[SimSiam](../summaries/Chen%2C%20He%20-%202021%20-%20Exploring%20Simple%20Siamese%20Representation%20Learning.md)说明不靠显式负样本也能学习图像表示，但依赖 stop-gradient 等训练设计；它既不是无需防止坍塌，也不是任意结构都有效。[ViT](../summaries/Dosovitskiy%20et%20al.%20-%202020%20-%20An%20Image%20is%20Worth%2016x16%20Words%20Transformers%20for%20Image%20Recognition%20at%20Scale.md)依赖数据与预训练规模，[视觉 Transformer 综述](../summaries/Khan%20et%20al.%20-%202021%20-%20Transformers%20in%20Vision%20A%20Survey.md)组织已有路线，二者不能直接证明 Transformer 在所有小数据任务占优。[FLIP](../summaries/Li%2C%20Fan%2C%20Ai%20-%20Unknown%20-%20Scaling%20Language-Image%20Pre-training%20via%20Masking.md)在图文预训练中遮蔽图像 patches 来节省训练计算，其结果仍需记录 masking、数据和微调协议。
+
+模型学得表示后，还要规定输出。检测给框，文档模型给字段或文本，matting 给 alpha；它们的错误代价不同。[Background Matting V2](../summaries/Lin%20et%20al.%20-%202021%20-%20Real-Time%20High-Resolution%20Background%20Matting.md)使用额外干净背景输入，[Robust Video Matting](../summaries/Lin%20et%20al.%20-%202022%20-%20Robust%20High-Resolution%20Video%20Matting%20with%20Temporal%20Guidance.md)利用时序状态，两者虽都抠像，输入条件不能抹掉。单帧边缘好也不说明视频没有闪烁；时序稳定与精细边缘需要分别衡量。
+
+[Vision Banana](../summaries/Gabeur%20et%20al.%20-%202026%20-%20Image%20Generators%20are%20Generalist%20Vision%20Learners.md)尝试把分割、深度与法线编码成生成图像。这是对任务输出形式的重写，并不让度量尺度、边界误差或实例对应失去意义。闭源底座与数据不完全透明还限制了归因：结果能支持这一方案在测量任务中可行，不能证明生成预训练是唯一有效原因。
+
+| 层次 | 问题 | 合适的比较条件 |
+| --- | --- | --- |
+| 表征学习 | 如何从数据学可迁移特征 | 数据、预训练预算、下游微调 |
+| 任务接口 | 框、mask、深度、文字如何输出 | 输出定义、容差和任务指标 |
+| 合成/渲染 | 如何生成图像或新视点 | 身份、几何、视角与时序一致性 |
+| 部署 | 多快、多省、是否稳定 | 设备、分辨率、精度与批量 |
+
+[神经渲染综述](../summaries/Tewari%20et%20al.%20-%202020%20-%20State%20of%20the%20Art%20on%20Neural%20Rendering.md)和[神经渲染进展](../summaries/Tewari%20et%20al.%20-%202021%20-%20Advances%20in%20neural%20rendering.md)补充由几何、场景表示和学习结合的路线。本文把它作为邻接阅读路径，保留“从图像识别世界”与“从场景条件生成视图”的差别；它不能因为使用神经网络就被归入分类 backbone 的同一性能表。
+
 ## 关键争论与分歧
 
 - **Transformer 是否已经“统一了视觉”**：现有证据只支持它已改写视觉基础架构与文档建模方式，不支持“所有视觉子任务都已被同一种训练范式稳定统一”。`ViT` 支撑的是基础表征层转向，`LayoutLMv3` 和 `TrOCR` 支撑的是部分任务接口统一，不能机械外推为全部视觉问题都已收敛。
@@ -47,6 +74,10 @@ status: building
 - **OCR 是否已经从识别任务变成纯生成任务**：`TrOCR` 证明生成式接口在 OCR 中可行且有效，但现有证据不足以说明 OCR 的评测逻辑、错误模式和数据依赖已经完全等同于通用文本生成。更稳妥的说法是：OCR 的**模型接口生成化了**，而问题本体并未因此消失。
 - **生成式视觉预训练是否已经统一 CV**：`Vision Banana` 提供了强证据，说明强图像生成器经过轻量 instruction tuning 后可以在多类分割、深度与表面法线任务上达到接近或超过专门模型的结果。但由于其底座闭源、训练数据不完全透明、推理成本较高，且 instance segmentation 等任务仍存在短板，当前不能把它解释为“传统 CV 已经被图像生成完全替代”。
 - **“传统 CV”这个总题是否过宽**：是的，而且这个宽度本身就是当前页面的风险。随着 `目标检测` 与 `OCR` 已经外溢成独立 topic，这一风险实际上已经开始被缓解；但文档 AI、表格理解、视觉基础模型等子线仍未完全拆稳，因此本页仍需要继续收缩为更强的总览页，而不是再次回到细节堆积。
+
+### 统一接口不等于统一约束
+
+越来越多方法共享 Transformer、对比学习或生成骨架，但具体任务仍有几何、拓扑、坐标和时序要求。本文较稳定的判断是骨架共享扩大了复用空间；不同任务评价并未消失。若声称新模型替代专门方法，应在相同输入、输出精度、资源预算和数据泄漏条件下对照，而不是只展示几张自然的结果图。
 
 ## 证据基础
 
@@ -56,6 +87,13 @@ status: building
 - [Huang et al. - 2022 - LayoutLMv3 Pre-training for Document AI with Unified Text and Image Masking](../../wiki/summaries/Huang%20et%20al.%20-%202022%20-%20LayoutLMv3%20Pre-training%20for%20Document%20AI%20with%20Unified%20Text%20and%20Image%20Masking.md)
 - [Li et al. - 2021 - TrOCR Transformer-based Optical Character Recognition with Pre-trained Models](../../wiki/summaries/Li%20et%20al.%20-%202021%20-%20TrOCR%20Transformer-based%20Optical%20Character%20Recognition%20with%20Pre-trained%20Models.md)
 - [Gabeur et al. - 2026 - Image Generators are Generalist Vision Learners](../../wiki/summaries/Gabeur%20et%20al.%20-%202026%20-%20Image%20Generators%20are%20Generalist%20Vision%20Learners.md)
+- [Chen, He - 2021 - Exploring Simple Siamese Representation Learning](../summaries/Chen%2C%20He%20-%202021%20-%20Exploring%20Simple%20Siamese%20Representation%20Learning.md)：无负样本自监督表示的机制与条件。
+- [Khan et al. - 2021 - Transformers in Vision A Survey](../summaries/Khan%20et%20al.%20-%202021%20-%20Transformers%20in%20Vision%20A%20Survey.md)：视觉 Transformer 路线组织。
+- [Li, Fan, Ai - Unknown - Scaling Language-Image Pre-training via Masking](../summaries/Li%2C%20Fan%2C%20Ai%20-%20Unknown%20-%20Scaling%20Language-Image%20Pre-training%20via%20Masking.md)：图文预训练遮蔽与效率折中。
+- [Lin et al. - 2021 - Real-Time High-Resolution Background Matting](../summaries/Lin%20et%20al.%20-%202021%20-%20Real-Time%20High-Resolution%20Background%20Matting.md)：有额外背景输入的实时抠像。
+- [Lin et al. - 2022 - Robust High-Resolution Video Matting with Temporal Guidance](../summaries/Lin%20et%20al.%20-%202022%20-%20Robust%20High-Resolution%20Video%20Matting%20with%20Temporal%20Guidance.md)：视频时序状态与高分辨率抠像。
+- [Tewari et al. - 2020 - State of the Art on Neural Rendering](../summaries/Tewari%20et%20al.%20-%202020%20-%20State%20of%20the%20Art%20on%20Neural%20Rendering.md)：神经渲染与判别式视觉的任务边界。
+- [Tewari et al. - 2021 - Advances in neural rendering](../summaries/Tewari%20et%20al.%20-%202021%20-%20Advances%20in%20neural%20rendering.md)：新视点与场景表示的进展。
 
 ## 代表页面
 
@@ -80,10 +118,9 @@ status: building
 
 ## 未解决问题
 
-- 当前页面对**视觉基础模型、文档 AI、OCR 生成化、感知任务生成化**几条子线的总结已经初步成形，但证据面仍偏薄，尚不足以支撑更细粒度的稳定断言，例如“统一预训练已成为文档理解唯一主流”或“图像生成预训练已经替代所有专门视觉模型”。
-- `DocLLM`、`OmniDocBench` 等来源虽已在库中出现，但当前页的核心判断仍主要由 `ViT / LayoutLMv3 / TrOCR` 支撑；若要把“文档理解正在从视觉模型转向 layout-aware 语言模型”写成稳定结论，必须先补更强的 `wiki/summaries/`。
-- 表格解析、版面分析、文档问答与 OCR 之间目前还缺 comparison 页，因此这些相邻路线虽然已经开始拆分，但边界仍未被更细粒度地稳固下来。
-- 视频、neural rendering、talking-head、3D 视觉生成等内容仍未纳入本页主线；在现有证据下，把它们直接吸进“传统 CV”只会稀释页面边界。
+- 共享生成骨架能否保持几何、尺度和拓扑约束？自然画面与准确深度、mask、字符是不同标准。
+- 怎样分离自监督、数据规模和模型结构的贡献？视觉与生成式感知报告常共同改变多个条件。
+- 动态场景怎样兼顾时序稳定、遮挡和细节？抠像与渲染有不同输入前提，单帧质量不足以判断跨帧可用性。
 
 ## 关联页面
 
@@ -112,3 +149,11 @@ status: building
 - [data2vec](../concepts/data2vec.md)
 - [HuBERT](../concepts/HuBERT.md)
 - [Tip-Adapter](../concepts/Tip-Adapter.md)
+- [文档与表格的输入输出接口](../comparisons/%E6%96%87%E6%A1%A3%E4%B8%8E%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8E%A5%E5%8F%A3.md)：页面转写、表格结构恢复、单表问答和电子表格压缩需要不同表示。先决定保留哪些行列、坐标、样式与运算，再选模型；结构合法和答案正确要分别验收。
+- [神经渲染](../concepts/%E7%A5%9E%E7%BB%8F%E6%B8%B2%E6%9F%93.md)：神经渲染把学习表示与相机、几何或渲染过程连接起来，目标常是生成条件视图。它与物体识别或普通文生图的约束不同，先看场景输入和能控制哪些变量。
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **backbone**：模型骨干：主要负责提取或变换表示，其他任务模块在它之上工作。
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。

@@ -7,12 +7,23 @@ import sys
 
 import fitz
 
+try:
+    from .source_utils import source_hash
+except ImportError:
+    from source_utils import source_hash
+
 
 def extract_pdf_text(pdf_path: Path) -> str:
     parts = []
+    has_text = False
     with fitz.open(pdf_path) as doc:
-        for page in doc:
-            parts.append(page.get_text())
+        for index, page in enumerate(doc, start=1):
+            text = page.get_text(sort=True).strip()
+            has_text = has_text or bool(text)
+            marker = f'<a id="page-{index}"></a>\n\n### PDF 第 {index} 页\n\n'
+            parts.append(marker + (text or '[本页未提取到文本；需要图像检查或 OCR。]'))
+    if not has_text:
+        raise ValueError(f'No text extracted from PDF: {pdf_path}; OCR/visual review is required.')
     return "\n".join(parts).strip()
 
 
@@ -21,13 +32,23 @@ def build_output_path(pdf_path: Path, raw_root: Path, out_root: Path) -> Path:
     return out_root / rel.with_suffix(".md")
 
 
-def render_markdown(pdf_path: Path, raw_root: Path, extracted: str) -> str:
+def render_markdown(
+    pdf_path: Path,
+    raw_root: Path,
+    extracted: str,
+    source_url: str | None = None,
+    title: str | None = None,
+) -> str:
     rel = pdf_path.relative_to(raw_root)
-    title = pdf_path.stem
+    title = title or pdf_path.stem
+    url_metadata = f"- Source URL: {source_url}\n" if source_url else ''
     return (
         f"# {title}\n\n"
         f"- Source PDF: `raw/pdf/{rel.as_posix()}`\n"
+        f"- Source SHA256: `{source_hash(pdf_path)}`\n"
+        f"{url_metadata}"
         f"- Generated from: `scripts/extract_pdf_text.py`\n\n"
+        "- Extraction: `pymupdf-pages-v2` (sorted text, page anchors; tables/formulas/figures require review)\n\n"
         "## Extracted Text\n\n"
         f"{extracted}\n"
     )
@@ -83,9 +104,10 @@ def main() -> int:
             print(f"Skip existing {out_path}")
             continue
 
-        extracted = extract_pdf_text(pdf_path)
-        if not extracted:
-            print(f"No text extracted from PDF: {pdf_path}", file=sys.stderr)
+        try:
+            extracted = extract_pdf_text(pdf_path)
+        except ValueError as exc:
+            print(str(exc), file=sys.stderr)
             return 1
         markdown = render_markdown(pdf_path, raw_root, extracted)
         out_path.write_text(markdown, encoding="utf-8")

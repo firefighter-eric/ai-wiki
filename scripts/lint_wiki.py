@@ -4,14 +4,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import posixpath
 import re
 import sys
 import unicodedata
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
+from datetime import date
 from pathlib import Path
 from urllib.parse import unquote, urlparse
+
+try:
+    from .source_utils import source_hash
+except ImportError:
+    from source_utils import source_hash
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,6 +35,7 @@ FRONTMATTER_RE = re.compile(r"\A---\n(?P<body>.*?)\n---\n?", re.DOTALL)
 LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)\n]+)\)")
 FENCE_RE = re.compile(r"^(```|~~~).*?^\1\s*$", re.MULTILINE | re.DOTALL)
 INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
+TLDR_HEADING = "TL;DR（快速导读）"
 FATAL_EXTRACTION_MARKERS = (
     "Conversion to HTML had a Fatal error",
     "LaTeXML encountered an error",
@@ -74,6 +82,24 @@ def markdown_links(text: str) -> list[str]:
     return [match.strip() for match in LINK_RE.findall(without_code)]
 
 
+def reader_prose(text: str) -> str:
+    """Ignore fenced examples when checking actual headings and reader text."""
+    lines: list[str] = []
+    fence: str | None = None
+    for line in text.splitlines():
+        if fence is not None:
+            closing = rf" {{0,3}}{re.escape(fence[0])}{{{len(fence)},}}\s*"
+            if re.fullmatch(closing, line):
+                fence = None
+            continue
+        opening = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
+        if opening:
+            fence = opening[1]
+            continue
+        lines.append(line)
+    return "\n".join(lines)
+
+
 def local_target(source: Path, destination: str) -> str | None:
     destination = destination.strip()
     if destination.startswith("<") and destination.endswith(">"):
@@ -93,11 +119,12 @@ def local_target(source: Path, destination: str) -> str | None:
 class WikiLint:
     def __init__(self) -> None:
         self.findings: list[Finding] = []
-        self.files = {
-            normalized(path.relative_to(ROOT).as_posix()): path
-            for path in ROOT.rglob("*")
-            if path.is_file()
-        }
+        self.files = {}
+        for directory, subdirs, names in os.walk(ROOT):
+            subdirs[:] = [name for name in subdirs if name not in {'.git', '.venv', '.wiki-cache', '__pycache__'}]
+            for name in names:
+                path = Path(directory) / name
+                self.files[normalized(path.relative_to(ROOT).as_posix())] = path
         self.casefold_files: dict[str, list[str]] = defaultdict(list)
         for path in self.files:
             self.casefold_files[path.casefold()].append(path)
@@ -141,12 +168,14 @@ class WikiLint:
                 metadata, body = parse_frontmatter(path.read_text(encoding="utf-8"))
                 if metadata.get("type") != expected_type:
                     self.add("error", "metadata-type", path, f"Expected type: {expected_type}.")
+                self.check_readability(path, metadata, body)
                 if expected_type == "summary":
                     if metadata.get("status") not in {"auto", "refined"}:
                         self.add("error", "metadata-status", path, "Summary status must be auto or refined.")
                     for heading in summary_headings:
                         if f"## {heading}" not in body:
                             self.add("error", "summary-template", path, f"Missing heading: {heading}.")
+                    self.check_evidence_contract(path, metadata, body)
                 elif expected_type == "topic":
                     if metadata.get("status") not in {"formal", "building"}:
                         self.add("error", "metadata-status", path, "Topic status must be formal or building.")
@@ -159,6 +188,74 @@ class WikiLint:
                         if f"## {heading}" not in body:
                             self.add("error", "concept-template", path, f"Missing heading: {heading}.")
                     self.check_summary_only_section(path, body, "来源支持", "concept-evidence")
+
+    def check_readability(self, path: Path, metadata: dict[str, str], body: str) -> None:
+        # This is a writing contract, not a semantic review or status promotion.
+        visible = reader_prose(body)
+        headings = re.findall(r"^## (.+?)\s*$", visible, re.MULTILINE)
+        if not headings or headings[0] != TLDR_HEADING:
+            self.add("error", "readability-tldr", path, f"First section must be: {TLDR_HEADING}.")
+        count = headings.count(TLDR_HEADING)
+        if count > 1:
+            self.add("error", "readability-tldr-duplicate", path, "Keep one reader guide per page.")
+        if count:
+            guide = section(visible, TLDR_HEADING).strip()
+            lead = re.split(r"\n\s*\n", guide, maxsplit=1)[0]
+            lead = LINK_RE.sub("", INLINE_CODE_RE.sub("", lead))
+            if len(re.findall(r"[\u4e00-\u9fff]", lead)) < 15 or lead.startswith("阅读状态"):
+                self.add("error", "readability-tldr-content", path, "Guide needs a substantive Chinese opening, beyond links or status.")
+            marker = {"auto": "待精读", "building": "待建设"}.get(metadata.get("status", ""))
+            if marker and marker not in guide:
+                self.add("error", "readability-status", path, f"Reader guide must retain the maturity note: {marker}.")
+        if metadata.get("type") == "summary":
+            abstract = section(visible, "摘要")
+            abstract = LINK_RE.sub("", INLINE_CODE_RE.sub("", abstract))
+            if len(re.findall(r"[\u4e00-\u9fff]", abstract)) < 30:
+                self.add("error", "readability-summary", path, "Summary needs a Chinese explanation, not an imported English snippet or intake status.")
+
+    def check_evidence_contract(self, path: Path, metadata: dict[str, str], body: str) -> None:
+        # Existing refined pages remain usable. Newly reviewed sources opt into
+        # the explicit contract; no machine inference can promote a summary.
+        if metadata.get('evidence_schema') != '1' or metadata.get('status') != 'refined':
+            return
+        try:
+            date.fromisoformat(metadata.get('reviewed', ''))
+        except ValueError:
+            self.add('error', 'evidence-review-date', path, 'Refined evidence_schema: 1 requires reviewed: YYYY-MM-DD.')
+        evidence = section(body, '证据定位')
+        precise = 0
+        for destination in markdown_links(evidence):
+            target = local_target(path, destination)
+            if not target or not target.startswith(('raw/text/', 'raw/html/', 'raw/pdf/')):
+                self.add('error', 'evidence-source-layer', path, f'Evidence locator must point to a local raw source/text: {destination}')
+                continue
+            source = self.files.get(target)
+            fragment = unquote(urlparse(destination).fragment)
+            if source is None or not fragment:
+                self.add('error', 'evidence-locator', path, f'Missing source or precise anchor/page: {destination}')
+                continue
+            if target.endswith('.pdf'):
+                page_match = re.fullmatch(r'page=([1-9]\d*)', fragment)
+                if not page_match:
+                    self.add('error', 'evidence-locator', path, f'PDF locator requires #page=N: {destination}')
+                    continue
+                import fitz
+                try:
+                    with fitz.open(source) as document:
+                        if int(page_match.group(1)) > len(document):
+                            self.add('error', 'evidence-locator', path, f'PDF page is out of range: {destination}')
+                            continue
+                except (OSError, ValueError, RuntimeError) as exc:
+                    self.add('error', 'evidence-locator', path, f'Cannot open PDF source: {destination}: {exc}')
+                    continue
+            else:
+                text = source.read_text(encoding='utf-8', errors='replace')
+                if not re.search(rf'id=[\"\']{re.escape(fragment)}[\"\']', text):
+                    self.add('error', 'evidence-locator', path, f'Source anchor is missing: {destination}')
+                    continue
+            precise += 1
+        if not precise:
+            self.add('error', 'evidence-contract', path, 'Refined evidence_schema: 1 requires a 证据定位 section with valid raw section/page links.')
 
     def check_summary_only_section(self, path: Path, body: str, heading: str, code: str) -> list[str]:
         targets: list[str] = []
@@ -247,6 +344,12 @@ class WikiLint:
     def check_raw_text_quality(self) -> None:
         for path in sorted((ROOT / "raw" / "text").glob("*.md")):
             text = path.read_text(encoding="utf-8", errors="replace")
+            hash_match = re.search(r'^- Source SHA256: `([0-9a-f]{64})`$', text, flags=re.MULTILINE)
+            source_match = re.search(r'^- Source (?:HTML|PDF): `([^`]+)`$', text, flags=re.MULTILINE)
+            if hash_match and source_match:
+                original = self.files.get(normalized(source_match.group(1)))
+                if original is None or source_hash(original) != hash_match.group(1):
+                    self.add('error', 'source-hash', path, 'Original source is missing or changed since text extraction; do not silently replace snapshots.')
             if "/Documents/my_obsidian/" in text:
                 self.add("error", "stale-absolute-path", path, "Contains a stale absolute Source HTML path.")
             fatal = next((marker for marker in FATAL_EXTRACTION_MARKERS if marker in text), None)

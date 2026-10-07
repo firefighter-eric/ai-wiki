@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Google DeepMind - 2026 - Gemma 4 Model Card
+
+## TL;DR（快速导读）
+
+Gemma 4 模型卡用于核对不同规模与架构的规格，以及长上下文、多模态和工具使用的支持范围。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+一个家族可能有多种架构；使用扩散派生模型时，还要区分底座能力与新的生成接口。
 
 ## 来源信息
 
@@ -12,31 +25,25 @@ status: refined
 - 来源 URL：https://ai.google.dev/gemma/docs/core/model_card_4
 - 作者：Google DeepMind
 - 年份：2026
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`Gemma 4` 是 Google DeepMind 在 2026 年发布的开放模型家族。模型卡显示，该代 Gemma 不再只是小尺寸开放 LLM，而是覆盖 `E2B / E4B / 12B Unified / 26B A4B MoE / 31B Dense` 的多架构家族，并把长上下文、多模态、thinking mode、function calling、system role 和 agentic coding 能力纳入统一路线。
-
-对 DiffusionGemma 来说，最关键的是 `Gemma 4 26B A4B MoE`：它提供 `25.2B` 总参数、`3.8B` 激活参数、`256K` 上下文和 `128` experts / `8` active experts 的 backbone。DiffusionGemma 不是独立从零训练的文本扩散模型，而是在这个 backbone 上引入 discrete diffusion / denoising generation 路径。
+家族中既有密集模型，也有专家混合模型，能力和运行资源不能按一个名字统一推断。阅读时先选定具体成员，再核对上下文、激活参数和输入输出；DiffusionGemma 使用其中的专家模型作底座。
 
 ## 关键事实
 
-- 许可：Apache 2.0。
-- 家族尺寸：`E2B`、`E4B`、`12B Unified`、`26B A4B`、`31B Dense`。
-- 模态：Gemma 4 支持文本和图像；`E2B / E4B / 12B` 还支持音频，`26B A4B` 与 `31B` 不支持音频。
-- 上下文：小模型为 `128K`，中等/大模型支持 `256K`。
-- 架构：Gemma 4 同时包含 dense 与 `MoE` 变体，并使用 local sliding window attention 与 global attention 交错的混合 attention 设计。
-- `26B A4B MoE` 规格：总参数 `25.2B`，激活参数 `3.8B`，`30` 层，sliding window `1024` tokens，上下文 `256K`，词表 `262K`。
-- 专家配置：`8 active / 128 total and 1 shared`。
-- 支持能力：thinking mode、long context、image understanding、video-as-frames understanding、function calling、coding/reasoning、multilingual。
-- 模型卡明确区分了小模型的 `PLE`、12B 的 encoder-free unified 架构、26B A4B 的 MoE 架构。
+- **C1**：保存的后续模型卡含 E2B/E4B/12B Unified/26B A4B/31B；发布博客最初仅列四种。
+- **C2**：E2B/E4B 支持 128K，12B/26B/31B 支持 256K；音频仅小模型和12B。
+- **C3**：架构交替局部窗口和全局 attention，最后层为全局；全局层采用 unified K/V 与 p-RoPE。
+- **C4**：E 小模型用 PLE，effective 参数不计全部 embedding 存储；12B 是 encoder-free unified 输入。
+- **C5**：26B A4B 实际25.2B/3.8B，30层、窗口1024，128专家选8加1共享专家。
+- **C6**：视频通过帧理解、输出为文本；140+训练语言与35+开箱语言是不同口径。
 
 ## 争议与不确定点
 
-- 模型卡主要给出官方 benchmark 与安全评测口径，仍需要第三方复现来判断实际部署质量。
-- Gemma 4 的能力是预训练、post-training、工具协议和多模态工程共同作用的结果；不应把所有能力都归因于预训练。
-- `26B A4B` 的高效率来自稀疏激活，但部署效果仍取决于 runtime 对 MoE、长上下文和 multimodal preprocessing 的支持。
+- 卡片是官方版本化规格，后续更新可能改变型号范围。
+- 工具调用能力不是完整 agent 在真实应用中的成功率。
 
 ## 关联页面
 
@@ -45,4 +52,32 @@ status: refined
 - 概念：[MoE](../concepts/MoE.md)
 - 概念：[DiffusionGemma](../concepts/DiffusionGemma.md)
 - 主题：[LLM 预训练](../topics/LLM%20预训练.md)
+- [DeepMind](../authors/DeepMind.md)：沿作者或机构继续阅读相关来源。
 
+## 这里的术语是什么意思
+
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **encoder**：编码器：把输入转成模型内部表示。
+
+## 方法与实验解读
+
+家族统一的是交互能力目标，不是所有内部结构和硬件成本。阅读应先确定型号，再用参数、模态和上下文表选择预算；effective/active/total 参数分别衡量查表外的计算、稀疏计算与完整存储。任务成功率仍需以具体模型、thinking 与工具条件评估。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md#source-section-1 ) | 不同时间快照分别记载，不能混写发布历史。 |
+| C2 | [原文]( ../../raw/text/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md#source-section-3 ) | 型号能力不同，不将全家族列出的模态扩展到每个型号。 |
+| C3 | [原文]( ../../raw/text/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md#source-section-2 ) | 混合注意力仍保留全局层成本。 |
+| C4 | [原文]( ../../raw/text/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md#source-section-3 ) | 参数命名分母不同。 |
+| C5 | [原文]( ../../raw/text/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md#source-section-4 ) | 精确规格限该变体。 |
+| C6 | [原文]( ../../raw/text/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md#source-section-6 ) | 多语数据存在不保证全部语言同等性能。 |
+
+## 核证范围
+
+核读模型家族、架构和参数表、benchmark 和能力段落。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

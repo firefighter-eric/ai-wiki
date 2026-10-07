@@ -3,9 +3,17 @@ type: concept
 ---
 # PaddleOCR
 
+## TL;DR（快速导读）
+
+PaddleOCR 是 OCR 与文档处理工具链，既包含文字识别，也涉及版面、结构和相关应用模块。
+
 ## 简介
 
-PaddleOCR 是开源 OCR 与 document parsing toolkit 的代表之一。在当前知识库中，它表示 OCR 从单点识别模型走向生产级工具链、文档解析与 KIE 工作流的一条工程化路线。
+PaddleOCR 是 OCR 与文档处理工具链，既包含文字识别，也涉及版面、结构和相关应用模块。
+
+## 具体怎么理解
+
+处理一张票据可能先检测文字，再识别、排序和抽取字段；应分别定位是哪一步出错。
 
 ## 关键属性
 
@@ -30,3 +38,7 @@ PaddleOCR 是开源 OCR 与 document parsing toolkit 的代表之一。在当前
 - [DocLLM](./DocLLM.md)
 - [Qwen2.5-VL](./Qwen2.5-VL.md)
 - [传统 CV](../topics/传统%20CV.md)
+
+## 这里的术语是什么意思
+
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。

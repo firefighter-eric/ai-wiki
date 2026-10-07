@@ -3,9 +3,17 @@ type: author
 ---
 # ByteDance Seed
 
+## TL;DR（快速导读）
+
+这里按已收录来源阅读 ByteDance Seed 的多模态与生成媒体研究，视频创作可先进入 Seedance 资料。
+
 ## 简介
 
-`ByteDance Seed` 是字节跳动在生成媒体与多模态方向的重要团队入口。在当前知识库里，它首先通过 `Seedance 2.0` 进入视频生成主线，后续也可继续连接 `Seedream`、`Seed-VL` 等同系来源。
+这里按已收录来源阅读 ByteDance Seed 的多模态与生成媒体研究，视频创作可先进入 Seedance 资料。
+
+## 从哪里开始读
+
+- [Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity](../summaries/Team%20Seedance%20et%20al.%20-%202026%20-%20Seedance%202.0%20Advancing%20Video%20Generation%20for%20World%20Complexity.md)：Seedance 2.0 将文字、图片、音频和视频作为创作参考，研究可控的视频与声音联合生成。
 
 ## 当前覆盖
 

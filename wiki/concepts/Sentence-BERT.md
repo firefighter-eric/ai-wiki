@@ -3,14 +3,22 @@ type: concept
 ---
 # Sentence-BERT
 
+## TL;DR（快速导读）
+
+Sentence-BERT 把句子独立编码成向量，再比较相似度，支持预计算文档表示和高效语义检索。
+
 ## 简介
 
-Sentence-BERT 是早期高质量句向量的代表模型。在当前知识库中，它表示“用 siamese BERT 直接服务语义匹配”的路线。
+Sentence-BERT 把句子独立编码成向量，再比较相似度，支持预计算文档表示和高效语义检索。
+
+## 具体怎么理解
+
+一万个常见问题先转成向量，新问题只编码一次再搜索；速度更高，但细粒度比较可能仍需重排序。
 
 ## 关键属性
 
 - 类型：句向量模型
-- 代表来源：[Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../wiki/summaries/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
+- 代表来源：[Sentence-BERT：孪生编码器句向量（Reimers 与 Gurevych，2019）](../../wiki/summaries/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
 - 当前角色：句向量与语义检索的基础节点
 
 ## 相关主张
@@ -20,7 +28,7 @@ Sentence-BERT 是早期高质量句向量的代表模型。在当前知识库中
 
 ## 来源支持
 
-- [Devlin, Liu - 2014 - Sentence-BERT Sentence Embeddings using Siamese BERT-Networks](../../wiki/summaries/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
+- [Sentence-BERT：孪生编码器句向量（Reimers 与 Gurevych，2019）](../../wiki/summaries/Devlin,%20Liu%20-%202014%20-%20Sentence-BERT%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks.md)
 
 ## 关联页面
 

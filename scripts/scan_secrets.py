@@ -13,7 +13,9 @@ ROOT = Path(__file__).resolve().parent.parent
 TEXT_SUFFIXES = {".html", ".json", ".md", ".py", ".text", ".toml", ".txt", ".yaml", ".yml"}
 PATTERNS = {
     "google-api-key": re.compile(r"AIza[0-9A-Za-z_-]{35}"),
-    "openai-style-key": re.compile(r"sk-[A-Za-z0-9_-]{20,}"),
+    # Match a credential token, not the suffix of HTML ids such as
+    # "ask-assistant-..." or prose anchors containing "task-...".
+    "openai-style-key": re.compile(r"(?<![A-Za-z0-9_-])sk-[A-Za-z0-9_-]{20,}"),
     "github-token": re.compile(r"gh[pousr]_[A-Za-z0-9]{30,}"),
     "aws-access-key": re.compile(r"AKIA[0-9A-Z]{16}"),
     "private-key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
@@ -60,6 +62,8 @@ def history_matches() -> dict[str, set[str]]:
     result: dict[str, set[str]] = {}
     for kind, pattern in PATTERNS.items():
         git_pattern = pattern.pattern.replace("(?:", "(")
+        # Git -G uses POSIX ERE, which has no lookbehind assertion.
+        git_pattern = git_pattern.replace("(?<![A-Za-z0-9_-])", "(^|[^A-Za-z0-9_-])")
         completed = subprocess.run(
             ["git", "log", "--all", "--format=%H", "-G", git_pattern],
             cwd=ROOT,

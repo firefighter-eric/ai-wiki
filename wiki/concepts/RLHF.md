@@ -3,9 +3,17 @@ type: concept
 ---
 # RLHF
 
+## TL;DR（快速导读）
+
+RLHF 通过人类示范和偏好建立奖励信号，再优化模型行为，使回答更符合期望；数据和奖励设计是关键。
+
 ## 简介
 
-RLHF 是 Reinforcement Learning from Human Feedback 的缩写。在当前知识库中，它表示“利用人类偏好信号对语言模型进行后训练”的经典对齐管线。
+RLHF 通过人类示范和偏好建立奖励信号，再优化模型行为，使回答更符合期望；数据和奖励设计是关键。
+
+## 具体怎么理解
+
+人类在两个回答中选更好的，奖励模型学习这种偏好；随后模型生成的新回答接受奖励并用于策略更新。
 
 ## 关键属性
 
@@ -39,3 +47,9 @@ RLHF 是 Reinforcement Learning from Human Feedback 的缩写。在当前知识�
 - [DeepSeek-R1](./DeepSeek-R1.md)
 - [LLM RL](../topics/LLM%20RL.md)
 - [指令对齐与 post-training](../topics/指令对齐与%20post-training.md)
+
+## 这里的术语是什么意思
+
+- **RLHF**：人类反馈强化学习：把人类偏好转成奖励，并用它调整模型行为。
+- **DPO**：直接偏好优化：用成对偏好数据直接调整模型概率，简化部分奖励训练流程。
+- **GRPO**：组相对策略优化：利用同一问题多份回答的相对奖励进行更新。

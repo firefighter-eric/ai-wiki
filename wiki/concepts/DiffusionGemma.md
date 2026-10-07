@@ -3,11 +3,19 @@ type: concept
 ---
 # DiffusionGemma
 
+## TL;DR（快速导读）
+
+DiffusionGemma 以反复修正一块文本的方式生成内容，是基于 Gemma 的实验性离散扩散模型；它与逐词续写接口不同。
+
 ## 简介
 
-`DiffusionGemma` 是 Google DeepMind 基于 `Gemma 4 26B A4B MoE` 发布的实验性开放权重文本生成模型。它的关键不是“生成图片”，而是把 diffusion 的 iterative denoising 思路迁移到离散文本生成：模型一次处理一个 `256-token canvas`，通过多步 denoising 并行修正整块 token，而不是像传统 LLM 一样逐 token 自回归生成。
+DiffusionGemma 以反复修正一块文本的方式生成内容，是基于 Gemma 的实验性离散扩散模型；它与逐词续写接口不同。
 
-在当前知识库中，DiffusionGemma 应被理解为 `Gemma 4` 家族的生成接口实验节点：它牺牲一部分标准 Gemma 4 的输出质量和通用 benchmark 表现，换取低并发、本地单用户交互场景中的高 tokens/sec 和可迭代自修正能力。
+DiffusionGemma 应被理解为 `Gemma 4` 家族的生成接口实验节点：它牺牲一部分标准 Gemma 4 的输出质量和通用 benchmark 表现，换取低并发、本地单用户交互场景中的高 tokens/sec 和可迭代自修正能力。
+
+## 具体怎么理解
+
+可以把生成过程理解为先形成一段待定文本，再多轮完善；这是生成机制示意，不能直接推断任何任务都更快。
 
 ## 关键属性
 
@@ -48,3 +56,8 @@ type: concept
 - [文本扩散语言模型](../topics/%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
 
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **benchmark**：评测基准：特定数据、任务与规则的组合，分数只在这些条件下成立。

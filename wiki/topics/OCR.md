@@ -1,14 +1,24 @@
 ---
 type: topic
-status: building
+status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # OCR
 
+## TL;DR（快速导读）
+
+文字识别、整页阅读顺序、表格结构和文档问答是不同层次。选 OCR 方案前，先确定要纯文本、坐标、Markdown 还是可保留结构的标签，再按文档类型和错误成本比较。
+
+阅读重点：先按问题选择路线，再核对比较条件与证据边界。
+
+## 先用一个问题理解
+
+拿一页双栏论文检查：先逐字核对，再看两栏是否交错，随后检查公式和表格。文字识别准确但阅读顺序错误，仍不能直接用于摘要或检索。下文按这些环节比较方法与数据。
+
 ## 页面状态
 
-- 状态：待建设 topic
-- 原因：证据基础仍包含待精读自动摘要；对应 summary 精修并复核核心论断后，才可重新升级为正式 topic。
-- 事实基座：`wiki/summaries/` 优先
+正式 topic；2026-10-07 复核核心来源并补充方法比较。正文区分论文实验、作者报告和本文综合判断；开放问题表示研究证据的边界。
 
 ## 主题定义
 
@@ -33,12 +43,28 @@ topic 层面最需要澄清的，是 OCR 与相邻问题的边界。第一，OCR
 - **流水线重写层**：`TrOCR` 的重要性不在于又一次刷新文字识别精度，而在于它明确把 OCR 从常见的 `CNN/RNN + language model` 组合系统，改写成预训练视觉编码器加文本解码器的端到端生成问题。这个转向很关键，因为它意味着 OCR 不再天然被拆成“视觉特征提取、字符序列建模、语言纠错”几个分离模块，而可以在统一预训练和统一解码接口下完成。
 - **版面与顺序显式建模层**：`LayoutReader` 与 `LayoutLMv3` 共同说明，整页 OCR 的核心瓶颈并不只在字形识别。`LayoutReader` 直接把阅读顺序检测单列出来，并证明顺序错误会显著伤害下游文档任务；`LayoutLMv3` 则进一步说明，文字、版面与图像区域应在统一预训练目标下共同学习。二者合在一起指向一个稳定判断：**当 OCR 对象变成 visually rich document 时，layout 不是附属信息，而是识别结果可用性的组成部分。**
 - **结构化转写层**：`Nougat` 与 `Kosmos-2.5` 把 OCR 往前推进了一步。这里的任务不再是把页面“抄成纯文本”，而是把学术 PDF 或文字密集图像直接转写成 markdown、带结构的文本块或其他机器可消费格式。这个节点特别重要，因为它把 OCR 从“识别字”推进到“重建文档表达形式”。也正因此，公式、表格、章节层次和样式信息不再只是外围细节，而成为输出接口的一部分。
-- **专门文档 VLM 层**：`dots.ocr`、`DeepSeek-OCR` 家族与 `GLM-OCR` 代表了 OCR 在 2025 年 12 月到 2026 年 3 月之间非常明显的一次 specialized model 密集演化。`dots.ocr` 试图把 layout、recognition 与 reading order 真正统一到单一 end-to-end 文档 VLM；`DeepSeek-OCR` 则把 OCR 当作 vision-text compression 与 causal visual flow 的实验场，重点是 token economy 与编码顺序重写；`GLM-OCR` 则以 `0.9B` 紧凑规模、`MTP` 和两阶段 layout + region recognition 设计，走向更强的现实部署与吞吐折中。三者共同说明，OCR 前沿已经不只是“更强 OCR 工具”，而是在快速分化出不同问题意识的专门文档模型路线。
+- **专门文档 VLM 层**：`dots.ocr`、`DeepSeek-OCR` 家族与 `GLM-OCR` 代表了近期文档专用模型在不同问题设定上的分化。`dots.ocr` 试图把 layout、recognition 与 reading order 真正统一到单一 end-to-end 文档 VLM；`DeepSeek-OCR` 则把 OCR 当作 vision-text compression 与 causal visual flow 的实验场，重点是 token economy 与编码顺序重写；`GLM-OCR` 则以 `0.9B` 紧凑规模、`MTP` 和两阶段 layout + region recognition 设计，走向更强的现实部署与吞吐折中。三者共同说明，OCR 前沿已经不只是“更强 OCR 工具”，而是在快速分化出不同问题意识的专门文档模型路线。
 - **开源工具与工程系统层**：`PaddleOCR 3.0`、`olmOCR` 与更早作为 baseline 出现的 `Tesseract` 一起说明，OCR 的竞争对象早已不只是论文模型，而是完整工具链。`PaddleOCR 3.0` 把多语言识别、文档解析、KIE、部署与 `MCP` 接口收敛成生产级 toolkit；`olmOCR` 把 PDF 线性化、成本与吞吐写成核心目标；而 `Tesseract` 则在 `TrOCR` 与 `LayoutReader` 中更多以开源 OCR engine baseline 角色出现。这个层次的重要性在于：**OCR 的现实价值越来越取决于能否提供可部署、可组合、可进入 RAG / agent 工作流的系统接口，而不只是单点评测分数。**
 - **文档级系统化层**：`DocLLM`、`Marker`、`MinerU`、`OmniDocBench` 与上述工具链一起说明 OCR 正在进入文档级系统语境。`DocLLM` 把 OCR 上游产物与 layout-aware 语言模型接口更紧地绑在一起；`Marker / MinerU` 则在 `olmOCR` 与 `OmniDocBench` 语境下代表现实 PDF parsing pipeline 工具；`OmniDocBench` 进一步提醒我们，现实系统比较的对象已经不是单个识别器，而是模块化 pipeline 与端到端多模态方法在多种文档上的整体表现。
 - **能力内嵌层**：`Qwen2.5-VL` 表明 OCR 已被吸收到更通用的多模态系统能力栈中。这里 OCR 不再单独以一个服务名出现，而是作为文档 HTML 表示、图表表格解析、多语言文本密集图像理解的一部分被联合训练。这个变化很大，但它不等于“独立 OCR 问题消失了”；更准确的说法是，**OCR 的接口正在内嵌进通用模型，而不是它的保真要求被自动解决。**
 
 如果把这几层连起来，当前最稳的综合判断是：**OCR 的长期演化，不是从识别模型线性升级到更大模型，而是不断把“什么算输出”“哪些结构必须保留”“layout 应否进入主体模型”“系统应如何部署和接入下游”这些问题重新定义。** `TrOCR` 重写了识别接口，`LayoutReader / LayoutLMv3` 重写了页面级约束，`Nougat / Kosmos-2.5` 重写了输出格式，`dots.ocr / DeepSeek-OCR / GLM-OCR` 把 specialized document VLM 路线迅速拉开，`PaddleOCR / olmOCR / DocLLM / Qwen2.5-VL` 则进一步把 OCR 推进到更大的文档系统、工程工具链与通用多模态能力框架里。
+
+### 从字符正确到文档可用
+
+一页财报可能字符都认对了，却把两栏读反或将列标题配错。[LayoutReader](../summaries/Wang%20et%20al.%20-%202021%20-%20LayoutReader%20Pre-training%20of%20Text%20and%20Layout%20for%20Reading%20Order%20Detection.md)聚焦已有文本块的顺序；[TrOCR](../summaries/Li%20et%20al.%20-%202021%20-%20TrOCR%20Transformer-based%20Optical%20Character%20Recognition%20with%20Pre-trained%20Models.md)主要识别裁剪的文本行；[Nougat](../summaries/Blecher%20et%20al.%20-%202023%20-%20Nougat%20Neural%20Optical%20Understanding%20for%20Academic%20Documents.md)生成学术文档标记。这些方法的输入前提不同，不能按一个总准确率排名。LayoutLMv3 和 DocLLM 属于文档表示/理解模型，依赖的 OCR 或版面信息应显式记录，而不是被称为独立无 OCR 识别器。
+
+| 输出目标 | 需要核对的错误 | 典型来源 |
+| --- | --- | --- |
+| 文字序列 | 漏字、替字、标点与语言覆盖 | TrOCR、PaddleOCR |
+| 页面顺序与块关系 | 跨栏跳读、标题层级、坐标对应 | LayoutReader、Kosmos-2.5 |
+| 表格网格 | 行列跨度、单元格与内容对齐 | PubTables-1M、LORE/LORE++、OTSL |
+| 公式 | 数学结构与可视等价表达 | UniMERNet、CDM |
+| 文档转换 | 元素、结构标签、重组与长页稳定性 | Nougat、SmolDocling、OmniDocBench |
+
+[LORE++](../summaries/Long%20et%20al.%20-%202024%20-%20LORE%20Logical%20Location%20Regression%20Network%20for%20Table%20Structure%20Recognition%20with%20Pre-training.md)与[LORE](../summaries/Xing%20et%20al.%20-%202023%20-%20LORE%20Logical%20Location%20Regression%20Network%20for%20Table%20Structure%20Recognition.md)是相关但不同来源，不按重复归档合并。[OTSL](../summaries/Lysak%20et%20al.%20-%202023%20-%20Optimized%20Table%20Tokenization%20for%20Table%20Structure%20Recognition.md)缩短二维结构的序列表示并检查非法序列，语法合法不等于表格正确；[SmolDocling](../summaries/Nassar%20et%20al.%20-%202025%20-%20SmolDocling%20An%20ultra-compact%20vision-language%20model%20for%20arXiv%202503%20.%2011576v1%20cs%20.%20CV%2014%20Mar%202025.md)用 DocTags 显式表达元素，这与把页面压成纯文本是不同输出契约。对表格问答，还需[表格处理综述](../summaries/Lu%20et%20al.%20-%202024%20-%20Large%20Language%20Model%20for%20Table%20Processing%20A%20Survey.md)区分结构恢复、理解和计算。
+
+[DeepSeek-OCR](../summaries/Wei%2C%20Sun%2C%20Li%20-%202025%20-%20DeepSeek-OCR%20Contexts%20Optical%20Compression.md)展示视觉 token 与转写的成本折中，不能把页面压缩结果写成无损记忆。[GLM-OCR](../summaries/Duan%20et%20al.%20-%202026%20-%20GLM-OCR%20Technical%20Report.md)强调紧凑模型和两阶段处理；[PaddleOCR 3.0](../summaries/PaddlePaddle%20Team%20et%20al.%20-%202025%20-%20PaddleOCR%203.0%20Technical%20Report.md)包含检测、识别、文档解析及部署工具，它是系统组合，不能与单个端到端模型在未统一配置时直接比较。[OmniDocBench](../summaries/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md)按页面类型和模块评价，支持分项诊断而非仅看字符平均成绩。
 
 ## 关键争论与分歧
 
@@ -47,6 +73,10 @@ topic 层面最需要澄清的，是 OCR 与相邻问题的边界。第一，OCR
 - **生成式 OCR 是否天然优于模块化 pipeline / toolkit**：`TrOCR`、`Nougat`、`Kosmos-2.5` 让生成式路线非常有吸引力，因为它统一了接口并扩大了输出表达力；但 `PaddleOCR 3.0`、`OmniDocBench` 与 `olmOCR` 又提醒我们，模块化方法、toolkit 化 pipeline 与端到端方法在不同文档类型和部署约束下各有局限，现实比较尚未收敛。因此当前更合理的判断是：**生成式路线是主线增量，但不是已经无条件取代 pipeline / toolkit 的共识。**
 - **OCR 评测是否还能靠字符级文本相似度解决**：`CDM` 对公式识别评测的修正已经清楚表明，不同等价表示会让纯文本指标失真；`OmniDocBench` 也说明 document parsing 需要多层次、跨模块评测。因此 OCR 的评测争议不是附属问题，而是方法路线分歧本身的一部分。
 - **文档 OCR 与 document understanding 是否应合并成同一主题**：当前还不宜直接合并。现有 summary 足以支持 OCR 独立成题，因为识别、阅读顺序与转写格式已经形成独立主线；但同时也能看出，OCR 正在不断向 document understanding 边界推进。更准确的组织方式是：**先把 OCR 作为独立入口写稳，再把文档理解视为其上层邻接问题。**
+
+### 结构保真与语言流畅可能冲突
+
+生成模型可能用语言先验补出合理却不存在的内容；传统管线也会因检测漏块让后续无法恢复。本文的取舍是分别报告忠实转写、结构正确和下游任务成功，保留无法辨认的部分，而不是把可读性当保真度。不同脚本、扫描质量、公式密度和表格跨页方式需要单独测试。既有材料不足以给所有语言、所有设备的统一最优解。
 
 ## 证据基础
 
@@ -59,12 +89,18 @@ topic 层面最需要澄清的，是 OCR 与相邻问题的边界。第一，OCR
 - [Wei, Sun, Li - 2025 - DeepSeek-OCR Contexts Optical Compression](../../wiki/summaries/Wei,%20Sun,%20Li%20-%202025%20-%20DeepSeek-OCR%20Contexts%20Optical%20Compression.md)
 - [Wei, Sun, Li - 2026 - DeepSeek-OCR 2 Visual Causal Flow](../../wiki/summaries/Wei,%20Sun,%20Li%20-%202026%20-%20DeepSeek-OCR%202%20Visual%20Causal%20Flow.md)
 - [Duan et al. - 2026 - GLM-OCR Technical Report](../../wiki/summaries/Duan%20et%20al.%20-%202026%20-%20GLM-OCR%20Technical%20Report.md)
-- [Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
+- [DocLLM：布局感知文档语言模型（2024）](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
 - [Wang et al. - 2024 - CDM A Reliable Metric for Fair and Accurate Formula Recognition Evaluation](../../wiki/summaries/Wang%20et%20al.%20-%202024%20-%20CDM%20A%20Reliable%20Metric%20for%20Fair%20and%20Accurate%20Formula%20Recognition%20Evaluation.md)
 - [Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations](../../wiki/summaries/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md)
 - [Poznanski, Wilhelm - Unknown - olmOCR Unlocking Trillions of Tokens in PDFs with Vision Language Models](../../wiki/summaries/Poznanski,%20Wilhelm%20-%20Unknown%20-%20olmOCR%20Unlocking%20Trillions%20of%20Tokens%20in%20PDFs%20with%20Vision%20Language%20Models.md)
 - [PaddlePaddle Team et al. - 2025 - PaddleOCR 3.0 Technical Report](../../wiki/summaries/PaddlePaddle%20Team%20et%20al.%20-%202025%20-%20PaddleOCR%203.0%20Technical%20Report.md)
 - [Bai et al. - 2025 - Qwen2.5-VL Technical Report](../../wiki/summaries/Bai%20et%20al.%20-%202025%20-%20Qwen2.5-VL%20Technical%20Report.md)
+- [Xing et al. - 2023 - LORE Logical Location Regression Network for Table Structure Recognition](../summaries/Xing%20et%20al.%20-%202023%20-%20LORE%20Logical%20Location%20Regression%20Network%20for%20Table%20Structure%20Recognition.md)：表格逻辑网格恢复，区别于 LORE++。
+- [Long et al. - 2024 - LORE Logical Location Regression Network for Table Structure Recognition with Pre-training](../summaries/Long%20et%20al.%20-%202024%20-%20LORE%20Logical%20Location%20Regression%20Network%20for%20Table%20Structure%20Recognition%20with%20Pre-training.md)：表格结构预训练扩展。
+- [Lysak et al. - 2023 - Optimized Table Tokenization for Table Structure Recognition](../summaries/Lysak%20et%20al.%20-%202023%20-%20Optimized%20Table%20Tokenization%20for%20Table%20Structure%20Recognition.md)：结构序列编码与合法性检查。
+- [Nassar et al. - 2025 - SmolDocling An ultra-compact vision-language model for arXiv 2503 . 11576v1 cs . CV 14 Mar 2025](../summaries/Nassar%20et%20al.%20-%202025%20-%20SmolDocling%20An%20ultra-compact%20vision-language%20model%20for%20arXiv%202503%20.%2011576v1%20cs%20.%20CV%2014%20Mar%202025.md)：DocTags 文档转换接口。
+- [Lu et al. - 2024 - Large Language Model for Table Processing A Survey](../summaries/Lu%20et%20al.%20-%202024%20-%20Large%20Language%20Model%20for%20Table%20Processing%20A%20Survey.md)：界定表格结构、理解和计算的任务差异。
+- [Wang et al. - 2024 - UniMERNet A Universal Network for Real-World Mathematical Expression Recognition](../summaries/Wang%20et%20al.%20-%202024%20-%20UniMERNet%20A%20Universal%20Network%20for%20Real-World%20Mathematical%20Expression%20Recognition.md)：公式识别的复杂数据与表示。
 
 ## 代表页面
 
@@ -82,12 +118,9 @@ topic 层面最需要澄清的，是 OCR 与相邻问题的边界。第一，OCR
 
 ## 未解决问题
 
-- 当前页已经能较稳定地写出 **生成式识别、阅读顺序、结构化转写、专门文档 VLM、工程工具链、能力内嵌与评测升级** 七层结构，但表格 OCR、手写场景、低资源多语言与端侧部署等子线仍缺更直接 summary，因此还不宜展开成更细的正式子 topic。
-- `dots.ocr / DeepSeek-OCR / GLM-OCR` 已经构成一条很值得单独比较的 2025-12 到 2026-03 specialized OCR VLM 子线，但当前库里还没有 comparison 页系统拆开它们在 unified parsing、token compression、compact deployment 三个维度上的差异。
-- `PaddleOCR 3.0` 已经把 OCR toolkit、document parsing、KIE 与部署接口写成一条工程主线，但当前库里还缺对 `Tesseract / EasyOCR / GOT-OCR / Mathpix / Marker / MinerU / PaddleOCR` 的专门 comparison 页，因此工具链层的优劣仍主要以 topic 综合方式呈现。
-- `Nougat`、`Kosmos-2.5`、`Qwen2.5-VL` 都把 OCR 推向 markdown / HTML / 坐标化文本块等 richer output，但当前库里还缺独立 comparison 页来系统比较这些输出接口的保真度、可逆性与下游兼容性。
-- `OmniDocBench` 与 `CDM` 已经说明评测问题很关键，但当前知识库仍缺对 CER/WER、结构保真、公式等价性、阅读顺序一致性等指标体系的统一整理。
-- `DocLLM`、`olmOCR` 与更通用的 VL 系统之间目前更像相邻路线而非完全可替代路线；若后续补入更多文档 agent 与 PDF parsing summary，本页可能需要再拆出 `文档解析 / document parsing` 的独立 topic。
+- 跨页表格、复杂栏位、公式和低清文字怎样共同评价？字符与结构指标都有盲区，应与下游错误对应。
+- 生成式转写在何种语言与噪声下开始补写不存在内容？视觉 token 成本收益可能牺牲关键细节。
+- 紧凑文档 VLM 与模块化工具链如何公平比较？需固定输出契约、页面类型、精度和端到端成本。
 
 ## 关联页面
 
@@ -106,3 +139,12 @@ topic 层面最需要澄清的，是 OCR 与相邻问题的边界。第一，OCR
 - [MiniCPM-V](../concepts/MiniCPM-V.md)
 - [PubTables-1M](../concepts/PubTables-1M.md)
 - [DocLayNet](../concepts/DocLayNet.md)
+- [文档与表格的输入输出接口](../comparisons/%E6%96%87%E6%A1%A3%E4%B8%8E%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8E%A5%E5%8F%A3.md)：页面转写、表格结构恢复、单表问答和电子表格压缩需要不同表示。先决定保留哪些行列、坐标、样式与运算，再选模型；结构合法和答案正确要分别验收。
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **baseline**：对照方案：用于判断改动有没有带来收益，条件是否公平尤其重要。
+- **RAG**：检索增强生成：先找外部材料，再利用这些材料生成回答。
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。
+- **agent**：代理：围绕任务读材料、调用工具和连续执行的系统；名称本身不保证自主性或质量。

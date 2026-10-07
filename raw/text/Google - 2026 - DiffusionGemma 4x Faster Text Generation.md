@@ -1,893 +1,179 @@
 # Google - 2026 - DiffusionGemma 4x Faster Text Generation
 
 - Source HTML: `raw/html/Google - 2026 - DiffusionGemma 4x Faster Text Generation.html`
+- Source SHA256: `37be8114936516a0499bddb88b714cee09e3477d818f7b892e75703a6cc0e90b`
 - Source URL: https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/
 - Generated from: `scripts/fetch_web_text.py`
+- Extraction: `structured-html-v2` (headings, links, MathML/TeX and tables; figures require visual review)
 
 ## Extracted Text
 
-Skip to main content
+<a id="source-section-0"></a>
 
-The Keyword
-
-DiffusionGemma: 4x faster text generation
-
-Share
-
-x.com
-
-Facebook
-
-LinkedIn
-
-Mail
-
-Copy link
-
-- Home
-
-- Innovation & AI
-
-- Models & Research
-
-- Google DeepMind
-
-- Google Research
-
-- Google Labs
-
-- Gemini models
-
-- Quantum computing
-
-- See all
-
-- Products
-
-- Developer tools
-
-- Gemini app
-
-- NotebookLM
-
-- See all
-
-- Infrastructure & cloud
-
-- Global network
-
-- Google Cloud
-
-- See all
-
-- Technology
-
-- Safety & Security
-
-- Health
-
-- See all
-
-- Google DeepMind blog
-
-- Google Research blog
-
-- Google Developers blog
-
-- Google Cloud blog
-
-- Models & Research
-
-- Google DeepMind
-
-- Google Research
-
-- Google Labs
-
-- Gemini models
-
-- Quantum computing
-
-- Products
-
-- Developer tools
-
-- Gemini app
-
-- NotebookLM
-
-- Infrastructure & cloud
-
-- Global network
-
-- Google Cloud
-
-- Technology
-
-- Safety & Security
-
-- Health
-
-- Products & platforms
-
-- Products
-
-- Search
-
-- Maps
-
-- Chrome
-
-- Google Health
-
-- Google Workspace
-
-- Learning & Education
-
-- Shopping
-
-- See all
-
-- Platforms
-
-- Android
-
-- Google Play
-
-- Wear OS
-
-- See all
-
-- Devices
-
-- Pixel
-
-- Google Nest
-
-- Fitbit
-
-- Chromebooks
-
-- See all
-
-- Google Ads & Commerce blog
-
-- Waze blog
-
-- Products
-
-- Search
-
-- Maps
-
-- Chrome
-
-- Google Health
-
-- Google Workspace
-
-- Learning & Education
-
-- Shopping
-
-- Platforms
-
-- Android
-
-- Google Play
-
-- Wear OS
-
-- Devices
-
-- Pixel
-
-- Google Nest
-
-- Fitbit
-
-- Chromebooks
-
-- Company news
-
-- Outreach & initiatives
-
-- Creating opportunity
-
-- Safety & security
-
-- Google.org
-
-- Public policy
-
-- Sustainability
-
-- Health
-
-- See all
-
-- Leadership
-
-- Sundar Pichai, CEO
-
-- More authors
-
-- See all
-
-- Inside Google
-
-- Around the globe
-
-- Life at Google
-
-- See all
-
-- Google Security blog
-
-- Outreach & initiatives
-
-- Creating opportunity
-
-- Safety & security
-
-- Google.org
-
-- Public policy
-
-- Sustainability
-
-- Health
-
-- Leadership
-
-- Sundar Pichai, CEO
-
-- More authors
-
-- Inside Google
-
-- Around the globe
-
-- Life at Google
-
-- Feed
-
-Global (English)
- 
- 
- 
- Africa (English)
- 
- 
- 
- Australia (English)
- 
- 
- 
- Brasil (Português)
- 
- 
- 
- Canada (English)
- 
- 
- 
- Canada (Français)
- 
- 
- 
- Česko (Čeština)
- 
- 
- 
- Deutschland (Deutsch)
- 
- 
- 
- España (Español)
- 
- 
- 
- France (Français)
- 
- 
- 
- Greece (Ελληνικά)
- 
- 
- 
- India (English)
- 
- 
- 
- Indonesia (Bahasa Indonesia)
- 
- 
- 
- Ireland (English)
- 
- 
- 
- Italia (Italiano)
- 
- 
- 
- 日本 (日本語)
- 
- 
- 
- 대한민국 (한국어)
- 
- 
- 
- Latinoamérica (Español)
- 
- 
- 
- الشرق الأوسط وشمال أفريقيا (اللغة العربية)
- 
- 
- 
- MENA (English)
- 
- 
- 
- Nederlands (Nederland)
- 
- 
- 
- New Zealand (English)
- 
- 
- 
- Polska (Polski)
- 
- 
- 
- Portugal (Português)
- 
- 
- 
- România (Română)
- 
- 
- 
- Sverige (Svenska)
- 
- 
- 
- ประเทศไทย (ไทย)
- 
- 
- 
- Türkiye (Türkçe)
- 
- 
- 
- 台灣 (中文)
-
-["What is the Fitbit Air?", "How can I learn new AI skills?", "What's the latest Android news?"]
-
-- Home
-
-- Innovation & AI
-
-- Models & Research
-
-- Google DeepMind
-
-- Google Research
-
-- Google Labs
-
-- Gemini models
-
-- Quantum computing
-
-- See all
-
-- Products
-
-- Developer tools
-
-- Gemini app
-
-- NotebookLM
-
-- See all
-
-- Infrastructure & cloud
-
-- Global network
-
-- Google Cloud
-
-- See all
-
-- Technology
-
-- Safety & Security
-
-- Health
-
-- See all
-
-- Google DeepMind blog
-
-- Google Research blog
-
-- Google Developers blog
-
-- Google Cloud blog
-
-- Products & platforms
-
-- Products
-
-- Search
-
-- Maps
-
-- Chrome
-
-- Google Health
-
-- Google Workspace
-
-- Learning & Education
-
-- Shopping
-
-- See all
-
-- Platforms
-
-- Android
-
-- Google Play
-
-- Wear OS
-
-- See all
-
-- Devices
-
-- Pixel
-
-- Google Nest
-
-- Fitbit
-
-- Chromebooks
-
-- See all
-
-- Google Ads & Commerce blog
-
-- Waze blog
-
-- Company news
-
-- Outreach & initiatives
-
-- Creating opportunity
-
-- Safety & security
-
-- Google.org
-
-- Public policy
-
-- Sustainability
-
-- Health
-
-- See all
-
-- Leadership
-
-- Sundar Pichai, CEO
-
-- More authors
-
-- See all
-
-- Inside Google
-
-- Around the globe
-
-- Life at Google
-
-- See all
-
-- Google Security blog
-
-- Feed
-
-- Images
-
-- RSS feed
-
-- Innovation & AI
-
-- Technology
-
-- Developer tools
+<a id="source-section-1"></a>
 
 # DiffusionGemma: 4x faster text generation
 
+
 Jun 10, 2026
+
 
 Share
 
-x.com
 
-Facebook
+[x.com](https://twitter.com/intent/tweet?text=DiffusionGemma%3A%204x%20faster%20text%20generation%20%40google&url=https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/)
 
-LinkedIn
+[Facebook](https://www.facebook.com/sharer/sharer.php?caption=DiffusionGemma%3A%204x%20faster%20text%20generation&u=https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/)
+
+[LinkedIn](https://www.linkedin.com/shareArticle?mini=true&url=https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/&title=DiffusionGemma%3A%204x%20faster%20text%20generation)
+
 
 Mail
 
-Copy link
 
 Our newest open experimental model delivers up to 4x faster inference on dedicated GPUs and opens the door to exploring speed-critical, interactive local workflows.
 
+
 Brendan O'Donoghue
 
+
 Research Scientist
+
 
 Sebastian Flennerhag
 
+
 Research Scientist
+
 
 Share
 
-x.com
 
-Facebook
+[x.com](https://twitter.com/intent/tweet?text=DiffusionGemma%3A%204x%20faster%20text%20generation%20%40google&url=https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/)
 
-LinkedIn
+[Facebook](https://www.facebook.com/sharer/sharer.php?caption=DiffusionGemma%3A%204x%20faster%20text%20generation&u=https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/)
+
+[LinkedIn](https://www.linkedin.com/shareArticle?mini=true&url=https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/&title=DiffusionGemma%3A%204x%20faster%20text%20generation)
+
 
 Mail
 
-Copy link
+
+[图片：DiffusionGemma]
+
 
 Your browser does not support the audio element.
 
+
 Listen to article
+
 
 This content is generated by Google AI. Generative AI is experimental
 
+
 [[duration]] minutes
 
-Voice
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
-
- Speed
-
-Voice
-
-Speed
- 0.75X
- 1X
- 1.5X
- 2X
 
 Today, we’re introducing DiffusionGemma, an experimental open model that explores text diffusion, an exceptionally fast approach to text generation. Released under an Apache 2.0 license, this 26B Mixture of Experts (MoE) model moves beyond the sequential token-by-token processing of typical autoregressive Large Language Models (LLMs). Instead, it generates entire blocks of text simultaneously, delivering up to 4x faster text generation on GPUs.
 
-Built upon the industry-leading intelligence-per-parameter of our Gemma 4 family and cutting-edge Gemini Diffusion research, DiffusionGemma integrates a novel diffusion head designed to maximize generation speed. While autoregressive Gemma 4 models remain the standard for high-quality production outputs, DiffusionGemma is designed for researchers and developers exploring speed-critical, interactive local workflows such as in-line editing, rapid iteration, and generating non-linear text structures.
+
+[图片：Intelligence vs Latency]
+
+
+Built upon the industry-leading intelligence-per-parameter of our Gemma 4 family and cutting-edge [Gemini Diffusion research](https://deepmind.google/models/gemini-diffusion/), DiffusionGemma integrates a novel diffusion head designed to maximize generation speed. While autoregressive Gemma 4 models remain the standard for high-quality production outputs, DiffusionGemma is designed for researchers and developers exploring speed-critical, interactive local workflows such as in-line editing, rapid iteration, and generating non-linear text structures.
+
+
+<a id="source-section-2"></a>
 
 ## Unlocking new value for developers
 
+
 Developers building real-time interactive AI applications often struggle with the latency bottlenecks of local inference. DiffusionGemma addresses these challenges directly, with some key trade-offs:
 
-- Blazing fast inference: By shifting the decode bottleneck from memory-bandwidth to compute, DiffusionGemma generates up to 4x faster token output on dedicated GPUs. (1000+ tokens per second on a single NVIDIA H100, 700+ tokens per second on NVIDIA GeForce RTX 5090). 
 
- 1
+- **Blazing fast inference:** By shifting the decode bottleneck from memory-bandwidth to compute, DiffusionGemma generates up to 4x faster token output on dedicated GPUs. (1000+ tokens per second on a single NVIDIA H100, 700+ tokens per second on NVIDIA GeForce RTX 5090).
 
-- Accessible hardware footprint: Operating as a 26B total Mixture of Experts (MoE) model that activates only 3.8B parameters during inference, DiffusionGemma fits comfortably within 18GB VRAM limits of high-end dedicated consumer GPUs when quantized.
 
-- Bi-directional attention: Generating 256 tokens in parallel with each forward pass allows every token to attend to all others. This provides significant advantages for non-linear domains such as in-line editing, code infilling, amino acid sequences or mathematical graphs.
+[1](https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/#footnote-1)
 
-- Intelligent self-correction: The model iteratively refines its own output, allowing it to evaluate the entire text block at once to fix mistakes in real-time.
+- **Accessible hardware footprint:** Operating as a 26B total Mixture of Experts (MoE) model that activates only 3.8B parameters during inference, DiffusionGemma fits comfortably within 18GB VRAM limits of high-end dedicated consumer GPUs when quantized.
 
-- Experimental status & production recommendations: Because it prioritizes speed and parallel layout generation, DiffusionGemma’s overall output quality is lower than standard Gemma 4. For applications that demand maximum quality, we recommend deploying standard Gemma 4.
+- **Bi-directional attention**: Generating 256 tokens in parallel with each forward pass allows every token to attend to all others. This provides significant advantages for non-linear domains such as in-line editing, code infilling, amino acid sequences or mathematical graphs.
 
-You can improve DiffusionGemma's performance on specific tasks through fine-tuning. In the example below, Unsloth fine-tuned DiffusionGemma to play Sudoku — a task autoregressive models struggle with because each token depends on future tokens. DiffusionGemma's bi-directional attention makes this much easier.
+- **Intelligent self-correction:** The model iteratively refines its own output, allowing it to evaluate the entire text block at once to fix mistakes in real-time.
+
+- **Experimental status & production recommendations:** Because it prioritizes speed and parallel layout generation, DiffusionGemma’s overall output quality is lower than standard Gemma 4. For applications that demand maximum quality, we recommend deploying standard Gemma 4.
+
+
+[图片：DiffusionGemma Benchmark]
+
+
+You can improve DiffusionGemma's performance on specific tasks through fine-tuning. In the example below, [Unsloth](https://unsloth.ai/docs/models/diffusiongemma) fine-tuned DiffusionGemma to play Sudoku — a task autoregressive models struggle with because each token depends on future tokens. DiffusionGemma's bi-directional attention makes this much easier.
+
 
 Fine-tuned DiffusionGemma solving Sudoku.
 
-## Why diffusion for text?
+
+[图片：Fine-tuned DiffusionGemma solving Sudoku.]
+
+
+<a id="source-section-3"></a>
+
+## **Why diffusion for text?**
+
 
 While the AI research community has explored diffusion-based text generation for years, applying it to large models has remained a challenge. DiffusionGemma changes this by shifting how models use hardware.
 
-### The trade-off with traditional models
+
+<a id="source-section-4"></a>
+
+### **The trade-off with traditional models**
+
 
 Most language models act like a typewriter, generating one token at a time from left to right. In the cloud, this is efficient because servers can batch thousands of user requests together to share the hardware load. But when run locally for a single user, this word-by-word process leaves your dedicated GPU or TPU underutilized — it spends most of its time simply waiting for the next "keystroke."
 
+
 DiffusionGemma reverses this inefficiency. Instead of predicting words sequentially, it drafts an entire 256-token paragraph simultaneously. By giving the computer's processor a larger chunk of work at once, DiffusionGemma utilizes your hardware to its full potential. It upgrades your model inference from a single, sequential typewriter to a massive printing press that stamps the entire block of text simultaneously.
+
 
 DiffusionGemma text-to-3D SVG demo by Hugging Face. Step-by-step generation.
 
+
 This means DiffusionGemma's speedup is designed for local and low-concurrency inference. In high-QPS cloud serving, autoregressive models can be deployed to saturate compute efficiently, so DiffusionGemma's parallel decoding offers diminishing returns and can result in higher serving costs. The throughput advantage is strongest at low-to-medium batch sizes on a single accelerator.
 
-### How text diffusion works
 
-Similar to AI image generators that start with visual static and iteratively refine it into a clear picture, DiffusionGemma applies this to text:
+<a id="source-section-5"></a>
 
-- The canvas: The model starts with a canvas of random placeholder tokens.
+### **How text diffusion works**
 
-- Iterative refinement: The model makes multiple passes, locking in correct tokens and using them as context clues to refine the rest.
 
-- Final polish: The text converges into high-quality output.
+Similar to AI image generators that [start with visual static and iteratively refine it](https://research.google/blog/on-device-diffusion-plugins-for-conditioned-text-to-image-generation/) into a clear picture, DiffusionGemma applies this to text:
+
+
+- **The canvas:** The model starts with a canvas of random placeholder tokens.
+
+- **Iterative refinement:** The model makes multiple passes, locking in correct tokens and using them as context clues to refine the rest.
+
+- **Final polish:** The text converges into high-quality output.
+
 
 Because the model can process the whole paragraph while generating, it unlocks new patterns of model behavior, like perfectly closing complex markdown formatting or generating and rendering code in near real-time.
 
-### Get started today
 
-- Download the weights: Access the experimental model weights (released under a permissive Apache 2.0 license) right now on Hugging Face.
+<a id="source-section-6"></a>
 
-- Integrate & learn: Learn more in our DiffusionGemma developer guide. Or deep dive into A Visual Guide to DiffusionGemma to understand the mechanics under the hood.
+### **Get started today**
 
-- Use your favorite development tools: Serve the model efficiently using MLX, vLLM (with integration supported by Red Hat), and Hugging Face Transformers. For rapid experimentation, we are releasing a fine-tuning tutorial using Hackable Diffusion, a modular JAX toolbox designed for composability. You can also explore fine-tuning with Unsloth and NVIDIA NeMo. Additionally, official support for llama.cpp is arriving soon.
 
-- Experience optimized performance: We worked with NVIDIA to optimize across their hardware stack, ensuring compatibility with consumer setups (quantized for GeForce RTX 5090 and 4090 GPUs) alongside high performance on enterprise systems (Hopper and Blackwell using advanced NVFP4 kernels), including NVIDIA DGX Spark and DGX Station for local deskside deployment, and RTX PRO for AI professionals. Native support for NVFP4 (4-bit floating-point) accelerates compute throughput, allowing the model to run at faster speeds with near-lossless accuracy.
+- **Download the weights:** Access the experimental model weights (released under a permissive Apache 2.0 license) right now on Hugging Face.
 
-- Try your way: Run on your desktop dedicated GPU or in the cloud through Gemini Enterprise Agent Platform Model Garden or NVIDIA NIM.
+- **Integrate & learn:** Learn more in our [DiffusionGemma developer guide](https://developers.googleblog.com/en/diffusiongemma-the-developer-guide). Or deep dive into [A](https://research.google/blog/high-fidelity-image-generation-using-diffusion-models/) [Visual Guide to DiffusionGemma](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-diffusiongemma) to understand the mechanics under the hood.
+
+- **Use your favorite development tools:** Serve the model efficiently using [MLX](https://huggingface.co/collections/mlx-community/diffusiongemma), [vLLM](https://vllm-project.github.io/2026/06/10/diffusion-gemma) (with integration supported by [Red Hat](https://huggingface.co/collections/RedHatAI/diffusiongemma-26b-a4b-it)), and [Hugging Face Transformers](https://huggingface.co/google/diffusiongemma-26B-A4B-it). For rapid experimentation, we are releasing a fine-tuning tutorial using [Hackable Diffusion](https://github.com/google/hackable_diffusion), a modular JAX toolbox designed for composability. You can also explore fine-tuning with [Unsloth](https://unsloth.ai/docs/models/diffusiongemma) and NVIDIA [NeMo](https://github.com/NVIDIA-NeMo/Automodel/blob/main/docs/guides/dllm/diffusiongemma.md). Additionally, official support for llama.cpp is arriving soon.
+
+- **Experience optimized performance:** We worked with [NVIDIA](https://blogs.nvidia.com/blog/rtx-ai-garage-local-gemma-diffusion) to optimize across their hardware stack, ensuring compatibility with consumer setups (quantized for GeForce RTX 5090 and 4090 GPUs) alongside high performance on enterprise systems (Hopper and Blackwell using advanced NVFP4 kernels), including NVIDIA DGX Spark and DGX Station for local deskside deployment, and RTX PRO for AI professionals. Native support for NVFP4 (4-bit floating-point) accelerates compute throughput, allowing the model to run at faster speeds with near-lossless accuracy.
+
+- **Try your way:** Run on your desktop dedicated GPU or in the cloud through [Gemini Enterprise Agent Platform Model Garden](https://console.cloud.google.com/agent-platform/publishers/google/model-garden/diffusiongemma) or [NVIDIA NIM](https://catalog.ngc.nvidia.com/orgs/nim/teams/google/containers/diffusiongemma-26b-a4b-it?version=latest).
+
 
 POSTED IN:
-
-- Developer tools
-
-1
-
-Note: Because this speedup relies on exploiting the high arithmetic intensity of accelerators, unified-memory architectures like those in Apple Silicon Macs — which are often memory-bandwidth-bound rather than compute-bound during inference — may not see the same acceleration over autoregressive models like Gemma 4.
-
-Related stories
-
-#### See what 3 builders are making with Gemma 4
-
-By
- 
- 
- 
- Amy Eisinger
-
-#### Bringing the latest Gemini models to Apple developers
-
-By
- 
- 
- 
- Nicholas McNamara
- 
- 
- 
- &
- 
- 
- Thevi Sundaralingam
-
-#### Gemma 4 QAT models: Optimizing model compression for mobile and laptop efficiency
-
-By
- 
- 
- 
- Olivier Lacombe
- 
- 
- 
- &
- 
- 
- Omar Sanseviero
-
-#### Kaggle is making AI benchmark creation effortless
-
-By
- 
- 
- 
- Nicholas Kang
- 
- 
- 
- &
- 
- 
- Andrew Wang
-
-#### Introducing Gemma 4 12B: a unified, encoder-free multimodal model
-
-By
- 
- 
- 
- Olivier Lacombe
- 
- 
- 
- &
- 
- 
- Gus Martins
-
-#### How we used Gemini to build Google I/O 2026
-
-By
- 
- 
- 
- Marvin Chow
-
-.
-
-Jump to position 1
- 
- 
- 
- 
- Jump to position 2
- 
- 
- 
- 
- Jump to position 3
- 
- 
- 
- 
- Jump to position 4
- 
- 
- 
- 
- Jump to position 5
- 
- 
- 
- 
- Jump to position 6
-
-Let’s stay in touch. Get the latest news from Google in your inbox.
-
-Subscribe
- No thanks
-
-Follow Us
-
-- Privacy
-
-- Terms
-
-- About Google
-
-- Google Products
-
-- About the Keyword
-
-- Help
-
-Global (English)
- 
- 
- 
- Africa (English)
- 
- 
- 
- Australia (English)
- 
- 
- 
- Brasil (Português)
- 
- 
- 
- Canada (English)
- 
- 
- 
- Canada (Français)
- 
- 
- 
- Česko (Čeština)
- 
- 
- 
- Deutschland (Deutsch)
- 
- 
- 
- España (Español)
- 
- 
- 
- France (Français)
- 
- 
- 
- Greece (Ελληνικά)
- 
- 
- 
- India (English)
- 
- 
- 
- Indonesia (Bahasa Indonesia)
- 
- 
- 
- Ireland (English)
- 
- 
- 
- Italia (Italiano)
- 
- 
- 
- 日本 (日本語)
- 
- 
- 
- 대한민국 (한국어)
- 
- 
- 
- Latinoamérica (Español)
- 
- 
- 
- الشرق الأوسط وشمال أفريقيا (اللغة العربية)
- 
- 
- 
- MENA (English)
- 
- 
- 
- Nederlands (Nederland)
- 
- 
- 
- New Zealand (English)
- 
- 
- 
- Polska (Polski)
- 
- 
- 
- Portugal (Português)
- 
- 
- 
- România (Română)
- 
- 
- 
- Sverige (Svenska)
- 
- 
- 
- ประเทศไทย (ไทย)
- 
- 
- 
- Türkiye (Türkçe)
- 
- 
- 
- 台灣 (中文)

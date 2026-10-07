@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Sutskever, Vinyals, Le - 2014 - Sequence to Sequence Learning with Neural Networks
+
+## TL;DR（快速导读）
+
+早期 Seq2Seq 用编码器读取输入序列，再用解码器逐步生成输出，为翻译等任务建立统一接口。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -13,13 +22,11 @@ status: refined
 - arXiv：1409.3215
 - 作者：Ilya Sutskever, Oriol Vinyals, Quoc V. Le
 - 年份：2014
-- 状态：已基于 arXiv HTML 精修
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇论文的核心贡献，是把机器翻译这类输入、输出长度都不固定的问题，重新表述为一个端到端的条件序列生成问题：先用一个深层 `LSTM` 编码器把源句读成固定维度向量，再用另一个 `LSTM` 解码器按自回归方式生成目标句，并通过 `EOS` 标记定义任意长度输出的概率分布。它不是第一个提出 encoder-decoder 想法的工作，但它以足够大规模的实验说明，纯神经网络系统已经可以在 WMT'14 英法翻译上超过短语式 SMT baseline，从而把 `sequence-to-sequence learning` 推成神经机器翻译和后续统一生成接口的关键范式。
-
-这篇论文真正值得解读的地方，不只是“用了 LSTM 做翻译”，而是它把任务接口抽象成 `p(y_1, ..., y_T' | x_1, ..., x_T)`，让翻译、问答、摘要等问题都可以被看作“给定一个序列，生成另一个序列”。后来的 attention、Transformer、T5、mT5 与 OFA 都改变了编码器和解码器的内部结构，缓解或绕开了固定向量瓶颈，但仍继承了这篇论文确立的条件生成接口、左到右解码和 beam search 工作方式。
+论文以 LSTM 把输入压到固定维向量，再按条件概率生成可变长度输出。固定向量是重要瓶颈，后续注意力改变了获取输入信息的方式，但仍延续“给定序列生成另一序列”的任务接口。
 
 ## 解读要点
 
@@ -31,23 +38,14 @@ status: refined
 
 ## 关键事实
 
-- 任务设置是 WMT'14 English-to-French，训练子集约 1200 万句，包含约 3.04 亿英文词与 3.48 亿法文词。
-- 模型使用两个不同的深层 `LSTM`：一个读入源序列并输出固定维度表示，另一个作为以该表示为条件的语言模型生成目标序列。
-- 实际模型为 4 层 LSTM，每层 1000 cells，词向量维度 1000；输入词表 160,000，输出词表 80,000，总参数约 384M。
-- 论文用 `p(y_1,...,y_T' | x_1,...,x_T) = product_t p(y_t | v, y_1,...,y_{t-1})` 形式明确了 seq2seq 的自回归条件生成结构。
-- 反转源句后，测试 perplexity 从 5.8 降到 4.7，decoded translation BLEU 从 25.9 提升到 30.6，说明这个输入变换显著降低了优化难度。
-- 5 个 reversed LSTM ensemble 加 beam size 12 在 WMT'14 测试集上达到 34.81 BLEU，超过短语式 SMT baseline 的 33.30 BLEU。
-- 用 LSTM 对 SMT baseline 的 1000-best hypotheses 重新排序时，BLEU 达到 36.5，接近论文引用的当时最佳 WMT'14 结果 37.0。
-- Beam search 是左到右近似解码；论文观察到 beam size 2 已经提供 ensemble 下的大部分收益，beam size 12 进一步小幅提升。
-- 论文报告 reversed LSTM 对长句没有明显退化，并通过 PCA 可视化展示句向量对词序敏感、对主动/被动语态转换相对不敏感。
-- 工程上，作者使用 8 GPU 并行训练：4 个 GPU 分别放置 4 层 LSTM，另外 4 个 GPU 并行 softmax，训练约 10 天。
+- **C1**：用LSTM编码变长输入为固定向量，再以另一个LSTM生成变长输出。
+- **C2**：将源句token顺序反转减小部分依赖距离并改善训练。
+- **C3**：实验WMT14英法12M句，源/目标词表160k/80k，未登录词UNK。
 
 ## 争议与不确定点
 
-- 论文自己也承认没有完整解释 source reversal 的作用机制；“降低最短时间滞后”是合理解释，但不是严格证明。
-- 长句表现来自 WMT'14 设置、source reversal、LSTM 容量与具体训练流程，不能直接外推为固定向量 seq2seq 在所有长序列任务上都可靠。
-- 该系统仍使用固定词表与 `UNK`，BLEU 也会受 OOV 处理与 tokenization / evaluation script 影响。
-- 这篇论文适合作为 seq2seq 范式源头，但若要完整解释神经机器翻译成熟过程，还需要补入 Cho et al.、Bahdanau attention、Luong attention 等来源。
+- 长句、词表和未知词是明显能力边界。
+- ensemble/rescoring与单模型从零翻译分数分别看。
 
 ## 关联页面
 
@@ -57,3 +55,27 @@ status: refined
 - 概念：[OFA](../../wiki/concepts/OFA.md)
 - 主题：[传统 NLP](../../wiki/topics/传统%20NLP.md)
 - 作者 / 机构：[Google Research](../../wiki/authors/Google%20Research.md)
+
+## 这里的术语是什么意思
+
+- **baseline**：对照方案：用于判断改动有没有带来收益，条件是否公平尤其重要。
+
+## 方法与实验解读
+
+编码和解码分工绕过了输入/输出必须逐步对齐的限制，固定向量却要求全部信息挤进单一状态。反转是一种优化路径技巧；后来的attention通过直接访问编码状态进一步改变信息瓶颈。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Sutskever%2C%20Vinyals%2C%20Le%20-%202014%20-%20Sequence%20to%20Sequence%20Learning%20with%20Neural%20Networks.md#source-section-4 ) | 本文没有后来attention的逐位置读取机制。 |
+| C2 | [原文]( ../../raw/text/Sutskever%2C%20Vinyals%2C%20Le%20-%202014%20-%20Sequence%20to%20Sequence%20Learning%20with%20Neural%20Networks.md#source-section-8 ) | 特定任务经验，不是所有序列都应倒序。 |
+| C3 | [原文]( ../../raw/text/Sutskever%2C%20Vinyals%2C%20Le%20-%202014%20-%20Sequence%20to%20Sequence%20Learning%20with%20Neural%20Networks.md#source-section-6 ) | 词级历史模型，不等同现代subword实现。 |
+
+## 核证范围
+
+核读模型、数据、反转、训练与长句实验。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

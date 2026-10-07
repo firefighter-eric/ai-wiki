@@ -3,9 +3,17 @@ type: concept
 ---
 # ORPO
 
+## TL;DR（快速导读）
+
+ORPO 将监督学习与偏好目标放进同一训练阶段，减少独立参考模型的流程，适合比较后训练配方的简化。
+
 ## 简介
 
-ORPO 是 `Odds Ratio Preference Optimization` 的缩写。在当前知识库中，它表示把 supervised fine-tuning 与 preference alignment 合并到单阶段训练中的 reference-free 偏好优化方法。
+ORPO 将监督学习与偏好目标放进同一训练阶段，减少独立参考模型的流程，适合比较后训练配方的简化。
+
+## 具体怎么理解
+
+同一问题的优选回答既作为学习目标，也与较差回答形成偏好信号；两部分如何平衡会影响行为。
 
 ## 关键属性
 
@@ -31,3 +39,6 @@ ORPO 是 `Odds Ratio Preference Optimization` 的缩写。在当前知识库中�
 - [RLHF](./RLHF.md)
 - [LLM RL](../topics/LLM%20RL.md)
 
+## 这里的术语是什么意思
+
+- **SFT**：监督微调：用输入与参考输出继续训练已有模型。

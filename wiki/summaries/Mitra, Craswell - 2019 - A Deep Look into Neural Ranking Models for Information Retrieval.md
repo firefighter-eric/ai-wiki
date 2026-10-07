@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
-# Mitra, Craswell - 2019 - A Deep Look into Neural Ranking Models for Information Retrieval
+# A Deep Look into Neural Ranking Models for Information Retrieval（Guo 等，2019）
+
+## TL;DR（快速导读）
+
+这篇神经排序综述解释搜索系统怎样表示问题和文档、让两者交互，以及如何评价相关性与效率。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -10,26 +19,26 @@ status: refined
 - 原始文件：../../raw/pdf/Mitra, Craswell - 2019 - A Deep Look into Neural Ranking Models for Information Retrieval.pdf
 - 原始 HTML：../../raw/html/Mitra, Craswell - 2019 - A Deep Look into Neural Ranking Models for Information Retrieval.html
 - 全文文本：../../raw/text/Mitra, Craswell - 2019 - A Deep Look into Neural Ranking Models for Information Retrieval.md
-- 作者：Mitra, Craswell
+- 作者：Jiafeng Guo、Yixing Fan、Liang Pang 等
 - 年份：2019
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 归档说明：保留历史文件名以维持来源对应和链接；标题、作者与年份以上述核对信息为准。
 
 ## 摘要
 
-这篇综述不是在讲某一个具体排序模型，而是在回答“神经网络到底给搜索排序带来了什么结构变化”。它把 neural ranking models 放回 IR 背景中审视，说明搜索排序并不只是把更大的编码器塞进相关性判断，而是涉及输入异质性、表示与交互建模、监督目标、评测任务和效率边界。对当前知识库而言，这篇文献是“搜索排序”topic 的方法学底座，因为它把传统 IR、learning to rank 与后续 BERT/ColBERT 等路线之间的关系解释清楚了。
+它把神经网络放回信息检索流程，讨论输入、监督目标、表示与交互等选择。阅读时可据此区分召回、排序和重排序：不同环节面对的候选规模、计算成本和评价目标并不相同。
 
 ## 关键事实
 
-- 论文明确把排序模型放在 IR 主线上讨论，指出搜索排序长期经历了启发式方法、概率模型与 learning to rank，再进入 neural ranking 阶段。
-- 作者将 neural ranking model 的关键差异拆成多组维度，包括对称 / 非对称结构、representation-focused / interaction-focused 架构，以及不同学习目标与任务设定。
-- 文中强调 query 与 document 在 ad-hoc retrieval 中天然异质，因此很多有效排序模型并不是简单的“句对分类”，而是围绕 query term、document segment 或局部交互来组织。
-- 论文回顾 DSSM、DRMM、K-NRM、DeepRank、PACRR 等代表路线，说明神经排序在 BERT 前就已形成“表示建模”和“交互建模”两条主线。
-- 对当前 topic 的直接启发是：搜索排序不能只用“稠密检索 vs rerank”二分法理解，它还涉及不同粒度的交互设计与不同效率约束下的模型取舍。
+- **C1**：本文实际署名为Jiafeng Guo等，历史文件名Mitra/Craswell误标；稳定路径保留。
+- **C2**：用广义query/document和有序相关性标签统一描述retrieval、QA与conversation ranking。
+- **C3**：对称/非对称架构与representation/interaction-focused是两个不同分类轴。
+- **C4**：学习目标覆盖pointwise、pairwise、listwise与multitask。
 
 ## 争议与不确定点
 
-- 该文完成于 BERT 排序范式全面成熟之前，因此它更适合作为“前 transformer 时代 neural ranking 的结构总览”，而不是 transformer 排序的最终总结。
-- 论文虽回顾了大量模型，但对工业级多阶段架构、超大索引部署与 transformer 长文档问题的讨论仍有限，后续需要由 `BERT and Beyond` 一类来源补齐。
+- 跨任务结果、样本量和标签构建不可混作同一对照。
+- 该历史综述尚不足覆盖后来全部预训练与混合检索路线。
 
 ## 关联页面
 
@@ -37,3 +46,24 @@ status: refined
 - 主题：[传统 NLP](../../wiki/topics/传统%20NLP.md)
 - 概念：[ColBERT](../../wiki/concepts/ColBERT.md)
 - 概念：[Dense Retrieval](../../wiki/concepts/Dense%20Retrieval.md)
+
+## 方法与实验解读
+
+先确定输入是否同质，再确定分别编码还是先交互。表示路线适合预计算，交互路线能更细地捕捉匹配，二者仍可组合。2019综述里的基准对照用于理解架构和监督因素，不提供2026检索模型选型排名。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Mitra%2C%20Craswell%20-%202019%20-%20A%20Deep%20Look%20into%20Neural%20Ranking%20Models%20for%20Information%20Retrieval.md#source-section-1 ) | 作者以来源首页为准。 |
+| C2 | [原文]( ../../raw/text/Mitra%2C%20Craswell%20-%202019%20-%20A%20Deep%20Look%20into%20Neural%20Ranking%20Models%20for%20Information%20Retrieval.md#source-section-11 ) | 任务共享形式不表示分布相同。 |
+| C3 | [原文]( ../../raw/text/Mitra%2C%20Craswell%20-%202019%20-%20A%20Deep%20Look%20into%20Neural%20Ranking%20Models%20for%20Information%20Retrieval.md#source-section-13 ) | query/doc是否可交换与交互时机分别判断。 |
+| C4 | [原文]( ../../raw/text/Mitra%2C%20Craswell%20-%202019%20-%20A%20Deep%20Look%20into%20Neural%20Ranking%20Models%20for%20Information%20Retrieval.md#source-section-17 ) | 不是只分dense与reranker。 |
+
+## 核证范围
+
+核读来源署名、统一形式、架构双轴、ranking目标与实验比较。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Kimi Team - 2025 - Kimi K2: Open Agentic Intelligence
+
+## TL;DR（快速导读）
+
+Kimi K2 报告使用 MuonClip 限制过大的注意力分数，研究把矩阵优化器扩展到大型专家模型时的稳定性。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+某代模型只提供接口，不代表后续所有型号也如此；先确认具体版本再讨论能力与使用方式。
 
 ## 来源信息
 
@@ -13,27 +26,25 @@ status: refined
 - 全文文本：../../raw/text/Kimi Team - 2025 - Kimi K2 Open Agentic Intelligence.md
 - 作者：Kimi Team
 - 年份：2025
-- 状态：已精读 MuonClip、训练 recipe 与模型规模部分
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`Kimi K2` 是总参数约 1T、每 token 激活 32B 的 MoE。它把 Moonlight 版 Muon 的 weight decay 与 consistent update RMS 扩展成 `MuonClip`：在每次参数更新后，根据实际 batch 中每个 attention head 的最大 logit，按 head 缩放 Q/K projection weights，从而缓解 Muon 扩展时出现的 attention-logit explosion。
+方法在参数更新后，根据批次中各注意力头的最大分数缩放查询和键的投影权重，缓解分数爆炸。它在专家混合模型中使用，阅读时需区分优化器更新、稳定性约束与模型容量各自的影响。
 
 ## 关键事实
 
-- QK-Clip 读取 forward 已计算的 per-head 最大 attention logit `S_max^h`；当它超过阈值 `τ` 时，令 `γ_h=min(1, τ/S_max^h)`，再把 head-specific Q/K 权重各乘 `sqrt(γ_h)`。
-- 该操作发生在 optimizer update 后，不改变当前 step 的 forward/backward；它约束下一步产生的 QK 点积。
-- K2 使用 `τ=100`、weight decay `0.1`、MuonClip 和 WSD learning-rate schedule，预训练 15.5T tokens；作者报告全程无 loss spike。
-- 论文把 QK-Clip 做成 per-head，是因为实验中只有少数 heads 出现极端 logits；对 MLA 只缩放未共享的 head-specific components。
-- K2 的 Algorithm 1 只定义对二维 weight matrices 的 Muon update，并通过引用 Moonlight 继承 consistent update RMS recipe；Moonlight 明确把 RMSNorm、LM head 与 embedding 交给 AdamW。但 K2 报告自身没有逐项重申这组 AdamW parameter groups。
-- K2 的 SFT / RL 阶段也披露使用 Muon，但论文没有给出足以把最终 agentic 能力单独归因给优化器的消融。
+- **C1**：K2为1T总参数/32B激活MoE，预训练15.5T tokens。
+- **C2**：QK-Clip在optimizer更新后，依据forward中per-head最大logit缩放Q/K权重。
+- **C3**：超阈值时γ=min(1,τ/Smax)，Q与K各乘sqrt(γ)；MLA只缩放head-specific部分。
+- **C4**：主训练用τ=100的MuonClip，作者报告无loss spikes。
+- **C5**：算法描述二维矩阵Muon路径；本报告未逐项确认所有AdamW fallback groups。
+- **C6**：后训练包含大规模agent合成数据与真实/模拟环境联合RL。
 
 ## 争议与不确定点
 
-- “零 loss spike”是单次超大训练 run 的作者报告，不代表所有 MuonClip 配置天然稳定。
-- QK-Clip 修复的是该模型/attention 设计下观察到的 logit instability，不应视作每个 Muon 模型都必须使用的组成部分；DeepSeek-V4 通过 Q/KV normalization 选择不使用它。
-- 因此可以高置信判断 K2 不是“所有参数都由 Muon 更新”，但把 `embedding / LM head / RMSNorm -> AdamW` 写成 K2 独立披露会过度陈述；更准确的标记是“沿用 Moonlight 混合 recipe 的强推断，K2 未公布精确 parameter-group 配置或 AdamW betas/epsilon”。
-- K2 的能力同时来自模型规模、MoE/MLA 架构、数据和 post-training，不能由 MuonClip 一项解释。
+- 无spike是作者记录的一次训练结果，仍需复现实测。
+- fallback optimizer、完整数据和部署细节未逐项公开；不确定保留。
 
 ## 关联页面
 
@@ -41,3 +52,33 @@ status: refined
 - 概念：[Kimi](../concepts/Kimi.md)
 - 概念：[Kimi K3](../concepts/Kimi%20K3.md)
 - 对比：[Muon 与 AdamW](../comparisons/Muon%20与%20AdamW.md)
+
+## 这里的术语是什么意思
+
+- **SFT**：监督微调：用输入与参考输出继续训练已有模型。
+- **embedding**：向量表示：把文字、图片等编码成一组数，用于模型计算或相似度比较。
+- **weight decay**：权重衰减：训练中使权重逐步缩小的机制，需看它如何与梯度更新结合。
+- **agentic**：代理执行：模型使用工具并根据结果继续行动，可靠性要看完整流程。
+
+## 方法与实验解读
+
+MuonClip用矩阵优化提高token效率，同时以QK约束避免attention极端logits。稳定性措施属于参数更新后的控制，不是标准gradient clipping。数据增强、SFT和环境RL也影响最终能力；工具定义不清时过长生成与截断说明harness与模型共同决定成功率。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Kimi%20Team%20-%202025%20-%20Kimi%20K2%20Open%20Agentic%20Intelligence.md#source-section-2 ) | 总参数、激活参数与训练量不同分母。 |
+| C2 | [原文]( ../../raw/text/Kimi%20Team%20-%202025%20-%20Kimi%20K2%20Open%20Agentic%20Intelligence.md#source-section-7 ) | 不改当前step的forward/backward。 |
+| C3 | [原文]( ../../raw/text/Kimi%20Team%20-%202025%20-%20Kimi%20K2%20Open%20Agentic%20Intelligence.md#source-section-7 ) | 按head约束，不能粗暴缩放共享latent通道。 |
+| C4 | [原文]( ../../raw/text/Kimi%20Team%20-%202025%20-%20Kimi%20K2%20Open%20Agentic%20Intelligence.md#source-section-8 ) | 特定训练轨迹，不证明任意配置稳定。 |
+| C5 | [原文]( ../../raw/text/Kimi%20Team%20-%202025%20-%20Kimi%20K2%20Open%20Agentic%20Intelligence.md#source-section-8 ) | 不把Moonlight配置未经确认套入K2。 |
+| C6 | [原文]( ../../raw/text/Kimi%20Team%20-%202025%20-%20Kimi%20K2%20Open%20Agentic%20Intelligence.md#source-section-2 ) | agent表现不能单独归因Muon。 |
+
+## 核证范围
+
+核读模型范围、§2QK-Clip/MuonClip、agent后训练与局限。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

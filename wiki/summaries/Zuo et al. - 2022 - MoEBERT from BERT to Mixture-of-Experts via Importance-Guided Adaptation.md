@@ -1,41 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation
+
+## TL;DR（快速导读）
+
+MoEBERT 按重要性将 BERT 适配为专家混合形式，探索保留模型容量同时减少每次输入实际计算的路径。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+单纯缩小模型可能损失能力。论文将参数组织为不同专家，并利用重要性信息进行适配。需要检查路由、实际延迟与任务质量；稀疏激活不保证任何硬件上都会更快。
+
+## 具体怎么理解
+
+保留多组参数，但每个输入只选择部分计算；权重存储和路由开销仍然存在。
+
+## 关键事实
+
+- **C1**：按重要性将预训练 FFN 转成专家结构，减少单个 token 激活的计算。
+- **C2**：使用逐层任务蒸馏弥补适配后的性能损失。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation.pdf
-- 全文文本：../../raw/text/Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation.md
+- 原始文件：[打开原始文件](../../raw/pdf/Zuo%20et%20al.%20-%202022%20-%20MoEBERT%20from%20BERT%20to%20Mixture-of-Experts%20via%20Importance-Guided%20Adaptation.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Zuo%20et%20al.%20-%202022%20-%20MoEBERT%20from%20BERT%20to%20Mixture-of-Experts%20via%20Importance-Guided%20Adaptation.md)
 - 作者：Zuo et al.
 - 年份：2022
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Pre-trained language models have demon- strated superior performance in various natu- ral language processing tasks. However, these models usually contain hundreds of millions of parameters, which limits their practical- ity because of latency requirements in real- world applications. Existing methods train small compressed models via knowledge dis- tillation. However, performance of these small models drops signiﬁcantly compared with the pre-trained models due to their re- duced model capacity. We propose MoE- BERT, which uses a Mixture-of-Experts struc- ture to increase model capacity and inference speed. We initialize MoEBERT by adapt- ing the feed-forward neural networks in a pre-trained model into multiple experts. As such, representation power of the pre-trained model is largely retained. During inference, only one of the experts is activated, such that speed can be improved. We also propose a layer-wise distillation method to train MoE- BERT. We validate the efﬁciency and effec- tiveness of MoEBERT on natural language understanding and question answering tasks. Results show that the proposed method out- performs existing task-speciﬁc distillation al- gorithms. For example, our method outper- forms previous approaches by over 2% on the MNLI (mismatched) dataset. Our code is pub- licly available at https://github.com/ SimiaoZuo/MoEBERT.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Zuo et al. - 2022 - MoEBERT from BERT to Mixture-of-Experts via Importance-Guided Adaptation.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Zuo%20et%20al.%20-%202022%20-%20MoEBERT%20from%20BERT%20to%20Mixture-of-Experts%20via%20Importance-Guided%20Adaptation.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- GLUE 任务收益不等于通用语言生成质量。
+- 训练后的专家选择与目标任务分布变化可能影响迁移。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+MoEBERT 属于已有模型的稀疏化与蒸馏。它把 FFN 分配到专家，随后保留教师知识；部署速度依赖路由和实现，理论有效参数减少不能直接当成任意设备上的同比加速。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Zuo%20et%20al.%20-%202022%20-%20MoEBERT%20from%20BERT%20to%20Mixture-of-Experts%20via%20Importance-Guided%20Adaptation.md#source-section-10 ) | 总存储参数与有效计算参数分开 |
+| C2 | [原文]( ../../raw/text/Zuo%20et%20al.%20-%202022%20-%20MoEBERT%20from%20BERT%20to%20Mixture-of-Experts%20via%20Importance-Guided%20Adaptation.md#source-section-11 ) | 不从头预训练不代表没有原始预训练教师 |
+
+## 核证范围
+
+核对 §3.1–3.2 的重要性分配与蒸馏，以及 §4 的任务范围。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

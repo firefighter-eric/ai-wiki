@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Nogueira, Cho - 2019 - Passage Re-ranking with BERT
+
+## TL;DR（快速导读）
+
+BERT 重排序将问题和候选片段一起输入模型，直接判断相关性，适合在初步召回之后精细筛选。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+“苹果发布手机”和“苹果很甜”中的同一词语，因上下文不同而应有不同表示。
 
 ## 来源信息
 
@@ -12,27 +25,51 @@ status: refined
 - 全文文本：../../raw/text/Nogueira, Cho - 2019 - Passage Re-ranking with BERT.md
 - 作者：Nogueira, Cho
 - 年份：2019
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇论文是 transformer 进入搜索排序主线的标志性节点。它没有设计复杂新结构，而是用很直接的做法证明：把 query 和 candidate passage 拼成一个输入，使用 BERT 做相关性二分类，就足以显著刷新 MS MARCO passage reranking 的效果。这使搜索社区重新接受“重排序可以直接建模 query-document 交互”这一方向，并推动后续 `monoBERT`、`duoBERT` 和 listwise reranking 等路线。
+联合输入允许问题词元与文档词元充分交互，但每个候选都要计算一次。它提高的是候选排序质量，不能找回召回阶段完全遗漏的证据；候选数量决定效果与延迟的取舍。
 
 ## 关键事实
 
-- 论文将 passage re-ranking 明确定位为典型多阶段搜索系统的第二阶段：先由 BM25 等高效召回器给出候选，再由更重的模型精排。
-- 方法上采用简单的 cross-encoder 设计：query 作为 sentence A，passage 作为 sentence B，经 BERT 编码后用 `[CLS]` 表征做相关性分类。
-- 文中在 MS MARCO passage ranking 上报告 `BERT Large` 相比此前最佳系统有显著提升，并给出相对 `27%` 的 `MRR@10` 改善。
-- 作者还强调预训练 BERT 对排序任务的数据效率很高，即便只看训练数据中的一小部分 query-passage pair，也能达到强效果。
-- 该文奠定了一个重要工程共识：cross-encoder reranker 效果通常很强，但成本高，因此适合作为多阶段架构中的后排精排器，而不是直接全库打分。
+- **C1**：BERT reranker将query/passsage拼接，用CLS进行相关性二分类，query最多64tokens、合并最多512。
+- **C2**：训练在BM25 top1000候选上使用正负样本交叉熵。
+- **C3**：100k query-passage对、少于MSMARCO训练数据0.3%时，报告比IR-NET高1.4 MRR@10点。
 
 ## 争议与不确定点
 
-- 这篇论文强力证明了 BERT reranking 的效果，但并没有解决大规模索引上的实时性问题；它默认依赖 BM25 先召回候选。
-- 文中任务以 passage ranking 为主，不等于长文档 web search、商品搜索或复杂工业排序都能直接照搬同一输入形式。
+- 历史SOTA和27%相对改善必须带原baseline，不能改写成准确率27个百分点。
+- 数据效率结论限定特定预训练/任务，不说明零样本即可完成领域检索。
 
 ## 关联页面
 
 - 主题：[搜索排序](../../wiki/topics/搜索排序.md)
 - 主题：[BERT类双向Transformer语言模型](../../wiki/topics/BERT类双向Transformer语言模型.md)
 - 概念：[ColBERT](../../wiki/concepts/ColBERT.md)
+
+## 这里的术语是什么意思
+
+- **cross-encoder**：交叉编码器：把查询和候选一起输入模型，进行较细的交互比较。
+- **reranker**：重排序模型：对初步召回的候选进一步排序，通常比召回阶段更贵。
+- **encoder**：编码器：把输入转成模型内部表示。
+
+## 方法与实验解读
+
+每个候选与query共同编码，早期交互能捕捉细粒度匹配，但无法给全库每篇都经济地打分。两阶段方案将召回与精排成本分开；先测候选Recall，再测候选内MRR，才能定位漏检发生在哪一层。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Nogueira%2C%20Cho%20-%202019%20-%20Passage%20Re-ranking%20with%20BERT.md#source-section-6 ) | 模型为BERTLarge，2019实验。 |
+| C2 | [原文]( ../../raw/text/Nogueira%2C%20Cho%20-%202019%20-%20Passage%20Re-ranking%20with%20BERT.md#source-section-6 ) | 初召回决定候选覆盖。 |
+| C3 | [原文]( ../../raw/text/Nogueira%2C%20Cho%20-%202019%20-%20Passage%20Re-ranking%20with%20BERT.md#source-section-13 ) | 数据效率的具体任务比较。 |
+
+## 核证范围
+
+核读方法、截断、训练候选、MSMARCO/TREC-CAR结果与训练规模实验。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

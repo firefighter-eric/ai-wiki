@@ -1,899 +1,196 @@
 # Google - 2026 - Gemma 4 Byte for Byte Most Capable Open Models
 
 - Source HTML: `raw/html/Google - 2026 - Gemma 4 Byte for Byte Most Capable Open Models.html`
+- Source SHA256: `2b537c481155b0bd1489b26f59b94dbdc34a18c3460b7d47318d5ef634e4e097`
 - Source URL: https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/
 - Generated from: `scripts/fetch_web_text.py`
+- Extraction: `structured-html-v2` (headings, links, MathML/TeX and tables; figures require visual review)
 
 ## Extracted Text
 
-Skip to main content
+<a id="source-section-0"></a>
 
-The Keyword
-
-Gemma 4: Byte for byte, the most capable open models
-
-Share
-
-x.com
-
-Facebook
-
-LinkedIn
-
-Mail
-
-Copy link
-
-- Home
-
-- Innovation & AI
-
-- Models & Research
-
-- Google DeepMind
-
-- Google Research
-
-- Google Labs
-
-- Gemini models
-
-- Quantum computing
-
-- See all
-
-- Products
-
-- Developer tools
-
-- Gemini app
-
-- NotebookLM
-
-- See all
-
-- Infrastructure & cloud
-
-- Global network
-
-- Google Cloud
-
-- See all
-
-- Technology
-
-- Safety & Security
-
-- Health
-
-- See all
-
-- Google DeepMind blog
-
-- Google Research blog
-
-- Google Developers blog
-
-- Google Cloud blog
-
-- Models & Research
-
-- Google DeepMind
-
-- Google Research
-
-- Google Labs
-
-- Gemini models
-
-- Quantum computing
-
-- Products
-
-- Developer tools
-
-- Gemini app
-
-- NotebookLM
-
-- Infrastructure & cloud
-
-- Global network
-
-- Google Cloud
-
-- Technology
-
-- Safety & Security
-
-- Health
-
-- Products & platforms
-
-- Products
-
-- Search
-
-- Maps
-
-- Chrome
-
-- Google Health
-
-- Google Workspace
-
-- Learning & Education
-
-- Shopping
-
-- See all
-
-- Platforms
-
-- Android
-
-- Google Play
-
-- Wear OS
-
-- See all
-
-- Devices
-
-- Pixel
-
-- Google Nest
-
-- Fitbit
-
-- Chromebooks
-
-- See all
-
-- Google Ads & Commerce blog
-
-- Waze blog
-
-- Products
-
-- Search
-
-- Maps
-
-- Chrome
-
-- Google Health
-
-- Google Workspace
-
-- Learning & Education
-
-- Shopping
-
-- Platforms
-
-- Android
-
-- Google Play
-
-- Wear OS
-
-- Devices
-
-- Pixel
-
-- Google Nest
-
-- Fitbit
-
-- Chromebooks
-
-- Company news
-
-- Outreach & initiatives
-
-- Creating opportunity
-
-- Safety & security
-
-- Google.org
-
-- Public policy
-
-- Sustainability
-
-- Health
-
-- See all
-
-- Leadership
-
-- Sundar Pichai, CEO
-
-- More authors
-
-- See all
-
-- Inside Google
-
-- Around the globe
-
-- Life at Google
-
-- See all
-
-- Google Security blog
-
-- Outreach & initiatives
-
-- Creating opportunity
-
-- Safety & security
-
-- Google.org
-
-- Public policy
-
-- Sustainability
-
-- Health
-
-- Leadership
-
-- Sundar Pichai, CEO
-
-- More authors
-
-- Inside Google
-
-- Around the globe
-
-- Life at Google
-
-- Feed
-
-Global (English)
- 
- 
- 
- Africa (English)
- 
- 
- 
- Australia (English)
- 
- 
- 
- Brasil (Português)
- 
- 
- 
- Canada (English)
- 
- 
- 
- Canada (Français)
- 
- 
- 
- Česko (Čeština)
- 
- 
- 
- Deutschland (Deutsch)
- 
- 
- 
- España (Español)
- 
- 
- 
- France (Français)
- 
- 
- 
- Greece (Ελληνικά)
- 
- 
- 
- India (English)
- 
- 
- 
- Indonesia (Bahasa Indonesia)
- 
- 
- 
- Ireland (English)
- 
- 
- 
- Italia (Italiano)
- 
- 
- 
- 日本 (日本語)
- 
- 
- 
- 대한민국 (한국어)
- 
- 
- 
- Latinoamérica (Español)
- 
- 
- 
- الشرق الأوسط وشمال أفريقيا (اللغة العربية)
- 
- 
- 
- MENA (English)
- 
- 
- 
- Nederlands (Nederland)
- 
- 
- 
- New Zealand (English)
- 
- 
- 
- Polska (Polski)
- 
- 
- 
- Portugal (Português)
- 
- 
- 
- România (Română)
- 
- 
- 
- Sverige (Svenska)
- 
- 
- 
- ประเทศไทย (ไทย)
- 
- 
- 
- Türkiye (Türkçe)
- 
- 
- 
- 台灣 (中文)
-
-["What is the Fitbit Air?", "How can I learn new AI skills?", "What's the latest Android news?"]
-
-- Home
-
-- Innovation & AI
-
-- Models & Research
-
-- Google DeepMind
-
-- Google Research
-
-- Google Labs
-
-- Gemini models
-
-- Quantum computing
-
-- See all
-
-- Products
-
-- Developer tools
-
-- Gemini app
-
-- NotebookLM
-
-- See all
-
-- Infrastructure & cloud
-
-- Global network
-
-- Google Cloud
-
-- See all
-
-- Technology
-
-- Safety & Security
-
-- Health
-
-- See all
-
-- Google DeepMind blog
-
-- Google Research blog
-
-- Google Developers blog
-
-- Google Cloud blog
-
-- Products & platforms
-
-- Products
-
-- Search
-
-- Maps
-
-- Chrome
-
-- Google Health
-
-- Google Workspace
-
-- Learning & Education
-
-- Shopping
-
-- See all
-
-- Platforms
-
-- Android
-
-- Google Play
-
-- Wear OS
-
-- See all
-
-- Devices
-
-- Pixel
-
-- Google Nest
-
-- Fitbit
-
-- Chromebooks
-
-- See all
-
-- Google Ads & Commerce blog
-
-- Waze blog
-
-- Company news
-
-- Outreach & initiatives
-
-- Creating opportunity
-
-- Safety & security
-
-- Google.org
-
-- Public policy
-
-- Sustainability
-
-- Health
-
-- See all
-
-- Leadership
-
-- Sundar Pichai, CEO
-
-- More authors
-
-- See all
-
-- Inside Google
-
-- Around the globe
-
-- Life at Google
-
-- See all
-
-- Google Security blog
-
-- Feed
-
-- Images
-
-- RSS feed
-
-- Innovation & AI
-
-- Technology
-
-- Developer tools
+<a id="source-section-1"></a>
 
 # Gemma 4: Byte for byte, the most capable open models
 
+
 Apr 02, 2026
+
 
 Share
 
-x.com
 
-Facebook
+[x.com](https://twitter.com/intent/tweet?text=Gemma%204%3A%20Byte%20for%20byte%2C%20the%20most%20capable%20open%20models%20%40google&url=https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/)
 
-LinkedIn
+[Facebook](https://www.facebook.com/sharer/sharer.php?caption=Gemma%204%3A%20Byte%20for%20byte%2C%20the%20most%20capable%20open%20models&u=https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/)
+
+[LinkedIn](https://www.linkedin.com/shareArticle?mini=true&url=https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/&title=Gemma%204%3A%20Byte%20for%20byte%2C%20the%20most%20capable%20open%20models)
+
 
 Mail
 
-Copy link
 
 Clement Farabet
 
+
 VP of Research, Google DeepMind
+
+
+[图片：Olivier Lacombe]
+
 
 Olivier Lacombe
 
+
 Director Product Management, Google Deepmind
+
 
 Share
 
-x.com
 
-Facebook
+[x.com](https://twitter.com/intent/tweet?text=Gemma%204%3A%20Byte%20for%20byte%2C%20the%20most%20capable%20open%20models%20%40google&url=https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/)
 
-LinkedIn
+[Facebook](https://www.facebook.com/sharer/sharer.php?caption=Gemma%204%3A%20Byte%20for%20byte%2C%20the%20most%20capable%20open%20models&u=https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/)
+
+[LinkedIn](https://www.linkedin.com/shareArticle?mini=true&url=https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/&title=Gemma%204%3A%20Byte%20for%20byte%2C%20the%20most%20capable%20open%20models)
+
 
 Mail
 
-Copy link
+
+[图片：Gemma 4]
+
 
 Your browser does not support the audio element.
 
+
 Listen to article
+
 
 This content is generated by Google AI. Generative AI is experimental
 
+
 [[duration]] minutes
 
-Voice
- 
- 
- 
- 
 
- 
- 
- 
- 
- 
+Today, we are introducing [Gemma 4](https://aistudio.google.com/prompts/new_chat?model=gemma-4-31b-it) — our most intelligent open models to date. Purpose-built for advanced reasoning and agentic workflows, Gemma 4 delivers an unprecedented level of intelligence-per-parameter. This breakthrough builds on incredible community momentum: since the launch of our first generation, developers have downloaded Gemma over 400 million times, building a vibrant [Gemmaverse](https://deepmind.google/models/gemma/gemmaverse/) of more than 100,000 variants. We listened closely to what innovators need next to push the boundaries of AI, and Gemma 4 is our answer: breakthrough capabilities made widely accessible under an [Apache 2.0 license](https://goo.gle/gemma-4-apache-2).
 
- Speed
 
-Voice
+Open model performance vs size on [Arena.ai](http://arena.ai/)’s chat arena as of 4/1.
 
-Speed
- 0.75X
- 1X
- 1.5X
- 2X
 
-Today, we are introducing Gemma 4 — our most intelligent open models to date. Purpose-built for advanced reasoning and agentic workflows, Gemma 4 delivers an unprecedented level of intelligence-per-parameter. This breakthrough builds on incredible community momentum: since the launch of our first generation, developers have downloaded Gemma over 400 million times, building a vibrant Gemmaverse of more than 100,000 variants. We listened closely to what innovators need next to push the boundaries of AI, and Gemma 4 is our answer: breakthrough capabilities made widely accessible under an Apache 2.0 license.
+[图片：Open model performance vs size on Arena.ai’s chat arena]
 
-Open model performance vs size on Arena.ai’s chat arena as of 4/1.
 
 Built from the same world-class research and technology as Gemini 3, Gemma 4 is the most capable model family you can run on your hardware. They complement our Gemini models, giving developers the industry's most powerful combination of both open and proprietary tools.
 
+
+<a id="source-section-2"></a>
+
 ## Industry-leading capabilities and mobile-first AI
 
-We are releasing Gemma 4 in four versatile sizes: Effective 2B (E2B), Effective 4B (E4B), 26B Mixture of Experts (MoE) and 31B Dense. The entire family moves beyond simple chat to handle complex logic and agentic workflows. Our larger models deliver state-of-the-art performance for their sizes, with the 31B model currently ranking as the #3 open model in the world on the industry-standard Arena AI text leaderboard, and the 26B model securing the #6 spot. There, Gemma 4 outcompetes models 20x its size. For developers, this new level of intelligence-per-parameter means achieving frontier-level capabilities with significantly less hardware overhead.
+
+We are releasing Gemma 4 in four versatile sizes: [Effective 2B (E2B](https://huggingface.co/gg-hf-gg/gemma-4-E2B-it)), [Effective 4B (E4B)](https://huggingface.co/gg-hf-gg/gemma-4-E4B-it), [26B Mixture of Experts (MoE)](https://huggingface.co/gg-hf-gg/gemma-4-26B-A4B-it) and [31B Dense](https://huggingface.co/gg-hf-gg/gemma-4-31B-it). The entire family moves beyond simple chat to handle complex logic and agentic workflows. Our larger models deliver state-of-the-art performance for their sizes, with the 31B model currently ranking as the #3 open model in the world on the industry-standard [Arena AI text leaderboard](https://arena.ai/leaderboard/text?license=open-source), and the 26B model securing the #6 spot. There, Gemma 4 outcompetes models 20x its size. For developers, this new level of intelligence-per-parameter means achieving frontier-level capabilities with significantly less hardware overhead.
+
 
 At the edge, our E2B and E4B models redefine on-device utility, prioritizing multimodal capabilities, low-latency processing and seamless ecosystem integration over raw parameter count.
 
+
+<a id="source-section-3"></a>
+
 ## Powerful, accessible, open
+
 
 To power the next generation of pioneering research and products, we've sized the Gemma 4 models specifically to run and fine-tune efficiently on hardware — from billions of Android devices worldwide, to laptop GPUs, all the way up to developer workstations and accelerators.
 
-By using these highly optimized models, you can fine-tune Gemma 4 to achieve state-of-the-art performance on your specific tasks. We've already seen incredible success with this approach; for instance, INSAIT created a pioneering Bulgarian-first language model (BgGPT), and we worked with Yale University on Cell2Sentence-Scale to discover new pathways for cancer therapy, among many others.
+
+By using these highly optimized models, you can fine-tune Gemma 4 to achieve state-of-the-art performance on your specific tasks. We've already seen incredible success with this approach; for instance, INSAIT created a pioneering Bulgarian-first language model ([BgGPT](https://deepmind.google/models/gemma/gemmaverse/insait/)), and we worked with Yale University on [Cell2Sentence-Scale](https://blog.google/innovation-and-ai/products/google-gemma-ai-cancer-therapy-discovery/) to discover new pathways for cancer therapy, among many others.
+
 
 Here is what makes Gemma 4 our most capable open model family yet:
 
-- Advanced reasoning: Capable of multi-step planning and deep logic, Gemma 4 demonstrates significant improvements in math and instruction-following benchmarks that require it.
 
-- Agentic workflows: Native support for function-calling, structured JSON output, and native system instructions enables you to build autonomous agents that can interact with different tools and APIs and execute workflows reliably.
+- **Advanced reasoning:** Capable of multi-step planning and deep logic, Gemma 4 demonstrates significant improvements in math and instruction-following benchmarks that require it.
 
-- Code generation: Gemma 4 supports high-quality offline code, turning your workstation into a local-first AI code assistant.
+- **Agentic workflows:** Native support for function-calling, structured JSON output, and native system instructions enables you to build autonomous agents that can interact with different tools and APIs and execute workflows reliably.
 
-- Vision and audio: All models natively process video and images, supporting variable resolutions, and excelling at visual tasks like OCR and chart understanding. Additionally, the E2B and E4B models feature native audio input for speech recognition and understanding.
+- **Code generation:** Gemma 4 supports high-quality offline code, turning your workstation into a local-first AI code assistant.
 
-- Longer context: Process long-form content seamlessly. The edge models feature a 128K context window, while the larger models offer up to 256K, allowing you to pass repositories or long documents in a single prompt.
+- **Vision and audio:** All models natively process video and images, supporting variable resolutions, and excelling at visual tasks like OCR and chart understanding. Additionally, the E2B and E4B models feature native audio input for speech recognition and understanding.
 
-- 140+ languages: Natively trained on over 140 languages, Gemma 4 helps developers build inclusive, high-performance applications for a global audience.
+- **Longer context:** Process long-form content seamlessly. The edge models feature a 128K context window, while the larger models offer up to 256K, allowing you to pass repositories or long documents in a single prompt.
+
+- **140+ languages:** Natively trained on over 140 languages, Gemma 4 helps developers build inclusive, high-performance applications for a global audience.
+
+
+<a id="source-section-4"></a>
 
 ## Versatile models for diverse hardware
 
+
 We are releasing the Gemma 4 model weights in sizes tailored for specific hardware and use cases, ensuring you get frontier-class reasoning wherever you need it:
+
+
+<a id="source-section-5"></a>
 
 ### 26B and 31B models: Frontier intelligence, offline on your personal computers
 
+
 Optimized to provide researchers and developers with state-of-the-art reasoning on accessible hardware, our unquantized bfloat16 weights fit efficiently on a single 80GB NVIDIA H100 GPU. For local setups, quantized versions run natively on consumer GPUs to power your IDEs, coding assistants and agentic workflows. Our 26B Mixture of Experts (MoE) focus on latency, activating only 3.8 billion of its total parameters during inference to deliver exceptionally fast tokens-per-second, while our 31B Dense is maximizing raw quality and provides a powerful foundation for fine-tuning.
 
-These models were evaluated against a large collection of different datasets and metrics to cover different aspects of text generation. See additional benchmarks in our model card.
+
+These models were evaluated against a large collection of different datasets and metrics to cover different aspects of text generation. See additional benchmarks in our [model card](https://ai.google.dev/gemma/docs/core/model_card_4).
+
+
+[图片：Gemma 4 Table]
+
+
+<a id="source-section-6"></a>
 
 ### E2B and E4B models: A new level of intelligence for mobile and IoT devices
 
-Engineered from the ground up for maximum compute and memory efficiency, these models activate an effective 2 billion and 4 billion parameter footprint during inference to preserve RAM and battery life. In close collaboration with our Google Pixel team and mobile hardware leaders like Qualcomm Technologies and MediaTek, these multimodal models run completely offline with near-zero latency across edge devices like phones, Raspberry Pi, and NVIDIA Jetson Orin Nano. Android developers can now prototype agentic flows in the AICore Developer Preview today for forward-compatibility with Gemini Nano 4.
+
+Engineered from the ground up for maximum compute and memory efficiency, these models activate an effective 2 billion and 4 billion parameter footprint during inference to preserve RAM and battery life. In close collaboration with our Google Pixel team and mobile hardware leaders like Qualcomm Technologies and MediaTek, these multimodal models run completely offline with near-zero latency across edge devices like phones, Raspberry Pi, and NVIDIA Jetson Orin Nano. Android developers can now prototype agentic flows in the [AICore Developer Preview](https://android-developers.googleblog.com/2026/03/AI-Core-Developer-Preview) today for forward-compatibility with Gemini Nano 4.
+
+
+<a id="source-section-7"></a>
 
 ## An open-source license
 
-You gave us feedback, and we listened. Building the future of AI requires a collaborative approach, and we believe in empowering the developer ecosystem without restrictive barriers. That's why Gemma 4 is released under a commercially permissive Apache 2.0 license.
+
+You gave us feedback, and we listened. Building the future of AI requires a collaborative approach, and we believe in empowering the developer ecosystem without restrictive barriers. That's why Gemma 4 is released under a commercially permissive [Apache 2.0 license.](https://goo.gle/gemma-4-apache-2)
+
 
 This open-source license provides a foundation for complete developer flexibility and digital sovereignty; granting you complete control over your data, infrastructure, and models. It allows you to build freely and deploy securely across any environment, whether on-premises or in the cloud.
 
+
+<a id="source-section-8"></a>
+
 ## Built on a foundation of trust and safety
+
 
 These models undergo the same rigorous infrastructure security protocols as our proprietary models. By choosing Gemma 4, enterprises and sovereign organizations gain a trusted, transparent foundation that delivers state-of-the-art capabilities while meeting the highest standards for security and reliability.
 
+
+<a id="source-section-9"></a>
+
 ## An ecosystem of choices
 
-- Start experimenting in seconds: Get instant access to Gemma 4 and begin building right away. Explore Gemma 4 in Google AI Studio (31B and 26B MoE) or in Google AI Edge Gallery (E4B and E2B). For Android development, use it to power Agent Mode in Android Studio, and start building apps for production on Android with the ML Kit GenAI Prompt API.
 
-- Use your favorite tools: With day-one support for Hugging Face (Transformers, TRL, Transformers.js, Candle), LiteRT-LM, vLLM, llama.cpp, MLX, Ollama, NVIDIA NIM and NeMo, LM Studio, Unsloth, SGLang, Cactus, Baseten, Docker, MaxText, Tunix, Keras, you have the flexibility to choose the best tools for your project.
+- **Start experimenting in seconds:** Get instant access to Gemma 4 and begin building right away. Explore Gemma 4 in [Google AI Studio](https://aistudio.google.com/prompts/new_chat?model=gemma-4-31b-it) (31B and 26B MoE) or in Google [AI Edge Gallery](https://developers.googleblog.com/bring-state-of-the-art-agentic-skills-to-the-edge-with-gemma-4/) (E4B and E2B). For [Android development](http://android-developers.googleblog.com/2026/03/gemma-4-new-standard-for-local-agentic-intelligence.html), use it to power Agent Mode in [Android Studio](http://android-developers.googleblog.com/2026/04/android-studio-supports-gemma-4-local.html), and start building apps for production on Android with the [ML Kit GenAI Prompt API](https://android-developers.googleblog.com/2026/03/AI-Core-Developer-Preview).
 
-- Download the models: Get the model weights from Hugging Face, Kaggle or Ollama.
+- **Use your favorite tools:** With day-one support for [Hugging Face](https://huggingface.co/blog/gemma4) (Transformers, TRL, Transformers.js, Candle), [LiteRT-LM](https://ai.google.dev/edge/litert-lm/overview), vLLM, llama.cpp, [MLX](https://huggingface.co/collections/mlx-community/gemma-4), [Ollama](https://ollama.com/library/gemma4), [NVIDIA NIM](https://build.nvidia.com/google/gemma-4-31b-it) and [NeMo](https://github.com/NVIDIA-NeMo/Automodel/tree/main/docs/guides/vlm/gemma4.md), [LM Studio](https://lmstudio.ai/models/gemma-4), [Unsloth](https://unsloth.ai/docs/models/gemma-4), SGLang, [Cactus](https://docs.cactuscompute.com/latest/blog/gemma4/), [Baseten](https://www.baseten.co/library/publisher/gemma/), [Docker](https://hub.docker.com/r/ai/gemma4), MaxText, Tunix, Keras, you have the flexibility to choose the best tools for your project.
 
-- Customize Gemma 4 to your specific needs: Train and adapt the model using your preferred platform, like Google Colab, Vertex AI or even your gaming GPU.
+- **Download the models:** Get the model weights from [Hugging Face](https://huggingface.co/collections/google/gemma-4), [Kaggle](https://www.kaggle.com/models/google/gemma-4) or [Ollama](https://ollama.com/library/gemma4).
 
-- Scale to production on Google Cloud: While local on-device inference is ideal for offline use, Google Cloud removes all compute ceilings. Deploy your way through Vertex AI, Cloud Run, GKE, Sovereign Cloud, TPU-accelerated serving and the highest compliance guarantees for regulated workloads. Learn more about getting started on Google Cloud here.
+- **Customize Gemma 4 to your specific needs:** Train and adapt the model using your preferred platform, like Google Colab, [Vertex AI](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma4) or even your gaming GPU.
 
-- Accelerate your AI development across multiple hardware platforms: Gemma 4 is optimized for industry-leading hardware out of the box. Experience maximum performance on NVIDIA AI infrastructure from NVIDIA Jetson Orin Nano to Blackwell GPUs, integrate with AMD GPUs via the open-source ROCm™ stack, or deploy on Trillium and Ironwood TPUs for massive scale and efficiency.
+- **Scale to production on Google Cloud:** While local on-device inference is ideal for offline use, Google Cloud removes all compute ceilings. Deploy your way through Vertex AI, [Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run/cloud-run-gpu-rtx-pro-6000-gemma4-vllm), [GKE](https://docs.cloud.google.com/kubernetes-engine/docs/tutorials/serve-gemma-gpu-vllm), Sovereign Cloud, TPU-accelerated serving and the highest compliance guarantees for regulated workloads. Learn more about getting started on Google Cloud [here](https://cloud.google.com/blog/products/ai-machine-learning/gemma-4-available-on-google-cloud).
 
-- Compete for impact: Join the Gemma 4 Good Challenge on Kaggle to build products that create meaningful, positive change in the world.
+- **Accelerate your AI development across multiple hardware platforms:** Gemma 4 is optimized for industry-leading hardware out of the box. Experience maximum performance on NVIDIA AI infrastructure from NVIDIA Jetson Orin Nano to Blackwell GPUs, integrate with AMD GPUs via the open-source ROCm™ stack, or deploy on Trillium and Ironwood TPUs for massive scale and efficiency.
+
+- **Compete for impact:** Join the [Gemma 4 Good Challenge](https://www.kaggle.com/competitions/gemma-4-good-hackathon) on Kaggle to build products that create meaningful, positive change in the world.
+
 
 POSTED IN:
-
-- Developer tools
-
-- Gemini models
-
-Related stories
-
-#### DiffusionGemma: 4x faster text generation
-
-By
- 
- 
- 
- Brendan O'Donoghue
- 
- 
- 
- &
- 
- 
- Sebastian Flennerhag
-
-#### See what 3 builders are making with Gemma 4
-
-By
- 
- 
- 
- Amy Eisinger
-
-#### Fluid, natural voice translation with Gemini 3.5 Live Translate
-
-By
- 
- 
- 
- Anuda Weerasinghe
- 
- 
- 
- &
- 
- 
- Tony Lu
-
-#### Bringing the latest Gemini models to Apple developers
-
-By
- 
- 
- 
- Nicholas McNamara
- 
- 
- 
- &
- 
- 
- Thevi Sundaralingam
-
-#### Gemma 4 QAT models: Optimizing model compression for mobile and laptop efficiency
-
-By
- 
- 
- 
- Olivier Lacombe
- 
- 
- 
- &
- 
- 
- Omar Sanseviero
-
-#### The latest AI news we announced in May 2026
-
-By
- 
- 
- 
- The Keyword Team
-
-.
-
-Jump to position 1
- 
- 
- 
- 
- Jump to position 2
- 
- 
- 
- 
- Jump to position 3
- 
- 
- 
- 
- Jump to position 4
- 
- 
- 
- 
- Jump to position 5
- 
- 
- 
- 
- Jump to position 6
-
-Let’s stay in touch. Get the latest news from Google in your inbox.
-
-Subscribe
- No thanks
-
-Follow Us
-
-- Privacy
-
-- Terms
-
-- About Google
-
-- Google Products
-
-- About the Keyword
-
-- Help
-
-Global (English)
- 
- 
- 
- Africa (English)
- 
- 
- 
- Australia (English)
- 
- 
- 
- Brasil (Português)
- 
- 
- 
- Canada (English)
- 
- 
- 
- Canada (Français)
- 
- 
- 
- Česko (Čeština)
- 
- 
- 
- Deutschland (Deutsch)
- 
- 
- 
- España (Español)
- 
- 
- 
- France (Français)
- 
- 
- 
- Greece (Ελληνικά)
- 
- 
- 
- India (English)
- 
- 
- 
- Indonesia (Bahasa Indonesia)
- 
- 
- 
- Ireland (English)
- 
- 
- 
- Italia (Italiano)
- 
- 
- 
- 日本 (日本語)
- 
- 
- 
- 대한민국 (한국어)
- 
- 
- 
- Latinoamérica (Español)
- 
- 
- 
- الشرق الأوسط وشمال أفريقيا (اللغة العربية)
- 
- 
- 
- MENA (English)
- 
- 
- 
- Nederlands (Nederland)
- 
- 
- 
- New Zealand (English)
- 
- 
- 
- Polska (Polski)
- 
- 
- 
- Portugal (Português)
- 
- 
- 
- România (Română)
- 
- 
- 
- Sverige (Svenska)
- 
- 
- 
- ประเทศไทย (ไทย)
- 
- 
- 
- Türkiye (Türkçe)
- 
- 
- 
- 台灣 (中文)

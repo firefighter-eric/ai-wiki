@@ -1,0 +1,11 @@
+[
+  {"query": "SGLang 与 vLLM 架构差异", "expected": ["wiki/comparisons/SGLang 与 vLLM 架构对比.md"]},
+  {"query": "Muon 与 AdamW 区别", "expected": ["wiki/comparisons/Muon 与 AdamW.md"]},
+  {"query": "注意力机制有哪些", "expected": ["wiki/topics/注意力机制 Attention.md"]},
+  {"query": "Qwen 系列演进", "expected": ["wiki/timelines/Qwen 系列演进.md"]},
+  {"query": "LLM RL", "expected": ["wiki/topics/LLM RL.md"]},
+  {"query": "LoRA", "expected": ["wiki/concepts/LoRA.md"]},
+  {"query": "视频生成", "expected": ["wiki/topics/视频生成.md"]},
+  {"query": "RLHF vs DPO", "expected": ["wiki/comparisons/RLHF vs DPO vs ORPO vs KTO.md"]},
+  {"query": "zz_no_such_wiki_entity_94731", "expected": [], "expect_empty": true}
+]

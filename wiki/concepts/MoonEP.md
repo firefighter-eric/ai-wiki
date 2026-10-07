@@ -3,9 +3,17 @@ type: concept
 ---
 # MoonEP
 
+## TL;DR（快速导读）
+
+MoonEP 为大型专家混合训练组织专家放置与执行，减少负载不均和通信浪费，关注整套分布式系统效率。
+
 ## 简介
 
 `MoonEP` 是 Kimi K3 3T 级 MoE 预训练中的 expert-parallel execution scheme。它通过动态冗余 experts、在线 placement planning、zero-copy dispatch/combine 与 static computation shapes，使每个 EP rank 接收完全相同数量的 token，而不是只追求平均均衡。
+
+## 具体怎么理解
+
+不同计算节点若收到的任务数量差很多，较快节点仍要等最慢节点；放置与分发要一起优化。
 
 ## 关键属性
 
@@ -34,3 +42,8 @@ type: concept
 - [Quantile Balancing](./Quantile%20Balancing.md)
 - [MoE](./MoE.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。

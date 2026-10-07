@@ -1,41 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Liang et al. - 2022 - Holistic Evaluation of Language Models
+
+## TL;DR（快速导读）
+
+HELM 主张从准确率、稳健性、公平性和效率等多个维度评估语言模型，用统一场景呈现能力与代价。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+单一排行榜分数无法描述模型在不同使用条件下的表现。HELM 整理场景与指标，在可比较的设置中评估语言模型。阅读重点是评测覆盖和缺口，以及不同指标之间的权衡。
+
+## 具体怎么理解
+
+一个模型答题更准，却可能更慢或对输入扰动更敏感；这些差异应分别展示，不能被一个总分盖住。
+
+## 关键事实
+
+- **C1**：HELM 在场景覆盖之外同时考察准确性、校准、鲁棒性、公平性、偏差、毒性和效率。
+- **C2**：作者明确承认场景覆盖、测量有效性与可靠性仍有限。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Liang et al. - 2022 - Holistic Evaluation of Language Models.pdf
-- 全文文本：../../raw/text/Liang et al. - 2022 - Holistic Evaluation of Language Models.md
+- 原始文件：[打开原始文件](../../raw/pdf/Liang%20et%20al.%20-%202022%20-%20Holistic%20Evaluation%20of%20Language%20Models.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Liang%20et%20al.%20-%202022%20-%20Holistic%20Evaluation%20of%20Language%20Models.md)
 - 作者：Liang et al.
 - 年份：2022
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Holistic Evaluation of Language Models Percy Liang† Rishi Bommasani† Tony Lee†1 Dimitris Tsipras* Dilara Soylu* Michihiro Yasunaga* Yian Zhang* Deepak Narayanan* Yuhuai Wu*2 Ananya Kumar Benjamin Newman Binhang Yuan Bobby Yan Ce Zhang Christian Cosgrove Christopher D. Manning Christopher Ré Diana Acosta-Navas Drew A. Hudson Eric Zelikman Esin Durmus Faisal Ladhak Frieda Rong Hongyu Ren Huaxiu Yao Jue Wang Keshav Santhanam Laurel Orr Lucia Zheng Mert Yuksekgonul Mirac Suzgun Nathan Kim Neel Guha Niladri Chatterji Omar Khattab Peter Henderson Qian Huang Ryan Chi Sang Michael Xie Shibani Santurkar Surya Ganguli Tatsunori Hashimoto Thomas Icard Tianyi Zhang Vishrav Chaudhary William Wang Xuechen Li Yifan Mai Yuhui Zhang Yuta Koreeda Center for Research on Foundation Models (CRFM) Stanford Institute for Human-Centered Artificial Intelligence (HAI) Stanford University Language models (LMs) are
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Liang et al. - 2022 - Holistic Evaluation of Language Models.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Liang%20et%20al.%20-%202022%20-%20Holistic%20Evaluation%20of%20Language%20Models.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 英语、模态和用例覆盖缺口会影响代表性。
+- 不同模型的提示、适配和可访问接口也会影响可比性。
 
 ## 关联页面
 
 - 主题：[传统NLP](../topics/传统%20NLP.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+HELM 把评测问题从谁分数最高改成在哪种场景、按哪些要求、付出多少成本。其分类和公开协议适合用于构建评测计划；历史排行榜只描述该版本模型和适配方式，不能用来断言当前模型能力。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Liang%20et%20al.%20-%202022%20-%20Holistic%20Evaluation%20of%20Language%20Models.md#source-section-3 ) | 指标多维，不能压成未经定义的单一能力分 |
+| C2 | [原文]( ../../raw/text/Liang%20et%20al.%20-%202022%20-%20Holistic%20Evaluation%20of%20Language%20Models.md#source-section-155 ) | holistic 是组织目标，不是完整测得全部能力 |
+
+## 核证范围
+
+核对摘要的场景与七类指标设计、§11.2 的实现局限及结论；未将全篇各子基准结果统一为排名。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

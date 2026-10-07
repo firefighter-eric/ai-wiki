@@ -3,9 +3,17 @@ type: concept
 ---
 # Manifold-Constrained Hyper-Connections
 
+## TL;DR（快速导读）
+
+mHC 约束多路残差连接中的映射，目标是让深层网络传递信息更稳定；它调整层间连接，而非文本中的注意力范围。
+
 ## 简介
 
 `Manifold-Constrained Hyper-Connections (mHC)` 是 `DeepSeek-V4` 用来强化 Transformer block 间 residual connection 的结构设计。它在 `Hyper-Connections (HC)` 的基础上，把 residual mapping 约束到特定流形上，以改善深层堆叠中的信号传播稳定性。
+
+## 具体怎么理解
+
+层与层之间若有多条信息通道，组合规则会影响信号是否放大或失稳；约束映射是控制这个过程的一种方式。
 
 ## 关键属性
 
@@ -33,3 +41,6 @@ type: concept
 - [Transformer](./Transformer.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
 
+## 这里的术语是什么意思
+
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。

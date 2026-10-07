@@ -3,9 +3,17 @@ type: concept
 ---
 # DAPO
 
+## TL;DR（快速导读）
+
+DAPO 将推理强化学习中的优化与工程技巧组织成训练方案，关注长回答、样本筛选和训练稳定性。
+
 ## 简介
 
-DAPO 是 `Decoupled Clip and Dynamic sAmpling Policy Optimization` 的缩写。在当前知识库中，它表示面向长链路 reasoning RL 的大规模开源训练系统与算法 recipe，而不只是对 `GRPO` 的一个小修补。
+DAPO 将推理强化学习中的优化与工程技巧组织成训练方案，关注长回答、样本筛选和训练稳定性。
+
+## 具体怎么理解
+
+同一批题目若全答对或全答错，组内奖励可能缺少区分；有效采样与算法目标需要配合。
 
 ## 关键属性
 
@@ -30,3 +38,9 @@ DAPO 是 `Decoupled Clip and Dynamic sAmpling Policy Optimization` 的缩写。�
 - [DeepSeek-R1](./DeepSeek-R1.md)
 - [RLHF](./RLHF.md)
 - [LLM RL](../topics/LLM%20RL.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **GRPO**：组相对策略优化：利用同一问题多份回答的相对奖励进行更新。
+- **CoT**：思维链：模型写出的中间推理文本，不能自动视为忠实的内部思考。

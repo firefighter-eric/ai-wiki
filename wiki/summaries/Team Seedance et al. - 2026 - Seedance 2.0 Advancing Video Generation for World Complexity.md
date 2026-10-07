@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Team Seedance et al. - 2026 - Seedance 2.0 Advancing Video Generation for World Complexity
+
+## TL;DR（快速导读）
+
+Seedance 2.0 将文字、图片、音频和视频作为创作参考，研究可控的视频与声音联合生成。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+给角色、动作和场景参考制作短片时，逐项检查角色一致、动作遵循、镜头衔接和音画同步。
 
 ## 来源信息
 
@@ -12,32 +25,47 @@ status: refined
 - 来源链接：https://arxiv.org/abs/2604.14148
 - 作者：Team Seedance et al.
 - 年份：2026
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-Seedance 2.0 是 ByteDance Seed 在 2026 年发布的原生多模态音视频生成模型。该模型把 `text / image / audio / video` 四类输入统一进同一音视频联合生成框架，不只覆盖 `T2V / I2V`，也强调多模态参考、视频编辑、续写与 extension 等更接近真实创作工作流的能力。与许多只给出单轮生成 demo 的视频模型相比，这篇来源更突出其“可控生产”定位：复杂动作稳定性、专业镜头语言、多镜头叙事与音画同步被当作核心竞争维度。
+来源讨论多模态参考、编辑、续写、多镜头与音画同步。阅读时按实际创作步骤核对控制范围与输出稳定性；复杂动作、人物一致性和声音对齐不能用一个总体生成分数概括。
 
 ## 关键事实
 
-- Seedance 2.0 支持直接生成 `4-15` 秒音视频内容，原生输出分辨率为 `480p` 与 `720p`。
-- 当前开放平台支持最多 `3` 段视频、`9` 张图片和 `3` 段音频作为参考输入，并支持文本、图像、音频、视频的组合条件控制。
-- 论文把其能力范围组织为 `T2V / I2V / R2V`、视频编辑、continuation 与 extension，而不是只讨论单一文生视频任务。
-- 模型显式强调复杂动作、多人交互、镜头调度、叙事节奏、风格参考、特效参考和角色一致性等接近 production workflow 的维度。
-- 音频侧主打双声道 / 双耳沉浸式生成、环境音与配乐分层，以及与视觉动作的严格时间同步。
-- 按文中自建 `SeedVideoBench 2.0` 结果，Seedance 2.0 在 `T2V / I2V / R2V` 的已评估维度上均排第一；对比对象包括 `Kling 3.0`、`Veo 3.1`、`Sora 2 Pro`、`Wan 2.6`、`Vidu Q2 Pro` 等。
-- 论文同时声称，在 `Arena.AI` 视频榜单中，`Dreamina Seedance 2.0 720p` 于 `2026-04-08`（文中注明 Eastern Time）在 `Text-to-Video` 与 `Image-to-Video` 两个榜单都排第一。
-- 这篇来源也明确暴露了短板：在 `R2V` 的 extension 任务上，Seedance 2.0 虽然支持更广输入，但质量仍落后于 `Veo 3.1`。
+- **C1**：Seedance2.0报告支持多模态参考、音画生成与T2V/I2V/R2V及编辑/延展。
+- **C2**：自建SeedVideoBench2.0比较分离视频/音频/参考对齐维度。
+- **C3**：R2Vextension虽支持更多输入，taskfollowing1.93仍低于Veo3.1的2.78。
+- **C4**：Kling3Omni在firstframe保持有4.31，高于Seedance2.0的2.71。
 
 ## 争议与不确定点
 
-- 这篇来源更接近带 benchmark 的官方 model card，而不是完整公开方法论文；架构、训练数据与训练细节披露明显少于评测部分。
-- 绝大多数领先结论来自作者自建的 `SeedVideoBench 2.0` 与作者选择的商用模型对比，属于强信息量但非独立第三方评测。
-- `Arena.AI` 排名结论带有明确时间点 `2026-04-08`，后续可能变化，不应把它视为长期稳定事实。
-- 论文显示 Seedance 2.0 在视频 extension 上仍弱于 `Veo 3.1`，说明“全任务领先”不能机械外推到所有子任务。
+- Arena排名是2026-04-08历史快照，不作当前排行榜。
+- 样例、厂商人评与真实制作返工率不等价。
 
 ## 关联页面
 
 - 概念：[Seedance 2.0](../../wiki/concepts/Seedance%202.0.md)
 - 主题：[视频生成](../../wiki/topics/视频生成.md)
 - 作者：[ByteDance Seed](../../wiki/authors/ByteDance%20Seed.md)
+
+## 方法与实验解读
+
+报告将参考角色、动作、风格、编辑和延展分开评测，说明production任务不是单一文生视频排名。联合图像/音频仍难，生成更多动作可能牺牲首帧一致。本文删除绝对化“严格同步/全任务第一”，保留具体限制和同任务对照。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/pdf/Team%20Seedance%20et%20al.%20-%202026%20-%20Seedance%202.0%20Advancing%20Video%20Generation%20for%20World%20Complexity.pdf#page=2 )、[原文]( ../../raw/pdf/Team%20Seedance%20et%20al.%20-%202026%20-%20Seedance%202.0%20Advancing%20Video%20Generation%20for%20World%20Complexity.pdf#page=3 ) | 输入能力与具体平台限额按保存版本。 |
+| C2 | [原文]( ../../raw/pdf/Team%20Seedance%20et%20al.%20-%202026%20-%20Seedance%202.0%20Advancing%20Video%20Generation%20for%20World%20Complexity.pdf#page=4 ) | 厂商构建评测，不是独立复现。 |
+| C3 | [原文]( ../../raw/pdf/Team%20Seedance%20et%20al.%20-%202026%20-%20Seedance%202.0%20Advancing%20Video%20Generation%20for%20World%20Complexity.pdf#page=22 ) | 比较输入约束并不完全同等，不能称全维度第一。 |
+| C4 | [原文]( ../../raw/pdf/Team%20Seedance%20et%20al.%20-%202026%20-%20Seedance%202.0%20Advancing%20Video%20Generation%20for%20World%20Complexity.pdf#page=21 ) | 更强后续动作与首帧保真存在折中。 |
+
+## 核证范围
+
+使用完整26页PDF，核读能力定义、SeedVideoBench设置、参考/首帧/延展结果；旧HTML只是摘要页，已换PDF全文。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

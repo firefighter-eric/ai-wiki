@@ -1,41 +1,72 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides
+
+## TL;DR（快速导读）
+
+这份教育幻灯片数据集把页面、图示和讲解语音放在一起，研究教学材料中不同模态怎样共同传递知识。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+课件的含义不仅在页面文字里，也来自图示、讲述和前后页关系。数据集为多模态课件理解提供研究材料。读者应关注标注与任务怎样对应实际学习需求，而不是把页面 OCR 当成完整课件理解。
+
+## 具体怎么理解
+
+一张只有流程图的页面，可能需要结合教师语音才能知道每个步骤为何重要。
+
+## 关键事实
+
+- **C1**：MLP 对齐讲座幻灯片与讲述，主要任务是文字到图和图到文字检索。
+- **C2**：PolyViLT 用多实例学习处理图文的弱对齐，利用图中视觉与文字信息。
+- **C3**：学科、讲师、图表类型分布不平衡，人文与表格公式覆盖有限。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides.pdf
-- 全文文本：../../raw/text/Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides.md
+- 原始文件：[打开原始文件](../../raw/pdf/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md)
 - 作者：Lee et al.
 - 年份：2022
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Lecture slide presentations, a sequence of pages that contain text and ﬁgures ac- companied by speech, are constructed and presented carefully in order to optimally transfer knowledge to students. Previous studies in multimedia and psychology attribute the effectiveness of lecture presentations to their multimodal nature. As a step toward developing AI to aid in student learning as intelligent teacher assis- tants, we introduce the Multimodal Lecture Presentations dataset as a large-scale benchmark testing the capabilities of machine learning models in multimodal un- derstanding of educational content. Our dataset contains aligned slides and spoken language, for 180+ hours of video and 9000+ slides, with 10 lecturers from various subjects (e.g., computer science, dentistry, biology). We introduce two research tasks which are designed as stepping stones towards AI agents that can explain (automatically captioning a lecture presentation) and illustrate (synthesizing vi- sual ﬁgures to accompany spoken explanations) educational content. We provide manual annotations to help implement these two research tasks and evaluate state- of-the-art models on them. Comparing baselines and human student performances, we ﬁnd that current models struggle in (1) weak crossmodal alignment between slides and spoken text, (2) learning novel visual mediums, (3) technical language, and (4) long-range sequences. Towards addressing this issue, we also introduce PolyViLT, a multimodal transformer trained with a multi-instance learning loss that is more effective than current approaches. We conclude by shedding light on the challenges and opportunities in multimodal understanding of educational presentations.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Lee et al. - 2022 - Multimodal Lecture Presentations Dataset Understanding Multimodality in Educational Slides.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 鼠标轨迹的使用因讲师而异，不能把它当成一致标注。
+- 课程与讲师分布不代表全部教育内容。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 这里的术语是什么意思
+
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。
+
+## 方法与实验解读
+
+讲课时一段解释可能对应多张图，一张图也可能被分散解释。MLP 与 PolyViLT 用弱对齐检索研究这个问题；评估前应先确认任务是找相关图文，而不是理解整堂课程并回答任意问题。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md#source-section-9 ) | 不是开放式课堂问答成绩 |
+| C2 | [原文]( ../../raw/text/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md#source-section-11 ) | 对应关系不总是一句讲述对应一个图 |
+| C3 | [原文]( ../../raw/text/Lee%20et%20al.%20-%202022%20-%20Multimodal%20Lecture%20Presentations%20Dataset%20Understanding%20Multimodality%20in%20Educational%20Slides.md#source-section-19 ) | 数据覆盖限制结论外推 |
+
+## 核证范围
+
+核对 §4 的任务、§4.2 的多实例模型和 §6 的数据局限。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

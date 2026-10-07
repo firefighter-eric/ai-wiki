@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Kimi - 2026 - Kimi K3 Open Frontier Intelligence Release
+
+## TL;DR（快速导读）
+
+Kimi K3 发布页提供可用入口与长任务案例，也记录思考历史、主动执行和用户体验方面的限制。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+完成代码任务可能要读取仓库、运行工具和根据结果继续行动；模型分数与整条执行系统的可靠性要分开测。
 
 ## 来源信息
 
@@ -12,32 +25,24 @@ status: refined
 - 来源 URL：https://www.kimi.com/blog/kimi-k3
 - 发布方：Kimi / Moonshot AI
 - 年份：2026
-- 状态：已精修；作为产品定位、案例、可用性与限制的一手来源
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-该发布页把 `Kimi K3` 定位为面向长程 coding、knowledge work 与 reasoning 的开放权重原生多模态模型，并用多个长时自主执行案例展示其产品方向。与技术报告相比，这一来源更重要的价值不在于重复架构参数，而在于给出官方可用渠道、API 定价快照、推荐部署形态，以及明确列出的产品限制。
-
-发布页承认 K3 总体仍落后于 `Claude Fable 5` 与 `GPT-5.6 Sol`，并指出三类实际风险：对 preserved thinking history 的强依赖、执行时可能过度主动、整体用户体验仍有明显差距。它因此构成技术报告 benchmark 叙事的重要校正，而不是纯营销补充。
+它将模型定位为处理代码、知识工作与推理的多模态系统。发布案例可帮助理解目标任务，限制说明则帮助判断接入风险；架构与训练细节应回到技术报告，价格和渠道只代表归档快照。
 
 ## 关键事实
 
-- K3 发布时可通过 Kimi.com、Kimi Work、Kimi Code 与 Kimi API 使用；模型权重随后与技术报告一起公开。
-- 官方将 KDA、AttnRes、Stable LatentMoE、Quantile Balancing、Per-Head Muon、SiTU-GLU 与 Gated MLA 列为 2.8T 规模稳定训练的共同基础。
-- 官方建议 self-hosted deployment 使用 64 个或更多 accelerators 的 supernode，以获得更大的高带宽通信域；这表明“权重开放”不等于“普通单机可部署”。
-- 发布页称团队向 vLLM 社区贡献了 KDA prefix-cache 实现；技术报告进一步说明 KDA state 与 MLA paged KV cache 必须在命中边界上共同一致。
-- 发布时 API 价格快照为 cache-hit input `$0.30/MTok`、cache-miss input `$3.00/MTok`、output `$15.00/MTok`；官方还声称 coding workload 的 cache hit rate 超过 90%。这些数字具有时间和工作负载依赖，不应写成永久价格或通用命中率。
-- coding、compiler、game development、chip design、research、dashboard 与 video editing 案例均由 Moonshot 选择和展示，应视为能力案例而非随机样本上的总体成功率。
-- 官方限制一：K3 以 preserved thinking history 训练，多轮与工具调用若不完整回传历史 `reasoning_content`，或在会话中途从其他模型切换到 K3，生成质量可能显著不稳定。
-- 官方限制二：因强调长程困难任务，K3 在小问题或模糊意图下可能替用户作出超范围决定；部署方需要更明确的 system prompt、权限与行为边界。
-- 官方限制三：与 Claude Fable 5、GPT-5.6 Sol 相比，K3 的整体用户体验仍存在可感知差距。
+- **C1**：发布时提供Kimi.com/Work/Code/API，并计划后续公开权重和报告。
+- **C2**：自部署推荐64或更多accelerators的supernode。
+- **C3**：从SFT起使用MXFP4权重/MXFP8激活QAT，配合负载均衡与KDA prefix-cache。
+- **C4**：官方指出必须保持完整thinking历史，否则多轮/工具或中途换模型可能不稳定。
+- **C5**：限制还包括对小问题/模糊意图可能过度执行，以及整体体验仍落后于所列强闭源模型。
 
 ## 争议与不确定点
 
-- 发布博客的案例研究、成本和性能主张属于供应方自述，不能替代公开任务集、可复现脚本和独立使用数据。
-- `64+ accelerators` 是官方推荐而非绝对最低硬件门槛；不同量化、并行策略、吞吐和延迟目标会改变部署需求。
-- 定价、产品入口、默认 reasoning effort 与支持能力会随服务更新而变化，本页只记录抓取时快照。
-- 博客使用“open”描述模型，许可证另有 MaaS 与大规模商业产品条件，因此更准确的知识库标签是 `open-weight under custom license`。
+- 演示不等于平均可靠性，kernel等比较还包含不同来源的评测与fallback条件。
+- 公告价格和高缓存命中率不自动适用于新工作负载。
 
 ## 关联页面
 
@@ -48,3 +53,30 @@ status: refined
 - 来源：[Kimi K3 技术报告](./Kimi%20Team%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence.md)
 - 来源：[Kimi K3 Model Repository](./Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20Model%20Repository.md)
 - 来源：[Kimi K3 License](./Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20License.md)
+- [Moonshot AI](../authors/Moonshot%20AI.md)：沿作者或机构继续阅读相关来源。
+
+## 这里的术语是什么意思
+
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+
+## 方法与实验解读
+
+发布页用长程案例展示能力，并披露运行规模与harness条件。案例由团队选择，可用于理解输出形式，不能当随机任务的成功率。对于知识工作，明确工具边界和回传历史比单看基准更影响实际行为；价格、入口和缓存命中率则应按发布快照理解。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Kimi%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence%20Release.md#source-section-1 ) | 公告中的将来计划与后来已落库报告分开。 |
+| C2 | [原文]( ../../raw/text/Kimi%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence%20Release.md#source-section-16 ) | 发行方建议，权重开放不表示单机低成本。 |
+| C3 | [原文]( ../../raw/text/Kimi%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence%20Release.md#source-section-16 ) | 算法与系统共同组成部署条件。 |
+| C4 | [原文]( ../../raw/text/Kimi%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence%20Release.md#source-section-23 ) | harness兼容性是模型质量的成立条件。 |
+| C5 | [原文]( ../../raw/text/Kimi%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence%20Release.md#source-section-23 ) | 作者自评，不能当跨平台永久排名。 |
+
+## 核证范围
+
+核读发布入口、架构/基础设施、案例评测条件与完整Limitations。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

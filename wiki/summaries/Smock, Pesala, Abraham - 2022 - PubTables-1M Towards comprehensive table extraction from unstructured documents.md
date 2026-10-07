@@ -1,41 +1,72 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Smock, Pesala, Abraham - 2022 - PubTables-1M Towards comprehensive table extraction from unstructured documents
+
+## TL;DR（快速导读）
+
+PubTables-1M 提供大规模表格抽取标注，重点是完整、清楚的单元格结构，支撑检测和表格恢复研究。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+模型需要一致的真实标注才能学到表格结构。数据集覆盖大量学术文章表格，并整理结构与相关信息。数据规模不代替类型覆盖；迁到票据或复杂报告时仍需测试。
+
+## 具体怎么理解
+
+例如一个表头跨两列，标注要明确跨度；如果只记文字框，就难以学习最终电子表格结构。
+
+## 关键事实
+
+- **C1**：PubTables-1M 区分表格检测、结构识别与功能分析，并为这些任务提供标注。
+- **C2**：canonicalization 合并特定条件下的相邻单元格，解决原始结构标注过度分割导致的歧义。
+- **C3**：规范化算法不保证零错误，其他数据集可能需要额外假设。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Smock, Pesala, Abraham - 2022 - PubTables-1M Towards comprehensive table extraction from unstructured documents.pdf
-- 全文文本：../../raw/text/Smock, Pesala, Abraham - 2022 - PubTables-1M Towards comprehensive table extraction from unstructured documents.md
+- 原始文件：[打开原始文件](../../raw/pdf/Smock%2C%20Pesala%2C%20Abraham%20-%202022%20-%20PubTables-1M%20Towards%20comprehensive%20table%20extraction%20from%20unstructured%20documents.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Smock%2C%20Pesala%2C%20Abraham%20-%202022%20-%20PubTables-1M%20Towards%20comprehensive%20table%20extraction%20from%20unstructured%20documents.md)
 - 作者：Smock, Pesala, Abraham
 - 年份：2022
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Recently, signiﬁcant progress has been made applying machine learning to the problem of table structure inference and extraction from unstructured documents. However, one of the greatest challenges remains the creation of datasets with complete, unambiguous ground truth at scale. To ad- dress this, we develop a new, more comprehensive dataset for table extraction, called PubTables-1M. PubTables-1M contains nearly one million tables from scientiﬁc articles, supports multiple input modalities, and contains detailed header and location information for table structures, making it useful for a wide variety of modeling approaches. It also addresses a signiﬁcant source of ground truth inconsistency observed in prior datasets called oversegmentation, using a novel canonicalization procedure. We demonstrate that these improvements lead to a signiﬁcant increase in training per- formance and a more reliable estimate of model performance at evaluation for table structure recognition. Further, we show that transformer-based object detection models trained on PubTables-1M produce excellent results for all three tasks of detection, structure recognition, and functional analysis without the need for any special customization for these tasks. Data and code will be released at https://github. com/microsoft/table-transformer. 1. Introduction A table is a compact, structured representation for storing data and communicating it in documents and other manners of presentation. In its presented form, however, a table, such as the one in Fig. 1, may not and often does not explicitly represent its logical structure. This is an important problem as a signiﬁcant amount of data is communicated through doc- uments, but without structure information this data cannot be used in further applications. The problem of inferring a table’s structure from its pre- sentation and converting it to a structured form is known as Figure 1. An example of a presentation table whose underlying structure must be inferred, either manually or by automated sys- tems. table extraction (TE). TE entails three subtasks [6], which we illustrate in Fig. 2: table detection (TD), which locates the table; table structure recognition (TSR), which recognizes the structure of a table in terms of rows, columns, and cells; and functional analysis (FA), which recognizes the keys and values of the table. TE is challenging for automated sys- tems [9,12,17,23] due to the wide variety of formats, styles, and structures found in presented tables. Recently, there has been a shift in the research litera- ture from traditional rule-based methods [4,11,18] for TE to data-driven methods based on deep learning (DL) [14,17,22]. The primary advantage of DL methods is that they can learn to be more robust to the wide variety of table presentation formats. However, manually annotating tables for TSR is a difﬁcult and time-consuming process [7]. To overcome this, researchers have turned recently to crowd-sourcing to con- struct larger datasets [9,22,23]. These datasets are assembled from tables appearing in documents created by thousands of authors, where an annotation for each table’s structure and content is available in a markup format such as HTML, XML, or LaTeX. While crowd-sourcing solves the problem of dataset size, repurposing annotations originally unintended for TE and automatically converting these to ground truth presents its own set of challenges with respect to completeness, consis- tency, and quality. This includes not only what information is present but how explicitly this information is represented.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Smock, Pesala, Abraham - 2022 - PubTables-1M Towards comprehensive table extraction from unstructured documents.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Smock%2C%20Pesala%2C%20Abraham%20-%202022%20-%20PubTables-1M%20Towards%20comprehensive%20table%20extraction%20from%20unstructured%20documents.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 学术文档表格的分布与发票、网页或电子表格不同。
+- 结构正确仍不保证文字识别和数值关系正确。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+- [文档与表格的输入输出接口](../comparisons/%E6%96%87%E6%A1%A3%E4%B8%8E%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8E%A5%E5%8F%A3.md)：把本篇方法放到相关任务与比较条件中阅读。
+- [Robin Abraham](../authors/Robin%20Abraham.md)：沿作者或机构继续阅读相关来源。
+- [Rohith Pesala](../authors/Rohith%20Pesala.md)：沿作者或机构继续阅读相关来源。
+- [Brandon Smock](../authors/Brandon%20Smock.md)：沿作者或机构继续阅读相关来源。
+
+## 方法与实验解读
+
+论文重点不只是训练更好的检测器，还在于把表格真值定义得一致。表头与跨格的歧义会让同一视觉结构出现多个标注答案；规范化之后，模型与指标才能比较同一个目标。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Smock%2C%20Pesala%2C%20Abraham%20-%202022%20-%20PubTables-1M%20Towards%20comprehensive%20table%20extraction%20from%20unstructured%20documents.md#source-section-14 ) | 检测到表格不等于恢复单元格内容 |
+| C2 | [原文]( ../../raw/text/Smock%2C%20Pesala%2C%20Abraham%20-%202022%20-%20PubTables-1M%20Towards%20comprehensive%20table%20extraction%20from%20unstructured%20documents.md#source-section-10 ) | 基于 PMCOA 标注假设 |
+| C3 | [原文]( ../../raw/text/Smock%2C%20Pesala%2C%20Abraham%20-%202022%20-%20PubTables-1M%20Towards%20comprehensive%20table%20extraction%20from%20unstructured%20documents.md#source-section-11 ) | 不能把同一规则无条件应用于全部表格 |
+
+## 核证范围
+
+核对 §3 的规范化和局限、§4 的三类任务以及 §5 的规范化对比。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

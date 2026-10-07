@@ -3,3 +3,4 @@
 .playwright-cli
 
 __pycache__
+.wiki-cache/

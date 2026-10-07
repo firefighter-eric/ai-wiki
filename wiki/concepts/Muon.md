@@ -3,11 +3,19 @@ type: concept
 ---
 # Muon
 
+## TL;DR（快速导读）
+
+Muon 对二维权重的动量更新做矩阵级变换，尝试改善更新几何；实际训练常与其他参数组的 AdamW 配合。
+
 ## 简介
 
-`Muon`（`MomentUm Orthogonalized by Newton–Schulz`）是面向神经网络二维隐藏层权重的矩阵级优化器。它不是给 Adam 再换一个二阶矩，也不是 Hessian 型二阶优化：Muon 先形成 SGD momentum / Nesterov momentum 更新，再对整个更新矩阵做近似 polar orthogonalization，最后按目标 update RMS 重标定并施加 weight decay。
+`Muon`（`MomentUm Orthogonalized by Newton–Schulz`）是面向神经网络二维隐藏层权重的矩阵级优化器。它不是给 Adam 再换一个二阶矩，也不是 Hessian 型二阶优化：Muon 先形成 SGD momentum / Nesterov momentum 更新，再对整个更新矩阵做近似 polar orthogonalization，最后按目标 update RMS 重标定并施加 权重衰减。
 
 一句话概括：`AdamW` 逐元素调步长；`Muon` 调整整张矩阵更新的奇异方向。
+
+## 具体怎么理解
+
+一张权重矩阵包含多个方向；Muon 处理整体矩阵，而 AdamW 主要按元素自适应调整。效率需按完整训练比较。
 
 ## 关键属性
 
@@ -182,3 +190,9 @@ Moonlight 的 compute-optimal scaling-law 实验中，作者报告 Muon 达到 A
 - [Kimi](./Kimi.md)
 - [OLMo 2](./OLMo%202.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
+
+## 这里的术语是什么意思
+
+- **FLOPs**：浮点运算量：描述计算数量，不能直接等同于实际耗时。
+- **momentum**：动量：用历史梯度的累积信息平滑和组织参数更新。
+- **Newton–Schulz**：Newton–Schulz 迭代：用重复矩阵运算近似目标矩阵变换，迭代次数影响成本与近似。

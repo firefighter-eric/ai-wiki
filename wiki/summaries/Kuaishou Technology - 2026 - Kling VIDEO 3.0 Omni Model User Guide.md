@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Kuaishou Technology - 2026 - Kling VIDEO 3.0 Omni Model User Guide
+
+## TL;DR（快速导读）
+
+Kling VIDEO 3.0 Omni 指南介绍角色参考、声音绑定和多镜头控制，适合按创作步骤了解功能。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+让同一角色出现在两个镜头中，需要检查身份、动作、背景衔接与语音，而不只是每个镜头单独好看。
 
 ## 来源信息
 
@@ -12,30 +25,47 @@ status: refined
 - 来源链接：https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide
 - 作者：Kling AI / Kuaishou Technology
 - 年份：2026
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇官方 user guide 把 `Kling VIDEO 3.0 Omni` 定位成 `Kling O1` 与 `Kling 2.6` 之后的统一多模态升级版。它的重点不是 benchmark 排名，而是生产工作流能力：原生音视频输出、element consistency control、视频角色参考、语音绑定、多镜头 storyboard，以及 `15s` 时长突破。相较于只谈 `text-to-video` 的路线，Kling 3.0 Omni 更像“导演式控制界面 + 多模态素材资产系统”。
+归档指南把音视频生成、元素一致性和分镜操作放在同一工作流中。它描述产品接口与素材用法；具体时长、角色控制和输出质量要按相应版本检查，演示案例不能替代完整任务验证。
 
 ## 关键事实
 
-- 官方说明 Kling 3.0 系列基于 unified model training framework，并将 `Kling VIDEO O1` 升级为 `VIDEO 3.0 Omni`。
-- `Kling VIDEO 3.0 Omni` 支持 native audio、multi-shot，以及最长 `15s` 视频生成。
-- 该模型把文本、图片、视频与 element 都视为 prompts，可进行任意组合的多模态参考生成。
-- 官方强调其 element consistency control，主打跨镜头角色、物体与场景的一致性。
-- 新版支持将 voice 绑定到角色 element，使角色不仅“看起来一致”，也“听起来一致”。
-- 视频角色参考可以通过 `3-8s` 的人物视频创建，提取外观与声音以在后续视频中复用。
-- Kling 将 storyboard 和多镜头脚本明确作为一等输入接口，而不是仅用自然语言 prompt。
+- **C1**：3.0 Omni相对VIDEO O1加入原生音频、多镜头和最长15秒。
+- **C2**：图片、视频、element和文本均可作为参考提示组合。
+- **C3**：element可绑定声音；角色视频参考要求3–8秒，额外声音录音示例至少3秒。
+- **C4**：指南将storyboard和multi-shot作为创作接口。
 
 ## 争议与不确定点
 
-- 当前来源是官方 user guide，不是技术论文；架构、训练数据与客观评测披露有限。
-- 页面围绕功能说明与案例展示展开，容易高估其稳定能力边界。
-- `Kling VIDEO 3.0` 与 `Kling VIDEO 3.0 Omni` 在产品体系中并存，具体应将哪一个视为家族主节点仍需要更多独立来源补充。
+- 性能改善没有在本页给出统一盲评与误差分布。
+- 片长、输入和入口属于快照，后续任务须复核端点规格。
 
 ## 关联页面
 
 - 概念：[Kling VIDEO 3.0 Omni](../../wiki/concepts/Kling%20VIDEO%203.0%20Omni.md)
 - 主题：[视频生成](../../wiki/topics/视频生成.md)
 - 作者：[Kuaishou Technology](../../wiki/authors/Kuaishou%20Technology.md)
+
+## 方法与实验解读
+
+角色element把可重复使用的外观与声音绑定，storyboard把单段自然语言展开成多个镜头条件。它适合说明产品工作流，仍需逐镜核对人物、台词、口型、动作与衔接。perfect consistency之类表述是官方宣传，不能从例子推导总体错误率。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Kuaishou%20Technology%20-%202026%20-%20Kling%20VIDEO%203.0%20Omni%20Model%20User%20Guide.md#source-section-1 ) | 用户指南快照，与其他Kling端点分别看。 |
+| C2 | [原文]( ../../raw/text/Kuaishou%20Technology%20-%202026%20-%20Kling%20VIDEO%203.0%20Omni%20Model%20User%20Guide.md#source-section-3 ) | 参考类型多样不代表任意组合都可靠。 |
+| C3 | [原文]( ../../raw/text/Kuaishou%20Technology%20-%202026%20-%20Kling%20VIDEO%203.0%20Omni%20Model%20User%20Guide.md#source-section-4 ) | 输入限制与一致性效果不同。 |
+| C4 | [原文]( ../../raw/text/Kuaishou%20Technology%20-%202026%20-%20Kling%20VIDEO%203.0%20Omni%20Model%20User%20Guide.md#source-section-1 ) | 接口功能，不是结构或训练消融证据。 |
+
+## 核证范围
+
+核读功能对照、参考生成、角色外观/音色和storyboard说明。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

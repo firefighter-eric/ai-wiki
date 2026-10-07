@@ -1,41 +1,77 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
+source_id: arxiv:2407.21783
 ---
 # Dubey et al. - 2024 - The Llama 3 Herd of Models
+
+## TL;DR（快速导读）
+
+Llama 3 报告描述语言模型家族的预训练、后训练和评测，涉及多语言、编程、推理与工具使用，需要分开看模型能力和开放条件。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+报告不仅介绍模型结构，也说明数据处理、训练流程及能力评估。读者可沿预训练、指令与偏好训练、任务评测三条线阅读。不同规模和基础版、指令版不能混用；开发者评测也不等于所有实际任务的独立验证。
+
+## 具体怎么理解
+
+例如比较编程表现时，要先确认使用哪个规模、哪个版本，以及是否允许工具和额外推理预算。
+
+## 关键事实
+
+- **C1**：Llama 3 报告覆盖不同阶段发布的家族；405B dense 模型先以 8K 上下文训练 15.6T tokens，再继续训练扩展到 128K。
+- **C2**：后训练采用多轮 SFT 与 DPO，另训练奖励模型用于数据处理；论文中的语言模型、视觉和语音扩展需按具体章节与版本区分。
+- **C3**：405B 人类评价与 GPT-4、GPT-4o、Claude 3.5 Sonnet 的比较有胜有负，依赖语言、任务与被评模型版本。
+- **C4**：内部安全基准难以外部复现，作者承认安全测试不可能穷尽，英语外及对抗提示仍可能产生有害内容。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Dubey et al. - 2024 - The Llama 3 Herd of Models.pdf
-- 全文文本：../../raw/text/Dubey et al. - 2024 - The Llama 3 Herd of Models.md
+- 原始文件：[打开原始文件](../../raw/pdf/Dubey%20et%20al.%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Dubey%20et%20al.%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.md)
 - 作者：Dubey et al.
 - 年份：2024
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-The Llama 3 Herd of Models Llama Team, AI @ Meta1 1A detailed contributor list can be found in the appendix of this paper. Modern artificial intelligence (AI) systems are powered by foundation models. This paper presents a new set of foundation models, called Llama 3. It is a herd of language models that natively support multilinguality, coding, reasoning, and tool usage. Our largest model is a dense Transformer with 405B parameters and a context window of up to 128K tokens. This paper presents an extensive empirical evaluation of Llama 3. We find that Llama 3 delivers comparable quality to leading language models such as GPT-4 on a plethora of tasks. We publicly release Llama 3, including pre-trained and post-trained versions of the 405B parameter language model and our Llama Guard 3 model for input and output safety. The paper also presents the results of experiments in which we integr
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Dubey et al. - 2024 - The Llama 3 Herd of Models.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Dubey%20et%20al.%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 人类偏好与榜单任务的差异会改变相对排名。
+- 部分安全测量使用内部数据，外部可复现性有限。
+- 同标题另一归档属于同一研究，应按版本核对后引用。
 
 ## 关联页面
 
 - 主题：[LLM预训练](../topics/LLM%20预训练.md)
 - 综合：暂无
+- [Meta AI](../authors/Meta%20AI.md)：沿作者或机构继续阅读相关来源。
+
+## 方法与实验解读
+
+家族报告同时讲数据、分布式训练、后训练、评价和多模态研究。阅读时先确定具体 checkpoint：基础模型用于续写，Instruct 才经过助理行为与工具使用训练；视觉和语音扩展另有组件和评价，不能把所有章节合并为一个模型的功能清单。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Dubey%20et%20al.%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.md#source-section-4 ) | 不能把 2024 年 4 月 Llama 3 与 7 月 Llama 3.1 的上下文、语言和工具能力混同。 |
+| C2 | [原文]( ../../raw/text/Dubey%20et%20al.%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.md#source-section-22 ) | 基础模型不直接等同 Instruct；报告研究的多模态组件不能自动当成所有公开权重的能力。 |
+| C3 | [原文]( ../../raw/text/Dubey%20et%20al.%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.md#source-section-55 ) | 表现近似相当不等于逐项胜出；误差范围与提示因素会影响判断。 |
+| C4 | [原文]( ../../raw/text/Dubey%20et%20al.%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.md#source-section-64 ) | 风险缓解与测试覆盖不构成全面安全保证。 |
+
+## 核证范围
+
+核对总览与版本表、§3.1 数据、§4.1 后训练、§5.3 人类评价、§5.4 安全边界，以及多模态架构的独立章节。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。
+
+## 来源归档关系
+
+本页作为该论文的主阅读入口；另一归档是 [Team, Meta - 2024 - The Llama 3 Herd of Models](Team%2C%20Meta%20-%202024%20-%20The%20Llama%203%20Herd%20of%20Models.md)。按 arxiv:2407.21783 合并计数；不同保存版本可用于核对修订，不能当作独立实验或独立来源复现。

@@ -3,9 +3,17 @@ type: concept
 ---
 # Stable LatentMoE
 
+## TL;DR（快速导读）
+
+Stable LatentMoE 让共享专家在完整宽度、路由专家在较窄潜空间处理信息，降低大型专家系统的计算与通信负担。
+
 ## 简介
 
 `Stable LatentMoE` 是 Kimi K3 的 sparse channel-mixing layer。它让 shared experts 在完整 model width 上处理通用变换，让 routed experts 在较窄 latent space 中处理专门变换，从而把 expert pool 与 top-k 扩大到 `896 / 16` 而不让每次路由都承担完整宽度的通信和权重流量。
+
+## 具体怎么理解
+
+通用变换与专门变换使用不同宽度；通道压缩省成本，也要确认保留了任务所需的信息。
 
 ## 关键属性
 
@@ -36,3 +44,10 @@ type: concept
 - [MoE](./MoE.md)
 - [Muon](./Muon.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **decode**：解码阶段：利用已有输入与生成历史，产生后续输出。
+- **sparse**：稀疏计算或连接：只使用选中的部分，具体省略什么取决于方法。
+- **latent**：潜表示：原始数据经过模型编码后的内部表示，通常更紧凑。

@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Google - 2026 - DiffusionGemma 4x Faster Text Generation
+
+## TL;DR（快速导读）
+
+DiffusionGemma 发布博客介绍文本扩散的速度实验，主要针对本地、低并发的交互场景。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+可以把生成过程理解为先形成一段待定文本，再多轮完善；这是生成机制示意，不能直接推断任何任务都更快。
 
 ## 来源信息
 
@@ -12,31 +25,23 @@ status: refined
 - 来源 URL：https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/
 - 作者：Brendan O'Donoghue、Sebastian Flennerhag
 - 年份：2026
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇 Google 官方发布博客给出 DiffusionGemma 的产品定位：它是一个实验性开放模型，目标是探索 text diffusion 在本地、低并发、单用户交互场景中的速度优势。博客强调它在专用 GPU 上可达到最高约 `4x` 的文本生成加速，但同时明确说明标准自回归 `Gemma 4` 仍是高质量生产输出的推荐选择。
-
-该来源最重要的价值，是把 DiffusionGemma 从“又一个 Gemma 变体”定位为对自回归解码瓶颈的架构实验：模型通过一次生成一个 `256-token` block，把单用户推理从 memory-bound next-token decoding 推向更能利用 GPU compute 的并行 denoising。
+模型按块并行修正文本，而非逐个位置顺序生成。官方将它定位为实验性开放模型，并同时讨论质量限制；博客中的速度结果依赖硬件与请求条件，不能外推到所有服务负载。
 
 ## 关键事实
 
-- 发布时间：2026-06-10。
-- 官方称 DiffusionGemma 在专用 GPU 上最高可达 `4x` 更快文本生成。
-- 公开性能口径包括：单张 NVIDIA H100 上 `1000+ tokens/sec`，NVIDIA GeForce RTX 5090 上 `700+ tokens/sec`。
-- 博客强调速度优势来自把 decode bottleneck 从 memory bandwidth 转向 compute。
-- 模型以 `26B` 总参数、`3.8B` 激活参数的 `MoE` 形式运行；量化后可落入高端消费级 GPU 约 `18GB VRAM` 范围。
-- 双向注意力和并行 block 生成使它更适合 inline editing、code infilling、amino acid sequences、mathematical graphs 等非线性结构任务。
-- 官方明确说 DiffusionGemma 的 overall output quality 低于标准 Gemma 4；若目标是最高质量，仍建议使用标准 Gemma 4。
-- Google 将其与 `Gemini Diffusion` 研究相连，并把 DiffusionGemma描述为在 Gemma 4 家族上加入 diffusion head 的开放实验。
-- 博客说明 Apple Silicon 这类 unified-memory 架构未必获得同等加速，因为该速度优势依赖高 arithmetic intensity 的专用加速器。
+- **C1**：DiffusionGemma 是基于 Gemma4 的实验开放 MoE，加入 diffusion head 并以 block 并行生成。
+- **C2**：官方报告 H100 超过 1000 tokens/s、RTX5090 超过 700 tokens/s，最高约 4 倍速度。
+- **C3**：26B 命名模型激活约 3.8B，量化后约 18GB 显存目标。
+- **C4**：博客明确整体输出质量低于标准 Gemma4，适合交互速度优先的实验任务。
 
 ## 争议与不确定点
 
-- `4x` 是低并发、专用 GPU、小 batch 场景下的速度口径，不应理解为任何部署环境都比自回归模型快。
-- 博客是发布材料，完整训练细节、模型损失函数和全部复现实验仍需要更技术化来源补充。
-- 对高 QPS 云服务来说，自回归模型可通过大 batch 饱和硬件，DiffusionGemma 的并行解码优势会减弱甚至提高服务成本。
+- Apple Silicon 等统一内存设备未必获得相同优势。
+- 博客速度没有代表所有任务；生成质量与采样步数一起变化。
 
 ## 关联页面
 
@@ -44,3 +49,28 @@ status: refined
 - 概念：[Gemma 4](../concepts/Gemma%204.md)
 - 主题：[文本扩散语言模型](../topics/%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
 
+## 这里的术语是什么意思
+
+- **decode**：解码阶段：利用已有输入与生成历史，产生后续输出。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+
+## 方法与实验解读
+
+模型先处理 prompt，再并行修正一个 token block；这样提高单个请求的算术密度。编辑和 infilling 能利用双向上下文，但完成每个 block 仍有 denoising 步数与停止条件。测速度时应记录首 token/block 延迟、完整输出长度、batch 和质量。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Google%20-%202026%20-%20DiffusionGemma%204x%20Faster%20Text%20Generation.md#source-section-1 ) | 保存的发布博客版本。 |
+| C2 | [原文]( ../../raw/text/Google%20-%202026%20-%20DiffusionGemma%204x%20Faster%20Text%20Generation.md#source-section-2 ) | 专用 GPU、低并发与作者配置，不能当端到端全设备承诺。 |
+| C3 | [原文]( ../../raw/text/Google%20-%202026%20-%20DiffusionGemma%204x%20Faster%20Text%20Generation.md#source-section-2 ) | 量化和运行配置条件，不是仅存激活权重即可部署。 |
+| C4 | [原文]( ../../raw/text/Google%20-%202026%20-%20DiffusionGemma%204x%20Faster%20Text%20Generation.md#source-section-2 ) | 速度与质量共同选择，不把 4x 当无代价改善。 |
+
+## 核证范围
+
+核读发布定位、硬件速度、显存与质量取舍。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Liu et al. - 2022 - A ConvNet for the 2020s
+
+## TL;DR（快速导读）
+
+ConvNeXt 逐步调整 ResNet 的结构与训练方式，研究纯卷积模型在现代视觉任务中仍能达到什么水平。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -12,25 +21,23 @@ status: refined
 - 全文文本：../../raw/text/Liu et al. - 2022 - A ConvNet for the 2020s.md
 - 作者：Liu et al.
 - 年份：2022
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`ConvNeXt` 的关键意义，不是简单宣称“卷积没有过时”，而是把 `ResNet` 逐步现代化到接近视觉 Transformer 的设计风格，进而证明纯卷积 backbone 仍可在现代训练配方和模块选择下保持强竞争力。它代表经典 CNN 在 `ViT` 时代的一次系统性回写，而不是怀旧式回归。
+论文把卷积网络的模块选择和训练配方向现代设计更新，并用对照分析各项改变。它帮助判断收益来自架构还是训练条件；公平比较需要匹配数据、算力和训练设置。
 
 ## 关键事实
 
-- 论文明确以 `ViT / Swin` 时代的比较为背景，逐步把标准 `ResNet` 现代化为新的纯卷积家族 `ConvNeXt`。
-- 其路线不是引入全新算子，而是系统调整宏观与微观设计，包括更接近 Transformer 的 block 组织、depthwise conv、大核、激活与归一化选择等。
-- 论文报告 `ConvNeXt` 在 `ImageNet` 上达到强精度，并在 `COCO` 检测与 `ADE20K` 分割上优于或匹配同时代层级 Transformer。
-- `ConvNeXt` 证明的不是“卷积天然优于 Transformer”，而是许多被归因于 Transformer 的收益，部分来自现代化设计与训练配方，而非注意力本身。
-- 在当前知识库里，它是连接 `ResNet` 传统 backbone 与 `ViT` 时代重新评估卷积归纳偏置的关键节点。
+- **C1**：ConvNeXt从ResNet出发，按现代训练、macro设计、depthwise、inverted bottleneck和大kernel逐步改造。
+- **C2**：stem改为4×4 stride4 patchify，空间/通道混合分离。
+- **C3**：T/S/B/L等与Swin相近复杂度比较，ImageNet1K训练300epochs/AdamW。
+- **C4**：附录承认一些多模态等任务Transformer可能更灵活。
 
 ## 争议与不确定点
 
-- `ConvNeXt` 的结论是“现代化卷积仍然强”，不是“视觉已经重新收敛到纯 CNN”；它更像对 `ViT` 时代设计空间的一次校准。
-- 论文的优势建立在现代训练 recipe 和大规模比较框架下，不应把其结果误读为对所有旧式 CNN 的直接背书。
-- 当前 summary 聚焦其方法定位，尚未逐步记录论文中各个现代化步骤带来的全部消融贡献。
+- 不同改造顺序和配方会改变消融收益。
+- 分类/检测分数并不能覆盖所有多模态应用。
 
 ## 关联页面
 
@@ -39,3 +46,28 @@ status: refined
 - 概念：[ConvNeXt](../../wiki/concepts/ConvNeXt.md)
 - 概念：[ResNet](../../wiki/concepts/ResNet.md)
 - 概念：[ViT](../../wiki/concepts/ViT.md)
+
+## 这里的术语是什么意思
+
+- **backbone**：模型骨干：主要负责提取或变换表示，其他任务模块在它之上工作。
+
+## 方法与实验解读
+
+ConvNeXt检验架构差异能否在训练配方相近时解释性能。大kernel扩大局部卷积感受野，depthwise和pointwise把空间与通道变换分开。结果支持现代化CNN仍有竞争力，而不是证明attention没有价值；公平比较必须对齐训练时长、数据和复杂度。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Liu%20et%20al.%20-%202022%20-%20A%20ConvNet%20for%20the%202020s.md#source-section-4 ) | recipe与结构共同对照。 |
+| C2 | [原文]( ../../raw/text/Liu%20et%20al.%20-%202022%20-%20A%20ConvNet%20for%20the%202020s.md#source-section-8 ) | 保留纯ConvNet，不使用attention替代卷积。 |
+| C3 | [原文]( ../../raw/text/Liu%20et%20al.%20-%202022%20-%20A%20ConvNet%20for%20the%202020s.md#source-section-23 ) | 数据量与训练配方是性能条件。 |
+| C4 | [原文]( ../../raw/text/Liu%20et%20al.%20-%202022%20-%20A%20ConvNet%20for%20the%202020s.md#source-section-48 ) | 未证明CNN在所有视觉/跨模态场景占优。 |
+
+## 核证范围
+
+核读modernization路线、patchify/depthwise、训练设置与Limitations。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

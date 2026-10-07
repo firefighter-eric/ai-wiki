@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Alibaba Cloud - 2025 - Alibaba Unveils Wan2.6 Series Enabling Everyone to Star in Videos
+
+## TL;DR（快速导读）
+
+Wan2.6 的发布稿介绍参考视频、文字和图片驱动的视频生成；重点是把同一角色带入新的场景与镜头。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+两个镜头讲同一段情节时，人物状态与空间关系应衔接；增加镜头数量也增加一致性检查。
 
 ## 来源信息
 
@@ -12,30 +25,49 @@ status: refined
 - 来源链接：https://www.alibabacloud.com/press-room/alibaba-unveils-wan2-6-series-enabling-everyone
 - 作者：Alibaba Cloud / Alibaba Group
 - 年份：2025
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-Wan2.6 是阿里在 `2025-12-16` 发布的视觉生成家族升级。相较于把视频生成拆成多个孤立功能，这篇发布稿把 `Wan2.6-R2V / T2V / I2V` 和图像生成支线一起组织成系列升级，其中最关键的新点是 `Wan2.6-R2V`：允许用户上传同时包含外观与声音的角色参考视频，再通过文本把同一角色放进新场景。它代表阿里路线把 reference-to-video 与多镜头叙事当成视频生成竞争焦点。
+其中参考视频路线允许用角色外观和声音作为输入，再以文字描述新内容。阅读这份产品资料时，可关注角色一致性、多镜头控制及素材要求；发布稿展示的功能与完整方法、独立效果验证应分开看。
 
 ## 关键事实
 
-- `Wan2.6` 于 `2025-12-16` 发布。
-- 新系列包含新的 `Wan2.6-R2V`，以及对 `Wan2.6-T2V`、`Wan2.6-I2V`、`Wan2.6-image`、`Wan2.6-T2I` 的升级。
-- `Wan2.6-R2V` 允许上传同时含外观与声音的角色参考视频，再用文本生成新场景中的同一角色。
-- 官方称 `Wan2.6-R2V` 是中国首个具备 consistent visuals and audio 的 reference-to-video generation model。
-- 官方将多镜头 storytelling、多人对话、音画同步和 audio-to-video generation 作为新系列的主打能力。
-- 系列支持最长 `15s` 视频输出，并强调更强 instruction following 与 cinematic-style 结果。
-- 官方说明这些模型可通过 `Model Studio` 与 `wan.video` 使用。
+- **C1**：2025-12-16 发布 Wan2.6 系列，新增 R2V，并更新 T2V、I2V、image 与 T2I。
+- **C2**：R2V 接收含外观与声音的角色参考视频，再按文本提示生成新场景。
+- **C3**：公告介绍多镜头叙事、多主体对话与音画同步，并称视频输出最长 15 秒。
+- **C4**：图片路线支持图文交错输出和图像编辑，公告称支持长中英文提示。
+- **C5**：发布时入口是 Model Studio 与 wan.video；Qwen App 集成是公告中的后续计划。
 
 ## 争议与不确定点
 
-- 当前来源是新闻稿，不是论文或系统卡；缺少对模型结构、训练数据与基准评测的详细披露。
-- “中国首个”这类表述来自官方宣称，后续仍应寻找独立来源复核。
-- `Wan2.6` 同时跨视频与图像生成分支，当前页更像家族发布说明而非单模型技术文档。
+- 中国首个是发行方表述，缺少独立竞品和发布日期审计。
+- 参考人物外观/声音一致、电影级质量等应通过具体工作流测试确认，公告没有给出误差分布。
 
 ## 关联页面
 
 - 概念：[Wan2.6](../../wiki/concepts/Wan2.6.md)
 - 主题：[视频生成](../../wiki/topics/视频生成.md)
 - 作者：[Alibaba Group](../../wiki/authors/Alibaba%20Group.md)
+
+## 方法与实验解读
+
+这是一份产品公告，适合核对版本、接口种类和创作工作流。它没有披露训练数据、网络结构、消融或统一评测，因而可支撑产品功能导航，不能单独支撑关于某种算法优越性的研究判断。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Alibaba%20Cloud%20-%202025%20-%20Alibaba%20Unveils%20Wan2.6%20Series%20Enabling%20Everyone%20to%20Star%20in%20Videos.md#source-section-1 ) | 官方发布公告。 |
+| C2 | [原文]( ../../raw/text/Alibaba%20Cloud%20-%202025%20-%20Alibaba%20Unveils%20Wan2.6%20Series%20Enabling%20Everyone%20to%20Star%20in%20Videos.md#source-section-1 ) | 公告描述的产品输入输出，未提供独立身份或声音一致性评测。 |
+| C3 | [原文]( ../../raw/text/Alibaba%20Cloud%20-%202025%20-%20Alibaba%20Unveils%20Wan2.6%20Series%20Enabling%20Everyone%20to%20Star%20in%20Videos.md#source-section-1 ) | 系列能力概述；不同端点的实际限制须查各自 API 文档。 |
+| C4 | [原文]( ../../raw/text/Alibaba%20Cloud%20-%202025%20-%20Alibaba%20Unveils%20Wan2.6%20Series%20Enabling%20Everyone%20to%20Star%20in%20Videos.md#source-section-1 ) | 不将宣传性质量描述换算为实验分数。 |
+| C5 | [原文]( ../../raw/text/Alibaba%20Cloud%20-%202025%20-%20Alibaba%20Unveils%20Wan2.6%20Series%20Enabling%20Everyone%20to%20Star%20in%20Videos.md#source-section-1 ) | 历史发布信息，不保证当前产品入口。 |
+
+## 核证范围
+
+核读公告正文、发布日期、产品系列组成与发布入口，未将网页页脚作为证据。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

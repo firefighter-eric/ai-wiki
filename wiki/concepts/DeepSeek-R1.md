@@ -3,15 +3,23 @@ type: concept
 ---
 # DeepSeek-R1
 
+## TL;DR（快速导读）
+
+DeepSeek-R1 通过强化学习与多阶段训练增强推理，并提供蒸馏模型；应区分 R1-Zero、R1 和后续版本。
+
 ## 简介
 
-DeepSeek-R1 是 DeepSeek 系列中面向推理能力强化学习的代表模型。在当前知识库中，它代表“reasoning-oriented RL”这一更靠近推理行为优化的后训练路线。
+DeepSeek-R1 通过强化学习与多阶段训练增强推理，并提供蒸馏模型；应区分 R1-Zero、R1 和后续版本。
+
+## 具体怎么理解
+
+数学题答对与解题过程清楚是不同目标；R1 的训练流程也处理可读性和语言稳定性。
 
 ## 关键属性
 
 - 类型：推理强化学习模型
 - 代表来源：
-  - [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+  - [DeepSeek-R1：奖励驱动推理与多阶段训练（2025）](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
   - [DeepSeek AI - 2025 - DeepSeek-R1-0528 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-R1-0528%20Release.md)
 - 当前角色：LLM RL 主线中从传统 RLHF 走向 reasoning RL 的代表节点
 
@@ -24,7 +32,7 @@ DeepSeek-R1 是 DeepSeek 系列中面向推理能力强化学习的代表模型�
 
 ## 来源支持
 
-- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+- [DeepSeek-R1：奖励驱动推理与多阶段训练（2025）](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
 - [DeepSeek AI - 2025 - DeepSeek-R1-0528 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-R1-0528%20Release.md)
 
 ## 关联页面
@@ -34,3 +42,8 @@ DeepSeek-R1 是 DeepSeek 系列中面向推理能力强化学习的代表模型�
 - [DeepSeek-V3](./DeepSeek-V3.md)
 - [InstructGPT](./InstructGPT.md)
 - [LLM RL](../topics/LLM%20RL.md)
+
+## 这里的术语是什么意思
+
+- **RLHF**：人类反馈强化学习：把人类偏好转成奖励，并用它调整模型行为。
+- **DPO**：直接偏好优化：用成对偏好数据直接调整模型概率，简化部分奖励训练流程。

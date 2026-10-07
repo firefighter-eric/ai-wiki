@@ -3,9 +3,17 @@ type: concept
 ---
 # GLM-OCR
 
+## TL;DR（快速导读）
+
+GLM-OCR 是面向文字和文档理解的专门模型，适用性要按页面类型、输出结构与部署成本评估。
+
 ## 简介
 
-GLM-OCR 是 GLM 家族中的 OCR / document understanding 模型节点。在当前知识库中，它表示紧凑型、多任务、面向生产部署的 specialized OCR 模型路线。
+GLM-OCR 是面向文字和文档理解的专门模型，适用性要按页面类型、输出结构与部署成本评估。
+
+## 具体怎么理解
+
+识别票据正文、恢复表格和读取公式需要不同检查项；平均识别分数可能掩盖某类错误。
 
 ## 关键属性
 
@@ -30,3 +38,7 @@ GLM-OCR 是 GLM 家族中的 OCR / document understanding 模型节点。在当�
 - [DeepSeek-OCR](./DeepSeek-OCR.md)
 - [dots.ocr](./dots.ocr.md)
 - [传统 CV](../topics/传统%20CV.md)
+
+## 这里的术语是什么意思
+
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。

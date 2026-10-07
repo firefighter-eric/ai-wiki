@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Google AI for Developers - 2026 - DiffusionGemma Model Overview
+
+## TL;DR（快速导读）
+
+DiffusionGemma 官方概览说明输入输出、底座和采样配置，适合先确认模型是否符合自己的部署任务。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+可以把生成过程理解为先形成一段待定文本，再多轮完善；这是生成机制示意，不能直接推断任何任务都更快。
 
 ## 来源信息
 
@@ -12,35 +25,53 @@ status: refined
 - 来源 URL：https://ai.google.dev/gemma/docs/diffusiongemma
 - 作者：Google AI for Developers
 - 年份：2026
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇官方文档是 DiffusionGemma 的简明规格和推荐配置入口。它明确把 DiffusionGemma 定义为实验性开放模型：基于 `26B (4B active) MoE Gemma 4`，使用 discrete diffusion 生成文本，支持文本、图像、视频输入并输出文本。
-
-与发布博客相比，该文档更适合支撑三个稳定结论：第一，DiffusionGemma 的目标是本地低并发推理速度，而不是替代标准自回归模型的全部场景；第二，生成过程以 `256-token` canvas 为并行单位；第三，官方推荐的 sampler 配置围绕 entropy bound、temperature schedule 和 adaptive early stopping 展开。
+页面将它描述为以离散扩散输出文本的实验模型，可接收文本、图片和视频输入。生成以一块文本画布为单位并行修正；熵阈值、温度与提前停止等采样设置会影响速度和结果。
 
 ## 关键事实
 
-- 模型定位：experimental open model，探索 text diffusion 生成。
-- 基础架构：`26B (4B active) Mixture-of-Experts Gemma 4`。
-- 生成机制：block-autoregressive multi-canvas sampling，通过并行 denoising 生成 token block。
-- 输入模态：文本、图像、视频；不支持音频输入。
-- `MoE` 与量化部署：文档称量化后可适配约 `18GB VRAM` 的消费级 GPU。
-- 使用边界：低并发、本地单加速器场景收益最大；高 QPS 云端 batch serving 中收益会减弱。
-- 推荐最大 denoising steps：`48`。
-- 推荐 temperature schedule：`0.8 -> 0.4` 线性下降。
-- 推荐 adaptive early stopping：平均 entropy 低于 `0.005` 且连续两次 denoiser prediction 稳定。
-- 推荐 token selection：entropy bound 为 `0.1`，仅接受低熵高置信 token，其余 token 重新加噪。
+- **C1**：基于 Gemma4 26B/A4B，以 block-autoregressive multi-canvas denoising 生成文本。
+- **C2**：支持文本、图片和视频输入，明确不支持音频输入。
+- **C3**：速度优势主要面向单加速器、低到中 batch；高 QPS 云端收益减弱。
+- **C4**：推荐最大 48 denoising steps，温度 0.8→0.4。
+- **C5**：提前停止需画布平均熵低于 0.005 且连续两步预测一致；token 选择 entropy bound 为 0.1。
 
 ## 争议与不确定点
 
-- 文档是 overview，不提供完整训练配方与所有评测细节。
-- 对“视频输入”的表述需要结合模型卡理解为帧序列处理，不应理解为视频生成。
-- `18GB VRAM` 和速度收益依赖量化、硬件与 runtime，不能视为 BF16 checkpoint 的最低需求。
+- 18GB 显存目标依赖量化和运行开销。
+- 高并发服务与本地交互不是同一性能目标，不能直接迁移单请求速度。
 
 ## 关联页面
 
 - 概念：[DiffusionGemma](../concepts/DiffusionGemma.md)
 - 主题：[文本扩散语言模型](../topics/%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
 
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+
+## 方法与实验解读
+
+encoder 处理并缓存已完成上下文，denoiser 在 256-token 画布中反复更新，完成后追加到缓存。参数控制延迟与输出可靠性，若只记录 tokens/s 而不记录停止策略，将无法复现文档比较。部署可先按推荐值起步，再用目标任务检验质量和响应时间。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Google%20AI%20for%20Developers%20-%202026%20-%20DiffusionGemma%20Model%20Overview.md#source-section-1 ) | 画布之间仍按序列推进，画布内部双向修正。 |
+| C2 | [原文]( ../../raw/text/Google%20AI%20for%20Developers%20-%202026%20-%20DiffusionGemma%20Model%20Overview.md#source-section-1 ) | 视频理解与视频生成不同。 |
+| C3 | [原文]( ../../raw/text/Google%20AI%20for%20Developers%20-%202026%20-%20DiffusionGemma%20Model%20Overview.md#source-section-2 ) | 文档限定的工作负载。 |
+| C4 | [原文]( ../../raw/text/Google%20AI%20for%20Developers%20-%202026%20-%20DiffusionGemma%20Model%20Overview.md#source-section-3 ) | 配置建议而非训练定理或任何任务最优解。 |
+| C5 | [原文]( ../../raw/text/Google%20AI%20for%20Developers%20-%202026%20-%20DiffusionGemma%20Model%20Overview.md#source-section-3 ) | 同时满足两个停止条件，未选 token 重新加噪。 |
+
+## 核证范围
+
+核读 overview、tradeoff 与完整 serving configuration 表。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -3,11 +3,19 @@ type: concept
 ---
 # SGLang
 
+## TL;DR（快速导读）
+
+SGLang 优化由多次模型调用、提示状态、分支和约束输出组成的程序，前端表达流程，运行时负责高效执行。
+
 ## 简介
 
-`SGLang` 是面向 structured Language Model Programs 的 frontend/runtime 系统。它优化的对象不只是一次 LLM generation call，而是由多次调用、prompt state、structured inputs/outputs、分支、同步、Python control flow 与多模态输入构成的完整程序。arXiv v2 / NeurIPS 2024 论文把架构概括为两部分：嵌入 Python 的 Structured Generation Language，以及为 open-weight models 提供的 SGLang Runtime（SRT）和面向 API-only models 的 endpoint backends。
+`SGLang` 是面向 structured Language Model Programs 的 frontend/runtime 系统。它优化的对象不只是一次 LLM generation call，而是由多次调用、prompt state、structured inputs/outputs、分支、同步、Python control flow 与多模态输入构成的完整程序。arXiv v2 / NeurIPS 2024 论文把架构概括为两部分：嵌入 Python 的 Structured Generation Language，以及为 开放权重 models 提供的 SGLang Runtime（SRT）和面向 API-only models 的 endpoint backends。
 
 论文中的三项核心 runtime contribution 是：用 RadixAttention 自动复用 prefix KV cache，用 Compressed Finite State Machine 加速 regex-constrained structured decoding，以及用 API speculative execution 合并 black-box endpoint 上可能重复的多次调用。interpreter 是正文默认执行模式；compiler 是附录中的受限、探索性路径。本页严格描述该 v2 版本，不把之后项目版本的能力倒推回论文，也不代表当前 SGLang 与当前 vLLM 的实时比较。
+
+## 具体怎么理解
+
+先提取信息，再并行判断，最后合成答案，是一个多调用流程；共享前缀与调度会影响整体成本。
 
 ## 关键属性
 
@@ -55,3 +63,10 @@ type: concept
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
 - [Kimi K3](./Kimi%20K3.md)
 - [Kimi Delta Attention](./Kimi%20Delta%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **decode**：解码阶段：利用已有输入与生成历史，产生后续输出。
+- **runtime**：运行时：负责实际执行程序、管理状态和安排计算的系统。
