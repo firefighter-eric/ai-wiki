@@ -3,9 +3,17 @@ type: concept
 ---
 # Stable Diffusion
 
+## TL;DR（快速导读）
+
+Stable Diffusion 在压缩后的潜空间进行图像扩散，将生成模型推向可本地运行和适配的开放生态。
+
 ## 简介
 
-Stable Diffusion 是把 latent diffusion 研究路线推向开放文生图生态的代表性模型家族。在当前知识库里，它代表“扩散模型从论文走向消费级硬件可运行、开放权重与社区生态爆发”的关键节点。
+Stable Diffusion 在压缩后的潜空间进行图像扩散，将生成模型推向可本地运行和适配的开放生态。
+
+## 具体怎么理解
+
+模型先在较小的表示中生成，再解码成图片；图像质量、显存与速度仍随版本和配置变化。
 
 ## 关键属性
 
@@ -32,3 +40,7 @@ Stable Diffusion 是把 latent diffusion 研究路线推向开放文生图生态
 - [Qwen-Image](./Qwen-Image.md)
 - [Qwen](./Qwen.md)
 - [扩散模型与文生图](../topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)
+
+## 这里的术语是什么意思
+
+- **latent**：潜表示：原始数据经过模型编码后的内部表示，通常更紧凑。

@@ -3,9 +3,19 @@ type: author
 ---
 # Qwen Team
 
+## TL;DR（快速导读）
+
+这里集中阅读 Qwen 团队已收录的模型发布与报告，先按 VL、Omni、Image 和语言主干选方向，再核对代际。
+
 ## 简介
 
-`Qwen Team` 是当前知识库里覆盖最完整的团队作者标签之一，对应 Qwen 家族从 LLM 到 VL、Omni、Image 的连续来源链。
+这里集中阅读 Qwen 团队已收录的模型发布与报告，先按 VL、Omni、Image 和语言主干选方向，再核对代际。
+
+## 从哪里开始读
+
+- [Qwen Team - 2024 - Introducing Qwen1.5](../summaries/Qwen%20Team%20-%202024%20-%20Introducing%20Qwen1.5.md)：Qwen1.5 发布资料扩展模型规模与部署支持，关注开发者如何下载、量化和运行不同成员。
+- [Qwen Team - 2024 - Qwen2.5-LLM Extending the boundary of LLMs](../summaries/Qwen%20Team%20-%202024%20-%20Qwen2.5-LLM%20Extending%20the%20boundary%20of%20LLMs.md)：Qwen2.5 发布页介绍多个模型尺寸，以及知识、代码、数学、结构化输出和长文本方面的更新。
+- [Qwen Team - 2025 - Qwen3 Think Deeper Act Faster](../summaries/Qwen%20Team%20-%202025%20-%20Qwen3%20Think%20Deeper%20Act%20Faster.md)：Qwen3 的混合思考模式让同一模型在深入推理与快速回答之间切换，思考预算成为使用条件之一。
 
 ## 当前覆盖
 

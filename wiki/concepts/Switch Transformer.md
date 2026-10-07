@@ -3,9 +3,17 @@ type: concept
 ---
 # Switch Transformer
 
+## TL;DR（快速导读）
+
+Switch Transformer 简化专家路由，让每个输入只使用少量专家，研究扩大容量时如何控制计算和训练不稳定。
+
 ## 简介
 
-Switch Transformer 是早期大规模 MoE 稀疏路线的代表模型。在当前知识库中，它表示“用简单路由把专家混合扩展到 trillion 级参数”的关键节点。
+Switch Transformer 简化专家路由，让每个输入只使用少量专家，研究扩大容量时如何控制计算和训练不稳定。
+
+## 具体怎么理解
+
+系统保存多个专家，但单次输入只走选中的分支；专家负载与跨设备通信仍影响速度。
 
 ## 关键属性
 
@@ -28,3 +36,7 @@ Switch Transformer 是早期大规模 MoE 稀疏路线的代表模型。在当�
 - [T5](./T5.md)
 - [DeepSeek-V3](./DeepSeek-V3.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
+
+## 这里的术语是什么意思
+
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。

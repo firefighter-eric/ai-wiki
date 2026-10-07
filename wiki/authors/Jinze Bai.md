@@ -3,9 +3,17 @@ type: author
 ---
 # Jinze Bai
 
+## TL;DR（快速导读）
+
+这里连接 Jinze Bai 相关的 Qwen 报告与家族页面，阅读时可先看具体代际，再回到训练与能力证据。
+
 ## 简介
 
-`Jinze Bai` 是 Qwen 技术报告中可明确识别的真实作者，也是当前知识库里 Alibaba / Qwen 主线的重要作者入口之一。
+这里连接 Jinze Bai 相关的 Qwen 报告与家族页面，阅读时可先看具体代际，再回到训练与能力证据。
+
+## 从哪里开始读
+
+- [Bai et al. - 2023 - Qwen Technical Report](../summaries/Bai%20et%20al.%20-%202023%20-%20Qwen%20Technical%20Report.md)：初代 Qwen 报告同时介绍基础、聊天及专门模型，并说明它们如何训练成能遵循指令和使用工具的系统。
 
 ## 当前覆盖
 

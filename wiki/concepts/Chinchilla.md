@@ -3,9 +3,17 @@ type: concept
 ---
 # Chinchilla
 
+## TL;DR（快速导读）
+
+Chinchilla 研究固定训练预算怎样在模型大小与数据量之间分配，提醒更大的模型也需要足够训练。
+
 ## 简介
 
-Chinchilla 是 `Hoffmann et al. 2022` 中提出的 compute-optimal 训练代表模型。在当前知识库中，它主要表示“参数规模与训练 token 数量需要共同扩张”的修正路线。
+Chinchilla 研究固定训练预算怎样在模型大小与数据量之间分配，提醒更大的模型也需要足够训练。
+
+## 具体怎么理解
+
+同一预算可以训练大模型较少步，或训练小模型更多步；应比较目标损失和最终部署成本。
 
 ## 关键属性
 
@@ -29,3 +37,7 @@ Chinchilla 是 `Hoffmann et al. 2022` 中提出的 compute-optimal 训练代表�
 - [GPT-3](./GPT-3.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
 - [Scaling 与 compute-optimal training](../topics/Scaling%20与%20compute-optimal%20training.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。

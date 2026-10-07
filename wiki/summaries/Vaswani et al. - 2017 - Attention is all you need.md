@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Vaswani et al. - 2017 - Attention is all you need
+
+## TL;DR（快速导读）
+
+Transformer 用注意力与位置编码处理序列，让各位置直接获取其他位置的信息，取代循环计算作为主要结构。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -12,28 +21,50 @@ status: refined
 - 全文文本：../../raw/text/Vaswani et al. - 2017 - Attention is all you need.md
 - 作者：Vaswani et al.
 - 年份：2017
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇论文的决定性意义不只是提出 `Transformer`，而是把“标准全连接自注意力”确立为序列建模的默认骨架：所有 token 两两交互，依靠 `scaled dot-product attention`、`multi-head attention` 与位置编码取代 RNN/CNN 的主导角色。后续大量 attention 变体基本都以本文的 `O(n^2)` 全注意力为参照物，要么试图近似它、稀疏化它，要么在不改变其语义的前提下优化实现。
+论文组合缩放点积、多头注意力与前馈层，建立标准序列模型。全连接自注意力的计算随长度较快增长，后续方法分别从连接、近似、缓存与硬件实现优化；这些路线改变的层次不同。
 
 ## 关键事实
 
-- 论文将标准 attention 明确定义为 `softmax(QK^T / sqrt(d_k)) V` 的缩放点积形式，并把它作为 Transformer 的核心算子。
-- `multi-head attention` 的作用不是简单并行重复，而是让模型在不同子空间、不同位置关系上同时建模依赖。
-- 编码器使用双向 self-attention，解码器使用带因果 mask 的 self-attention，说明“attention 变体”从一开始就同时包含双向与自回归两类用法。
-- 本文的全连接 attention 具有全局感受野和强表达力，但时间与显存开销都随序列长度呈二次增长，后续高效 attention 工作几乎都围绕这一瓶颈展开。
-- 从知识组织角度看，`standard attention` 不是“十多种 attention 中的一种小变体”，而是后续线性、稀疏、低秩、IO-aware 与 KV-cache 优化路线的共同基线。
+- **C1**：scaled-dotproductattention为softmax(QKᵀ/√dk)V，multihead有独立投影再拼接。
+- **C2**：encoder双向selfattention，decoder因果selfattention和encoder-decoderattention。
+- **C3**：全位置交互的attention计算随长度二次增长，并缩短远依赖路径。
 
 ## 争议与不确定点
 
-- 本文解决的是 2017 年的序列建模与并行训练问题，不等于今天超长上下文与推理系统里的最优 attention 实现。
-- 论文没有直接解决长上下文成本问题；后续很多工作实际上是在保留其建模接口的前提下，分别牺牲精确性、连接模式或硬件通用性来换效率。
-- 当前 summary 聚焦其作为 attention 主线起点的地位，未细拆机器翻译实验与位置编码后续分支。
+- 原论文翻译结论不能直接当所有现代LLM能力解释。
+- 二次计算与二次显存不是所有优化实现必然同时出现。
 
 ## 关联页面
 
 - 主题：[注意力机制 Attention](../../wiki/topics/注意力机制%20Attention.md)
 - 主题：[LLM 预训练](../../wiki/topics/LLM%20预训练.md)
 - 概念：[Transformer](../../wiki/concepts/Transformer.md)
+- [Google Research](../authors/Google%20Research.md)：沿作者或机构继续阅读相关来源。
+
+## 这里的术语是什么意思
+
+- **IO**：数据读写：计算与存储之间搬运数据的成本，可能成为速度瓶颈。
+
+## 方法与实验解读
+
+attention按内容从各位置取信息，FFN逐位置变换，位置编码补顺序。Transformer替代循环的训练顺序瓶颈，但decoder生成仍依赖前文。后续稀疏/低秩改变交互，FlashAttention保持同一算子却改变物化方式，MQA/GQA改变KV头数，不能都称同一种线性优化。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md#source-section-10 ) | 标准定义，head不是简单重复。 |
+| C2 | [原文]( ../../raw/text/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md#source-section-12 ) | 训练时可并行与生成时仍自回归区分。 |
+| C3 | [原文]( ../../raw/text/Vaswani%20et%20al.%20-%202017%20-%20Attention%20is%20all%20you%20need.md#source-section-16 ) | 经典显存物化与后续IO优化区别。 |
+
+## 核证范围
+
+核读算子、multihead、mask/交叉attention、复杂度与训练/翻译设置。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

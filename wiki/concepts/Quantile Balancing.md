@@ -3,9 +3,17 @@ type: concept
 ---
 # Quantile Balancing
 
+## TL;DR（快速导读）
+
+Quantile Balancing 根据路由分数差的分位数调整专家分发偏置，帮助大型专家系统控制负载，不直接增加辅助训练损失。
+
 ## 简介
 
 `Quantile Balancing (QB)` 是 Kimi K3 为近千 routed experts 设计的 auxiliary-loss-free load-balancing 方法。它不通过额外训练 loss 强迫 router 均衡，而是根据 router-score margins 的分位数，直接估计使每个 expert 接近目标 token load 的 dispatch bias。
+
+## 具体怎么理解
+
+专家太忙时，分发偏置可改变哪些输入进入它；需要同时检查均衡与任务表示质量，不能只追求人数平均。
 
 ## 关键属性
 
@@ -33,3 +41,8 @@ type: concept
 - [Stable LatentMoE](./Stable%20LatentMoE.md)
 - [MoonEP](./MoonEP.md)
 - [MoE](./MoE.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。

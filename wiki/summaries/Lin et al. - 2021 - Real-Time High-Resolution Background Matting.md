@@ -1,41 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Lin et al. - 2021 - Real-Time High-Resolution Background Matting
+
+## TL;DR（快速导读）
+
+Background Matting 使用额外拍摄的干净背景，估计前景与透明度，以支持高分辨率的人像背景替换。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+抠图需要处理头发、半透明边缘和前景颜色，二值分割并不足够。本文利用背景参考减少歧义，并研究质量与实时性。使用条件之一是拥有合适的背景帧，背景变化可能影响结果。
+
+## 具体怎么理解
+
+先拍一张没有人的房间，再拍人在房间中的画面；两者之间的信息帮助分离人物和背景。
+
+## 关键事实
+
+- **C1**：输入包括当前图像和预先拍摄的空背景，低分辨率主网后按误差图局部精修。
+- **C2**：手持场景仅支持有限运动，复杂背景和曝光变化会影响结果。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Lin et al. - 2021 - Real-Time High-Resolution Background Matting.pdf
-- 全文文本：../../raw/text/Lin et al. - 2021 - Real-Time High-Resolution Background Matting.md
+- 原始文件：[打开原始文件](../../raw/pdf/Lin%20et%20al.%20-%202021%20-%20Real-Time%20High-Resolution%20Background%20Matting.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Lin%20et%20al.%20-%202021%20-%20Real-Time%20High-Resolution%20Background%20Matting.md)
 - 作者：Lin et al.
 - 年份：2021
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-We introduce a real-time, high-resolution background re- placement technique which operates at 30fps in 4K resolu- tion, and 60fps for HD on a modern GPU. Our technique is based on background matting, where an additional frame of the background is captured and used in recovering the al- pha matte and the foreground layer. The main challenge is to compute a high-quality alpha matte, preserving strand- level hair details, while processing high-resolution images in real-time. To achieve this goal, we employ two neural networks; a base network computes a low-resolution result which is reﬁned by a second network operating at high- resolution on selective patches. We introduce two large- scale video and image matting datasets: VideoMatte240K and PhotoMatte13K/85. Our approach yields higher qual- ity results compared to the previous state-of-the-art in back- ground matting, while simultaneously yielding a dramatic boost in both speed and resolution. Our code and data is available at https://grail.cs.washington.edu/ projects/background-matting-v2/ 1. Introduction Background replacement, a mainstay in movie special effects, now enjoys wide-spread use in video conferencing tools like Zoom, Google Meet, and Microsoft Teams. In ad- dition to adding entertainment value, background replace- *Equal contribution. ment can enhance privacy, particularly in situations where a user may not want to share details of their location and environment to others on the call. A key challenge of this video conferencing application is that users do not typically have access to a green screen or other physical props used to facilitate background replacement in movie special effects. While many tools now provide background replacement functionality, they yield artifacts at boundaries, particu- larly in areas where there is ﬁne detail like hair or glasses (Figure 1). In contrast, traditional image matting methods [6, 16, 17, 30, 9, 2, 7] provide much higher quality re- sults, but do not run in real-time, at high resolution, and frequently require manual input. In this paper, we intro- duce the ﬁrst fully-automated, real-time, high-resolution matting technique, producing state-of-the-art results at 4K (3840×2160) at 30fps and HD (1920×1080) at 60fps. Our method relies on capturing an extra background image to compute the alpha matte and the foreground layer, an ap- proach known as background matting. Designing a neural network that can achieve real- time matting on high-resolution videos of people is ex- tremely challenging, especially when ﬁne-grained details like strands of hair are important; in contrast, the previous state-of-the-art method [28] is limited to 512×512 at 8fps. Training a deep network on such a large resolution is ex- tremely slow and memory intensive. It also requires large volumes of images with high-quality alpha mattes to gener- alize; the publicly available datasets [33, 25] are too limited.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Lin et al. - 2021 - Real-Time High-Resolution Background Matting.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Lin%20et%20al.%20-%202021%20-%20Real-Time%20High-Resolution%20Background%20Matting.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 4K FPS 绑定论文设备与实现。
+- 背景中新增物体或较大镜头运动可能破坏前提。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+BGMv2 利用空背景区分主体，只在容易出错的区域花高分辨率计算。速度收益来自局部精修，而非所有像素同等处理；实际使用要控制背景变化和对齐误差。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Lin%20et%20al.%20-%202021%20-%20Real-Time%20High-Resolution%20Background%20Matting.md#source-section-6 ) | 背景参考是必要条件，不能当成单图抠像 |
+| C2 | [原文]( ../../raw/text/Lin%20et%20al.%20-%202021%20-%20Real-Time%20High-Resolution%20Background%20Matting.md#source-section-15 ) | 背景对齐与拍摄条件是方法边界 |
+
+## 核证范围
+
+核对 §4 的两级网络、§6 的精修消融与 Limitations。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

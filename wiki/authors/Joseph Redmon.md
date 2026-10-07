@@ -3,9 +3,18 @@ type: author
 ---
 # Joseph Redmon
 
+## TL;DR（快速导读）
+
+这里集中阅读 Joseph Redmon 相关的 YOLO 早期工作，了解统一检测、速度与精度的设计取舍。
+
 ## 简介
 
-`Joseph Redmon` 是 YOLO 早期主线中可明确识别的核心作者。
+这里集中阅读 Joseph Redmon 相关的 YOLO 早期工作，了解统一检测、速度与精度的设计取舍。
+
+## 从哪里开始读
+
+- [Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger](../summaries/Redmon,%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md)：YOLOv2 改善候选框和多尺度训练，YOLO9000 进一步结合分类与检测数据来扩大可识别类别。
+- [Redmon, Farhadi - 2018 - YOLOv3 An Incremental Improvement](../summaries/Redmon,%20Farhadi%20-%202018%20-%20YOLOv3%20An%20Incremental%20Improvement.md)：YOLOv3 结合更强特征提取、多尺度预测与目标性判断，研究稳定的实时检测。
 
 ## 当前覆盖
 

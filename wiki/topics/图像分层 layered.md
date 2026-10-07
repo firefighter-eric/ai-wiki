@@ -1,8 +1,18 @@
 ---
 type: topic
 status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # 图像分层 layered
+
+## TL;DR（快速导读）
+
+图像分层把单张画面拆成可独立编辑和合成的对象，难点包括透明边缘、遮挡补全与图层关系，远超简单抠出一个轮廓。
+
+## 先用一个问题理解
+
+想把海报中的人物移到右边，需要得到人物层，保留头发透明边缘，并补齐原来挡住的背景。分割、抠图、生成和图层分解分别解决其中一部分；下文比较它们的输入与结果。
 
 ## 页面状态
 
@@ -44,6 +54,10 @@ status: formal
 
 从这几条支线综合看，当前更稳妥的结论是：图像分层**并不是单一 benchmark 驱动的统一赛道**，而是一组围绕“**可编辑中间表示**”展开的子任务族。它们共享的问题意识是相通的，但在**建模对象、监督来源、评测方式和下游用途**上都存在显著差异。
 
+### 重组正确不等于找回原设计
+
+[Qwen-Image-Layered](../summaries/Yin%20et%20al.%20-%202025%20-%20Qwen-Image-Layered%20Towards%20Inherent%20Editability%20via%20Layer%20Decomposition.md)报告三训练阶段和四训练任务，两者不要混写；采用 Adam，不能替换为惯常的 AdamW。层重组是多解问题，Crello 评测允许按顺序对齐和层合并，说明 ground truth 不是唯一合理粒度。[LayerDecomp](../summaries/Yang%20et%20al.%20-%202025%20-%20Generative%20Image%20Layer%20Decomposition%20with%20Visual%20Effects.md)把阴影/反射保留在前景，目标主要为两层编辑；重组一致不能保证恢复隐藏背景的真实像素。[IntrinsicDiffusion](../summaries/Luo%20et%20al.%20-%202024%20-%20IntrinsicDiffusion%20Joint%20Intrinsic%20Layers%20from%20Latent%20Diffusion%20Models.md)目前在库中的原始来源仅是公开论文介绍，不支撑完整算法、消融或最优排名。可复用的判断是分开重组保真、层可编辑性和属性控制，不能由其中一项推出全部。
+
 ## 关键争论与分歧
 
 - **layered 是否是一条**统一主线**，而不是若干互不相干的小任务**：现有来源更支持把它视为共同问题域，因为这些工作都在试图把**编辑能力前移到表示层**；但现有证据并不支持把它们直接放进同一个单一 benchmark 下比较优劣。
@@ -73,11 +87,9 @@ status: formal
 
 ## 未解决问题
 
-- 当前知识库仍缺 `Text2Layer`、`LayerDiffuse`、`DreamLayer`、`ART`、`PrismLayers` 等公开路线的系统补齐，因此 layered 的前史到当前节点还**没有形成完整演化链**。
-- `IntrinsicDiffusion` 在仓库中仍主要由 Adobe `publication-page` 级来源支撑，**架构、数据混合策略与实验设置的可追溯度**仍弱于其他几篇 `arXiv` 论文。
-- `LayerDecomp` 与 `Qwen-Image-Layered` 的任务边界虽已较清楚，但两者在真实生产工作流中是**互补接口、上下游关系，还是竞争方案**，当前证据仍不足。
-- `SLEDGE` 与 `Illustrator's Depth` 都强烈依赖**设计/矢量分布**，这意味着 layered 在图形设计中很可能**先成熟、在自然照片中后成熟**；但这一判断仍需要更多来源验证。
-- 当前 topic 已能区分 layered 子类，但还缺 `comparison / timeline` 页来承接更细的横向对照，例如“**对象透明层 vs intrinsic layers**”“**多层分解 vs 两层接口**”“**静态层表示 vs 过程层表示**”。
+- 如何评价多解分解而不惩罚合理粒度与层合并？重组正确不表示语义层唯一，仍需下游编辑验证。
+- 阴影、反射、烟雾和透明物体应归哪层？工作流与开放照片条件不同，隐藏背景生成不保证真实恢复。
+- RGBA、intrinsic 属性、矢量层序与原子编辑怎样互通？现有来源不能保证恢复完整 PSD 参数。
 
 ## 关联页面
 
@@ -88,3 +100,8 @@ status: formal
 - [RGBA 图层图像](../concepts/RGBA%20%E5%9B%BE%E5%B1%82%E5%9B%BE%E5%83%8F.md)
 - [Qwen-Image-Layered](../concepts/Qwen-Image-Layered.md)
 - [AlphaVAE](../concepts/AlphaVAE.md)
+
+## 这里的术语是什么意思
+
+- **benchmark**：评测基准：特定数据、任务与规则的组合，分数只在这些条件下成立。
+- **RGBA**：颜色加透明度的四通道表示，适合透明图像和图层合成。

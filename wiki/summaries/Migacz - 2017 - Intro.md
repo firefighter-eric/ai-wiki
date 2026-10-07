@@ -1,41 +1,67 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
-# Migacz - 2017 - Intro
+# 8-bit Inference with TensorRT：INT8 校准与推理（2017）
+
+## TL;DR（快速导读）
+
+这是 NVIDIA 2017 年的 TensorRT INT8 推理讲稿，重点是量化范围与精度的取舍，适合作为历史方法参考。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+整数范围有限，需要通过校准选择合适的数值映射。资料讨论怎样在降低精度和动态范围后尽量保留模型信息。实际部署还要核对目标硬件、支持算子和任务精度；这是历史技术资料。
+
+## 具体怎么理解
+
+若映射范围过宽，小数值容易挤在一起；范围过窄，大数值又会被截断，校准就是在这些误差之间做选择。
+
+## 关键事实
+
+- **C1**：讲稿标题为 8-bit Inference with TensorRT，讲者 Szymon Migacz，日期 2017-05-08。
+- **C2**：阈值选择在可覆盖范围与 INT8 精度之间取舍，以减少信息损失。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Migacz - 2017 - Intro.pdf
-- 全文文本：../../raw/text/Migacz - 2017 - Intro.md
-- 作者：Migacz
+- 原始文件：[打开原始文件](../../raw/pdf/Migacz%20-%202017%20-%20Intro.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Migacz%20-%202017%20-%20Intro.md)
+- 作者：Szymon Migacz
 - 年份：2017
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-8-bit Inference with TensorRT Szymon Migacz, NVIDIA May 8, 2017 Intro ● Goal: Convert FP32 CNNs into INT8 without significant accuracy loss. ● Why: INT8 math has higher throughput, and lower memory requirements. ● Challenge: INT8 has significantly lower precision and dynamic range than FP32. ● Solution: Minimize loss of information when quantizing trained model weights to INT8 and during INT8 computation of activations. ● Result: Method was implemented in TensorRT. It does not require any additional fine tuning or retraining. Outline ● INT8 compute ● Quantization ● Calibration ● Workflow in TensorRT ● Results INT8 Inference Challenge ● INT8 has significantly lower precision and dynamic range compared to FP32. ● Requires more than a simple type conversion from FP32 to INT8. Dynamic Range Min Positive Value FP32 -3.4 x 1038 ~ +3.4 x 1038 1.4 x 10-45 FP16 -65504 ~ +65504 5.96 x 10-8 INT8 -1
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Migacz - 2017 - Intro.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 归档说明：保留历史文件名以维持来源对应和链接；标题、作者与年份以上述核对信息为准。
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 历史 TensorRT 行为不能当成当前版本接口说明。
+- 卷积网络示例不证明大语言模型都可采用同样设置。
 
 ## 关联页面
 
 - 主题：[传统NLP](../topics/传统%20NLP.md)
 - 综合：暂无
+- [推理优化：量化、缓存与硬件](../comparisons/%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96%EF%BC%9A%E9%87%8F%E5%8C%96%E3%80%81%E7%BC%93%E5%AD%98%E4%B8%8E%E7%A1%AC%E4%BB%B6.md)：把本篇方法放到相关任务与比较条件中阅读。
+
+## 方法与实验解读
+
+量化把连续数值放进有限整数格。范围太宽会降低小数值分辨率，太窄会截断离群值；讲稿说明为什么需要校准，而非只更换数据类型。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/pdf/Migacz%20-%202017%20-%20Intro.pdf#page=1 ) | 旧文件名 Intro 不代表完整标题 |
+| C2 | [原文]( ../../raw/pdf/Migacz%20-%202017%20-%20Intro.pdf#page=16 ) | 校准思想，不是任意模型通用阈值 |
+
+## 核证范围
+
+核对 PDF 第 1、7、16 页的标题、表示和范围精度取舍。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

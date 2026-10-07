@@ -1,41 +1,67 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Lipman et al. - 2024 - Flow Matching Guide and Code
+
+## TL;DR（快速导读）
+
+Flow Matching 指南介绍通过学习向量场进行生成建模的训练与采样方式，适合从统一框架理解图像、音频等生成路线。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+流匹配学习如何沿一条概率路径把简单分布变换为数据分布。指南围绕建模、目标与实现展开，帮助把训练时学到的场与生成时的数值求解联系起来。具体采样步数、路径和模型会影响质量与成本。
+
+## 具体怎么理解
+
+可以把生成过程理解为沿学习到的方向逐步搬运样本；这只是说明思路，不代表每种模型采用相同路径。
+
+## 关键事实
+
+- **C1**：先设计源到目标分布的概率路径，再用回归学习生成该路径的速度场，采样时积分速度场。
+- **C2**：线性高斯条件路径下训练目标可用 X1−X0，条件目标与边际目标具有相同梯度。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Lipman et al. - 2024 - Flow Matching Guide and Code.pdf
-- 全文文本：../../raw/text/Lipman et al. - 2024 - Flow Matching Guide and Code.md
+- 原始文件：[打开原始文件](../../raw/pdf/Lipman%20et%20al.%20-%202024%20-%20Flow%20Matching%20Guide%20and%20Code.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Lipman%20et%20al.%20-%202024%20-%20Flow%20Matching%20Guide%20and%20Code.md)
 - 作者：Lipman et al.
 - 年份：2024
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Flow Matching Guide and Code Yaron Lipman1, Marton Havasi1, Peter Holderrieth2, Neta Shaul3, Matt Le1, Brian Karrer1, Ricky T. Q. Chen1, David Lopez-Paz1, Heli Ben-Hamu3, Itai Gat1 1FAIR at Meta, 2MIT CSAIL, 3Weizmann Institute of Science Flow Matching (FM) is a recent framework for generative modeling that has achieved state-of-the-art performance across various domains, including image, video, audio, speech, and biological structures. This guide offers a comprehensive and self-contained review of FM, covering its mathematical foun- dations, design choices, and extensions. By also providing a PyTorch package featuring relevant examples (e.g., image and text generation), this work aims to serve as a resource for both novice and experienced researchers interested in understanding, applying and further developing FM. Date: December 10, 2024 Code: flow_matching library at https://github.com
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Lipman et al. - 2024 - Flow Matching Guide and Code.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Lipman%20et%20al.%20-%202024%20-%20Flow%20Matching%20Guide%20and%20Code.html)
+- 核对说明：旧 HTML 仅包含概要，已从本地 83 页完整 PDF 重建全文。
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 同梯度结论依赖所定义目标，不能当成任意路径或求解器的无条件结论。
+- 连续、离散与随机过程扩展应分别理解。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+Flow Matching 的入门配方是从噪声和数据抽取一对样本，在中间时间点训练网络预测速度，再用 ODE 求解生成样本。训练不必逐步模拟整条路径，但推理仍有数值积分成本，路径、求解器与步数影响结果。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/pdf/Lipman%20et%20al.%20-%202024%20-%20Flow%20Matching%20Guide%20and%20Code.pdf#page=5 ) | 连续 flow 的基本方案，不是全部扩展共用相同路径 |
+| C2 | [原文]( ../../raw/pdf/Lipman%20et%20al.%20-%202024%20-%20Flow%20Matching%20Guide%20and%20Code.pdf#page=6 ) | 对应本文特定路径和采样假设 |
+
+## 核证范围
+
+核对 PDF 第 4–6 页的指南结构、路径与条件目标公式，限定连续 Flow Matching 入门方案。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

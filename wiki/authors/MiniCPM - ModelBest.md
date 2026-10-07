@@ -3,9 +3,18 @@ type: author
 ---
 # MiniCPM - ModelBest
 
+## TL;DR（快速导读）
+
+这里集中阅读 MiniCPM 与 MiniCPM-V 的已收录资料，研究小模型训练和轻量多模态部署的取舍。
+
 ## 简介
 
-`MiniCPM / ModelBest` 在当前知识库里构成小模型与轻量多模态的独立机构 / 团队支线。
+这里集中阅读 MiniCPM 与 MiniCPM-V 的已收录资料，研究小模型训练和轻量多模态部署的取舍。
+
+## 从哪里开始读
+
+- [Hu et al. - 2024 - MiniCPM Unveiling the Potential of Small Language Models with Scalable Training Strategies](../summaries/Hu%20et%20al.%20-%202024%20-%20MiniCPM%20Unveiling%20the%20Potential%20of%20Small%20Language%20Models%20with%20Scalable%20Training%20Strategies.md)：待精读：MiniCPM 研究如何把小语言模型训练得更充分，用规模实验和学习率安排提高有限参数预算下的能力。
+- [Yao et al. - 2024 - MiniCPM-V A GPT-4V Level MLLM on Your Phone](../summaries/Yao%20et%20al.%20-%202024%20-%20MiniCPM-V%20A%20GPT-4V%20Level%20MLLM%20on%20Your%20Phone.md)：待精读：MiniCPM-V 面向更轻量的视觉语言部署，研究怎样在有限模型规模下提供图像理解能力，成本和质量都需按设备测试。
 
 ## 当前覆盖
 

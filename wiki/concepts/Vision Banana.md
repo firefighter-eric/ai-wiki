@@ -3,9 +3,17 @@ type: concept
 ---
 # Vision Banana
 
+## TL;DR（快速导读）
+
+Vision Banana 用图像生成模型适配视觉感知任务，将分割、深度等结果表达为图像，探索统一视觉输出。
+
 ## 简介
 
-`Vision Banana` 是 Google DeepMind 在论文 `Image Generators are Generalist Vision Learners` 中提出的通用视觉模型。它的关键意义不在于新增一个分割或深度估计专门架构，而在于把强图像生成模型 `Nano Banana Pro` 当作视觉基础模型底座，并通过轻量 instruction tuning 把分割、深度、表面法线等感知任务统一为 `RGB` 图像生成任务。
+`Vision Banana` 是 Google DeepMind 在论文 `Image Generators are Generalist Vision Learners` 中提出的通用视觉模型。它的关键意义不在于新增一个分割或深度估计专门架构，而在于把强图像生成模型 `Nano Banana Pro` 当作视觉基础模型底座，并通过轻量 指令微调 把分割、深度、表面法线等感知任务统一为 `RGB` 图像生成任务。
+
+## 具体怎么理解
+
+分割任务可以输出颜色编码的区域图；看起来像图片，不代表评价标准仍是普通图像美观度。
 
 ## 关键属性
 
@@ -36,3 +44,7 @@ type: concept
 - [FLUX.2](./FLUX.2.md)
 - [Stable Diffusion](./Stable%20Diffusion.md)
 - [Qwen-Image](./Qwen-Image.md)
+
+## 这里的术语是什么意思
+
+- **benchmark**：评测基准：特定数据、任务与规则的组合，分数只在这些条件下成立。

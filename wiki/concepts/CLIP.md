@@ -3,9 +3,17 @@ type: concept
 ---
 # CLIP
 
+## TL;DR（快速导读）
+
+CLIP 把图片和文字映射到可比较的表示空间，用自然语言描述进行图像分类或图文检索。
+
 ## 简介
 
-CLIP 是图文对齐预训练的代表模型。在当前知识库中，它表示“用自然语言监督获得通用视觉表示”的路线。
+CLIP 把图片和文字映射到可比较的表示空间，用自然语言描述进行图像分类或图文检索。
+
+## 具体怎么理解
+
+把一张图与“猫在沙发上”“狗在草地上”两段文字比较，选择更匹配的描述；提示措辞也会影响结果。
 
 ## 关键属性
 
@@ -28,3 +36,6 @@ CLIP 是图文对齐预训练的代表模型。在当前知识库中，它表示
 - [Tip-Adapter](./Tip-Adapter.md)
 - [Kosmos-2](./Kosmos-2.md)
 - [传统 CV](../topics/传统%20CV.md)
+- [Fang et al. - 2021 - Injecting Semantic Concepts into End-to-End Image Captioning](../summaries/Fang%20et%20al.%20-%202021%20-%20Injecting%20Semantic%20Concepts%20into%20End-to-End%20Image%20Captioning.md)：ViTCAP：从视觉表示与语义概念生成 caption，区别于检索。
+- [Mokady, Hertz, Bermano - 2021 - ClipCap CLIP Prefix for Image Captioning](../summaries/Mokady%2C%20Hertz%2C%20Bermano%20-%202021%20-%20ClipCap%20CLIP%20Prefix%20for%20Image%20Captioning.md)：ClipCap：把 CLIP 表示作为语言生成前缀，不能把 caption 当作事实识别保证。
+

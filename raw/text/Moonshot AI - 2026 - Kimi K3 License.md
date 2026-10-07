@@ -1,11 +1,22 @@
-# Kimi K3 License
+# Moonshot AI - 2026 - Kimi K3 License
 
 - Source HTML: `raw/html/Moonshot AI - 2026 - Kimi K3 License.html`
+- Source SHA256: `21ae0878aa3c23e319d9271dd801bd7e1c0a8ef94a7089d4cb6042f241d90c6c`
 - Source URL: https://github.com/MoonshotAI/Kimi-K3/blob/main/LICENSE
-- Extracted from: GitHub page embedded `rawLines`
+- Generated from: `scripts/fetch_web_text.py`
+- Extraction: `structured-html-v2` (headings, links, MathML/TeX and tables; figures require visual review)
 
-## Full Text
+## Extracted Text
 
+<a id="source-section-0"></a>
+
+<a id="source-section-1"></a>
+
+# Kimi K3 License
+
+
+
+```
 Kimi K3 License
 
 Copyright (c) 2026 Moonshot AI
@@ -58,3 +69,4 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 For any questions regarding this license, please contact <license@moonshot.ai>.
+```

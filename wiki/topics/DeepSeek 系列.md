@@ -1,14 +1,24 @@
 ---
 type: topic
-status: building
+status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # DeepSeek 系列
 
+## TL;DR（快速导读）
+
+DeepSeek 的效率架构、推理后训练和文档视觉压缩是不同技术线。V3/V4 改计算与缓存，Math/R1 改奖励驱动行为，OCR 研究页面转写与压缩；它们的成绩需要分别看实验条件。
+
+阅读重点：先按问题选择路线，再核对比较条件与证据边界。
+
+## 先用一个问题理解
+
+研究训练成本先看 V3，研究奖励怎样形成推理行为看 R1，研究长文推理成本看缓存和压缩。把这些结果合成家族判断前，应确认每份报告的版本与实验条件。
+
 ## 页面状态
 
-- 状态：待建设 topic
-- 原因：证据基础仍包含待精读自动摘要；对应 summary 精修并复核核心论断后，才可重新升级为正式 topic。
-- 事实基座：`wiki/summaries/` 优先
+正式 topic；2026-10-07 复核核心来源并补充方法比较。正文区分论文实验、作者报告和本文综合判断；开放问题表示研究证据的边界。
 
 ## 主题定义
 
@@ -38,6 +48,20 @@ DeepSeek 系列最容易被误读为几个彼此独立的爆点：`DeepSeek-V3` 
 
 如果压缩成一句话，DeepSeek 系列的技术主线是：**先用稀疏 MoE 降低能力扩张的单位成本，再用 RL 塑造推理行为，随后把推理行为接入工具和长上下文工作流，最后从文本与视觉两侧同时压缩上下文成本。**
 
+### 将架构收益、后训练收益和系统收益分开
+
+[V3 报告](../summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)的 MLA 压缩 KV 表示，MoE 控制每 token 激活容量；训练配置使用 AdamW，不能因为后来的 V4 使用 Muon 而回写 V3。[V4 报告](../summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)进一步引入 CSA/HCA、mHC 和优化器配方。缓存变小主要影响长序列资源，残差映射主要影响信号传播，优化器改变训练更新：三类指标分别是推理内存/算量、训练稳定性和收敛，不能把它们合成一个无条件加速数字。
+
+[DeepSeekMath](../summaries/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)中的 GRPO 从同一题的一组输出估计相对优势，移除独立 critic；它仍依赖奖励、reference 和 rollout，不是“不需要别的模型”。[R1](../summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)中的 Zero 与正式 R1 也必须区分：前者验证无 SFT 冷启动的 RL 路线，后者通过冷启动和多阶段训练改善可读性。学生蒸馏成绩则是第三种设定，不能当作同一个大模型的训练消融。
+
+| 分支 | 主要改变 | 支持的判断 | 尚不能支持的判断 |
+| --- | --- | --- | --- |
+| V3 / V4 | 激活容量、注意力与缓存、训练稳定性 | 组合设计降低特定成本 | 任一组件单独解释总成绩 |
+| Math / R1 | 奖励与策略更新、训练阶段 | 可验证任务上的行为改善 | 无监督获得任意知识或可靠长程代理 |
+| OCR / OCR 2 | 页面视觉编码与 token 分配 | 文档转写和压缩设定下的结果 | 无损保存所有长期记忆 |
+
+[DeepSeek-OCR](../summaries/Wei%2C%20Sun%2C%20Li%20-%202025%20-%20DeepSeek-OCR%20Contexts%20Optical%20Compression.md)的压缩率与恢复成绩来自特定页面、视觉 token 数及输出协议；语言模型补全可能得到可读文本，也可能掩盖字符错误。[OCR 2](../summaries/Wei%2C%20Sun%2C%20Li%20-%202026%20-%20DeepSeek-OCR%202%20Visual%20Causal%20Flow.md)重排视觉信息流，不能由此推导可以对任意历史对话无限压缩。本文把两者放入 token 成本主线是研究动机的联系，不表示它们已验证 V4 的文本缓存算法。
+
 ## 关键争论与分歧
 
 - **DeepSeek 的主线是否应写成“开源模型追赶闭源模型”**：这只覆盖一部分事实。`V3 / V4` 的 open-weight 与成本效率很重要，但 `R1` 的意义在 reasoning RL，`V3.2` 的意义在 thinking tool-use，`DeepSeek-OCR` 的意义在 vision-text compression。把它们都写成“开源追赶”会损失技术结构。
@@ -47,11 +71,15 @@ DeepSeek 系列最容易被误读为几个彼此独立的爆点：`DeepSeek-V3` 
 - **V4 的四个机制能否外推成通用范式**：`CSA / HCA / mHC / Muon` 目前更稳妥地说是 `DeepSeek-V4` 的组合式工程答案。`CSA / HCA` 解决长上下文 attention 与 KV 成本，`mHC` 解决深层信号传播，`Muon` 解决大规模训练优化；它们可能互相配合，而不是任一组件单独解释全部收益。当前不应把它们写成已被社区验证的通用最优解。
 - **DeepSeek-OCR 是否应纳入 DeepSeek 系列主线**：应纳入，但要限定其角色。它不是通用 LLM 主干，而是 DeepSeek 对 long-context compression 的视觉侧实验，事实来源仍应主要放在 OCR 与文档理解语境中使用。
 
+### 官方发布与技术因果的证据等级
+
+R1-0528 与 V3.2 发布页能证明团队声明了哪些接口与训练范围，不能替代独立的能力复现。V4 技术报告有更具体的架构和实验条件，但跨硬件、跨任务的通用优势仍需对照。页面里的“百万上下文”应解释为给定模型和运行设定的支持规模，读取过一百万 token 不等于能可靠回答其中每个跨文档关系。
+
 ## 证据基础
 
 - [Unknown - 2024 - DeepSeek-V3 Technical Report](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
 - [Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models](../../wiki/summaries/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)
-- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+- [DeepSeek-R1：奖励驱动推理与多阶段训练（2025）](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
 - [DeepSeek AI - 2025 - DeepSeek-R1-0528 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-R1-0528%20Release.md)
 - [DeepSeek AI - 2025 - DeepSeek-V3.2 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-V3.2%20Release.md)
 - [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](../../wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)
@@ -77,11 +105,9 @@ DeepSeek 系列最容易被误读为几个彼此独立的爆点：`DeepSeek-V3` 
 
 ## 未解决问题
 
-- `DeepSeek-V3.2` 与 `DeepSeek-V4` 的 agent / tool-use 能力目前主要依赖官方发布材料，仍缺少更系统的第三方 agent benchmark summary。
-- `DeepSeek-V4` 仍是 preview 语境下的节点；`CSA / HCA / mHC / Muon` 是否会成为 DeepSeek 外部的稳定范式，需要更多独立实现和消融复现，尤其需要区分收益来自 attention 压缩、residual 稳定性、optimizer，还是四者组合。
-- `DeepSeek-OCR` 的 vision-text compression 是否能泛化到更广义的长上下文记忆机制，目前仍是开放问题；现有证据主要来自 OCR / document parsing 场景。
-- 当前知识库还没有独立的 agent topic，因此 `thinking in tool-use` 暂时由本页和 `LLM RL` 承接；后续若 agent 来源增多，应拆出正式 topic。
-- DeepSeek 与 Qwen、Kimi、GLM 在 reasoning / agent / 长上下文上的横向比较仍不足，现有 comparison 只能支撑开放模型家族层面的粗粒度对照。
+- V4 的注意力压缩、残差设计和优化器在不同长度与硬件上各贡献多少？组合报告不足以给组件的普遍因果结论。
+- Math/R1 的可验证奖励怎样迁移到开放任务？推理分数、可读性与工具最终状态仍需分别评价。
+- 视觉压缩何时丢掉决定答案的字符和结构？OCR 恢复成绩还不能证明长期记忆可靠性。
 
 ## 关联页面
 
@@ -100,3 +126,12 @@ DeepSeek 系列最容易被误读为几个彼此独立的爆点：`DeepSeek-V3` 
 - [Heavily Compressed Attention](../concepts/Heavily%20Compressed%20Attention.md)
 - [Manifold-Constrained Hyper-Connections](../concepts/Manifold-Constrained%20Hyper-Connections.md)
 - [Muon](../concepts/Muon.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **critic**：价值模型：估计状态或行为的预期回报，为策略更新提供参照。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **sparse**：稀疏计算或连接：只使用选中的部分，具体省略什么取决于方法。
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。

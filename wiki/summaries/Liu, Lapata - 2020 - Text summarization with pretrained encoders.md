@@ -1,41 +1,69 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Liu, Lapata - 2020 - Text summarization with pretrained encoders
+
+## TL;DR（快速导读）
+
+这篇摘要工作使用预训练编码器建模文档，同时研究抽取式和生成式摘要，说明两类输出需要不同的训练与接口。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+抽取式摘要选择原句，生成式摘要重新组织文字。论文将 BERT 的预训练表示用于两类任务，并考虑文档级编码与生成训练的衔接。摘要分数不能代替事实一致性和可读性检查。
+
+## 具体怎么理解
+
+“挑出三句原话”和“用自己的话概括成一段”看似都叫摘要，实际输出机制与错误方式不同。
+
+## 关键事实
+
+- **C1**：BertSum 用文档级编码与句间层获得句子表示，抽取版对句子是否进入摘要做分类。
+- **C2**：生成版用预训练 BertSum encoder 和随机初始化的六层 Transformer decoder，为缓解训练不匹配分别设置优化器。
+- **C3**：评价覆盖 CNN/DailyMail、NYT 与 XSum；前者偏抽取，XSum 为高度概括的单句摘要，抽取方法在 XSum 表现较差。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Liu, Lapata - 2020 - Text summarization with pretrained encoders.pdf
-- 全文文本：../../raw/text/Liu, Lapata - 2020 - Text summarization with pretrained encoders.md
+- 原始文件：[打开原始文件](../../raw/pdf/Liu%2C%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Liu%2C%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.md)
 - 作者：Liu, Lapata
 - 年份：2020
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Bidirectional Encoder Representations from Transformers (BERT; Devlin et al. 2019) rep- resents the latest incarnation of pretrained lan- guage models which have recently advanced a wide range of natural language processing tasks. In this paper, we showcase how BERT can be usefully applied in text summariza- tion and propose a general framework for both extractive and abstractive models. We intro- duce a novel document-level encoder based on BERT which is able to express the semantics of a document and obtain representations for its sentences. Our extractive model is built on top of this encoder by stacking several inter- sentence Transformer layers. For abstractive summarization, we propose a new ﬁne-tuning schedule which adopts different optimizers for the encoder and the decoder as a means of al- leviating the mismatch between the two (the former is pretrained while the latter is not). We also demonstrate that a two-staged ﬁne-tuning approach can further boost the quality of the generated summaries. Experiments on three datasets show that our model achieves state- of-the-art results across the board in both ex- tractive and abstractive settings.1
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Liu, Lapata - 2020 - Text summarization with pretrained encoders.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Liu%2C%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 原 BERT 512 位置限制以新位置嵌入扩展，但这不直接保证任意长文能力。
+- 新闻基准上的高 ROUGE 不证明综述事实忠实或证据完整。
+- 数据集风格差异使‘抽取与生成谁更好’没有统一答案。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+长报道可以摘出重要原句，也可以重新写成一句核心意思。BertSum 分别建模这两种任务，并研究先抽取后生成的训练路线。对于本库，抽取的句子适合回查来源，但 TL;DR 还需要连贯解释与事实核对，不能只优化摘要相似度分数。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Liu%2C%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.md#source-section-10 ) | 抽取摘要保留原句，不等于自由改写或保证信息完整。 |
+| C2 | [原文]( ../../raw/text/Liu%2C%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.md#source-section-11 ) | 预训练编码器并没有直接成为成熟的文本生成器。 |
+| C3 | [原文]( ../../raw/text/Liu%2C%20Lapata%20-%202020%20-%20Text%20summarization%20with%20pretrained%20encoders.md#source-section-21 ) | 数据的摘要风格决定方法排名；ROUGE 与人工评价需分别读。 |
+
+## 核证范围
+
+核对 §3.1–3.3 编码与两类摘要、§4.1 数据、§5.1 自动评价及人类评价路径。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

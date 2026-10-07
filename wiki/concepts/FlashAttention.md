@@ -3,9 +3,17 @@ type: concept
 ---
 # FlashAttention
 
+## TL;DR（快速导读）
+
+FlashAttention 保留标准注意力的数学结果，通过分块与减少显存读写加快执行，改变的是算子实现。
+
 ## 简介
 
-`FlashAttention` 是标准 softmax attention 的 IO-aware 精确实现路线。它不改变 attention 的数学定义，而是通过 tile 化、kernel fusion 与更少的 HBM 读写来降低 wall-clock 时间和显存压力。
+`FlashAttention` 是标准 softmax attention 的 IO-aware 精确实现路线。它不改变 attention 的数学定义，而是通过 tile 化、kernel fusion 与更少的 HBM 读写来降低 实际用时 时间和显存压力。
+
+## 具体怎么理解
+
+不把完整注意力矩阵反复写入显存，而在分块计算中完成必要步骤；它与删去某些注意力连接不同。
 
 ## 关键属性
 
@@ -26,3 +34,7 @@ type: concept
 
 - [Transformer](./Transformer.md)
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **IO**：数据读写：计算与存储之间搬运数据的成本，可能成为速度瓶颈。

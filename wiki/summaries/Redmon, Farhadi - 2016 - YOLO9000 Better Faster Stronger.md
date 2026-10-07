@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger
+
+## TL;DR（快速导读）
+
+YOLOv2 改善候选框和多尺度训练，YOLO9000 进一步结合分类与检测数据来扩大可识别类别。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -12,27 +21,46 @@ status: refined
 - 全文文本：../../raw/text/Redmon, Farhadi - 2016 - YOLO9000 Better Faster Stronger.md
 - 作者：Redmon, Farhadi
 - 年份：2016
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`YOLO9000 / YOLOv2` 的意义在于把 `YOLOv1` 的单阶段框架从“快但相对粗糙”的原型推进为更成熟的 one-stage 检测路线。它引入 anchor boxes、dimension clustering、多尺度训练与联合分类/检测训练，不只提升定位与召回，也尝试把检测类别规模扩展到 `9000+`。
+论文用框尺寸聚类、锚框和联合训练推进早期 YOLO。类别数量增加与每个类别的检测质量不同，数据监督也有差异；应分别核对定位、召回和大类别空间中的结果。
 
 ## 关键事实
 
-- `YOLOv2` 用 anchor boxes 替代 `YOLOv1` 的直接边框回归，改善定位稳定性与召回。
-- 论文引入基于训练集 box 的 `dimension clustering`，把 anchor 设计从手工经验推进到数据驱动初始化。
-- 多尺度训练使同一模型可以在不同输入分辨率间调整速度与精度。
-- `YOLO9000` 进一步提出联合 detection/classification 训练，扩展可检测类别空间。
-- 从系列脉络看，这一节点把 `YOLO` 从单一实时 detector 原型推进为可扩展家族。
+- **C1**：YOLOv2使用anchor boxes与训练box的dimension clustering，并以直接中心位置预测稳定训练。
+- **C2**：multi-scale训练让同一模型可在不同分辨率间折中速度/精度。
+- **C3**：YOLO9000联合分类与检测数据，通过WordTree组织类别关系。
 
 ## 争议与不确定点
 
-- 论文中的 “9000+ classes” 依赖联合训练与层级标签体系，这一扩展是否真正等同于高质量通用检测，需要与现代开放词表检测区分。
-- `YOLOv2` 虽强化了定位与召回，但其与后续多尺度 feature fusion 版本相比仍属较早期 one-stage 架构。
-- 当前 summary 主要提炼系列演化作用，尚未重写其实验细节与 ablation。
+- 9000类别覆盖不等于9000类别相同检测准确率。
+- VOC与ImageNet检测评测条件需与联合数据来源一起看。
 
 ## 关联页面
 
 - 主题：[目标检测](../../wiki/topics/目标检测.md)
 - 概念：[YOLO](../../wiki/concepts/YOLO.md)
+- [Ali Farhadi](../authors/Ali%20Farhadi.md)：沿作者或机构继续阅读相关来源。
+- [Joseph Redmon](../authors/Joseph%20Redmon.md)：沿作者或机构继续阅读相关来源。
+
+## 方法与实验解读
+
+anchor聚类把形状先验移入数据，中心限制缓解无约束回归的不稳定。YOLO9000另外解决标签体系和训练数据不同的问题，不能把它的类别数当每个类别都有充分检测标注。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Redmon%2C%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md#source-section-4 ) | 多个改动共同提高检测。 |
+| C2 | [原文]( ../../raw/text/Redmon%2C%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md#source-section-4 ) | 分辨率条件不可省。 |
+| C3 | [原文]( ../../raw/text/Redmon%2C%20Farhadi%20-%202016%20-%20YOLO9000%20Better%20Faster%20Stronger.md#source-section-6 ) | 分类标签不提供同等框监督。 |
+
+## 核证范围
+
+核读Better的anchor/多尺度、Faster与Stronger的WordTree联合训练。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

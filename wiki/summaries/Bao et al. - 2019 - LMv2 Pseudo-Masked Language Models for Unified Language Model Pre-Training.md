@@ -1,41 +1,67 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
-# Bao et al. - 2019 - LMv2 Pseudo-Masked Language Models for Unified Language Model Pre-Training
+# UniLMv2：Pseudo-Masked Language Models（2020）
+
+## TL;DR（快速导读）
+
+PMLM 用普通遮挡和伪遮挡结合的预训练方式，让同一语言模型同时学习理解上下文和逐步生成被遮住的内容。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+理解任务需要利用上下文，生成任务还需要处理输出之间的先后依赖。论文在共享模型中安排两类遮挡信号，分别学习可见上下文与被遮片段之间的关系。阅读重点是注意力可见范围和训练目标怎样配合。
+
+## 具体怎么理解
+
+例如补全一个连续短语时，既要看句子前后文，也要处理短语内部词语之间的依赖。
+
+## 关键事实
+
+- **C1**：PMLM 联合 autoencoding 与部分自回归目标，用 pseudo mask 学习遮挡片段内部关系。
+- **C2**：通过位置与注意力设计复用上下文编码，实验比较理解和生成下游任务。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Bao et al. - 2019 - LMv2 Pseudo-Masked Language Models for Unified Language Model Pre-Training.pdf
-- 全文文本：../../raw/text/Bao et al. - 2019 - LMv2 Pseudo-Masked Language Models for Unified Language Model Pre-Training.md
-- 作者：Bao et al.
-- 年份：2019
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-We propose to pre-train a uniﬁed language model for both autoencoding and partially autoregressive language modeling tasks using a novel training procedure, referred to as a pseudo-masked lan- guage model (PMLM). Given an input text with masked tokens, we rely on conventional masks to learn inter-relations between corrupted tokens and context via autoencoding, and pseudo masks to learn intra-relations between masked spans via partially autoregressive modeling. With well- designed position embeddings and self-attention masks, the context encodings are reused to avoid redundant computation. Moreover, conventional masks used for autoencoding provide global mask- ing information, so that all the position embed- dings are accessible in partially autoregressive language modeling. In addition, the two tasks pre-train a uniﬁed language model as a bidirec- tional encoder and a sequence-to-sequence de- coder, respectively. Our experiments show that the uniﬁed language models pre-trained using PMLM achieve new state-of-the-art results on a wide range of natural language understanding and generation tasks across several widely used benchmarks. 1. Introduction Language model (LM) pre-training on large-scale text cor- pora has substantially advanced the state of the art across a variety of natural language processing tasks (Peters et al., 2018; Radford et al., 2018; Devlin et al., 2018; Dong et al., 2019; Liu et al., 2019; Yang et al., 2019; Lewis et al., 2019; Lan et al., 2019; Raffel et al., 2019). After LM pre-training, the obtained model can be ﬁne-tuned to various downstream tasks. Two types of language model pre-training objectives are commonly employed to learn contextualized text represen- 1Microsoft Research 2Harbin Institute of Technology. 𝑥4 𝑥5 [P] 𝑥1 𝑥3 𝑥6 𝑥2 𝑥1 [P] 𝑥3 [P] 𝑥6 [M] 𝑥4 𝑥5 t=1 t=2 ℒPAR [M] 𝑥1 [M] 𝑥3 [M] 𝑥6 𝑥2 𝑥5 𝑥4 ℒAE Pseudo-Masked LM 𝑥1𝑥2𝑥3𝑥4𝑥5𝑥6 𝑥1 M 2𝑥3 M 4 M 5𝑥6 P 4 P 5𝑥4𝑥5 P 2𝑥2 Partially Autoregressive Autoencoding [M] Conventional Masks [P] Pseudo Masks Figure 1. Given input x1 · · · x6, the tokens x2, x4, x5 are masked by the special tokens [M] and [P]. For each example, we jointly train two types of LMs, namely, autoencoding (AE), and partially autoregressive (PAR) masked LMs. tations by predicting words conditioned on their context. The ﬁrst strand of work relies on autoencoding LMs (Devlin et al., 2018; Liu et al., 2019). For example, the masked language modeling task used by BERT (Devlin et al., 2018) randomly masks some tokens in a text sequence, and then independently recovers the masked tokens by condition- ing on the encoding vectors obtained by a bidirectional Transformer (Vaswani et al., 2017). The second type of pre- training uses autoregressive modeling (Radford et al., 2018; Lewis et al., 2019; Yang et al., 2019; Raffel et al., 2019). Rather than independently predicting words, the probability of a word is dependent on previous predictions. Inspired by (Dong et al., 2019), we propose a pseudo- masked language model (PMLM) to jointly pre-train a bidi- arXiv:2002.12804v1 [cs.CL] 28 Feb 2020 UNILMv2: Pseudo-Masked Language Models for Uniﬁed Language Model Pre-Training rectional LM for language understanding (e.g., text classiﬁ- cation, and question answering) and a sequence-to-sequence LM for language generation (e.g., document summarization, and response generation). Speciﬁcally, the bidirectional model is pre-trained by autoencoding (AE) LMs, and the sequence-to-sequence model is pre-trained by partially au- toregressive (PAR) LMs. As shown in Figure 1, the model parameters are shared in two language modeling tasks, and the encoding results of the given context tokens are reused. We use the conventional mask [MASK] (or [M] for short) to represent the corrupted tokens for AE pre-training. In order to handle factorization steps of PAR language mod- eling, we append pseudo masks [Pseudo] (or [P] for short) to the input sequence without discarding the origi- nal tokens. With well-designed self-attention masks and position embeddings, the PMLM can perform the two lan- guage modeling tasks in one forward pass without redundant computation of context. The proposed method has the following advantages. First, the PMLM pre-trains different LMs in a uniﬁed manner, which learns both inter-relations between masked tokens and given context (via AE), and intra-relations between masked spans (via PAR). Moreover, conventional masks used for AE provide global masking information, so that every factorization step of PAR pre-training can access all the position embeddings as in ﬁne-tuning. Second, the uni- ﬁed pre-training framework learns models for both natural language understanding and generation (Dong et al., 2019). Speciﬁcally, the AE-based modeling learns a bidirectional Transformer encoder, and the PAR objective pre-trains a sequence-to-sequence decoder. Third, the proposed model is computationally efﬁcient in that the AE and PAR model- ing can be computed in one forward pass. Because the en- coding results of given context are reused for two language modeling tasks, redundant computation is avoided. Fourth, PAR language modeling learns token-to-token, token-to- span, and span-to-span relations during pre-training. By taking spans (i.e., continuous tokens) into consideration, PMLM is encouraged to learn long-distance dependencies by preventing local shortcuts. We conduct PMLM pre-training on large-scale text corpora. Then we ﬁne-tune the pre-trained model to a wide range of natural language understanding and generation tasks. Exper- imental results show that uniﬁed pre-training using PMLM improves performance on various benchmarks. 2. Preliminary 2.1. Backbone Network: Transformer First, we pack the embeddings of input tokens {xi}|x| i=1 together into H0 = [x1, · · · , x|x|] ∈R|x|×dh. Then L stacked Transformer (Vaswani et al., 2017) blocks compute the encoding vectors via: Hl = Transformerl(Hl−1), l ∈[1, L] (1) where L is the number of layers. The hidden vectors of the ﬁnal layer HL = [hL 1 , · · · , hL |x|] are the contextualized representations of input. Within each Transformer block, multiple self-attention heads aggregate the output vectors of the previous layer, followed by a fully-connected feed- forward network. Self-Attention Masks The output Al of a self-attention head in the l-th Transformer layer is: Q = Hl−1WQ l , K = Hl−1WK l Mij = ( 0, allow to attend −∞, prevent from attending (2) Al = softmax(QK⊺ √dk + M)(Hl−1WV l ) where parameters WQ l , WK l , WV l ∈Rdh×dk project the previous layer’s output Hl−1 to queries, keys, and values, respectively. It is worth noting that the mask matrix M ∈ R|x|×|x| controls whether two tokens can attend each other. 2.2. Input Representation The inputs of language model pre-training are sequences sampled from large-scale text corpora. We follow the format used by BERT (Devlin et al., 2018). We add a special start-of-sequence token [SOS] at the beginning to get the representation of the whole input. Besides, each text is split into two segments appended with a special end-of- sequence token [EOS]. The ﬁnal input format is “[SOS] S1 [EOS] S2 [EOS]”, where the segments S1 and S2 are contiguous texts. The vector of an input token is represented by the summation of its token embedding, absolute position embedding, and segment embedding. All the embedding vectors are obtained by lookup in learnable matrices. 3. Uniﬁed Language Model Pre-Training We propose a pseudo-masked language model (PMLM) to jointly pre-train both autoencoding (Section 3.1.1) and partially autoregressive (Section 3.1.2) LMs. As shown in Figure 2, PMLM reuses the encoding results of the same ex- ample to jointly pre-train both modeling methods by pseudo masking (Section 3.2). 3.1. Pre-Training Tasks We use the masked language modeling (MLM; Devlin et al. 2018) task to pre-train a Transformer network, which is also known as the cloze task (Taylor, 1953). For a given input, we randomly substitute tokens with a special token [MASK] UNILMv2: Pseudo-Masked Language Models for Uniﬁed Language Model Pre-Training x1 x2 [P] [M] x3 x4 x5 [P] [P] [M] [M] x6
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Bao et al. - 2019 - LMv2 Pseudo-Masked Language Models for Unified Language Model Pre-Training.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 原始文件：[打开原始文件](../../raw/pdf/Bao%20et%20al.%20-%202019%20-%20LMv2%20Pseudo-Masked%20Language%20Models%20for%20Unified%20Language%20Model%20Pre-Training.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Bao%20et%20al.%20-%202019%20-%20LMv2%20Pseudo-Masked%20Language%20Models%20for%20Unified%20Language%20Model%20Pre-Training.md)
+- 作者：Hangbo Bao、Li Dong、Furu Wei 等
+- 年份：2020
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Bao%20et%20al.%20-%202019%20-%20LMv2%20Pseudo-Masked%20Language%20Models%20for%20Unified%20Language%20Model%20Pre-Training.html)
+- 归档说明：保留历史文件名以维持来源对应和链接；标题、作者与年份以上述核对信息为准。
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 与 BERT-base 等比较绑定训练配方与预算。
+- 统一目标不代表无需下游适配。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+UniLMv2 希望一个预训练模型兼顾双向理解和条件生成。它不只独立猜被遮挡词，还学习遮挡词之间的依赖；注意力 mask 的设计决定哪些位置能看到哪些内容，避免目标泄漏。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Bao%20et%20al.%20-%202019%20-%20LMv2%20Pseudo-Masked%20Language%20Models%20for%20Unified%20Language%20Model%20Pre-Training.md#source-section-2 ) | 统一理解与生成训练目标，并非一般单向 LM |
+| C2 | [原文]( ../../raw/text/Bao%20et%20al.%20-%202019%20-%20LMv2%20Pseudo-Masked%20Language%20Models%20for%20Unified%20Language%20Model%20Pre-Training.md#source-section-16 ) | 计算复用与能力收益分别理解 |
+
+## 核证范围
+
+核对摘要、§3.1 的预训练目标和 §4 的下游实验范围。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

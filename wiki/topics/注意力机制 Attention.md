@@ -1,8 +1,18 @@
 ---
 type: topic
 status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # 注意力机制 Attention
+
+## TL;DR（快速导读）
+
+“高效注意力”可能改连接、近似矩阵、压缩缓存或优化显存读写。先分清瓶颈，才能公平比较方法的质量与速度。
+
+## 先用一个问题理解
+
+处理长文章时，局部窗口会限制可见位置，低秩方案近似矩阵，FlashAttention 保留数学目标但改变执行，GQA 减少解码缓存。名字都带 Attention，实际修改的位置不同；下文按这几类问题展开。
 
 ## 页面状态
 
@@ -42,6 +52,10 @@ status: formal
 
 据此可以得到一个更清晰的综合判断：**attention 世界里至少混杂了七类不同层次的创新：标准语义定义、连接图偏置、矩阵近似、recurrent sequence state、模型级推理态压缩、serving 级 KV 管理、kernel / 系统执行优化。** 把这些层级混在一起做“谁更先进”的比较，往往会掩盖它们各自的成立条件。
 
+### 表达能力与固定预算性能的区别
+
+[BigBird](../summaries/Zaheer%20et%20al.%20-%202020%20-%20Big%20bird%20Transformers%20for%20longer%20sequences.md)的通用逼近需要包含星形结构，Turing completeness 使用任意精度等理想条件；同篇还给出稀疏图需更多层的任务。因此理论表达能力不能推出有限层、有限精度与全注意力等价。[Efficient Transformers 综述](../summaries/Tay%20et%20al.%20-%202020%20-%20Efficient%20Transformers%20A%20Survey.md)与[Transformer 综述](../summaries/Lin%20et%20al.%20-%202021%20-%20A%20Survey%20of%20Transformers.md)提供分类背景，不是各方法在同一现代服务负载上的性能榜。[MQA](../summaries/Shazeer%20-%202019%20-%20Fast%20Transformer%20Decoding%20One%20Write-Head%20is%20All%20You%20Need.md)实验还受硬件、batch 和任务限制；渐近复杂度、KV 容量与实际延迟是三类证据。
+
 ## 关键争论与分歧
 
 - **“高效 attention”是不是单一问题**：不是，而且这正是本页需要反复强调的地方。若问题是长文档 encoder，`Longformer`、`BigBird`、`Reformer` 更可比；若问题是自回归推理，`MQA / GQA / MLA` 更 relevant；若问题是 exact attention 的速度和显存，`FlashAttention` 更 relevant。很多表面上的路线之争，其实只是问题设定不同。
@@ -69,6 +83,8 @@ status: formal
 - [Kwon et al. - 2023 - Efficient Memory Management for Large Language Model Serving with PagedAttention](../../wiki/summaries/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md)
 - [Zheng et al. - 2024 - SGLang Efficient Execution of Structured Language Model Programs](../../wiki/summaries/Zheng%20et%20al.%20-%202024%20-%20SGLang%20Efficient%20Execution%20of%20Structured%20Language%20Model%20Programs.md)
 - [Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence](../../wiki/summaries/Kimi%20Team%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence.md)
+- [Tay et al. - 2020 - Efficient Transformers A Survey](../summaries/Tay%20et%20al.%20-%202020%20-%20Efficient%20Transformers%20A%20Survey.md)：高效 Transformer 的分类背景。
+- [Lin et al. - 2021 - A Survey of Transformers](../summaries/Lin%20et%20al.%20-%202021%20-%20A%20Survey%20of%20Transformers.md)：结构、效率与应用的综述背景。
 
 ## 代表页面
 
@@ -87,12 +103,9 @@ status: formal
 
 ## 未解决问题
 
-- 当前页已经能较清楚地区分**长序列稀疏化、矩阵近似、推理态压缩、IO-aware 实现**四类主线，但仍缺更系统的 survey summary，因此“十多种 attention 形式的全景地图”还没有完全稳定下来。
-- `cross-attention`、扩散模型中的 cross-attention、多模态 routing、检索增强中的 chunk routing 目前尚未被正式并入本页；在现有证据下，贸然并入只会让主题边界重新变宽。
-- 位置建模如 `RoPE / ALiBi / YaRN` 会显著影响 attention 行为，但它们更准确地属于相邻层而非 attention 语义本体；若后续证据增长，可能需要 comparison 页专门处理“attention 与位置编码的接口”。
-- `MLA` 目前仍主要通过 `DeepSeek-V3` 技术报告间接支撑；若要把 latent attention 写成更稳定的概念或分支，仍需补更直接的一手 summary。
-- `CSA / HCA` 目前主要由 `DeepSeek-V4` 技术报告支撑，仍缺少 DeepSeek 之外的独立复现与消融对照，因此本页只把它们作为百万上下文 KV 压缩路线的新节点，而不把它们写成通用最优 attention。
-- `KDA` 与 KDA-aware prefix cache 目前主要由 Kimi K3 技术报告及其相关实现支撑，仍缺少跨模型家族、统一硬件与相同 quality target 下的独立对照；本页不据此断言 recurrent hybrid attention 已普遍优于 full attention。
+- 理想表达能力在固定深度、精度和优化预算下留下多少效果？BigBird 的条件与下界说明表达能力不消除任务代价。
+- recurrent state、压缩 KV 与稀疏选择各丢掉什么信息？位置、长关系和分布外查询需分别测试。
+- 结构、kernel、分页和前缀复用怎样组合降低总成本？设备、并发与命中分布变化时，论文倍数不能相乘。
 
 ## 关联页面
 
@@ -108,3 +121,13 @@ status: formal
 - [Attention Residuals](../concepts/Attention%20Residuals.md)
 - [Kimi K3](../concepts/Kimi%20K3.md)
 - [LLM 预训练](./LLM%20预训练.md)
+- [推理优化：量化、缓存与硬件](../comparisons/%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96%EF%BC%9A%E9%87%8F%E5%8C%96%E3%80%81%E7%BC%93%E5%AD%98%E4%B8%8E%E7%A1%AC%E4%BB%B6.md)：先定位瓶颈再选优化：量化减表示成本，剪枝改有效权重，缓存复用已有计算，调度提高资源利用率。它们可以配合，但速度收益不能简单相乘。
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **runtime**：运行时：负责实际执行程序、管理状态和安排计算的系统。
+- **sparse**：稀疏计算或连接：只使用选中的部分，具体省略什么取决于方法。
+- **latent**：潜表示：原始数据经过模型编码后的内部表示，通常更紧凑。
+- **encoder**：编码器：把输入转成模型内部表示。

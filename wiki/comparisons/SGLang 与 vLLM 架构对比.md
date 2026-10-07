@@ -3,6 +3,14 @@ type: comparison
 ---
 # SGLang 与 vLLM 架构对比
 
+## TL;DR（快速导读）
+
+vLLM 早期从缓存分页与高吞吐服务切入，SGLang 从多调用程序与前缀复用切入；后续能力已交叉，选择需看版本与工作负载。
+
+## 用一个例子看差别
+
+单次长回答主要关注缓存与调度；反复对同一篇文章发起多步调用，还要关注共享前缀、分支与结构化输出。比较时使用同模型、硬件和完整任务，不能从早期定位推断永久性能差别。
+
 ## 比较目标
 
 本页比较 SGLang 与 vLLM 在系统边界、KV cache、scheduler、structured generation 和分布式执行上的设计重心。比较分成两个时间层：2023–2024 年论文用于解释各自的原始技术主张；2026 年官方文档快照用于校正已经发生的能力收敛。它不是脱离 model、hardware、version 和 workload 的性能排行榜。
@@ -109,3 +117,8 @@ SGLang 论文把 structured LM program 当作第一等对象。compressed FSM �
 - [RadixAttention](../concepts/RadixAttention.md)
 - [FlashAttention](../concepts/FlashAttention.md)
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **runtime**：运行时：负责实际执行程序、管理状态和安排计算的系统。

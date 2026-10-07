@@ -3,9 +3,17 @@ type: concept
 ---
 # Grouped-Query Attention
 
+## TL;DR（快速导读）
+
+GQA 让一组查询头共享键和值，折中普通多头注意力与完全共享的 MQA，减少解码缓存。
+
 ## 简介
 
 `Grouped-Query Attention (GQA)` 是介于标准 `Multi-Head Attention (MHA)` 与 `Multi-Query Attention (MQA)` 之间的折中结构。它让一组 query heads 共享一组 `K/V`，以较小质量损失换取更低的推理 `KV cache` 成本。
+
+## 具体怎么理解
+
+例如多个查询头分成几组，各组保存一套键值；分组多少会影响缓存和表达能力，这是结构示意。
 
 ## 关键属性
 
@@ -27,3 +35,7 @@ type: concept
 
 - [Transformer](./Transformer.md)
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。

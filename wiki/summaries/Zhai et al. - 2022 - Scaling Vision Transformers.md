@@ -1,41 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Zhai et al. - 2022 - Scaling Vision Transformers
+
+## TL;DR（快速导读）
+
+这篇 ViT 规模化研究同时扩大模型与数据，分析视觉 Transformer 的增长规律，帮助设计更有效的训练投入。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+视觉任务中的规模收益需要实验确认，不能直接照搬语言模型规律。论文研究模型、数据和训练配置的共同变化。应关注迁移任务、数据覆盖与计算预算，而不只看更大的参数数目。
+
+## 具体怎么理解
+
+扩大模型却不增加合适数据，和同时扩大两者，是不同实验；最终表现可能有不同增长曲线。
+
+## 关键事实
+
+- **C1**：性能计算前沿近似饱和幂律，保持前沿需共同扩展模型和训练计算。
+- **C2**：主 scaling 研究使用专有 JFT-3B，也在公开 ImageNet-21k 验证趋势。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Zhai et al. - 2022 - Scaling Vision Transformers.pdf
-- 全文文本：../../raw/text/Zhai et al. - 2022 - Scaling Vision Transformers.md
+- 原始文件：[打开原始文件](../../raw/pdf/Zhai%20et%20al.%20-%202022%20-%20Scaling%20Vision%20Transformers.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Zhai%20et%20al.%20-%202022%20-%20Scaling%20Vision%20Transformers.md)
 - 作者：Zhai et al.
 - 年份：2022
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Attention-based neural networks such as the Vision Trans- former (ViT) have recently attained state-of-the-art results on many computer vision benchmarks. Scale is a primary ingredient in attaining excellent results, therefore, under- standing a model’s scaling properties is a key to designing future generations effectively. While the laws for scaling Transformer language models have been studied, it is un- known how Vision Transformers scale. To address this, we scale ViT models and data, both up and down, and character- ize the relationships between error rate, data, and compute. Along the way, we reﬁne the architecture and training of ViT, reducing memory consumption and increasing accuracy of the resulting models. As a result, we successfully train a ViT model with two billion parameters, which attains a new state-of-the-art on ImageNet of 90.45% top-1 accuracy. The model also performs well for few-shot transfer, for example, reaching 84.86% top-1 accuracy on ImageNet with only 10 examples per class. 1. Introduction Attention-based Transformer architectures [45] have taken computer vision domain by storm [8,16] and are be- coming an increasingly popular choice in research and prac- tice. Previously, Transformers have been widely adopted in the natural language processing (NLP) domain [7,15]. Opti- mal scaling of Transformers in NLP was carefully studied in [22], with the main conclusion that large models not only perform better, but do use large computational budgets more efﬁciently. However, it remains unclear to what extent these ﬁndings transfer to the vision domain, which has several important differences. For example, the most successful pre-training schemes in vision are supervised, as opposed to unsupervised pre-training in the NLP domain. In this paper we concentrate on scaling laws for transfer performance of ViT models pre-trained on image classiﬁca- ⋆equal contribution
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Zhai et al. - 2022 - Scaling Vision Transformers.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Zhai%20et%20al.%20-%202022%20-%20Scaling%20Vision%20Transformers.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 专有数据限制完整复现。
+- 饱和趋势与最佳比例绑定测量范围。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+这篇研究问如何把视觉模型训练预算用在合适规模上。参数增长、训练长度和数据一起决定是否靠近前沿；最终微调成绩还受分辨率与下游任务影响。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Zhai%20et%20al.%20-%202022%20-%20Scaling%20Vision%20Transformers.md#source-section-19 ) | 不是固定训练预算下模型越大越好 |
+| C2 | [原文]( ../../raw/text/Zhai%20et%20al.%20-%202022%20-%20Scaling%20Vision%20Transformers.md#source-section-18 ) | 公开与专有数据实验分别解释 |
+
+## 核证范围
+
+核对 §3 训练与内存修改、§5 数据局限和 §6 前沿结论。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

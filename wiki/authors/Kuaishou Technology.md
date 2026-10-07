@@ -3,9 +3,17 @@ type: author
 ---
 # Kuaishou Technology
 
+## TL;DR（快速导读）
+
+这里从 Kling 已收录资料了解快手的视频生成路线，重点是角色、参考、分镜和音画控制。
+
 ## 简介
 
-`Kuaishou Technology` 是当前知识库中 `Kling` 视频生成路线的机构入口。
+这里从 Kling 已收录资料了解快手的视频生成路线，重点是角色、参考、分镜和音画控制。
+
+## 从哪里开始读
+
+- [Kuaishou Technology - 2026 - Kling VIDEO 3.0 Omni Model User Guide](../summaries/Kuaishou%20Technology%20-%202026%20-%20Kling%20VIDEO%203.0%20Omni%20Model%20User%20Guide.md)：Kling VIDEO 3.0 Omni 指南介绍角色参考、声音绑定和多镜头控制，适合按创作步骤了解功能。
 
 ## 当前覆盖
 

@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval
+
+## TL;DR（快速导读）
+
+这篇检索论文研究预训练任务是否匹配实际搜索：学习语言本身不一定足以学好问题与证据的对应。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+“怎么申请退款”可召回措辞不同的退款政策；遇到罕见产品名时，还应检查词面检索是否更可靠。
 
 ## 来源信息
 
@@ -12,27 +25,51 @@ status: refined
 - 全文文本：../../raw/text/Oğuz et al. - 2021 - Domain-matched Pre-training Tasks for Dense Retrieval.md
 - 作者：Oğuz et al.
 - 年份：2021
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇论文讨论 Dense Retrieval 为什么在很多场景里“不像语言模型那样一扩大预训练就提升”，并给出的回答是：问题不在于 retrieval 不能吃预训练，而在于预训练任务不匹配。作者通过合成问题数据和大规模 Reddit post-comment 对话数据做 domain-matched pre-training，证明双编码器检索在 IR 与 dialogue retrieval 上都能显著提升。
+作者用合成问题及帖子评论对等数据进行领域匹配预训练，再训练双编码器。阅读时应关注预训练对的构造、目标任务和负例；某个领域的提升不能自动外推到新的文档库。
 
 ## 关键事实
 
-- 论文明确挑战一个常见印象：IR 并非天然无法从额外预训练中获益，关键在于预训练任务要与检索形式匹配。
-- 作者使用两类大规模数据做预训练：合成问题数据，以及 2 亿级 Reddit post-comment 配对数据。
-- 这些数据同时服务于 information retrieval 与 dialogue retrieval，说明检索预训练可以更靠近真实问答 / 对话分布，而不是只做通用语言建模。
-- 对智能问答与智能客服的启发很直接：企业 FAQ、工单问答、聊天记录、社区问答日志本身就是检索模型的核心训练资源，而不是只能把它们当最终推理时的知识库。
-- 该文把 dense retrieval 从“通用 embedding 直接上线”推进到“领域匹配的 retrieval learning”，这对客服知识库检索尤其重要。
+- **C1**：用bi-encoder分开编码query与passage，以dot-product和向量索引检索。
+- **C2**：检索预训练使用PAQ合成QA，对话使用2亿Reddit post-comment配对。
+- **C3**：NQ无iterative training时top20 accuracy比无预训练baseline高3.2点。
+- **C4**：论文承认PAQ生成模型在NQ上训练，部分训练问题可能逐字重现。
 
 ## 争议与不确定点
 
-- 论文中的 Reddit post-comment 数据与很多企业客服场景在语言风格、风险要求和任务目标上并不完全一致，因此其结论更多说明“分布匹配的重要性”，而非给出可直接照搬的数据方案。
-- 该文聚焦检索器，不处理答案生成、拒答策略和安全门控。
+- PAQ与NQ的来源重叠让零样本优势难以解释为纯泛化。
+- 对话检索结果不等于自由生成对话的事实准确率。
 
 ## 关联页面
 
 - 概念：[Dense Retrieval](../../wiki/concepts/Dense%20Retrieval.md)
 - 主题：[AI 智能问答与智能客服](../../wiki/topics/AI%20%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E4%B8%8E%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D.md)
 - 主题：[传统 NLP](../../wiki/topics/传统%20NLP.md)
+
+## 这里的术语是什么意思
+
+- **embedding**：向量表示：把文字、图片等编码成一组数，用于模型计算或相似度比较。
+
+## 方法与实验解读
+
+领域匹配同时包含文本来源与query-document配对目标；仅扩大普通语言模型数据未必改善相关性学习。对企业日志的启发是可以构造检索配对，但这只是迁移设计建议，报告没有实测某企业客服。应独立划分时间/用户测试集，防止训练问题回流评测。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/O%C4%9Fuz%20et%20al.%20-%202021%20-%20Domain-matched%20Pre-training%20Tasks%20for%20Dense%20Retrieval.md#source-section-5 ) | 文档表示可离线计算。 |
+| C2 | [原文]( ../../raw/text/O%C4%9Fuz%20et%20al.%20-%202021%20-%20Domain-matched%20Pre-training%20Tasks%20for%20Dense%20Retrieval.md#source-section-10 ) | PAQ构建另见§3.1.1；规模不是有效去重问答数量。 |
+| C3 | [原文]( ../../raw/text/O%C4%9Fuz%20et%20al.%20-%202021%20-%20Domain-matched%20Pre-training%20Tasks%20for%20Dense%20Retrieval.md#source-section-27 ) | 同配方消融，有iterative配置需另比。 |
+| C4 | [原文]( ../../raw/text/O%C4%9Fuz%20et%20al.%20-%202021%20-%20Domain-matched%20Pre-training%20Tasks%20for%20Dense%20Retrieval.md#source-section-30 ) | 污染/数据重叠条件须保留。 |
+
+## 核证范围
+
+核读bi-encoder、PAQ/Reddit来源、任务设置、结果与pretraining-task消融。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

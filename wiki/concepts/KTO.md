@@ -3,9 +3,17 @@ type: concept
 ---
 # KTO
 
+## TL;DR（快速导读）
+
+KTO 使用单个回答的好坏反馈进行偏好训练，不强制每条样本都有一对回答，适合研究不同反馈接口。
+
 ## 简介
 
-KTO 是 `Kahneman-Tversky Optimization` 的缩写。在当前知识库中，它表示一条不依赖成对 preference data、而是直接利用 desirable / undesirable 二元反馈做对齐的偏好优化路线。
+KTO 使用单个回答的好坏反馈进行偏好训练，不强制每条样本都有一对回答，适合研究不同反馈接口。
+
+## 具体怎么理解
+
+只有“这个回答好”或“这个回答不好”的记录时，可提供单项反馈；它与在两个回答中选一个的数据不同。
 
 ## 关键属性
 
@@ -31,3 +39,6 @@ KTO 是 `Kahneman-Tversky Optimization` 的缩写。在当前知识库中，它�
 - [RLHF](./RLHF.md)
 - [LLM RL](../topics/LLM%20RL.md)
 
+## 这里的术语是什么意思
+
+- **DPO**：直接偏好优化：用成对偏好数据直接调整模型概率，简化部分奖励训练流程。

@@ -1,41 +1,67 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback
+
+## TL;DR（快速导读）
+
+这篇整本书摘要工作把长任务递归拆成小摘要，再用人类反馈改善各层结果，研究超长材料怎样逐步压缩。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+人类难以一次检查整本书的摘要。方法先处理较小部分，再将结果组合成更高层摘要，并在过程中收集反馈。分层减少评价负担，也可能逐层传递遗漏和误解，需要保留回看原文的能力。
+
+## 具体怎么理解
+
+先总结每节，再合成章节，最后总结全书；某节遗漏关键事件，后面的层级可能再也看不到它。
+
+## 关键事实
+
+- **C1**：把难以整体监督的长文任务拆成较小部分，再递归组合摘要。
+- **C2**：标注者观察到模型可能遗漏故事核心，如人物背景或关键世界设定。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback.pdf
-- 全文文本：../../raw/text/Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback.md
+- 原始文件：[打开原始文件](../../raw/pdf/Wu%20et%20al.%20-%202021%20-%20Recursively%20Summarizing%20Books%20with%20Human%20Feedback.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Wu%20et%20al.%20-%202021%20-%20Recursively%20Summarizing%20Books%20with%20Human%20Feedback.md)
 - 作者：Wu et al.
 - 年份：2021
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-A major challenge for scaling machine learning is training models to perform tasks that are very difﬁcult or time-consuming for humans to evaluate. We present progress on this problem on the task of abstractive summarization of entire ﬁction novels. Our method combines learning from human feedback with recursive task decomposition: we use models trained on smaller parts of the task to assist humans in giving feedback on the broader task. We collect a large volume of demonstrations and comparisons from human labelers, and ﬁne-tune GPT-3 using behavioral cloning and reward modeling to do summarization recursively. At inference time, the model ﬁrst summarizes small sections of the book and then recursively summarizes these summaries to produce a summary of the entire book. Our human labelers are able to supervise and evaluate the models quickly, despite not having read the entire books themselves. Our resulting model generates sensible summaries of entire books, even matching the quality of human-written summaries in a few cases (∼5% of books). We achieve state-of-the-art results on the recent BookSum dataset for book-length summarization. A zero-shot question-answering model using these summaries achieves state-of-the-art results on the challenging NarrativeQA benchmark for answering questions about books and movie scripts. We release datasets of samples from our model.2
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Wu et al. - 2021 - Recursively Summarizing Books with Human Feedback.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Wu%20et%20al.%20-%202021%20-%20Recursively%20Summarizing%20Books%20with%20Human%20Feedback.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 拆解提升可监督性，但未证明整体事实正确。
+- 自动重叠指标与读者对整书理解的评判不同。
 
 ## 关联页面
 
 - 主题：[LLM RL](../topics/LLM%20RL.md)
 - 综合：暂无
+- [OpenAI](../authors/OpenAI.md)：沿作者或机构继续阅读相关来源。
+
+## 方法与实验解读
+
+递归摘要让人类可以审核小片段，再逐层形成整书摘要。其风险是下层遗漏会被上层放大：合并时看不到原文，就难以补回核心信息。本库因此保留来源定位，综合页的关键判断仍回到单篇摘要与原文核对。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Wu%20et%20al.%20-%202021%20-%20Recursively%20Summarizing%20Books%20with%20Human%20Feedback.md#source-section-5 ) | 局部摘要与整体连贯性是两层问题 |
+| C2 | [原文]( ../../raw/text/Wu%20et%20al.%20-%202021%20-%20Recursively%20Summarizing%20Books%20with%20Human%20Feedback.md#source-section-71 ) | ROUGE / BERTScore 不能直接替代完整情节核查 |
+
+## 核证范围
+
+核对任务拆解、整书评估设计、BookSum 指标与附录 J.1 的遗漏案例。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

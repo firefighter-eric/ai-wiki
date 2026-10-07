@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance
+
+## TL;DR（快速导读）
+
+FAQ 检索既要比较用户问题与已有问题，也要判断候选答案能否解决当前提问。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+“苹果发布手机”和“苹果很甜”中的同一词语，因上下文不同而应有不同表示。
 
 ## 来源信息
 
@@ -12,26 +25,46 @@ status: refined
 - 全文文本：../../raw/text/Sakata et al. - 2019 - FAQ retrieval using query-question similarity and BERT-based query-answer relevance.md
 - 作者：Sakata et al.
 - 年份：2019
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-这篇论文讨论 FAQ retrieval 如何在缺少专门标注数据时仍保持效果。其核心思路不是只比较用户 query 与 FAQ 问题标题，而是把系统拆成两部分：一部分用无监督检索估计 `query-question similarity`，另一部分用 BERT 学习 `query-answer relevance`。这意味着 FAQ 问答不应只建模成“问题改写匹配”，还应建模成“给定当前提问，这个答案是否真的能解决问题”。
+论文组合无监督的问题相似度与 BERT 学习的答案相关性，研究缺少专门标注时的检索。相似标题可能对应不同条件下的答案；数据来源、两种分数的组合和实际问题分布都影响结果。
 
 ## 关键事实
 
-- 方法由两层组成：用无监督 IR 系统估计 `q-Q similarity`，用 BERT 估计 `q-A relevance`，再把两者结合排序。
-- 论文强调 FAQ 场景的现实限制：单个 FAQ 库中的 QA 对数量通常不足，难以单独训练强监督模型。
-- 为了缓解数据不足，作者引入相似 FAQ 集合作为额外训练来源，而不是要求每个 FAQ 库都重新人工标注大量 query-QA 相关性数据。
-- 实验覆盖日语行政服务 FAQ 与英文 StackExchange FAQ 数据，目标是证明该组合方法在不同语言和 FAQ 场景下都有效。
-- 对智能问答 / 智能客服的意义在于：高频标准问题通常首先是 FAQ 检索问题，而不是自由生成问题；生成式客服要替代这一路线，必须先达到其稳定性与可控性。
+- **C1**：q-Q用TSUBAKI无监督相似度，q-A用BERT相关性，最终结合排序。
+- **C2**：从相近FAQ集合构造QA正样本与随机负答案，减轻目标库标注不足。
+- **C3**：StackExchange含719QA/1250query，用五折和60/20/20split。
+- **C4**：在localgovFAQ上组合SR@1从BERT0.509到0.612。
 
 ## 争议与不确定点
 
-- 该文聚焦 FAQ retrieval，不直接讨论多轮对话、工具调用或复杂规则推理，因此更适合作为“高频标准问答层”的起点来源，而不是完整客服系统方案。
-- 论文依赖相似 FAQ 集合来补训练数据；在企业私有知识库中能否总找到足够相似的外部 FAQ 集合，取决于具体领域。
+- 日英任务泛化不等于已测企业长尾/跨语言服务。
+- 目标query切分与相似库来源需留意泄漏和标签偏差。
 
 ## 关联页面
 
 - 主题：[AI 智能问答与智能客服](../../wiki/topics/AI%20%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E4%B8%8E%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D.md)
 - 主题：[传统 NLP](../../wiki/topics/传统%20NLP.md)
+
+## 方法与实验解读
+
+问题相似度保留词法强匹配，答案相关性补表述不一致；组合针对两者错误互补。对固定FAQ可以先返回审核过的答案，是否再生成属于产品选择，论文没有证明自由生成必须或必然更好。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Sakata%20et%20al.%20-%202019%20-%20FAQ%20retrieval%20using%20query-question%20similarity%20and%20BERT-based%20query-answer%20relevance.md#source-section-8 ) | 两个打分来源不同。 |
+| C2 | [原文]( ../../raw/text/Sakata%20et%20al.%20-%202019%20-%20FAQ%20retrieval%20using%20query-question%20similarity%20and%20BERT-based%20query-answer%20relevance.md#source-section-7 ) | 随机负例不一定模拟困难误检。 |
+| C3 | [原文]( ../../raw/text/Sakata%20et%20al.%20-%202019%20-%20FAQ%20retrieval%20using%20query-question%20similarity%20and%20BERT-based%20query-answer%20relevance.md#source-section-9 ) | 少量FAQ条件，不当全域客服证据。 |
+| C4 | [原文]( ../../raw/text/Sakata%20et%20al.%20-%202019%20-%20FAQ%20retrieval%20using%20query-question%20similarity%20and%20BERT-based%20query-answer%20relevance.md#source-section-12 ) | 特定数据/设置，不是通用12%收益。 |
+
+## 核证范围
+
+核读TSUBAKI/BERT/组合规则、训练、两数据集与结果。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

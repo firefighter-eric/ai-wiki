@@ -3,9 +3,17 @@ type: concept
 ---
 # Kimi Delta Attention
 
+## TL;DR（快速导读）
+
+KDA 用固定大小状态随序列更新，控制随文本增长的缓存开销；K3 将它与全局注意力配合使用。
+
 ## 简介
 
 `Kimi Delta Attention (KDA)` 是 Kimi K3 大部分 attention layers 使用的 recurrent/linear attention 机制。它用固定大小状态 `S` 沿 token 序列递推，避免每层维护随序列长度增长的完整 KV cache；K3 再周期性插入 `Gated MLA`，保留不受限制的全局 token-to-token interaction。
+
+## 具体怎么理解
+
+可以把状态看成不断更新的压缩笔记；完整历史没有逐项保存在每一层，所以还需要考虑细节与全局关系。
 
 ## 关键属性
 
@@ -37,3 +45,9 @@ type: concept
 - [vLLM](./vLLM.md)
 - [SGLang](./SGLang.md)
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **decode**：解码阶段：利用已有输入与生成历史，产生后续输出。

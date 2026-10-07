@@ -1,41 +1,71 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations
+
+## TL;DR（快速导读）
+
+OmniDocBench 用多来源 PDF 和细致标注评估文档解析，帮助发现正文、公式、表格等不同内容的识别短板。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+只用少数干净论文测试，会掩盖解析器在真实文档上的问题。基准扩展文档类型和内容标注，支持更全面的比较。应分别看元素识别、阅读顺序和结构保真，不把一个总分当成每类页面都可靠。
+
+## 具体怎么理解
+
+一个工具可能正文很好、公式很差；另一工具可能表格准确，却把双栏顺序读乱，评测应显示这些差异。
+
+## 关键事实
+
+- **C1**：原报告 OmniDocBench 包含 981 个 PDF 页面、九类页面，并标注语言、布局、模糊、水印与背景等属性。
+- **C2**：评价流水线包括内容提取、Adjacency Search Match 对齐和指标计算；合并与拆分段落减少不同分段方式对评分的干扰。
+- **C3**：文本用归一化编辑距离，表格用 TEDS 等，公式用 CDM/编辑距离/BLEU；阅读顺序只评价参加计算的文字组件。
+- **C4**：原实验专用解析工具整体较强，但模糊、水印和复杂背景子集中部分 VLM 更稳健。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations.pdf
-- 全文文本：../../raw/text/Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations.md
+- 原始文件：[打开原始文件](../../raw/pdf/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md)
 - 作者：Ouyang et al.
 - 年份：Unknown
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Document content extraction is crucial in computer vi- sion, especially for meeting the high-quality data needs of large language models (LLMs) and retrieval-augmented generation (RAG) technologies. However, current docu- ment parsing methods suffer from significant limitations in terms of diversity and comprehensive evaluation. To address these challenges, we introduce OmniDocBench, a novel multi-source benchmark designed to advance auto- mated document content extraction. OmniDocBench in- cludes a meticulously curated and annotated high-quality evaluation dataset comprising nine diverse document types, such as academic papers, textbooks, slides, among others. Our benchmark provides a flexible and comprehensive eval- uation framework with 19 layout category labels and 14 at- tribute labels, enabling multi-level assessments across en- tire datasets, individual modules, or specific data types. Us- ing OmniDocBench, we perform an exhaustive compara- tive analysis of existing modular pipelines and multimodal end-to-end methods, highlighting their limitations in han- dling document diversity and ensuring fair evaluation. Om- niDocBench establishes a robust, diverse, and fair evalu- ation standard for the document content extraction field, offering crucial insights for future advancements and fos- tering the development of document parsing technologies. The codes and dataset is available in https://github. com/opendatalab/OmniDocBench. 1. Introduction Document parsing is a foundational task in computer vi- sion, focused on accurately extracting content from docu- ments [18, 36, 39, 41, 45]. High-quality document content ∗The authors contributed equally. † Project lead. ‡ Corresponding author (heconghui@pjlab.org.cn). extraction typically involves the integration of multiple al- gorithmic modules. Layout detection algorithms identify different content areas on a page, OCR technology converts images of text regions into text, while formula and table recognition models identify specific regions and transform them into corresponding source code. These modules and reading order algorithms form a comprehensive process of converting documents into machine-readable formats. With large models increasingly requiring high-quality data, the importance of document content extraction has be- come more pronounced. Although vast amounts of data are available online for training, knowledge-rich document data is relatively scarce. Documents such as academic papers and technical reports contain rich structured information that can significantly enhance the knowledge depth of large models. Moreover, the development of retrieval-augmented generation (RAG) [10, 21] technology relies on extracting accurate information from documents to improve the qual- ity and relevance of generated content. Consequently, re- search in document content extraction has intensified, lead- ing to a series of pipeline-based high-quality document ex- traction algorithms [36] and the emergence of end-to-end multimodal large model solutions [3, 5, 6, 27, 39, 40, 42]. These methods have significantly improved document con- tent parsing quality, providing robust support for the needs of large models and RAG technology. In analyzing current module-based pipeline and multi- modal end-to-end methods, we identified several limita- tions. For instance, methods like Marker and MinerU, which are mainstream pipeline methods, primarily evaluate individual modules on academic paper data, lacking doc- ument diversity and comprehensive evaluation results. Al- though MinerU considers the generalization of diverse data, it only demonstrates this through a single model and visual- ization results, lacking overall end-to-end evaluation. Mul- timodal large model methods [3, 5, 27, 39, 40], while easier to use than pipeline methods, lack performance validation on diverse documents, and some evaluation metrics are in-
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Ouyang et al. - Unknown - OmniDocBench Benchmarking Diverse PDF Document Parsing with Comprehensive Annotations.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 忽略规则使某些真实需求没有进入总分，caption 与页脚仍需单独抽查。
+- 总榜单是归档版本与评测配置的结果，不代表当前软件版本。
+- 页级数据不能直接证明跨页表格、跨页推理与完整论文解析效果。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+论文解析有多个不同问题：识字、恢复表格、表达公式、决定阅读顺序。OmniDocBench 把这些分开测，并尝试对齐不同系统的分段。用于本库验收时，应同时抽查文字、公式和表格，不能只凭正文字符数判断解析成功。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md#source-section-13 ) | 这是本地归档版本的数据规模，不能与后续扩展版本的规模或榜单混用。 |
+| C2 | [原文]( ../../raw/text/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md#source-section-16 ) | 对齐算法自身选择会影响分数，仍需检查真实遗漏与错配。 |
+| C3 | [原文]( ../../raw/text/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md#source-section-17 ) | 页眉页脚、页码、部分脚注和 caption 被忽略；高阅读顺序分不代表整页所有元素都完整。 |
+| C4 | [原文]( ../../raw/text/Ouyang%20et%20al.%20-%20Unknown%20-%20OmniDocBench%20Benchmarking%20Diverse%20PDF%20Document%20Parsing%20with%20Comprehensive%20Annotations.md#source-section-20 ) | 按页面属性与组件看误差，不能把某工具的整体榜首当作每种页面都最佳。 |
+
+## 核证范围
+
+核对 §3 数据取得和统计、§4 对齐与指标忽略规则、§5.2 整体及干扰页面评价。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

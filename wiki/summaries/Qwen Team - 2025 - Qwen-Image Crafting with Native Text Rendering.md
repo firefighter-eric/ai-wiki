@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering
+
+## TL;DR（快速导读）
+
+Qwen-Image 以文字渲染和图像编辑为重点，适合研究生成图中的中英文文字怎样更可控。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+生成一张带中文招牌的图片，需要既检查场景与构图，也逐字检查招牌文字。
 
 ## 来源信息
 
@@ -11,28 +24,45 @@ status: refined
 - 全文文本：../../raw/text/Qwen Team - 2025 - Qwen-Image Crafting with Native Text Rendering.md
 - 作者：Qwen Team
 - 年份：2025
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-Qwen-Image 是 Qwen 家族第一次明确发布图像生成基础模型。官方把它定义为 `20B` 的 `MMDiT` image foundation model，重点强调复杂文本渲染、双语文字生成与精确图像编辑，而不是只追求通用审美质量。
+官方介绍图像基础模型及复杂文字、双语内容与精确编辑能力。实际使用时要分别检查文字准确性、布局和未编辑区域是否稳定；图像审美分数不能替代这些具体要求。
 
 ## 关键事实
 
-- 官方明确写明 Qwen-Image 是 `20B MMDiT image foundation model`。
-- 核心卖点有三条：复杂文本渲染、一致性图像编辑、跨基准生成与编辑性能。
-- 博客列出的公开评测覆盖 GenEval、DPG、OneIG-Bench、GEdit、ImgEdit、GSO，以及文字渲染相关的 LongText-Bench、ChineseWord、TextCraft。
-- 官方直接声称 Qwen-Image 在这些 generation / editing / text rendering 基准上达到或超越现有 SOTA，特别强调中文文本渲染显著领先。
-- 从示例看，Qwen-Image 把多行排版、段落级文字、海报与 PPT 生成、双语渲染都视为核心能力，而非边缘 demo。
-- 官方还把 Qwen-Image 描述为支持 style transfer、additions、deletions、detail enhancement、text editing 和 pose adjustment 的通用编辑模型。
+- **C1**：Qwen-Image是20B MMDiT image foundation model，发布重点为文字渲染和编辑。
+- **C2**：公开报告覆盖GenEval/DPG/OneIG、GEdit/ImgEdit/GSO和LongText/ChineseWord/TextCraft。
+- **C3**：demo包含多行中文/英文、文字编辑、增删对象与姿态变化。
 
 ## 争议与不确定点
 
-- 当前来源是博客，不是完整技术报告，因此训练数据、对齐方式与完整架构细节仍有限。
-- 博客以官方 benchmark 和 demo 为主，后续若需要更稳健判断，应补技术报告或第三方评测来源。
+- 图表数字未在正文完整文本化，本文不补猜分数。
+- 段落和小字可能出现遗漏或变形，生产文档需逐字审核。
 
 ## 关联页面
 
 - 概念：[Qwen-Image](../../wiki/concepts/Qwen-Image.md)
 - 主题：[扩散模型与文生图](../../wiki/topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)
 - 主题：[Qwen 系列](../../wiki/topics/Qwen%20系列.md)
+
+## 方法与实验解读
+
+文字任务同时要求内容拼写、排版、风格和图像语境，单纯画面好看不足以证明字符准确。编辑还要看未编辑区域是否保持。官方跨基准领先声明应绑定发布版本，不能由展示结果推断现在仍排名第一。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md#source-section-0 ) | 官方介绍，不补推训练细节。 |
+| C2 | [原文]( ../../raw/text/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md#source-section-1 ) | 生成、编辑、文字任务不同。 |
+| C3 | [原文]( ../../raw/text/Qwen%20Team%20-%202025%20-%20Qwen-Image%20Crafting%20with%20Native%20Text%20Rendering.md#source-section-2 ) | 精挑例子不等于未筛选成功率。 |
+
+## 核证范围
+
+核读原始介绍、Performance与示例任务，限定官方发布声明。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -3,9 +3,17 @@ type: concept
 ---
 # Kimi K3
 
+## TL;DR（快速导读）
+
+本库的 K3 报告把多模态、稀疏模型、长上下文和长程代理训练放在同一系统中，阅读应拆成各个技术环节。
+
 ## 简介
 
-`Kimi K3` 是 Moonshot AI 在 2026 年发布的开放权重、原生多模态、agent-oriented `MoE` 模型。它以约 `2.78T` 总参数、`104.2B` 激活参数和 `1M` token context 把 Kimi 家族从此前的高影响 API 模型推进到集群级 open-weight frontier model。其技术特征不是单个新算子，而是 `KDA + Gated MLA`、`AttnRes`、`Stable LatentMoE`、多档 reasoning-effort RL 与 KDA-aware serving 的联合设计。
+`Kimi K3` 是 Moonshot AI 在 2026 年发布的开放权重、原生多模态、agent-oriented `MoE` 模型。它以约 `2.78T` 总参数、`104.2B` 激活参数和 `1M` token context 把 Kimi 家族从此前的高影响 API 模型推进到集群级 开放权重 frontier model。其技术特征不是单个新算子，而是 `KDA + Gated MLA`、`AttnRes`、`Stable LatentMoE`、多档 reasoning-effort RL 与 KDA-aware serving 的联合设计。
+
+## 具体怎么理解
+
+完成代码任务可能要读取仓库、运行工具和根据结果继续行动；模型分数与整条执行系统的可靠性要分开测。
 
 ## 关键属性
 
@@ -127,3 +135,12 @@ K3 改为 `P2P-based Muon orthogonalization`：每个 rank 只从相应 owner ra
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
 - [开放模型家族与中国重要家族对照](../comparisons/开放模型家族与中国重要家族对照.md)
 - [Moonshot AI](../authors/Moonshot%20AI.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **benchmark**：评测基准：特定数据、任务与规则的组合，分数只在这些条件下成立。
+- **rollout**：采样执行：用当前策略生成回答或连续行动，形成后续训练与评价的材料。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **latent**：潜表示：原始数据经过模型编码后的内部表示，通常更紧凑。
+- **agent**：代理：围绕任务读材料、调用工具和连续执行的系统；名称本身不保证自主性或质量。

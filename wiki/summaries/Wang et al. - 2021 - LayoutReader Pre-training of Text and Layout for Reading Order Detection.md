@@ -1,42 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection
+
+## TL;DR（快速导读）
+
+LayoutReader 利用文字和版面判断阅读顺序，并从 Word 文件的结构信息自动构造训练数据。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+复杂页面中，位置从左到右不一定就是正确阅读顺序。论文用文字与布局共同建模，并从文档元数据获得较大规模监督。它处理的是排序问题，仍需与字符识别和结构恢复协同。
+
+## 具体怎么理解
+
+一页有正文、侧栏和图注时，顺着坐标排序可能把无关内容插进句子；正确顺序应尊重段落与区域。
+
+## 关键事实
+
+- **C1**：LayoutReader 联合文字与布局，用序列到序列方式预测阅读顺序。
+- **C2**：ReadingBank 提供约五十万文档图像的阅读顺序数据；论文还评估输入排列和 OCR 适配。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection.pdf
-- 全文文本：../../raw/text/Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection.md
+- 原始文件：[打开原始文件](../../raw/pdf/Wang%20et%20al.%20-%202021%20-%20LayoutReader%20Pre-training%20of%20Text%20and%20Layout%20for%20Reading%20Order%20Detection.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Wang%20et%20al.%20-%202021%20-%20LayoutReader%20Pre-training%20of%20Text%20and%20Layout%20for%20Reading%20Order%20Detection.md)
 - 作者：Wang et al.
 - 年份：2021
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Reading order detection is the cornerstone to understanding visually-rich documents (e.g., receipts and forms). Unfortunately, no existing work took advantage of advanced deep learn- ing models because it is too laborious to anno- tate a large enough dataset. We observe that the reading order of WORD documents is em- bedded in their XML metadata; meanwhile, it is easy to convert WORD documents to PDFs or images. Therefore, in an automated man- ner, we construct ReadingBank, a benchmark dataset that contains reading order, text, and layout information for 500,000 document im- ages covering a wide spectrum of document types. This ﬁrst-ever large-scale dataset un- leashes the power of deep neural networks for reading order detection. Speciﬁcally, our pro- posed LayoutReader captures the text and lay- out information for reading order prediction using the seq2seq model. It performs almost perfectly in reading order detection and signif- icantly improves both open-source and com- mercial OCR engines in ordering text lines in their results in our experiments. We will release the dataset and model at https:// aka.ms/layoutreader.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Wang et al. - 2021 - LayoutReader Pre-training of Text and Layout for Reading Order Detection.md` 继续做深入整理。
-- `LayoutReader` 的关键不是识别字形，而是恢复 visually-rich document 的 token / line 阅读顺序；这说明 OCR 可用性高度依赖顺序建模。
-- 论文明确把该方法适配到开源 OCR engine `Tesseract` 与商业 OCR API 上，并报告文本行排序显著改善。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Wang%20et%20al.%20-%202021%20-%20LayoutReader%20Pre-training%20of%20Text%20and%20Layout%20for%20Reading%20Order%20Detection.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 训练文档结构与真实 OCR 噪声不同，需要检查适配结果。
+- 排序无法修复已丢失的文字或错误识别。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+阅读顺序错误会把双栏论文或表格内容拼乱。LayoutReader 利用语义与坐标共同恢复顺序，说明 OCR 之后仍有独立的结构重建工作。接入本库时，文本数量充足不能替代顺序检查。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Wang%20et%20al.%20-%202021%20-%20LayoutReader%20Pre-training%20of%20Text%20and%20Layout%20for%20Reading%20Order%20Detection.md#source-section-10 ) | 输入已有文字块，不是从像素直接识字 |
+| C2 | [原文]( ../../raw/text/Wang%20et%20al.%20-%202021%20-%20LayoutReader%20Pre-training%20of%20Text%20and%20Layout%20for%20Reading%20Order%20Detection.md#source-section-27 ) | 顺序准确性与 OCR 字符准确性是不同任务 |
+
+## 核证范围
+
+核对 §4 模型、§5 评测任务与 §7 数据规模说明。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

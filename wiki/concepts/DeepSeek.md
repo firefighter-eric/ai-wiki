@@ -3,9 +3,17 @@ type: concept
 ---
 # DeepSeek
 
+## TL;DR（快速导读）
+
+DeepSeek 家族可沿三条线阅读：通用模型的高效训练、R1 的推理后训练，以及长上下文和 OCR 的信息压缩。
+
 ## 简介
 
-DeepSeek 是当前知识库中连接高效 MoE 预训练、reasoning-oriented RL、thinking tool-use、百万 token 长上下文和 OCR 压缩实验的模型家族入口。它不是单一模型名，而是一条从 `DeepSeek-V3` 到 `DeepSeek-R1`、`DeepSeek-V3.2`、`DeepSeek-V4` 和 `DeepSeek-OCR` 的连续技术主线。
+DeepSeek 家族可沿三条线阅读：通用模型的高效训练、R1 的推理后训练，以及长上下文和 OCR 的信息压缩。
+
+## 具体怎么理解
+
+想理解推理先看 R1；想理解训练成本先看 V3；想处理长文再看缓存与 OCR，三者不是一个问题。
 
 ## 关键属性
 
@@ -13,7 +21,7 @@ DeepSeek 是当前知识库中连接高效 MoE 预训练、reasoning-oriented RL
 - 代表来源：
   - [Unknown - 2024 - DeepSeek-V3 Technical Report](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
   - [Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models](../../wiki/summaries/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)
-  - [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+  - [DeepSeek-R1：奖励驱动推理与多阶段训练（2025）](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
   - [DeepSeek AI - 2025 - DeepSeek-R1-0528 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-R1-0528%20Release.md)
   - [DeepSeek AI - 2025 - DeepSeek-V3.2 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-V3.2%20Release.md)
   - [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](../../wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)
@@ -34,7 +42,7 @@ DeepSeek 是当前知识库中连接高效 MoE 预训练、reasoning-oriented RL
 
 - [Unknown - 2024 - DeepSeek-V3 Technical Report](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
 - [Shao et al. - 2024 - DeepSeekMath Pushing the Limits of Mathematical Reasoning in Open Language Models](../../wiki/summaries/Shao%20et%20al.%20-%202024%20-%20DeepSeekMath%20Pushing%20the%20Limits%20of%20Mathematical%20Reasoning%20in%20Open%20Language%20Models.md)
-- [Unknown - 2024 - DeepSeek-R1 Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
+- [DeepSeek-R1：奖励驱动推理与多阶段训练（2025）](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)
 - [DeepSeek AI - 2025 - DeepSeek-R1-0528 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-R1-0528%20Release.md)
 - [DeepSeek AI - 2025 - DeepSeek-V3.2 Release](../../wiki/summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-V3.2%20Release.md)
 - [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](../../wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)
@@ -57,3 +65,10 @@ DeepSeek 是当前知识库中连接高效 MoE 预训练、reasoning-oriented RL
 - [LLM 预训练](../topics/LLM%20预训练.md)
 - [LLM RL](../topics/LLM%20RL.md)
 - [OCR](../topics/OCR.md)
+
+## 这里的术语是什么意思
+
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。
+- **GRPO**：组相对策略优化：利用同一问题多份回答的相对奖励进行更新。
+- **agent**：代理：围绕任务读材料、调用工具和连续执行的系统；名称本身不保证自主性或质量。

@@ -3,6 +3,14 @@ type: timeline
 ---
 # Qwen 系列演进
 
+## TL;DR（快速导读）
+
+这条时间线把 Qwen 的语言主干、VL、Omni 与 Image 分支放在一起，帮助找版本关系；技术判断再进入主题与单篇来源。
+
+## 怎样使用这条时间线
+
+先找所需能力属于哪条支线，再沿时间找对应报告。Image 的发布时间不能说明它替代了 VL，因为一个生成图像，一个理解图像。
+
 ## 时间线定位
 
 本页按时间整理 Qwen 家族从基础 LLM 到 native multimodal agent 的关键节点。它不重复 `Qwen 系列` topic 的综述分析，而是把家族主干、VL、Omni 与图像生成节点放到统一时间轴上。
@@ -17,7 +25,7 @@ type: timeline
   - Qwen 从单点报告升级为多尺寸、长上下文、部署友好的开放家族。
 - **2024-06**
   - [Qwen Team - 2024 - Hello Qwen2](../summaries/Qwen%20Team%20-%202024%20-%20Hello%20Qwen2.md)
-  - 多语言、128K 上下文、GQA 与正式 MoE 节点进入主线。
+  - 多语言、部分型号 128K 上下文、GQA 与正式 MoE 节点进入主线。
 - **2024-08**
   - [Qwen Team - 2024 - Qwen2-VL](../summaries/Qwen%20Team%20-%202024%20-%20Qwen2-VL.md)
   - 视觉语言路线从图文问答推进到更系统的感知与 grounding。

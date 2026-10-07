@@ -3,11 +3,19 @@ type: concept
 ---
 # Gemma 4
 
+## TL;DR（快速导读）
+
+本库的 Gemma 4 资料描述密集与专家混合、多模态和代理工作流的开放家族，是后续 DiffusionGemma 的底座来源。
+
 ## 简介
 
-`Gemma 4` 是 Google DeepMind 在 2026 年发布的开放模型家族节点。在当前知识库中，它标志着 Gemma 从“小中尺寸开放模型家族”推进到覆盖 dense、MoE、统一多模态和 agentic workflow 的更完整开放家族。
+本库的 Gemma 4 资料描述密集与专家混合、多模态和代理工作流的开放家族，是后续 DiffusionGemma 的底座来源。
 
 它同时也是 [DiffusionGemma](./DiffusionGemma.md) 的直接 backbone 来源：`DiffusionGemma 26B A4B IT` 并不是脱离 Gemma 家族的独立模型，而是在 `Gemma 4 26B A4B MoE` 的基础上把生成接口改写为 discrete text diffusion。
+
+## 具体怎么理解
+
+一个家族可能有多种架构；使用扩散派生模型时，还要区分底座能力与新的生成接口。
 
 ## 关键属性
 
@@ -40,3 +48,8 @@ type: concept
 - [LLM 预训练](../topics/LLM%20预训练.md)
 - [文本扩散语言模型](../topics/%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
 
+## 这里的术语是什么意思
+
+- **backbone**：模型骨干：主要负责提取或变换表示，其他任务模块在它之上工作。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **post-training**：后训练：在预训练底座上继续调整指令遵循、偏好或其他行为。

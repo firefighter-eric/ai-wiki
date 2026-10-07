@@ -1,41 +1,67 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Tewari et al. - 2020 - State of the Art on Neural Rendering
+
+## TL;DR（快速导读）
+
+这篇神经渲染综述讨论学习模型如何参与生成图像与视频，连接传统场景表示、渲染过程和数据驱动方法。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+传统渲染根据几何、材质和光照计算画面；神经方法利用训练数据学习其中一些映射。综述梳理不同方法的表示、监督与控制能力。阅读时应分清重建场景、合成新视角和编辑内容等任务。
+
+## 具体怎么理解
+
+从已有照片生成另一个视角，与凭文字创造一个新场景，都能输出图像，但依赖的输入和约束不同。
+
+## 关键事实
+
+- **C1**：综述覆盖新视角、场景编辑、人脸和其他神经渲染应用。
+- **C2**：区分固定显式表示和可学习神经场景表示，两者对几何与数据的依赖不同。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Tewari et al. - 2020 - State of the Art on Neural Rendering.pdf
-- 全文文本：../../raw/text/Tewari et al. - 2020 - State of the Art on Neural Rendering.md
+- 原始文件：[打开原始文件](../../raw/pdf/Tewari%20et%20al.%20-%202020%20-%20State%20of%20the%20Art%20on%20Neural%20Rendering.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Tewari%20et%20al.%20-%202020%20-%20State%20of%20the%20Art%20on%20Neural%20Rendering.md)
 - 作者：Tewari et al.
 - 年份：2020
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-EUROGRAPHICS 2020 R. Mantiuk and V. Sundstedt (Guest Editors) Volume 39 (2020), Number 2 STAR – State of The Art Report State of the Art on Neural Rendering A. Tewari1⋆O. Fried2⋆J. Thies3⋆V. Sitzmann2⋆S. Lombardi4 K. Sunkavalli5 R. Martin-Brualla6 T. Simon4 J. Saragih4 M. Nießner3 R. Pandey6 S. Fanello6 G. Wetzstein2 J.-Y. Zhu5 C. Theobalt1 M. Agrawala2 E. Shechtman5 D. B Goldman6 M. Zollhöfer4 1MPI Informatics 2Stanford University 3Technical University of Munich 4Facebook Reality Labs 5Adobe Research 6Google Inc ⋆Equal contribution. Figure 1: Neural renderings of a large variety of scenes. See Section 6 for more details on the various methods. Images from [SBT∗19,SZW19, XBS∗19,KHM17,GLD∗19,MBPY∗18,XSHR18,MGK∗19,FTZ∗19,LXZ∗19,WSS∗19]. Abstract Efﬁcient rendering of photo-realistic virtual worlds is a long standing effort of computer graphics. Modern graphics techniques have succeeded in 
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Tewari et al. - 2020 - State of the Art on Neural Rendering.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Tewari%20et%20al.%20-%202020%20-%20State%20of%20the%20Art%20on%20Neural%20Rendering.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 多视角一致性、可编辑性与画质可能需要取舍。
+- 2020 年综述不能当作当前 NeRF 或生成模型排名。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 综合：暂无
+- [神经渲染](../concepts/%E7%A5%9E%E7%BB%8F%E6%B8%B2%E6%9F%93.md)：把本篇方法放到相关任务与比较条件中阅读。
+
+## 方法与实验解读
+
+神经渲染把学习组件加入图像形成过程，不只是生成漂亮图片。阅读方法时要确定是否有相机、几何和多视角约束，再判断目标是重建已有场景还是合成新内容。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Tewari%20et%20al.%20-%202020%20-%20State%20of%20the%20Art%20on%20Neural%20Rendering.md#source-section-55 ) | 不同应用不共用一个成功标准 |
+| C2 | [原文]( ../../raw/text/Tewari%20et%20al.%20-%202020%20-%20State%20of%20the%20Art%20on%20Neural%20Rendering.md#source-section-33 ) | 表示选择与监督条件共同决定效果 |
+
+## 核证范围
+
+核对神经场景表示小节和结论的应用范围，限定综述地图。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

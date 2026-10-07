@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Wei, Sun, Li - 2026 - DeepSeek-OCR 2 Visual Causal Flow
+
+## TL;DR（快速导读）
+
+DeepSeek-OCR 2 研究怎样按语义组织视觉词元的顺序，再交给语言模型读取复杂页面。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+输入一整页扫描文档，先以视觉表示压缩，再输出文本；图表、顺序和公式应逐项核对。
 
 ## 来源信息
 
@@ -11,26 +24,22 @@ status: refined
 - 全文文本：../../raw/text/Wei, Sun, Li - 2026 - DeepSeek-OCR 2 Visual Causal Flow.md
 - 作者：Wei, Sun, Li
 - 年份：2026
-- 状态：已整理（基于 arXiv HTML 提取全文）
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`DeepSeek-OCR 2` 是对初代 `DeepSeek-OCR` 的直接架构升级。它保留“vision-text compression”这一家族主轴，但把重点从单纯压缩比推进到视觉 token 是否能按语义因果流重新排序。论文认为传统 VLM 以 raster-scan 顺序处理视觉 token，并不符合人类阅读复杂页面时的语义驱动扫描，因此提出 `DeepEncoder V2` 与 causal flow query，让视觉编码先完成一次“语义排序”，再送进 LLM 解码。对 OCR topic 来说，这一页代表的是“reading order / causal visual flow 被直接写进编码器”的路线。
+方法通过更新视觉编码器和因果流查询调整视觉信息顺序，减少机械逐行扫描与实际阅读关系的差异。它延续视觉文本压缩路线，但顺序正确与内容识别正确仍是不同验收目标。
 
 ## 关键事实
 
-- `DeepSeek-OCR 2` 的核心创新是 `DeepEncoder V2`，它不再满足于压缩视觉 token，而是尝试根据图像语义动态重排 token 顺序，以更接近 human-like document reading。
-- 论文明确把这种方法写成“two-cascaded 1D causal reasoning structures”来逼近 2D reasoning：编码器先做 causal visual flow，解码器再做 autoregressive reasoning。
-- 与初代相比，作者声称 `DeepSeek-OCR 2` 在保持压缩率与解码效率的同时，在 `OmniDocBench v1.5` 上带来 `3.73%` 的提升；这说明家族升级重点是视觉顺序建模而非单纯扩大参数。
-- 模型继续限制送入 LLM 的视觉 token 预算在 `256-1120` 范围内，并明确把这一点与 `Gemini-3 Pro` 的视觉 token budget 对齐，显示其研究仍然围绕 efficiency-aware OCR / parsing 展开。
-- 数据方面，`DeepSeek-OCR 2` 基本沿用初代的 `OCR 1.0 / OCR 2.0 / general vision` 数据引擎，仅做更平衡采样与标签合并，这意味着它更像架构升级版而不是完全新任务定义。
-- 文中将 `Marker`、`MinerU2`、`Dolphin` 等作为比较对象，说明它要竞争的仍是 specialized OCR / parsing 系统，而不是一般 VL chat 模型。
+- **C1**：DeepEncoderV2将双向视觉tokens与因果query流结合，只把query输出送decoder。
+- **C2**：global256加k个local144query，k0–6，总256–1120。
+- **C3**：OmniDocBench1.5报告91.09，对初代增3.73点，readingorderED0.085降0.057。
 
 ## 争议与不确定点
 
-- “causal flow query” 是否真正对应更强的 2D reasoning，目前仍主要由作者自己的架构解释和 benchmark 改进支撑；它很有研究吸引力，但还不是已被外部广泛确认的稳定共识。
-- 这条路线和经典 OCR / parsing 工具链并不完全同题。它解决的是 OCR 中最前沿的编码器组织问题，而不是工程系统完备性；因此更适合被放在 OCR topic 的前沿 specialized model 层，而非 toolkit 层。
-- 当前页与初代 `DeepSeek-OCR` 关系非常紧密，实际使用时应将二者理解成同一家族中的两个节点，而不是彼此独立的范式。
+- 类似数据来源不意味着完全相同训练样本/算力，因果归因仍需对应消融。
+- 与通用VLM比较要对齐visualbudget、prompt和输出格式。
 
 ## 关联页面
 
@@ -38,3 +47,29 @@ status: refined
 - 家族前序：[Wei, Sun, Li - 2025 - DeepSeek-OCR Contexts Optical Compression](./Wei,%20Sun,%20Li%20-%202025%20-%20DeepSeek-OCR%20Contexts%20Optical%20Compression.md)
 - 概念：[DeepSeek](../../wiki/concepts/DeepSeek.md)
 - 主题：[OCR](../../wiki/topics/OCR.md)
+- [DeepSeek](../authors/DeepSeek.md)：沿作者或机构继续阅读相关来源。
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。
+
+## 方法与实验解读
+
+初代侧重token压缩，二代在相近预算下重新组织视觉信息，使阅读顺序成为结构性目标。因果query能利用前序聚合结果，但仍需检查数值与表结构，而不是看到更高overall就推断文档完整准确。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Wei%2C%20Sun%2C%20Li%20-%202026%20-%20DeepSeek-OCR%202%20Visual%20Causal%20Flow.md#source-section-12 ) | 语义重排通过learnedqueries，不是显式排序每个像素。 |
+| C2 | [原文]( ../../raw/text/Wei%2C%20Sun%2C%20Li%20-%202026%20-%20DeepSeek-OCR%202%20Visual%20Causal%20Flow.md#source-section-13 ) | multi-crop具体预算。 |
+| C3 | [原文]( ../../raw/text/Wei%2C%20Sun%2C%20Li%20-%202026%20-%20DeepSeek-OCR%202%20Visual%20Causal%20Flow.md#source-section-23 ) | 点数不是相对改善3.73%；固定benchmark版本。 |
+
+## 核证范围
+
+核读dualstream/attentionmask、query预算、training与主结果/顺序指标。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

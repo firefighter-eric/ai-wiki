@@ -3,9 +3,17 @@ type: concept
 ---
 # ConvNeXt
 
+## TL;DR（快速导读）
+
+ConvNeXt 重新设计纯卷积骨干的结构和训练细节，研究在视觉 Transformer 时代卷积模型能做到什么。
+
 ## 简介
 
-`ConvNeXt` 是现代化纯卷积 backbone 的代表概念。在当前知识库中，它对应 `ViT` 时代对经典卷积设计空间的一次系统性回写。
+ConvNeXt 重新设计纯卷积骨干的结构和训练细节，研究在视觉 Transformer 时代卷积模型能做到什么。
+
+## 具体怎么理解
+
+比较卷积与 Transformer 时，需要把训练配方和预算放在同一条件下，不能把所有收益都归给注意力。
 
 ## 关键属性
 
@@ -30,3 +38,7 @@ type: concept
 - [传统 CV](../topics/传统%20CV.md)
 - [ResNet](./ResNet.md)
 - [ViT](./ViT.md)
+
+## 这里的术语是什么意思
+
+- **backbone**：模型骨干：主要负责提取或变换表示，其他任务模块在它之上工作。

@@ -1,41 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem
+
+## TL;DR（快速导读）
+
+这篇信息抽取方法把实体识别和关系抽取一起建模，让词语可以选择多个关系对象，减少对外部语法工具的依赖。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+常见流水线先识别人名、地点等实体，再判断实体之间的关系，前一步的错误容易传下去。本文把联合抽取表示为多头选择问题，让关系预测与实体识别共享训练。它仍需要合适的标注数据，不能仅靠联合建模解决所有歧义。
+
+## 具体怎么理解
+
+在“张三任职于甲公司”中，系统既要找到“张三”和“甲公司”，也要抽取两者之间的任职关系。
+
+## 关键事实
+
+- **C1**：联合模型使用 CRF 做实体识别，用 sigmoid 关系头允许一个 token 对应多个关系。
+- **C2**：一般输出不保证树结构，树约束数据使用 Edmonds 后处理。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem.pdf
-- 全文文本：../../raw/text/Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem.md
+- 原始文件：[打开原始文件](../../raw/pdf/Bekoulis%20et%20al.%20-%202018%20-%20Joint%20entity%20recognition%20and%20relation%20extraction%20as%20a%20multi-head%20selection%20problem.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Bekoulis%20et%20al.%20-%202018%20-%20Joint%20entity%20recognition%20and%20relation%20extraction%20as%20a%20multi-head%20selection%20problem.md)
 - 作者：Bekoulis et al.
 - 年份：2018
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Joint entity recognition and relation extraction as a multi-head selection problem Giannis Bekoulis∗, Johannes Deleu, Thomas Demeester, Chris Develder Ghent University – imec, IDLab, Department of Information Technology, Technologiepark Zwijnaarde 15, 9052 Ghent, Belgium Abstract State-of-the-art models for joint entity recognition and relation extraction strongly rely on external natural language processing (NLP) tools such as POS (part-of-speech) tag- gers and dependency parsers. Thus, the performance of such joint models depends on the quality of the features obtained from these NLP tools. However, these features are not always accurate for various languages and contexts. In this paper, we pro- pose a joint neural model which performs entity recognition and relation extraction simultaneously, without the need of any manually extracted features or the use of any external tool. Speciﬁca
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Bekoulis et al. - 2018 - Joint entity recognition and relation extraction as a multi-head selection problem.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Bekoulis%20et%20al.%20-%202018%20-%20Joint%20entity%20recognition%20and%20relation%20extraction%20as%20a%20multi-head%20selection%20problem.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 关系打分有二次计算成本，长序列扩展受限。
+- 不同数据集的实体关系定义影响可比性。
 
 ## 关联页面
 
 - 主题：[传统NLP](../topics/传统%20NLP.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+实体和关系一起学习可以减少两阶段错误传递，但输出关系仍要符合任务定义。对知识库抽取而言，需保留实体边界、关系类型和来源句，不能把模型预测的边直接视为已证实事实。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Bekoulis%20et%20al.%20-%202018%20-%20Joint%20entity%20recognition%20and%20relation%20extraction%20as%20a%20multi-head%20selection%20problem.md#source-section-22 ) | multi-head selection 是关系选择，不是 Transformer 的多头注意力 |
+| C2 | [原文]( ../../raw/text/Bekoulis%20et%20al.%20-%202018%20-%20Joint%20entity%20recognition%20and%20relation%20extraction%20as%20a%20multi-head%20selection%20problem.md#source-section-14 ) | 额外结构假设与通用多关系预测不同 |
+
+## 核证范围
+
+核对 §3.4 的多关系选择、§3.5 树后处理和结论的联合架构。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

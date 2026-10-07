@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Li et al. - 2025 - dots.ocr Multilingual Document Layout Parsing in a Single Vision-Language Model
+
+## TL;DR（快速导读）
+
+dots.ocr 用同一视觉语言模型理解文档版面、识别内容和组织阅读关系，研究减少多阶段误差累积。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+一页双栏资料要同时读对文字、区分区域和排好顺序；这三项中任何一项出错都会影响最终文本。
 
 ## 来源信息
 
@@ -11,26 +24,23 @@ status: refined
 - 全文文本：../../raw/text/Li et al. - 2025 - dots.ocr Multilingual Document Layout Parsing in a Single Vision-Language Model.md
 - 作者：Li et al.
 - 年份：2025
-- 状态：已整理（基于 arXiv HTML 提取全文）
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`dots.ocr` 代表的是把文档版面检测、内容识别与阅读关系理解统一进单一文档 VLM 的路线。它反对 `MinerU / PaddleOCR` 这类多阶段 pipeline 将 layout、recognition、reading order 分开做的方式，主张在单次端到端生成里 jointly 学习三类任务，并借此减少误差级联。与 `Nougat` 这类偏 academic PDF OCR 的模型相比，`dots.ocr` 更明确地把自己定义成 multilingual document layout parsing 模型，而不仅是文本转写器。
+方法试图把区域、文字和阅读顺序放进一次生成中联合学习。单模型并不意味着各项都可靠，仍需分别核对多语言文字、表格、公式和顺序，尤其关注复杂页面上的遗漏与结构错误。
 
 ## 关键事实
 
-- 论文把 document parsing 明确拆成三项核心能力：layout detection、content recognition、relational understanding；`dots.ocr` 的主张是这三者应在单一 end-to-end VLM 中共同学习，而不是继续拆成多阶段流水线。
-- 作者将 `MinerU`、`PaddleOCR` 等方法归为 fragmented multi-stage pipeline，并把 error propagation 与 task synergy 缺失写成其主要问题；因此 `dots.ocr` 在 OCR topic 中代表的是对 pipeline 范式的直接统一化挑战。
-- `dots.ocr` 的核心定位不是单语 OCR，而是 multilingual document parsing。论文同时引入 `XDocParse` 基准，覆盖 `126` 种语言，说明作者把语言覆盖面当成方法主张的一部分，而不是附属卖点。
-- 在 `OmniDocBench` 上，论文报告 `dots.ocr` 取得新的 SOTA 分数，并给出 `87.5 (EN)`、`84.0 (CH)` 的整体表现；这使其成为当前 OCR / document parsing topic 中一条必须纳入的 specialized document VLM 路线。
-- 模型不是小型轻量工具，而是较大的专门文档 VLM：其架构由 `1.2B` Vision Encoder 与约 `1.7B` Language Decoder 构成，强调高分辨率文档解析与统一生成，而不是端侧部署优先。
-- 论文明确把 `olmOCR`、`Nougat`、`MonkeyOCR`、`Dolphin` 等近期 specialized document VLM 当作相关路线，并强调这些方法仍然要么省略关键任务、要么内部仍是 staged design；这进一步凸显 `dots.ocr` 想占据的是“真正 unified parsing”位置。
+- **C1**：dots.ocr把每个block输出为bbox、类别、内容组成的有序序列，共同学习布局、识别与关系。
+- **C2**：架构为从头训练的1.2B视觉encoder加约1.7B语言decoder。
+- **C3**：作者引入126语言XDocParse并报告OmniDocBench EN87.5/CH84.0。
+- **C4**：XDocParse OverallEdit约0.177，数值越低越好。
 
 ## 争议与不确定点
 
-- 论文中的统一化主张很强，但其主要优势建立在作者自己的架构与数据引擎叙事之上；要判断它是否稳定优于多阶段 pipeline，仍需更多外部复现与跨数据验证。
-- 模型参数规模不小，且 heavily 依赖内部数据合成引擎；因此它在“开源 specialized model”里的意义更偏方法路线节点，不自动等于最容易部署的工程方案。
-- 当前全文来自 arXiv HTML 提取，核心叙事已清晰，但更细的 benchmark 表格与局部数值仍建议回看原文核对。
+- 126语言存在不保证每种语言相同质量；应看分语言结果。
+- 作者统一化主张和基准成绩不等于任意复杂PDF都可无后处理。
 
 ## 关联页面
 
@@ -40,3 +50,30 @@ status: refined
 - 概念：[DeepSeek-OCR](../../wiki/concepts/DeepSeek-OCR.md)
 - 主题：[OCR](../../wiki/topics/OCR.md)
 - 主题：[传统 CV](../../wiki/topics/传统%20CV.md)
+
+## 这里的术语是什么意思
+
+- **encoder**：编码器：把输入转成模型内部表示。
+- **decoder**：解码器：根据已有表示产生文字、图像或其他输出。
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。
+
+## 方法与实验解读
+
+统一序列让布局、文本和结构关系互相约束，合成数据引擎补多语言与版式覆盖。作者指出pipeline误差传播，但端到端路线也面临长输出、坐标和顺序错误，不能把pipeline一概当过时。选择应按可定位错误、语言覆盖与全页面准确率比较。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Li%20et%20al.%20-%202025%20-%20dots.ocr%20Multilingual%20Document%20Layout%20Parsing%20in%20a%20Single%20Vision-Language%20Model.md#source-section-9 ) | sequence顺序承担reading-order语义。 |
+| C2 | [原文]( ../../raw/text/Li%20et%20al.%20-%202025%20-%20dots.ocr%20Multilingual%20Document%20Layout%20Parsing%20in%20a%20Single%20Vision-Language%20Model.md#source-section-10 ) | 约2.9B核心模型，不能仅按decoder大小比较。 |
+| C3 | [原文]( ../../raw/text/Li%20et%20al.%20-%202025%20-%20dots.ocr%20Multilingual%20Document%20Layout%20Parsing%20in%20a%20Single%20Vision-Language%20Model.md#source-section-3 ) | 原报告benchmark版本；不与后来v1.5新分数直接拼榜。 |
+| C4 | [原文]( ../../raw/text/Li%20et%20al.%20-%202025%20-%20dots.ocr%20Multilingual%20Document%20Layout%20Parsing%20in%20a%20Single%20Vision-Language%20Model.md#source-section-18 ) | edit distance与quality score方向相反。 |
+
+## 核证范围
+
+核读§3统一格式/架构、OmniDocBench与XDocParse评测。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

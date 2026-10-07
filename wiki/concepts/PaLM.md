@@ -3,9 +3,17 @@ type: concept
 ---
 # PaLM
 
+## TL;DR（快速导读）
+
+PaLM 用大规模密集 Transformer 与 Pathways 训练系统研究语言能力的规模化，包括少样本和多步推理表现。
+
 ## 简介
 
-PaLM 是 Google 提出的超大规模 dense Transformer 语言模型。在当前知识库中，它是 GPT-3 之后继续推进规模化 few-shot 与多步推理表现的重要概念节点。
+PaLM 用大规模密集 Transformer 与 Pathways 训练系统研究语言能力的规模化，包括少样本和多步推理表现。
+
+## 具体怎么理解
+
+大模型成绩需要连同数据和训练资源阅读，不能用参数量一个数字解释所有能力。
 
 ## 关键属性
 

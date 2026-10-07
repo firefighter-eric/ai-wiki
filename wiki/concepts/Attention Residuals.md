@@ -3,9 +3,17 @@ type: concept
 ---
 # Attention Residuals
 
+## TL;DR（快速导读）
+
+AttnRes 让网络当前层有选择地读取之前各层的表示，而不只是把历史信息不断相加，调整的是深度方向的信息传递。
+
 ## 简介
 
 `Attention Residuals (AttnRes)` 把 attention 的“按内容选择历史”思想从 sequence 轴迁移到 network depth。标准 residual stream 将此前层信息逐层累积到单一状态；AttnRes 让当前层用 learned pseudo-query 对 embedding 与此前 layer/block representations 分配权重，选择性读取深度历史。
+
+## 具体怎么理解
+
+可以把前面各层看成多份笔记：当前层学习哪些笔记更有用；这与在一句话里选择哪些词有关是两个不同维度。
 
 ## 关键属性
 
@@ -35,3 +43,11 @@ type: concept
 - [Manifold-Constrained Hyper-Connections](./Manifold-Constrained%20Hyper-Connections.md)
 - [Transformer](./Transformer.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **prefill**：提示计算阶段：先处理输入提示，再开始逐步生成输出。
+- **decode**：解码阶段：利用已有输入与生成历史，产生后续输出。
+- **embedding**：向量表示：把文字、图片等编码成一组数，用于模型计算或相似度比较。

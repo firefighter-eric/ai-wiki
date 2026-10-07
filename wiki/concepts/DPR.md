@@ -3,9 +3,17 @@ type: concept
 ---
 # DPR
 
+## TL;DR（快速导读）
+
+DPR 分别把问题和文本段落编码成向量，再用向量相似度快速召回候选，是开放域问答的检索组件。
+
 ## 简介
 
-DPR 是 Dense Passage Retrieval 的代表模型。在当前知识库中，它表示开放域问答中的双塔稠密检索路线。
+DPR 分别把问题和文本段落编码成向量，再用向量相似度快速召回候选，是开放域问答的检索组件。
+
+## 具体怎么理解
+
+文档可以提前编码；新问题到来后搜索近邻。找到候选只是第一步，答案仍要核对是否在材料中。
 
 ## 关键属性
 
@@ -27,3 +35,8 @@ DPR 是 Dense Passage Retrieval 的代表模型。在当前知识库中，它表
 - [Dense Retrieval](./Dense Retrieval.md)
 - [Sentence-BERT](./Sentence-BERT.md)
 - [传统 NLP](../topics/传统%20NLP.md)
+
+## 这里的术语是什么意思
+
+- **RAG**：检索增强生成：先找外部材料，再利用这些材料生成回答。
+- **encoder**：编码器：把输入转成模型内部表示。

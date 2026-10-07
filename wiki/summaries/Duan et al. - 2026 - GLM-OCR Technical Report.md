@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Duan et al. - 2026 - GLM-OCR Technical Report
+
+## TL;DR（快速导读）
+
+GLM-OCR 先分析页面区域，再识别文字、公式和表格，研究紧凑模型与完整文档处理流程的配合。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+识别票据正文、恢复表格和读取公式需要不同检查项；平均识别分数可能掩盖某类错误。
 
 ## 来源信息
 
@@ -11,26 +24,24 @@ status: refined
 - 全文文本：../../raw/text/Duan et al. - 2026 - GLM-OCR Technical Report.md
 - 作者：Duan et al.
 - 年份：2026
-- 状态：已整理（基于 arXiv HTML 提取全文）
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`GLM-OCR` 代表的是紧凑型、多任务、可生产部署的 document understanding OCR 模型。它不像 `DeepSeek-OCR` 那样把重点放在 token compression，也不像 `dots.ocr` 那样主打统一端到端 parsing，而是试图在较小参数规模下，把文本、公式、表格、KIE 与部署速度一起做好。它通过 `0.9B` 模型规模、`MTP` 多 token 预测，以及 `PP-DocLayout-V3 + region-level recognition` 的两阶段设计，在 OCR topic 中占据的是“compact but production-minded specialized OCR model”位置。
+报告描述较小规模模型、多词元预测及版面检测加区域识别的两阶段设计。阅读时应区分文本识别、结构恢复、关键信息抽取和部署速度；一个识别分数不能代表整页文档理解的全部质量。
 
 ## 关键事实
 
-- `GLM-OCR` 是 `0.9B` 参数紧凑型多模态 OCR 模型，由 `0.4B` CogViT visual encoder 与 `0.5B` GLM decoder 组成，明确强调效率与识别性能的平衡。
-- 为解决 OCR 中标准 autoregressive decoding 过慢的问题，论文引入 `Multi-Token Prediction (MTP)`，训练时每步预测多个 token，推理平均每步生成约 `5.2` 个 token，并声称带来约 `50%` throughput 提升。
-- 在系统层面，`GLM-OCR` 采取两阶段设计：先由 `PP-DocLayout-V3` 做 layout analysis，再进行 parallel region-level recognition。也就是说，它不是纯 end-to-end 单模型，而是有意识地在 layout 与 recognition 之间分层，以换取稳定性与并行效率。
-- 论文报告其在 `OmniDocBench v1.5` 上达到 `94.6`，并在 text、formula、table、KIE 等多个公开和工业场景 benchmark 上表现很强；这使它成为 OCR topic 中当前必须纳入的高性能紧凑路线。
-- 作者明确把 real-world deployment 写成主问题：支持 `vLLM`、`SGLang`、`Ollama` 部署，并提供 fine-tuning 能力，说明该模型面向的不只是 benchmark，而是可服务化的文档生产场景。
-- 从方法结构看，`GLM-OCR` 与 `PaddleOCR` 之间存在明显连接：它自身使用 `PP-DocLayout-V3` 做 layout analysis，这说明开源 OCR toolkit 与 specialized OCR VLM 在现实系统中并非互斥，而是会互相借力。
+- **C1**：GLM-OCR 总参数约 0.9B，由 0.4B CogViT、连接器和 0.5B GLM decoder 构成。
+- **C2**：文档解析先用 PP-DocLayout-V3 分区，再并行识别各区域并恢复阅读顺序。
+- **C3**：MTP 使用共享参数预测多个未来 token；报告平均每步约 5.2 tokens，吞吐提升约 50%。
+- **C4**：训练经历视觉训练、VLM 预训练、带 MTP 的 SFT 和 RL。
+- **C5**：OmniDocBench v1.5 overall 约 94.6；闭源参考模型在表中不参与 best-score 排名。
 
 ## 争议与不确定点
 
-- `GLM-OCR` 的高性能部分建立在 `PP-DocLayout-V3 + GLM-OCR Core` 的组合上，因此若要与纯 end-to-end 模型做公平对比，需要明确它并不是完全单阶段体系。
-- 论文同时覆盖 benchmark、部署、SDK、MaaS 与 fine-tuning，边界已超出狭义 OCR；它更准确地说是 document understanding OCR 系统，而不是只做文本识别。
-- 当前页基于 arXiv HTML 抽取，核心结论清晰，但若后续需要精确整理 benchmark 排名或部署吞吐细节，仍建议回看 PDF 表格。
+- 分区错误会向后传递，复杂版式和长结构输出需要分别评测。
+- 部署支持是接口可用性信息，实际速度须在目标文档和硬件上测试。
 
 ## 关联页面
 
@@ -38,3 +49,33 @@ status: refined
 - 概念：[GLM](../../wiki/concepts/GLM.md)
 - 概念：[PaddleOCR](../../wiki/concepts/PaddleOCR.md)
 - 主题：[OCR](../../wiki/topics/OCR.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **benchmark**：评测基准：特定数据、任务与规则的组合，分数只在这些条件下成立。
+- **encoder**：编码器：把输入转成模型内部表示。
+- **decoder**：解码器：根据已有表示产生文字、图像或其他输出。
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。
+
+## 方法与实验解读
+
+核心 VLM 处理区域的文字和结构，layout 层决定分区与顺序，MTP 改善长结构输出的解码效率。三者需要分别检查：识别准确不代表页面分区正确，吞吐改善也不能掩盖合并顺序或表格结构错误。紧凑模型与 PaddleOCR 组件可以互补，选型应计算整个 pipeline 的延迟和显存。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Duan%20et%20al.%20-%202026%20-%20GLM-OCR%20Technical%20Report.md#source-section-6 ) | 核心模型规模，不含外部 layout 模型的全部系统成本。 |
+| C2 | [原文]( ../../raw/text/Duan%20et%20al.%20-%202026%20-%20GLM-OCR%20Technical%20Report.md#source-section-6 ) | 系统为分阶段 pipeline，不是单网络直接解决所有任务。 |
+| C3 | [原文]( ../../raw/text/Duan%20et%20al.%20-%202026%20-%20GLM-OCR%20Technical%20Report.md#source-section-2 ) | 作者测试条件，不能视为所有文档和部署端点的常数。 |
+| C4 | [原文]( ../../raw/text/Duan%20et%20al.%20-%202026%20-%20GLM-OCR%20Technical%20Report.md#source-section-7 ) | 训练阶段承担不同职责。 |
+| C5 | [原文]( ../../raw/text/Duan%20et%20al.%20-%202026%20-%20GLM-OCR%20Technical%20Report.md#source-section-14 ) | 指标和候选集合固定；不扩展为所有 OCR 任务第一。 |
+
+## 核证范围
+
+核读架构、训练配方、MTP 声明、公共评测及部署/局限章节。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

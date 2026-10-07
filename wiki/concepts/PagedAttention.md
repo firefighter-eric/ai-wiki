@@ -3,9 +3,17 @@ type: concept
 ---
 # PagedAttention
 
+## TL;DR（快速导读）
+
+PagedAttention 用分页式映射组织生成过程的键值缓存，减少连续显存预留和碎片，是 vLLM 的早期关键机制。
+
 ## 简介
 
 `PagedAttention` 是 vLLM 论文提出的 KV cache 内存组织与执行机制。它借鉴操作系统分页，把一个 sequence 的逻辑 KV blocks 映射到不必物理连续的 GPU blocks，并让 attention kernel 通过 block table 读取它们。它解决的首要问题是自回归服务中 KV cache 长度动态增长、连续预留造成内部碎片和过度预留，而不是改变 Transformer attention 的数学语义。
+
+## 具体怎么理解
+
+一句回答不断变长时，可以按需分配缓存块，而不是先为最大长度占一整段连续空间。
 
 ## 关键属性
 
@@ -38,3 +46,10 @@ type: concept
 - [FlashAttention](./FlashAttention.md)
 - [SGLang 与 vLLM 架构对比](../comparisons/SGLang%20与%20vLLM%20架构对比.md)
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **baseline**：对照方案：用于判断改动有没有带来收益，条件是否公平尤其重要。
+- **IO**：数据读写：计算与存储之间搬运数据的成本，可能成为速度瓶颈。

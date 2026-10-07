@@ -3,11 +3,19 @@ type: concept
 ---
 # Gemma
 
+## TL;DR（快速导读）
+
+Gemma 是 Google 的开放模型家族入口，按代际理解尺寸、视觉能力、上下文和生成机制的变化更容易读。
+
 ## 简介
 
-Gemma 是当前知识库中 Google 开放模型家族的总入口。它承接的是“大厂研究体系向开放模型迁移”的路线，而不是单一模型节点。
+Gemma 是 Google 的开放模型家族入口，按代际理解尺寸、视觉能力、上下文和生成机制的变化更容易读。
 
 从 `Gemma / Gemma 2 / Gemma 3` 到 [Gemma 4](./Gemma%204.md)，这条路线已经从实用尺寸开放模型扩展到多架构、多模态、长上下文、`MoE` 和 agentic workflow。到 [DiffusionGemma](./DiffusionGemma.md)，Gemma 家族还进一步成为 text diffusion 生成接口的实验 backbone。
+
+## 具体怎么理解
+
+先看家族脉络，再进入 Gemma 3、Gemma 4 或 DiffusionGemma；后者的文本生成方式与普通自回归模型不同。
 
 ## 关键属性
 
@@ -42,3 +50,10 @@ Gemma 是当前知识库中 Google 开放模型家族的总入口。它承接的
 - [LLM 预训练](../topics/LLM%20预训练.md)
 - [文本扩散语言模型](../topics/%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md)
 - [开放模型家族与中国重要家族对照](../comparisons/开放模型家族与中国重要家族对照.md)
+
+## 这里的术语是什么意思
+
+- **backbone**：模型骨干：主要负责提取或变换表示，其他任务模块在它之上工作。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **decoder**：解码器：根据已有表示产生文字、图像或其他输出。
+- **agentic**：代理执行：模型使用工具并根据结果继续行动，可靠性要看完整流程。

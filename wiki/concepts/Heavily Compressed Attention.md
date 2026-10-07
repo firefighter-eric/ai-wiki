@@ -3,9 +3,17 @@ type: concept
 ---
 # Heavily Compressed Attention
 
+## TL;DR（快速导读）
+
+HCA 对长上下文缓存采用更大的压缩跨度，进一步减少缓存和计算；代价与细节保留需结合 V4 设定理解。
+
 ## 简介
 
 `Heavily Compressed Attention (HCA)` 是 `DeepSeek-V4` 中面向极长上下文的高压缩 attention 分支。它把更大跨度的 token `KV cache` 合并成单个 compressed KV entry，以更激进的压缩率降低长上下文推理中的缓存和 attention 计算负担。
+
+## 具体怎么理解
+
+把很长的片段合成一个缓存条目会省空间，但局部细节如何恢复或补偿仍要检查。
 
 ## 关键属性
 
@@ -34,3 +42,8 @@ type: concept
 - [注意力机制 Attention](../topics/注意力机制%20Attention.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
 
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **sparse**：稀疏计算或连接：只使用选中的部分，具体省略什么取决于方法。

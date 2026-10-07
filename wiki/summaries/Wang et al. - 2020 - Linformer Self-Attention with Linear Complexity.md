@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity
+
+## TL;DR（快速导读）
+
+Linformer 先在序列维压缩键和值，再计算注意力，以低秩近似降低长序列成本。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+长序列先变成较少的表示再参与计算，省下部分成本，也要检查远距离细节是否损失。
 
 ## 来源信息
 
@@ -12,26 +25,44 @@ status: refined
 - 全文文本：../../raw/text/Wang et al. - 2020 - Linformer Self-Attention with Linear Complexity.md
 - 作者：Wang et al.
 - 年份：2020
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`Linformer` 代表 efficient attention 中最典型的低秩投影路线。它的核心判断是：标准 self-attention 形成的上下文映射矩阵在实践中可被低秩近似，因此可以先把序列维上的 `K/V` 投影到更低维空间，再计算 attention，把复杂度从二次压到线性。
+压缩将许多位置汇成更少的表示，减少后续矩阵计算。重要细节是否被保留取决于投影、压缩程度和任务；复杂度优势应与质量及硬件速度一起比较。
 
 ## 关键事实
 
-- 论文明确将标准 self-attention 的瓶颈定位为序列长度上的二次时间与空间复杂度。
-- `Linformer` 的主要方法是对 keys / values 做线性投影，以低秩近似注意力矩阵，而不是改变 softmax 形式本身。
-- 作者主张 self-attention matrix 具有低秩结构，这一经验性和理论性观察构成了其方法前提。
-- 该路线的优点是结构简单、易嵌入原有 Transformer；代价是需要接受低秩假设不总是精确成立。
-- 在 attention 主线中，`Linformer` 适合作为“低秩近似 attention”的代表节点。
+- **C1**：将长度方向K/V从n压到k，计算n×kattention而非n×n。
+- **C2**：低秩动机来自RoBERTa数据上的谱分析与近似命题。
+- **C3**：可跨heads/layers共享投影，节约参数。
 
 ## 争议与不确定点
 
-- 低秩假设在不同任务、层数和序列长度下成立程度并不一致，因此它更像一类近似假设，而不是对标准 attention 的普适等价重写。
-- 线性复杂度在理论上成立，但实际吞吐仍取决于投影维度、kernel 实现和序列长度。
+- 近似保持输出的理论条件不等于任意rank k的全任务保证。
+- 预训练/下游/速度实验需要分别比较。
 
 ## 关联页面
 
 - 主题：[注意力机制 Attention](../../wiki/topics/注意力机制%20Attention.md)
 - 概念：[Transformer](../../wiki/concepts/Transformer.md)
+
+## 方法与实验解读
+
+Linformer修改信息访问，让每个query看压缩后的K/V。它与核特征线性attention、稀疏候选和精确IO优化有不同近似误差。学习投影一般关联长度和mask使用，不能不加修改地作为任意因果LLM训练的无损替换。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md#source-section-10 ) | k固定时相对n线性；k并非零成本。 |
+| C2 | [原文]( ../../raw/text/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md#source-section-7 ) | 不是证明所有输入attention本身严格低秩。 |
+| C3 | [原文]( ../../raw/text/Wang%20et%20al.%20-%202020%20-%20Linformer%20Self-Attention%20with%20Linear%20Complexity.md#source-section-13 ) | 投影与长度配置影响泛化。 |
+
+## 核证范围
+
+核读低秩谱/命题、投影模型、共享与实验设计。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

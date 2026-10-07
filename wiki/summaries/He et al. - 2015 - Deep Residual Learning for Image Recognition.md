@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # He et al. - 2015 - Deep Residual Learning for Image Recognition
+
+## TL;DR（快速导读）
+
+ResNet 让网络层学习对输入的增量修正，用跳跃连接改善很深网络的训练。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -12,25 +21,23 @@ status: refined
 - 全文文本：../../raw/text/He et al. - 2015 - Deep Residual Learning for Image Recognition.md
 - 作者：He et al.
 - 年份：2015
-- 状态：已基于 arXiv HTML 整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`ResNet` 的核心贡献，是把深层卷积网络的主要障碍从“表示能力不足”重新定位为“优化困难”，并用残差连接把层堆叠改写为“学习相对输入的增量修正”。它不是单纯更深的 `VGG`，而是经典 CNN 主线里最关键的优化接口重写：深度从此不再只是参数堆叠，而成为可以更稳定利用的能力来源。
+残差块输出可以理解为原输入加上学到的变化，提供更直接的信息与梯度路径。论文围绕深度增加带来的优化问题验证这一设计；比较网络时仍需控制训练配方、结构和资源。
 
 ## 关键事实
 
-- 论文明确指出深层网络出现的 `degradation problem`：层数增加后训练误差反而变差，问题不只是过拟合。
-- `ResNet` 通过 identity shortcut 把若干层重写为残差函数学习，并用逐元素相加把输入直接传到更深层。
-- 论文展示了最高到 `152` 层的残差网络，并强调其比 `VGG` 更深但复杂度更低。
-- 在论文叙述里，`ResNet` 不只提升 `ImageNet` 分类，也显著强化了检测与分割等下游视觉任务。
-- 从知识库主线看，`ResNet` 是后续 `ResNeXt`、`ConvNeXt` 乃至许多检测/分割 backbone 的共同祖先接口。
+- **C1**：degradation 指更深 plain 网络训练误差变差，不能仅归因过拟合。
+- **C2**：残差块学习F(x)=H(x)-x，以F(x)+x输出；维度变化时可用投影shortcut。
+- **C3**：报告ImageNet最高152层，并以ensemble取得3.57% top-5 test error。
+- **C4**：论文还把残差特征用于检测等视觉任务。
 
 ## 争议与不确定点
 
-- `ResNet` 解决的是深层优化问题，不等于同时解决参数效率、端侧部署效率或所有尺度建模问题。
-- 论文中的经典残差块是后续变体的起点，不应机械等同于所有带 skip connection 的现代卷积架构。
-- 当前 summary 聚焦其方法论地位，尚未细拆 basic block、bottleneck block 与不同 shortcut 选项的全部实验差异。
+- 尺寸变化、归一化和训练配方参与效果，shortcut不是单独保证收敛的定理。
+- 竞赛ensemble结果不能当作每个ResNet部署实例的准确率。
 
 ## 关联页面
 
@@ -39,3 +46,28 @@ status: refined
 - 概念：[ResNet](../../wiki/concepts/ResNet.md)
 - 概念：[ResNeXt](../../wiki/concepts/ResNeXt.md)
 - 概念：[ConvNeXt](../../wiki/concepts/ConvNeXt.md)
+
+## 这里的术语是什么意思
+
+- **backbone**：模型骨干：主要负责提取或变换表示，其他任务模块在它之上工作。
+
+## 方法与实验解读
+
+如果理想映射接近恒等，残差参数化让网络只需学偏离部分，而不必重新建立整个传递。作者通过 plain/residual 对照显示优化差异，而不是主张深度永远越大越好。后续架构继承残差接口是知识库的谱系组织判断，不能反过来作为原论文事实。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/He%20et%20al.%20-%202015%20-%20Deep%20Residual%20Learning%20for%20Image%20Recognition.md#source-section-3 ) | 训练与测试误差分别看。 |
+| C2 | [原文]( ../../raw/text/He%20et%20al.%20-%202015%20-%20Deep%20Residual%20Learning%20for%20Image%20Recognition.md#source-section-6 ) | 同维度 identity shortcut 与跨维投影有不同成本。 |
+| C3 | [原文]( ../../raw/text/He%20et%20al.%20-%202015%20-%20Deep%20Residual%20Learning%20for%20Image%20Recognition.md#source-section-2 ) | ensemble、single model和不同crop设置不能混合。 |
+| C4 | [原文]( ../../raw/text/He%20et%20al.%20-%202015%20-%20Deep%20Residual%20Learning%20for%20Image%20Recognition.md#source-section-2 ) | 分类训练优化证据与下游任务迁移分别验证。 |
+
+## 核证范围
+
+核读 degradation、§3残差定义/结构与ImageNet和下游结果口径。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

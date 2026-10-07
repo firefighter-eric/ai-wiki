@@ -1,41 +1,68 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
-# Tanaka et al. - Unknown - Images
+# SlideVQA：多页幻灯片视觉问答（2023）
+
+## TL;DR（快速导读）
+
+SlideVQA 要求模型跨多页幻灯片寻找证据并回答问题，涵盖多跳和数值推理；旧文件名“Images”没有表达真实主题。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+单页文档问答难以检验跨页关系。SlideVQA 提供幻灯片序列与问题，并标注数值答案所用的算式。方法需要同时解决证据页选择与答案生成，不能只把每页文字独立读完就算完成任务。
+
+## 具体怎么理解
+
+例如，要用第 7 页的收入减去第 3 页的成本，系统必须找对两页并采用正确运算。
+
+## 关键事实
+
+- **C1**：实际来源是 SlideVQA，包含 2619 套 slide deck 和 14484 问答，按 deck 隔离数据划分。
+- **C2**：M3D 联合证据选择与问答，原文指出编辑生成的多跳问题可能不同于用户自然问题。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Tanaka et al. - Unknown - Images.pdf
-- 全文文本：../../raw/text/Tanaka et al. - Unknown - Images.md
-- 作者：Tanaka et al.
-- 年份：Unknown
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Visual question answering on document images that con- tain textual, visual, and layout information, called document VQA, has received much attention recently. Although many datasets have been proposed for developing document VQA systems, most of the existing datasets focus on understand- ing the content relationships within a single image and not across multiple images. In this study, we propose a new multi- image document VQA dataset, SlideVQA, containing 2.6k+ slide decks composed of 52k+ slide images and 14.5k ques- tions about a slide deck. SlideVQA requires complex rea- soning, including single-hop, multi-hop, and numerical rea- soning, and also provides annotated arithmetic expressions of numerical answers for enhancing the ability of numerical reasoning. Moreover, we developed a new end-to-end docu- ment VQA model that treats evidence selection and question answering in a uniﬁed sequence-to-sequence format. Exper- iments on SlideVQA show that our model outperformed ex- isting state-of-the-art QA models, but that it still has a large gap behind human performance. We believe that our dataset will facilitate research on document VQA.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Tanaka et al. - Unknown - Images.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 原始文件：[打开原始文件](../../raw/pdf/Tanaka%20et%20al.%20-%20Unknown%20-%20Images.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Tanaka%20et%20al.%20-%20Unknown%20-%20Images.md)
+- 作者：Ryota Tanaka 等
+- 年份：2023
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Tanaka%20et%20al.%20-%20Unknown%20-%20Images.html)
+- 归档说明：文件名保留以维持已有链接；本页标题按原文识别内容整理，旧文件名不作为作者或年份依据。
+- 归档说明：保留历史文件名以维持来源对应和链接；标题、作者与年份以上述核对信息为准。
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 合成编辑问题可能影响现实泛化。
+- OCR、视觉与算术表达各有独立错误来源。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+SlideVQA 把跨幻灯片证据选择纳入问答，而非只看某张图。正确答案必须有对应页证据；模型猜中答案但找错页，仍不能算可靠的资料阅读。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Tanaka%20et%20al.%20-%20Unknown%20-%20Images.md#source-section-21 ) | 不能让同一 deck 跨训练与测试 |
+| C2 | [原文]( ../../raw/text/Tanaka%20et%20al.%20-%20Unknown%20-%20Images.md#source-section-48 ) | 多跳保证与真实分布代表性之间有取舍 |
+
+## 核证范围
+
+核对数据划分、M3D 任务设计及 Discussion and Limitations；更正旧 Images 来源名。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -1,14 +1,24 @@
 ---
 type: topic
-status: building
+status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # LLM 预训练
 
+## TL;DR（快速导读）
+
+预训练比较要同时看目标、数据、参数激活、计算预算和训练公开程度。模型最终的聊天、推理或 agent 成绩还受后训练与运行系统影响，不能全部归因于预训练。
+
+阅读重点：先按问题选择路线，再核对比较条件与证据边界。
+
+## 先用一个问题理解
+
+固定预算训练语言模型时，要同时决定模型多大、读哪些数据和训练多久。较大模型看得不够，与较小模型训练充分，可能产生不同结果；先区分这类底座问题，再看指令或推理适配。
+
 ## 页面状态
 
-- 状态：待建设 topic
-- 原因：证据基础仍包含待精读自动摘要；对应 summary 精修并复核核心论断后，才可重新升级为正式 topic。
-- 事实基座：`wiki/summaries/` 优先
+正式 topic；2026-10-07 复核核心来源并补充方法比较。正文区分论文实验、作者报告和本文综合判断；开放问题表示研究证据的边界。
 
 ## 主题定义
 
@@ -32,12 +42,28 @@ status: building
 
 - **dense scaling 证明期**：`Brown et al. 2020` 与 `Chowdhery et al. 2022` 共同支撑了预训练时代的第一个核心判断：**在自回归语言建模框架下，随着参数、数据与训练系统规模扩大，模型会出现更强的 few-shot 与跨任务泛化能力。** `GPT-3` 的意义在于让 prompt 成为任务接口；`PaLM` 的意义在于说明这条路线在更大训练系统、更多语言与代码场景下仍然成立。
 - **compute-optimal 修正期**：`Hoffmann et al. 2022` 并没有推翻 dense scaling，而是修正其粗糙版本。它指出许多早期大模型不是“参数不够大”，而是 **在既定计算预算下 token 训练不足**。因此，本页理解 `Chinchilla` 的正确方式，不是“从大模型转向小模型”，而是从“只扩参数”转向 **参数量与数据量的联合最优配置**。这是预训练叙事里最重要的纠偏节点。
-- **能力底座与行为塑形分层期**：`Ouyang et al. 2022` 之所以应在本页中被提及，不是因为它属于预训练，而是因为它为“预训练页的边界”提供了反证。即使 base model 已很强，它仍不会自动变成 helpful、truthful、harmless 的交互系统。这一事实支持一个重要结构判断：**预训练负责通用能力底座，后训练负责行为接口重写。**
+- **能力底座与行为塑形分层期**：`Ouyang et al. 2022` 之所以应在本页中被提及，不是因为它属于预训练，而是因为它为“预训练页的边界”提供了反证。即使 base model 已很强，它仍不会自动变成 helpful、truthful、harmless 的交互系统。这一事实支持一个重要结构判断：**预训练主要建立底座，后训练主要适配行为和任务；这是一种分析分工，并非知识贡献的绝对划线。**
 - **开放模型家族并行竞争期**：`LLaMA / Llama 2 / Llama 3 / Mistral / Mixtral / Gemma / Gemma 4 / OLMo 2 / DBRX / OpenELM / Falcon 3 / BLOOM / StarCoder 2 / GLM-130B / Qwen / DeepSeek-V3 / DeepSeek-V4 / Kimi K3` 等来源共同表明，预训练主线已从闭源演示阶段进入多家族并行推进阶段。这里真正的分化并不只是“是否开源”，而是 **多语言覆盖、代码能力、上下文长度、训练效率、MoE 采用、研究透明度与部署形态** 的组合差异。
 - **sparse scaling 与效率导向期**：`Mixtral`、`DBRX`、`DeepSeek-V3 / DeepSeek-V4` 与 `Kimi K3` 等节点说明，预训练不再只沿 dense Transformer 一条线扩张。MoE 的引入使“总参数规模”与“单 token 激活成本”发生脱钩，预训练讨论因此从“模型有多大”转向“**每单位计算预算能激活多强的有效容量**”。`DeepSeek-V4` 把问题推进到百万 token 下的 attention FLOPs、KV compression 与 residual stability；`Kimi K3` 则用 896-expert `Stable LatentMoE`、KDA/MLA hybrid attention、AttnRes、Quantile Balancing 与 Per-Head Muon，把 sparse scaling 进一步绑定到 recurrent state、跨深度信息流和 expert-parallel balance。因此 sparse scaling 已经不只是训练容量问题，也变成了长上下文推理工程、优化稳定性与 distributed execution 的共同问题。
 - **中国重要家族与全球开放主线交叉期**：`GLM-130B`、`Qwen`、`DeepSeek-V3 / V4` 与 `Kimi` 相关来源说明，中国模型竞争不应被简化为 “Qwen 对其他一切”。Kimi 过去只能作为高影响非 open-weight 对照，但 `Kimi K3` 已发布完整权重，使该家族也进入 open-weight frontier 主线；与此同时，自定义许可证、训练透明度与集群级部署门槛仍要求把 `open-weight`、`fully open` 和 API 可用性分开。
 
 如果进一步压缩，本页方法分层可概括为：**dense 能力形成**、**compute-optimal 预算修正**、**开放家族分叉**、**sparse 效率扩张**。这四层共同构成当前 LLM 预训练叙事的稳定骨架。
+
+### 从模型名单转为训练条件比较
+
+| 比较轴 | 需要一起记录的条件 | 会造成的误判 |
+| --- | --- | --- |
+| 模型规模 | 总参数、每 token 激活参数、层数与宽度 | MoE 总参数直接等同 dense 计算 |
+| 数据规模 | token 数、重复、语言/代码比例和来源 | 更多 token 必然更高质量 |
+| 训练目标 | causal、blank infilling、混合任务目标 | 同参数模型都在优化同一任务 |
+| 训练资源 | 总 FLOPs、精度、通信和硬件利用率 | 实际训练时间只由参数决定 |
+| 评价阶段 | base / instruction / reasoning，提示与采样 | post-training 成绩反写为基座收益 |
+
+[LLaMA](../summaries/Touvron%20et%20al.%20-%202023%20-%20LLaMA%20Open%20and%20Efficient%20Foundation%20Language%20Models.md)提供了小于某些早期模型、但训练 token 更充分的实践；[Chinchilla](../summaries/Hoffmann%20et%20al.%20-%202022%20-%20Training%20Compute-Optimal%20Large%20Language%20Models.md)研究固定训练计算预算，两者都说明参数不是唯一投入，但不能因此建立永久的 token/参数比例。[GLM-130B](../summaries/Zeng%20et%20al.%20-%202022%20-%20GLM-130B%20An%20Open%20Bilingual%20Pre-trained%20Model.md)采用 blank infilling 与少量多任务目标，不能纳入纯 causal 目标的无差别横比。[Mixtral](../summaries/Jiang%20et%20al.%20-%202024%20-%20Mixtral%20of%20Experts.md)与[DBRX](../summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)改变专家选择；DBRX 本页依据官方发布快照，历史误配数学 PDF 不再提供证据。
+
+“开放”也应分为权重、训练数据、代码、检查点和许可条件。[OLMo 2](../summaries/Ai2%20-%202024%20-%20OLMo%202%20The%20Best%20Fully%20Open%20Language%20Model%20to%20Date.md)强调训练链公开，[K3 许可证](../summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20License.md)则有明确商业条件；二者不能通过同一个 open-weight 标签消除差异。公开权重降低访问门槛，不说明其训练实验可完整重建，也不说明一台消费级设备能运行全部型号。
+
+对家族技术效果作因果判断，需要控制其他变量。V4/K3 报告将架构、优化器、数据和后训练共同改动；即使最终基准进步，也不能将全部收益分给单个注意力设计。本文较稳定的综合结论是：预训练决定可供后训练使用的表示与生成底座，最终系统表现还由数据接口、推理预算和工具环境共同决定。
 
 ## 关键争论与分歧
 
@@ -47,6 +73,10 @@ status: building
 - **开放模型是否主要只是分发策略差异**：当前证据不支持这种过窄理解。`BLOOM`、`OLMo 2` 强调研究透明度；`Gemma` 到 `Gemma 4` 强调 practical size、开放多模态、`MoE` 与本地/工作站部署；`OpenELM` 与 `Phi-3` 强调端侧与效率；`Qwen`、`Llama`、`DeepSeek` 强调家族化延展。也就是说，开放模型之间存在真实技术分化，而不仅是 license 分化。
 - **家族级开放标签是否稳定**：`Kimi` 说明答案是否定的。`k1.5` 时代的来源只能支撑高影响 API/报告节点，而 `Kimi K3` 已是完整权重发布；因此开放性必须绑定具体代际和许可证。反过来，K3 的自定义商业条件与未完全公开的训练链路也说明 `open-weight` 仍不能自动升级为 `fully open research release`。
 - **预训练是否已经足以解释当前模型差异**：随着 agent、多模态与 tool use 路线扩张，单靠预训练已难解释全部产品能力差异。当前证据仍支持本页把预训练当作能力骨干，但也支持一个限制性判断：**预训练已不再独自解释最终系统表现。**
+
+### 本库可以比较路线，不能给统一冠军
+
+GPT-3、PaLM、LLaMA 和近期 MoE 报告使用不同基准、数据时间与提示。历史基准还有污染检查和训练数据公开程度的差异。没有共同协议时，按技术条件比较比汇总最高分更可靠；若要形成性能排名，应另做同任务、同推理预算的评测。文中的“能力底座”与“行为塑形”是分析分工，实际后训练也会增加知识、工具模式和新任务经验，不能解释成知识只在预训练产生。
 
 ## 证据基础
 
@@ -64,7 +94,7 @@ status: building
 - [Team, Google DeepMind - 2024 - Gemma 2 Improving Open Language Models at a Practical Size](../../wiki/summaries/Team,%20Google%20DeepMind%20-%202024%20-%20Gemma%202%20Improving%20Open%20Language%20Models%20at%20a%20Practical%20Size.md)
 - [Google DeepMind - 2026 - Gemma 4 Model Card](../../wiki/summaries/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md)
 - [Lozhkov et al. - 2024 - StarCoder 2 and The Stack v2 The Next Generation](../../wiki/summaries/Lozhkov%20et%20al.%20-%202024%20-%20StarCoder%202%20and%20The%20Stack%20v2%20The%20Next%20Generation.md)
-- [Databricks - 2024 - DBRX A Highly Efficient Open LLM](../../wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)
+- [DBRX：Databricks 官方模型发布说明](../../wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)
 - [Mehta et al. - 2024 - OpenELM An Efficient Language Model Family with Open Training and Inference Framework](../../wiki/summaries/Mehta%20et%20al.%20-%202024%20-%20OpenELM%20An%20Efficient%20Language%20Model%20Family%20with%20Open%20Training%20and%20Inference%20Framework.md)
 - [Abdin et al. - 2024 - Phi-3 Technical Report A Highly Capable Language Model Locally on Your Phone](../../wiki/summaries/Abdin%20et%20al.%20-%202024%20-%20Phi-3%20Technical%20Report%20A%20Highly%20Capable%20Language%20Model%20Locally%20on%20Your%20Phone.md)
 - [Ai2 - 2024 - OLMo 2 The Best Fully Open Language Model to Date](../../wiki/summaries/Ai2%20-%202024%20-%20OLMo%202%20The%20Best%20Fully%20Open%20Language%20Model%20to%20Date.md)
@@ -76,6 +106,7 @@ status: building
 - [Unknown - 2024 - DeepSeek-V3 Technical Report](../../wiki/summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)
 - [DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence](../../wiki/summaries/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.md)
 - [Kimi Team - 2026 - Kimi K3 Open Frontier Intelligence](../../wiki/summaries/Kimi%20Team%20-%202026%20-%20Kimi%20K3%20Open%20Frontier%20Intelligence.md)
+- [Moonshot AI - 2026 - Kimi K3 License](../summaries/Moonshot%20AI%20-%202026%20-%20Kimi%20K3%20License.md)：补充具体代际许可边界，不作为训练能力证据。
 
 ## 代表页面
 
@@ -133,11 +164,9 @@ status: building
 
 ## 未解决问题
 
-- 当前知识库已经具备 `dense -> compute-optimal -> 开放家族 -> MoE` 的稳定主线，但 **数据质量、去重策略、长上下文训练代价、数据混配** 仍未形成细粒度 summary 支撑，因此本页对“为什么某些家族更强”的解释仍偏宏观。
-- `dense vs MoE` 尚未形成独立 comparison 页；因此 sparse scaling 在本页中仍主要以结构性判断出现，而不是以系统对照结论出现。
-- 当前 evidence base 仍不足以对 `Qwen / Llama 3 / DeepSeek-V3 / DeepSeek-V4 / Kimi K3 / Mistral / Gemma / GLM` 做高置信统一排序，本页只能稳定讨论 **路线差异**，不能稳定讨论 **家族优劣总排名**。
-- `tool use、多模态、agent` 是否应被视为预训练主干的自然外推，还是更应归于后训练与系统整合，目前仍需要更多 `wiki/summaries/` 支撑；因此本页暂不把这些能力写成预训练本身的必然结果。
-- `ChatGLM / GLM-4 / Phi` 后续代际，以及 `Kimi K2 / K2.5 / K2.6` 的直接来源仍未形成闭合时间线；K3 技术报告虽能提供家族回顾，却不能替代各代独立 summary。`Gemma 4` 的 text diffusion 分支 [DiffusionGemma](../concepts/DiffusionGemma.md) 仍更适合在 [文本扩散语言模型](./%E6%96%87%E6%9C%AC%E6%89%A9%E6%95%A3%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.md) 中展开。
+- 数据质量、重复率与语言/代码混配怎样改变预算最优？家族数据不完全公开，参数和 token 数都不是全部原因。
+- MoE 容量、通信与路由负载怎样共同决定训练和服务成本？总参数或激活参数不能单独预测硬件代价。
+- 怎样分离基座、后训练、推理预算与工具环境的贡献？组合成绩需要共同协议和控制实验才能归因。
 
 ## 关联页面
 
@@ -149,3 +178,11 @@ status: building
 - [DeepSeek](../concepts/DeepSeek.md)
 - [开放模型家族与中国重要家族对照](../comparisons/开放模型家族与中国重要家族对照.md)
 - [Qwen 系列演进](../timelines/Qwen%20系列演进.md)
+- [推理优化：量化、缓存与硬件](../comparisons/%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96%EF%BC%9A%E9%87%8F%E5%8C%96%E3%80%81%E7%BC%93%E5%AD%98%E4%B8%8E%E7%A1%AC%E4%BB%B6.md)：先定位瓶颈再选优化：量化减表示成本，剪枝改有效权重，缓存复用已有计算，调度提高资源利用率。它们可以配合，但速度收益不能简单相乘。
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **sparse**：稀疏计算或连接：只使用选中的部分，具体省略什么取决于方法。
+- **FLOPs**：浮点运算量：描述计算数量，不能直接等同于实际耗时。

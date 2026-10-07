@@ -1,8 +1,17 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Luo et al. - 2024 - IntrinsicDiffusion Joint Intrinsic Layers from Latent Diffusion Models
+
+## TL;DR（快速导读）
+
+IntrinsicDiffusion 将图像分解为材质颜色、照明和几何等内在因素，研究可控的物理属性编辑。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
 
 ## 来源信息
 
@@ -12,29 +21,45 @@ status: refined
 - 全文文本：../../raw/text/Luo et al. - 2024 - IntrinsicDiffusion Joint Intrinsic Layers from Latent Diffusion Models.md
 - 作者：Jundan Luo, Duygu Ceylan, Jae Shin Yoon, Nanxuan Zhao, Julien Philip, Anna Frühstück, Wenbin Li, Christian Richardt, Tuanfeng Y. Wang
 - 年份：2024
-- 状态：已整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`IntrinsicDiffusion` 把“图像分层”推进到另一种更偏物理与编辑语义的层面：不是分前景/背景 `RGBA` 图层，而是联合预测 albedo、illumination、surface geometry 等 intrinsic modalities。论文的核心主张是，大规模 text-to-image foundation model 已隐式学到足够强的 intrinsic priors，可以被重新用作联合 intrinsic decomposition 的底座。
+它利用图像扩散模型学到的先验，联合预测反照率、光照和表面几何。这与前景背景透明图层不同：前者解释图像如何形成，后者主要组织可移动的对象和图层。
 
 ## 关键事实
 
-- 论文把 intrinsic image decomposition 定义为对图像内在属性的联合推断，而不是传统意义上的对象层或 PSD 图层恢复。
-- 方法构建在预训练 foundation image generation model 之上，加入新的 conditioning mechanism，使模型可从输入图像联合预测多个 intrinsic modalities。
-- 作者强调“joint / collaborative prediction”而不是逐模态独立预测，认为多模态协同会提升整体分解质量。
-- 训练设计支持混合使用“只标部分 intrinsic modalities”的数据集，这意味着它试图绕开 intrinsic 任务长期存在的标注稀缺与数据异构问题。
-- 论文在 Adobe 页面上明确宣称达到 intrinsic image decomposition 的 `state-of-the-art`，并展示 relighting、retexturing 等下游编辑用途。
-- 这条路线说明 Adobe 对 layered 的理解不只等于“可编辑前景层”，还包括把图像拆成材质、光照、几何等可重组的内在层。
+- **C1**：官方论文简介讨论albedo、illumination与surface geometry的intrinsic decomposition。
+- **C2**：方法在预训练生成模型上加入conditioning，联合预测多种intrinsic modality。
+- **C3**：作者称可混合仅标注部分模态的数据，并展示relighting/retexturing用途。
 
 ## 争议与不确定点
 
-- 当前仓库可用来源主要是 Adobe publication page 摘要级信息，尚不足以重建其完整架构细节、基准名称与所有实验设置。
-- intrinsic layers 与 `RGBA` / PSD-style layers 不是同一种分层对象；若把两者混写，会误把物理分解问题当成设计软件图层问题。
-- 虽然它显然服务编辑与重光照，但它是否应被视为“图像分层 layered”主线中的核心节点，仍取决于后续是否出现更多把 intrinsic decomposition 与可编辑工作流直接打通的来源。
+- 本库此来源只保存官方publication简介，尚无可用论文全文；核证范围限简介明确主张。
+- 与对象/可编辑设计图层属于不同任务，不能按layer一词合并。
 
 ## 关联页面
 
 - 主题：[图像分层 layered](../../wiki/topics/%E5%9B%BE%E5%83%8F%E5%88%86%E5%B1%82%20layered.md)
 - 主题：[传统 CV](../../wiki/topics/%E4%BC%A0%E7%BB%9F%20CV.md)
 - 主题：[扩散模型与文生图](../../wiki/topics/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%96%87%E7%94%9F%E5%9B%BE.md)
+
+## 方法与实验解读
+
+当前来源是Adobe的论文简介，能够确认问题定义、联合条件预测和编辑应用。单张图像的光照/材质/几何分解本身存在歧义，生成先验给出合理解并不表示唯一物理解。本页不把简介里的SOTA宣传升级成已经核读完整评测的结论。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Luo%20et%20al.%20-%202024%20-%20IntrinsicDiffusion%20Joint%20Intrinsic%20Layers%20from%20Latent%20Diffusion%20Models.md#source-section-5 ) | 内在属性层，不是对象分层或PSD图层恢复。 |
+| C2 | [原文]( ../../raw/text/Luo%20et%20al.%20-%202024%20-%20IntrinsicDiffusion%20Joint%20Intrinsic%20Layers%20from%20Latent%20Diffusion%20Models.md#source-section-5 ) | 简介未披露具体网络和完整实验。 |
+| C3 | [原文]( ../../raw/text/Luo%20et%20al.%20-%202024%20-%20IntrinsicDiffusion%20Joint%20Intrinsic%20Layers%20from%20Latent%20Diffusion%20Models.md#source-section-5 ) | 联合训练能力声明，不补猜损失或评测分数。 |
+
+## 核证范围
+
+核读官方publication页全文与作者/会议信息；未声称读过外链ACM正文。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -4,6 +4,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
+import os
 import re
 import shutil
 import subprocess
@@ -12,8 +14,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+try:
+    from .lint_wiki import parse_frontmatter
+except ImportError:
+    from lint_wiki import parse_frontmatter
+
 
 ROOT = Path(__file__).resolve().parent.parent
+QMD_TIMEOUT = 30.0
 
 
 @dataclass(frozen=True)
@@ -64,6 +72,9 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip qmd's incremental index refresh before searching.",
     )
+    parser.add_argument('--backend', choices=('auto', 'qmd', 'local'), default='auto', help='auto uses qmd with a read-only lexical fallback; local needs no index/models.')
+    parser.add_argument('--json', action='store_true', help='Return structured paths, maturity and line locations.')
+    parser.add_argument('--timeout', type=float, default=30, help='Maximum seconds for each qmd command.')
     return parser.parse_args()
 
 
@@ -199,12 +210,18 @@ def run_qmd(args: list[str], check: bool = True) -> subprocess.CompletedProcess[
     qmd = shutil.which("qmd")
     if not qmd:
         raise FileNotFoundError(installation_error())
+    env = os.environ.copy()
+    # Repository-scoped, rebuildable runtime state; no global collection mutation.
+    env['XDG_CACHE_HOME'] = str(ROOT / '.wiki-cache')
+    env['QMD_CONFIG_DIR'] = str(ROOT / '.wiki-cache' / 'qmd-config')
     return subprocess.run(
-        [qmd, *args],
+        [qmd, '--index', repo_prefix(), *args],
         cwd=ROOT,
         text=True,
         capture_output=True,
         check=check,
+        env=env,
+        timeout=QMD_TIMEOUT,
     )
 
 
@@ -250,7 +267,7 @@ def load_title_index() -> dict[str, list[str]]:
             except Exception:  # noqa: BLE001
                 continue
             title = ""
-            for line in lines[:8]:
+            for line in lines[:30]:
                 stripped = line.strip()
                 if stripped.startswith("# "):
                     title = stripped[2:].strip()
@@ -367,11 +384,20 @@ def merged_results(mode: str, query: str, per_collection_limit: int) -> list[dic
         if previous is None or result["score"] > previous["score"]:
             deduped[key] = result
 
-    results = list(deduped.values())
+    results = [enrich_result(item) for item in deduped.values() if (ROOT / item['path']).is_file()]
+    return order_results(results, mode, query)
+
+
+def order_results(results: list[dict[str, Any]], mode: str, query: str) -> list[dict[str, Any]]:
+    terms = query_terms(qmd_search_query(query))
+    def title_coverage(item: dict[str, Any]) -> int:
+        title = item.get('title', '').casefold()
+        return sum(term in title for term in terms)
     if mode == "wiki-first":
         results.sort(
             key=lambda item: (
                 item["priority"],
+                -title_coverage(item),
                 subtype_priority(item["path"], query),
                 -item["score"],
                 item["path"],
@@ -387,6 +413,64 @@ def merged_results(mode: str, query: str, per_collection_limit: int) -> list[dic
             )
         )
     return results
+
+
+def enrich_result(item: dict[str, Any]) -> dict[str, Any]:
+    path = ROOT / item['path']
+    text = path.read_text(encoding='utf-8')
+    metadata, _ = parse_frontmatter(text)
+    item['type'] = metadata.get('type', 'raw-text' if item['layer'] == 'raw-text' else 'index')
+    item['status'] = metadata.get('status', 'organization' if metadata else 'unreviewed')
+    item['line'] = item.get('line', next((i for i, line in enumerate(text.splitlines(), 1) if line.startswith('# ')), 1))
+    item['citation'] = f"{item['path']}:{item['line']}"
+    return item
+
+
+def local_results(query: str, mode: str = 'wiki-first', per_collection_limit: int = 24) -> list[dict[str, Any]]:
+    """Recall only: exact lexical matching over allowed files, never an answer."""
+    terms = query_terms(qmd_search_query(query))
+    if not terms:
+        return []
+    results = []
+    for spec in COLLECTION_SPECS:
+        candidates = []
+        paths = [ROOT / 'index.md'] if spec.slug == 'index' else sorted(spec.path.rglob('*.md'))
+        for path in paths:
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding='utf-8')
+            lowered = text.casefold()
+            title = next((line[2:].strip() for line in text.splitlines()[:30] if line.startswith('# ')), path.stem)
+            combined = (title + ' ' + path.name + ' ' + text).casefold()
+            matched = sum(term in combined for term in terms)
+            if matched < min(2, len(terms)):
+                continue
+            lines = text.splitlines()
+            best = max(range(len(lines)), key=lambda i: sum(term in ' '.join(lines[max(0, i-1):i+2]).casefold() for term in terms), default=0)
+            snippet = ' '.join(lines[max(0, best-1):best+2])
+            score = sum(1 + math.log1p(min(lowered.count(term), 20)) for term in terms if term in combined)
+            score += 6 * sum(term in title.casefold() for term in terms)
+            candidates.append(enrich_result({'path': path.relative_to(ROOT).as_posix(), 'title': title, 'snippet': snippet, 'line': best + 1, 'docid': '', 'score': score, 'layer': spec.layer, 'label': spec.label, 'priority': spec.priority}))
+        candidates.sort(key=lambda item: (-item['score'], item['path']))
+        results.extend(candidates[:per_collection_limit])
+    return order_results(results, mode, query)
+
+
+def retrieve(query: str, mode: str = 'wiki-first', limit: int = 8, backend: str = 'auto', no_update: bool = False, per_collection_limit: int | None = None) -> tuple[list[dict[str, Any]], str, str | None]:
+    count = per_collection_limit or max(limit * 3, 12)
+    if backend == 'local':
+        return local_results(query, mode, count)[:limit], 'local-lexical', None
+    try:
+        for spec in COLLECTION_SPECS:
+            ensure_collection(spec)
+        if not no_update:
+            run_qmd(['update'])
+        return merged_results(mode, query, count)[:limit], 'qmd-bm25', None
+    except (FileNotFoundError, RuntimeError, subprocess.SubprocessError, json.JSONDecodeError, OSError) as exc:
+        if backend == 'qmd':
+            raise
+        message = short_text(getattr(exc, 'stderr', '') or str(exc), 180)
+        return local_results(query, mode, count)[:limit], 'local-lexical', message
 
 
 def print_results(query: str, mode: str, results: list[dict[str, Any]], limit: int) -> None:
@@ -407,21 +491,27 @@ def print_results(query: str, mode: str, results: list[dict[str, Any]], limit: i
         if item["snippet"]:
             print(f"   摘要: {short_text(item['snippet'])}")
         print(f"   层级: {item['label']} | 分数: {item['score']:.3f}")
+        print(f"   成熟度: {item.get('status', 'unknown')} | 定位: {item.get('citation', path_text)}")
         if item["docid"]:
             print(f"   qmd: {item['docid']}")
 
 
 def main() -> int:
+    global QMD_TIMEOUT
     args = parse_args()
+    if args.limit < 1 or args.timeout <= 0 or (args.per_collection_limit is not None and args.per_collection_limit < 1):
+        print('Limits and timeout must be positive.', file=sys.stderr)
+        return 1
+    QMD_TIMEOUT = args.timeout
     try:
-        for spec in COLLECTION_SPECS:
-            ensure_collection(spec)
-        if not args.no_update:
-            run_qmd(["update"])
-
-        per_collection_limit = args.per_collection_limit or max(args.limit * 3, 12)
-        results = merged_results(args.mode, args.query, per_collection_limit)
-        print_results(args.query, args.mode, results, args.limit)
+        results, backend, warning = retrieve(args.query, args.mode, args.limit, args.backend, args.no_update, args.per_collection_limit)
+        if warning:
+            print(f'qmd unavailable; using local lexical recall: {warning}', file=sys.stderr)
+        if args.json:
+            print(json.dumps({'query': args.query, 'backend': backend, 'mode': args.mode, 'warning': warning, 'results': results}, ensure_ascii=False, indent=2))
+        else:
+            print_results(args.query, args.mode, results, args.limit)
+            print(f'- Backend: {backend}')
         return 0
     except FileNotFoundError as exc:
         print(str(exc), file=sys.stderr)

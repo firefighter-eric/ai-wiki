@@ -3,9 +3,17 @@ type: concept
 ---
 # Llama 家族
 
+## TL;DR（快速导读）
+
+Llama 家族按初代、Llama 2、Llama 3 及代码和安全分支阅读，便于分清通用底座、聊天适配与专门任务。
+
 ## 简介
 
 `Llama` 是 Meta 开放权重语言模型家族的总入口。这里聚合初代 `LLaMA`、`Llama 2`、`Code Llama` 与 `Llama 3` 的代际关系；具体模型的训练与能力主张仍回到各自概念页和 summary 核对。
+
+## 具体怎么理解
+
+Code Llama 与 Llama Guard 都属于家族分支，但一个偏代码生成，另一个偏内容分类，不能按同一任务比较。
 
 ## 关键属性
 

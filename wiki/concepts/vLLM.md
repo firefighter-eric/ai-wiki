@@ -3,11 +3,19 @@ type: concept
 ---
 # vLLM
 
+## TL;DR（快速导读）
+
+vLLM 是语言模型推理服务系统，优化缓存、调度和执行以支持高吞吐；应区分早期论文机制与后续版本功能。
+
 ## 简介
 
-`vLLM` 是面向自回归大语言模型的高吞吐 inference / serving engine。它不是一种新的语言模型架构，也不靠改变模型权重或近似 attention 提升性能。理解 vLLM 必须区分技术层与时间层：`PagedAttention` 是从非连续物理 `KV block` 读取 key/value 的 attention kernel 与寻址抽象；vLLM 则是使用该抽象并持续演进的完整 serving system。
+`vLLM` 是面向自回归大语言模型的高吞吐 推理与服务 engine。它不是一种新的语言模型架构，也不靠改变模型权重或近似 attention 提升性能。理解 vLLM 必须区分技术层与时间层：`PagedAttention` 是从非连续物理 `KV block` 读取 key/value 的 attention kernel 与寻址抽象；vLLM 则是使用该抽象并持续演进的完整 serving system。
 
-在 **2023 年论文版本**中，系统以 `PagedAttention` 打破“每条序列的逻辑连续 KV cache 必须占据连续物理 GPU 内存”的约束，并围绕它共同设计 centralized scheduling、block-level memory management、preemption recovery、decoding-state sharing 与 tensor-parallel execution。在 **2026-08-04 V1 官方文档快照**中，核心系统已经重构为 API Server、Engine Core、per-GPU Worker 与可选 DP Coordinator 的多进程拓扑；scheduler 改用统一 token budget，prefix reuse 也发展为 hash-based Automatic Prefix Caching（APC）。因此不能把首篇论文架构、当前 V1 实现与 `PagedAttention` 这个单一 primitive 当成同义词。
+在 **2023 年论文版本**中，系统以 `PagedAttention` 打破“每条序列的逻辑连续 KV cache 必须占据连续物理 GPU 内存”的约束，并围绕它共同设计 centralized scheduling、block-level memory management、preemption recovery、decoding-state sharing 与 tensor-parallel execution。在 **2026-08-04 V1 官方文档快照**中，核心系统已经重构为 API Server、Engine Core、per-GPU Worker 与可选 DP Coordinator 的多进程拓扑；scheduler 改用统一 词元预算，prefix reuse 也发展为 hash-based Automatic Prefix Caching（APC）。因此不能把首篇论文架构、当前 V1 实现与 `PagedAttention` 这个单一 primitive 当成同义词。
+
+## 具体怎么理解
+
+多个请求长度不同，系统要决定哪些先处理、保存多少缓存及如何分配 GPU；模型权重相同也会因服务系统产生不同表现。
 
 ## 关键属性
 
@@ -140,3 +148,12 @@ V1 的 APC 对每个 **完整 block** 构造 chained hash：key 包含 parent bl
 - [注意力机制 Attention](../topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)
 - [Kimi K3](./Kimi%20K3.md)
 - [Kimi Delta Attention](./Kimi%20Delta%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **prefill**：提示计算阶段：先处理输入提示，再开始逐步生成输出。
+- **decode**：解码阶段：利用已有输入与生成历史，产生后续输出。
+- **scheduler**：调度器：决定请求何时进入计算、每次处理多少，以及如何共享资源。
+- **runtime**：运行时：负责实际执行程序、管理状态和安排计算的系统。

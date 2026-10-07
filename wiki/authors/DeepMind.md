@@ -3,9 +3,19 @@ type: author
 ---
 # DeepMind
 
+## TL;DR（快速导读）
+
+这里连接 DeepMind 相关的训练预算、Gemma 开放模型和视觉表示资料，按研究问题选择入口更容易阅读。
+
 ## 简介
 
-`DeepMind` 在当前知识库中主要对应 `Chinchilla / Gemma / SigLIP` 一类开放与研究主线。随着 `Gemma 4`、`DiffusionGemma` 与 `Vision Banana` 接入，本页也承接 Google DeepMind 在开放模型家族、`MoE`、text diffusion 和生成式视觉基础模型方向上的新增节点。
+这里连接 DeepMind 相关的训练预算、Gemma 开放模型和视觉表示资料，按研究问题选择入口更容易阅读。
+
+## 从哪里开始读
+
+- [Hoffmann et al. - 2022 - Training Compute-Optimal Large Language Models](../summaries/Hoffmann%20et%20al.%20-%202022%20-%20Training%20Compute-Optimal%20Large%20Language%20Models.md)：待精读：Chinchilla 研究固定训练预算下参数量和数据量的搭配，发现一味增大模型而不给足训练数据会浪费计算。
+- [Team, Deepmind - 2025 - Gemma 3 Technical Report](../summaries/Team,%20Deepmind%20-%202025%20-%20Gemma%203%20Technical%20Report.md)：待精读：Gemma 3 报告介绍开放模型家族的视觉、多语言和长上下文能力，并讨论减少长上下文缓存的架构安排。
+- [Google DeepMind - 2026 - Gemma 4 Model Card](../summaries/Google%20DeepMind%20-%202026%20-%20Gemma%204%20Model%20Card.md)：Gemma 4 模型卡用于核对不同规模与架构的规格，以及长上下文、多模态和工具使用的支持范围。
 
 ## 当前覆盖
 

@@ -1,8 +1,18 @@
 ---
 type: topic
 status: formal
+review_scope: evidence_synthesis
+reviewed: 2026-10-07
 ---
 # 经典 CNN 架构
+
+## TL;DR（快速导读）
+
+经典 CNN 的演进分别改进深度、连接、多分支与效率。VGG、ResNet、DenseNet 和 MobileNet 改的是不同设计维度。
+
+## 先用一个问题理解
+
+若深层网络难训练，残差连接提供直接路径；若想复用特征，DenseNet 采用拼接；若设备预算低，则看轻量卷积。这样按问题阅读，比把模型排成年表更容易理解结构差别。
 
 ## 页面状态
 
@@ -37,6 +47,10 @@ status: formal
 
 把这些层串起来，可以得到一个比“CNN 被 Transformer 淘汰”更稳的判断：**经典 CNN 的长期演化，不是单向追求更深，而是在持续决定该把复杂度放在深度、模块内部结构、跨层连接、容量维度、部署效率还是现代化设计上。**
 
+### 指标进步需要同时记录训练配方
+
+[VGG](../summaries/Simonyan%2C%20Zisserman%20-%202014%20-%20Very%20Deep%20Convolutional%20Networks%20for%20Large-Scale%20Image%20Recognition.md)固定小卷积核研究深度，[GoogLeNet](../summaries/Szegedy%20et%20al.%20-%202014%20-%20Going%20Deeper%20with%20Convolutions.md)通过多分支和瓶颈组织计算，[ResNeXt](../summaries/Xie%20et%20al.%20-%202016%20-%20Aggregated%20Residual%20Transformations%20for%20Deep%20Neural%20Networks.md)强调分组分支的 cardinality。这些不是在完全相同资源下独立替换一个组件的统一消融；输入尺度、数据增强和训练日程也影响成绩。[ConvNeXt](../summaries/Liu%20et%20al.%20-%202022%20-%20A%20ConvNet%20for%20the%202020s.md)重新检验现代配方下卷积性能，支持不能把老训练配置当成架构能力上限。本文比较设计轴，避免以跨年代最佳数字作因果结论。
+
 ## 关键争论与分歧
 
 - **卷积主线的核心突破究竟是深度还是连接**：现有证据更支持 `ResNet` 的接口重写比单纯继续加深更关键。`VGG` 证明深度重要，但 `ResNet` 才让深度真正成为稳定可训练资源。
@@ -68,10 +82,9 @@ status: formal
 
 ## 未解决问题
 
-- 当前页面已经能较稳定地描述 `VGG -> ResNet -> ConvNeXt` 这条卷积 backbone 主线，但对 `AlexNet / EfficientNet / RegNet / SENet / MobileNetV2` 等关键节点仍未补足来源，因此尚不能把“经典 CNN 全景图”写到完全闭合。
-- 本页对轻量化和现代化各只有一个代表来源，足以支撑主线判断，但不足以支撑更细粒度结论，例如“端侧 CNN 最优设计规律”或“ConvNet 与 ViT 的最终边界”。
-- 当前页面只讨论 backbone 结构，不足以回答检测、分割、OCR 等任务中为何有些场景持续偏爱卷积特征金字塔和局部归纳偏置；这需要更多下游 summary 支撑。
-- 若后续补入 `EfficientNet / RegNet / SENet / ConvMixer / RepVGG` 等来源，可以把本页进一步细化为“纯精度扩张”“高效部署”“ViT 时代回写”三个更稳定的子脉络。
+- 固定数据、日程与算力时，深度、宽度、分支与连接各贡献多少？跨年代配方限制架构归因。
+- 分类结构何时能迁移到检测、分割与低数据任务？不能只按 ImageNet 排名选择全部任务。
+- 计算量怎样对应实际延迟和量化表现？小卷积、可分离卷积与多分支的效率依后端，FLOPs 不替代测试。
 
 ## 关联页面
 
@@ -85,3 +98,7 @@ status: formal
 - [ResNeXt](../concepts/ResNeXt.md)
 - [MobileNet](../concepts/MobileNet.md)
 - [ConvNeXt](../concepts/ConvNeXt.md)
+
+## 这里的术语是什么意思
+
+- **backbone**：模型骨干：主要负责提取或变换表示，其他任务模块在它之上工作。

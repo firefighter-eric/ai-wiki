@@ -1,41 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead
+
+## TL;DR（快速导读）
+
+这是 Leopold Aschenbrenner 在 2024 年提出的 AI 发展情景与政策主张，适合研究其论证链和假设，不应当作已验证的时间表。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+作者试图把模型能力进步、训练投入、基础设施建设和社会影响连接起来。阅读时应分别看清他引用的公开信息、对趋势的外推，以及未来情景所依赖的假设。这里保留的是 2024 年的观点，预测是否兑现需要另行核验。
+
+## 具体怎么理解
+
+例如，算力投入增加是一个前提，能力按同样速度增长是另一个前提；前者成立，并不能自动证明后者。
+
+## 关键事实
+
+- **C1**：作者说明资料来自公开信息、个人判断、领域知识和传闻，并标注更新于 2024 年 6 月。
+- **C2**：AGI 时间线建立在算力、算法效率与能力解锁的外推上，属于预测。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead.pdf
-- 全文文本：../../raw/text/Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead.md
+- 原始文件：[打开原始文件](../../raw/pdf/Ahead%20-%202024%20-%20Leopold%20Aschenbrenner%20S%20I%20T%20U%20AT%20I%20O%20N%20A%20L%20AWA%20R%20E%20N%20E%20S%20S%20The%20Decade%20Ahead.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Ahead%20-%202024%20-%20Leopold%20Aschenbrenner%20S%20I%20T%20U%20AT%20I%20O%20N%20A%20L%20AWA%20R%20E%20N%20E%20S%20S%20The%20Decade%20Ahead.md)
 - 作者：Ahead
 - 年份：2024
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead JUNE 2024 2 Dedicated to Ilya Sutskever. While I used to work at OpenAI, all of this is based on publicly- available information, my own ideas, general field-knowledge, or SF-gossip. Thank you to Collin Burns, Avital Balwit, Carl Shulman, Jan Leike, Ilya Sutskever, Holden Karnofsky, Sholto Douglas, James Bradbury, Dwarkesh Patel, and many others for formative discussions. Thank you to many friends for feedback on earlier drafts. Thank you to Joe Ronan for help with graphics, and Nick Whitaker for publishing help. situational-awareness.ai leopold@situational-awareness.ai Updated June 6, 2024 San Francisco, California You can see the future first in San Francisco. Over the past year, the talk of the town has shifted from $10 billion compute clusters to $100 billion clusters to trillion-dollar clusters. Ev- ery six 
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Ahead - 2024 - Leopold Aschenbrenner S I T U AT I O N A L AWA R E N E S S The Decade Ahead.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 未来年份的断言需另用之后的证据核验，本文本身不能验证预测是否实现。
+- 政策和地缘判断具有立场，不是能力实验结论。
 
 ## 关联页面
 
 - 主题：[传统CV](../topics/传统%20CV.md)
 - 综合：暂无
+- [AI 能力评测：任务、过程与预测](../comparisons/AI%20%E8%83%BD%E5%8A%9B%E8%AF%84%E6%B5%8B%EF%BC%9A%E4%BB%BB%E5%8A%A1%E3%80%81%E8%BF%87%E7%A8%8B%E4%B8%8E%E9%A2%84%E6%B5%8B.md)：把本篇方法放到相关任务与比较条件中阅读。
+
+## 方法与实验解读
+
+文档将多个趋势连成情景：能力扩展、研究自动化、资源建设与国家竞争。读者应逐项问这些环节如何验证，哪些数据支持趋势，哪些只是作者的价值判断；不能把标题、估算或传闻转写为事实。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/pdf/Ahead%20-%202024%20-%20Leopold%20Aschenbrenner%20S%20I%20T%20U%20AT%20I%20O%20N%20A%20L%20AWA%20R%20E%20N%20E%20S%20S%20The%20Decade%20Ahead.pdf#page=2 ) | 作者自述的来源性质，不是实证研究数据集 |
+| C2 | [原文]( ../../raw/pdf/Ahead%20-%202024%20-%20Leopold%20Aschenbrenner%20S%20I%20T%20U%20AT%20I%20O%20N%20A%20L%20AWA%20R%20E%20N%20E%20S%20S%20The%20Decade%20Ahead.pdf#page=4 ) | 趋势继续、资源可得和能力转化是关键假设 |
+
+## 核证范围
+
+核对 PDF 第 2–5 页的来源声明、目录与预测框架，并抽查数据和对齐讨论；只总结论证性质。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

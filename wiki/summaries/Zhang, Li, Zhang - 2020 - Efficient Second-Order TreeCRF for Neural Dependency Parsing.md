@@ -1,41 +1,66 @@
 ---
 type: summary
-status: auto
+status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing
+
+## TL;DR（快速导读）
+
+这篇依存分析方法把二阶结构信息纳入 TreeCRF，在计算效率和全局句法结构之间寻找平衡。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 摘要
+
+单独为每条词语连接打分会忽略连接之间的关系。二阶模型考虑更多结构组合，并用相应训练和推断组织句法树。应关注增加的表达能力、计算与实际评测收益。
+
+## 具体怎么理解
+
+判断某个词的两个子节点时，它们的关系可能一起影响整棵树；局部最优连接未必组成最好的整体结构。
+
+## 关键事实
+
+- **C1**：在依存解析 TreeCRF 中加入相邻 sibling 二阶分数。
+- **C2**：用 triaffine 打分及批量 inside 算法适配 GPU。
 
 ## 来源信息
 
 - 类型：论文 / 技术报告
-- 原始文件：../../raw/pdf/Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing.pdf
-- 全文文本：../../raw/text/Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing.md
+- 原始文件：[打开原始文件](../../raw/pdf/Zhang%2C%20Li%2C%20Zhang%20-%202020%20-%20Efficient%20Second-Order%20TreeCRF%20for%20Neural%20Dependency%20Parsing.pdf)
+- 全文文本：[打开全文文本](../../raw/text/Zhang%2C%20Li%2C%20Zhang%20-%202020%20-%20Efficient%20Second-Order%20TreeCRF%20for%20Neural%20Dependency%20Parsing.md)
 - 作者：Zhang, Li, Zhang
 - 年份：2020
-- 状态：已抽取全文，待精读
-
-## 摘要
-
-In the deep learning (DL) era, parsing mod- els are extremely simpliﬁed with little hurt on performance, thanks to the remarkable ca- pability of multi-layer BiLSTMs in context representation. As the most popular graph- based dependency parser due to its high ef- ﬁciency and performance, the biafﬁne parser directly scores single dependencies under the arc-factorization assumption, and adopts a very simple local token-wise cross-entropy training loss. This paper for the ﬁrst time presents a second-order TreeCRF extension to the biafﬁne parser. For a long time, the com- plexity and inefﬁciency of the inside-outside algorithm hinder the popularity of TreeCRF. To address this issue, we propose an effec- tive way to batchify the inside and Viterbi al- gorithms for direct large matrix operation on GPUs, and to avoid the complex outside algo- rithm via efﬁcient back-propagation. Experi- ments and analysis on 27 datasets from 13 lan- guages clearly show that techniques developed before the DL era, such as structural learning (global TreeCRF loss) and high-order model- ing are still useful, and can further boost pars- ing performance over the state-of-the-art bi- afﬁne parser, especially for partially annotated training data. We release our code at https: //github.com/yzhangcs/crfpar.
-
-## 当前 ingest 判断
-
-- 当前页面为批量重建后的统一来源页，目标是先把全部 PDF 纳入知识库可引用范围。
-- 摘要内容来自 `raw/text/` 自动抽取结果，后续需要人工或 LLM 精修。
-- 候选主题暂按文件名与摘要关键词自动归类，允许后续调整。
-
-## 关键事实
-
-- 已存在可读全文文本，可直接从 `raw/text/Zhang, Li, Zhang - 2020 - Efficient Second-Order TreeCRF for Neural Dependency Parsing.md` 继续做深入整理。
-- 当前尚未对方法细节、实验设置和局限做系统提炼。
-- 若该来源对主题主干重要，下一步应提升为精修版来源页。
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
+- 原始 HTML：[打开快照](../../raw/html/Zhang%2C%20Li%2C%20Zhang%20-%202020%20-%20Efficient%20Second-Order%20TreeCRF%20for%20Neural%20Dependency%20Parsing.html)
 
 ## 争议与不确定点
 
-- 自动抽取摘要可能存在 PDF 文本切分误差。
-- 主题归类是启发式结果，不等于最终主题归属。
-- 当前页面不应被视为最终综述，只应作为后续精修入口。
+- 树假设与 projectivity 等推断条件限制适用范围。
+- 不同 UD 版本与语言的结果不可混为统一精度。
 
 ## 关联页面
 
 - 主题：[Slide  理解与生成](../topics/Slide%20理解与生成.md)
 - 综合：暂无
+
+## 方法与实验解读
+
+该模型在成对依存弧之外建模局部子树，把结构训练和高阶打分连接起来。是否有益要与同编码器一阶模型比较，避免将更强表示的收益混进推断机制。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Zhang%2C%20Li%2C%20Zhang%20-%202020%20-%20Efficient%20Second-Order%20TreeCRF%20for%20Neural%20Dependency%20Parsing.md#source-section-13 ) | 相邻兄弟结构不同于全部高阶关系 |
+| C2 | [原文]( ../../raw/text/Zhang%2C%20Li%2C%20Zhang%20-%202020%20-%20Efficient%20Second-Order%20TreeCRF%20for%20Neural%20Dependency%20Parsing.md#source-section-32 ) | 算法复杂度与实际吞吐仍需同时看 |
+
+## 核证范围
+
+核对 §3 二阶结构、UD 版本评测与结论中的批量 inside 算法。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

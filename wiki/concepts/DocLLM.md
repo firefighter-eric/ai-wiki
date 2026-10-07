@@ -3,14 +3,22 @@ type: concept
 ---
 # DocLLM
 
+## TL;DR（快速导读）
+
+DocLLM 将文字与页面位置关系一起纳入语言模型，帮助理解字段、表单和票据，而不只读取文字内容。
+
 ## 简介
 
-DocLLM 是 layout-aware generative document model 的代表。在当前知识库中，它表示生成式 LLM 正式进入文档理解场景的路线。
+DocLLM 将文字与页面位置关系一起纳入语言模型，帮助理解字段、表单和票据，而不只读取文字内容。
+
+## 具体怎么理解
+
+“金额”和右侧数字属于同一字段，布局提供了这层联系；丢掉位置后，纯文本可能很难判断对应关系。
 
 ## 关键属性
 
 - 类型：文档语言模型
-- 代表来源：[Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
+- 代表来源：[DocLLM：布局感知文档语言模型（2024）](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
 - 当前角色：连接文档基础模型与生成式 LLM
 
 ## 相关主张
@@ -20,7 +28,7 @@ DocLLM 是 layout-aware generative document model 的代表。在当前知识库
 
 ## 来源支持
 
-- [Wang et al. - 2023 - DocLLM A layout-aware generative language model for multimodal document understanding](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
+- [DocLLM：布局感知文档语言模型（2024）](../../wiki/summaries/Wang%20et%20al.%20-%202023%20-%20DocLLM%20A%20layout-aware%20generative%20language%20model%20for%20multimodal%20document%20understanding.md)
 
 ## 关联页面
 

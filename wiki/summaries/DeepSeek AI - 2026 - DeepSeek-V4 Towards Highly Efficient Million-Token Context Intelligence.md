@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence
+
+## TL;DR（快速导读）
+
+DeepSeek-V4 报告把长上下文、代理任务和专家模型效率一起设计，重点检查注意力与缓存怎样承担更长输入。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+能接收整份长报告，不代表每个位置的信息都同样容易利用；需要测试实际问题和长文证据定位。
 
 ## 来源信息
 
@@ -12,35 +25,27 @@ status: refined
 - 全文文本：../../raw/text/DeepSeek AI - 2026 - DeepSeek-V4 Towards Highly Efficient Million-Token Context Intelligence.md
 - 作者：DeepSeek AI
 - 年份：2026
-- 状态：已基于官方技术报告与模型卡整理
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
 
-`DeepSeek-V4` 是 DeepSeek 在 `DeepSeek-V3 / V3.2` 之后推出的预览版 MoE 语言模型系列，包含 `DeepSeek-V4-Pro` 与 `DeepSeek-V4-Flash` 两条规模路线。报告的核心不是单纯扩大参数，而是把 **百万 token 上下文、长程 agent 工作流和稀疏模型效率** 绑定在同一个架构目标里：一方面继续使用 DeepSeekMoE 扩展总容量，另一方面用 `CSA / HCA` 混合 attention 压低长上下文推理中的 FLOPs 与 `KV cache` 成本。
-
-在当前知识库中，`DeepSeek-V4` 应被视为 `DeepSeek-V3` 后的效率架构续章：`DeepSeek-V3` 主要支撑 MoE 与 `MLA` 的高效基座叙事，`DeepSeek-V4` 则把问题推进到更长上下文、更重 agent 轨迹和更激进的 KV 压缩。其 post-training、reasoning mode 与 agent benchmark 很重要，但在主题归类上应分别连接 `LLM 预训练`、`LLM RL` 与后续 agent topic，而不能全部塞进预训练页。
+报告介绍 Pro 与 Flash 两条规模路线，并讨论 CSA、HCA 等混合注意力降低长上下文计算和缓存负担。架构、后训练与代理评测需分开阅读；能容纳更长输入，不等于所有远距离信息都能可靠利用。
 
 ## 关键事实
 
-- `DeepSeek-V4` 预览系列包含 `DeepSeek-V4-Pro` 与 `DeepSeek-V4-Flash`：前者约 `1.6T` 总参数、`49B` 激活参数，后者约 `284B` 总参数、`13B` 激活参数。
-- 两个模型都以 `1M` token 上下文为显性目标，报告称在百万上下文场景下，`DeepSeek-V4-Pro` 相比 `DeepSeek-V3.2` 仅需要约 `27%` 的单 token 推理 FLOPs 与 `10%` 的 `KV cache`。
-- 架构升级包括 `Compressed Sparse Attention (CSA)`、`Heavily Compressed Attention (HCA)` 组成的混合 attention、`Manifold-Constrained Hyper-Connections (mHC)`，以及用于训练稳定性和收敛效率的 `Muon` optimizer。
-- `CSA` 先把若干 token 的 `KV cache` 压缩成 compressed KV entries，再通过 `DeepSeek Sparse Attention (DSA)` 从压缩块中选择 top-k 参与核心 attention；它负责在压缩后保留相关性选择能力。
-- `HCA` 使用更大的压缩率把更长跨度的 `KV cache` 合并为单个 compressed KV entry，并与 sliding window branch 配合保留近邻依赖；它负责把百万上下文下的缓存成本进一步压低。
-- `mHC` 通过把 residual mapping 约束到 doubly stochastic matrices 所在的 Birkhoff polytope，改善深层 Transformer blocks 间的信号传播稳定性；报告同时说明其需要 fused kernels、recomputation 和 pipeline overlap 来控制额外开销。
-- `Muon` 被用于多数模块，`AdamW` 仍用于 embedding、prediction head、`mHC` 的静态 bias / gating factors 和 `RMSNorm` 权重；报告称该优化器有助于更快收敛与训练稳定性，并为其设计了与 `ZeRO` 和 MoE 参数更新兼容的实现。
-- DeepSeek-V4 的 Muon 先累积 momentum，并在 Nesterov update 上执行 hybrid Newton–Schulz iterations；若更新矩阵的 SVD 为 `M = UΣVᵀ`，其目标是把更新近似正交化为 `UVᵀ`，再重标定 update RMS、施加 decoupled weight decay 并更新权重。
-- 该报告把 AdamW 明确归为 element-wise optimizer：单个参数矩阵可以被 ZeRO 切分后分别更新；Muon 则需要 logically independent weight 的完整梯度矩阵，因此必须采用限制 ZeRO 并行规模、整矩阵 bucket assignment、冗余计算与 MoE expert 独立更新等专门策略。
-- 报告称 `DeepSeek-V4-Flash` 使用约 `32T` token 预训练，`DeepSeek-V4-Pro` 使用约 `33T` token 预训练，之后再经过 SFT、GRPO 等后训练管线。
-- `DeepSeek-V4` 的发布不是纯 base model 事件：模型卡同时强调 `Non-think / Think High / Think Max` 等推理模式、agent 能力与工具调用格式，这说明该系列从发布层面就面向长程任务和 agent 使用。
-- `DeepSeek-V4-Flash` 与 `DeepSeek-V4-Pro` 都有 base 与 instruct 权重入口，发布页标注 MIT license，并通过 Hugging Face collection 分发。
+- **C1**：预览系列 Pro 为 1.6T/49B 激活，Flash 为 284B/13B 激活，均支持 1M 上下文。
+- **C2**：1M 场景下 Pro 的估计单 token FLOPs 为 V3.2 的 27%、KV cache 为 10%。
+- **C3**：CSA 压缩 KV 后用 DSA 选 top-k；HCA 更强压缩并保持压缩条目上的 dense attention。
+- **C4**：mHC 将残差映射约束到双随机矩阵，并约束输入输出映射以改善深层信号稳定性。
+- **C5**：mHC 的实现使用融合、重算和流水线重叠控制额外开销。
+- **C6**：Muon 累积 momentum，进行混合 Newton–Schulz 正交化近似，再重标定并执行衰减和更新。
+- **C7**：Flash/Pro 分别预训练 32T/33T tokens，后训练包含领域专家 SFT/GRPO 与统一 on-policy distillation。
+- **C8**：报告将低精度、定制 kernel 与混合 ZeRO 等列为训练/推理效率的配套条件。
 
 ## 争议与不确定点
 
-- 这是预览版本，模型卡与技术报告中的 benchmark、参数口径和能力主张仍需要后续社区复现与第三方评测确认。
-- 报告同时覆盖预训练架构、后训练、reasoning mode、agent 训练基础设施与部署细节；不同主题页引用时必须拆分使用，不能把 agent benchmark 直接写成预训练规律。
-- `CSA / HCA / mHC / Muon` 是否会成为 DeepSeek 之外的通用架构范式，目前还缺少更多独立实现与消融复现。
-- `1M` token 上下文是能力上限与工程目标，但实际可用性依赖推理框架、显存、KV 存储策略、工具轨迹长度和任务类型。
+- 1M 窗口并不保证任何位置的细粒度信息都无损保留；压缩路线需额外测长距离细节。
+- 作者基准与内部评测尚未在本库复现，不能把 preview 的作者比较写成永久排名。
 
 ## 关联页面
 
@@ -55,3 +60,38 @@ status: refined
 - 概念：[Manifold-Constrained Hyper-Connections](../../wiki/concepts/Manifold-Constrained%20Hyper-Connections.md)
 - 概念：[Muon](../../wiki/concepts/Muon.md)
 - 比较：[开放模型家族与中国重要家族对照](../../wiki/comparisons/开放模型家族与中国重要家族对照.md)
+- [DeepSeek](../authors/DeepSeek.md)：沿作者或机构继续阅读相关来源。
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **SFT**：监督微调：用输入与参考输出继续训练已有模型。
+- **MoE**：专家混合：路由器为不同输入选择部分子网络，总容量与每次实际计算不同。
+- **sparse**：稀疏计算或连接：只使用选中的部分，具体省略什么取决于方法。
+- **embedding**：向量表示：把文字、图片等编码成一组数，用于模型计算或相似度比较。
+
+## 方法与实验解读
+
+V4 将序列压缩、稀疏选择、残差信号约束和矩阵级优化共同用于超长上下文。CSA 重点保留相关片段，HCA 进一步压缩远处信息，局部窗口保留细节；这是一种质量与缓存成本的分配。报告的高推理预算 Max 结果应与普通模式分开，也要把 FLOPs/KV 估算和实际任务延迟、检索准确率分开。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=1 ) | 保存报告的 preview 版本。 |
+| C2 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=5 ) | 等效 FP8 FLOPs 的估算，不是端到端延迟实测。 |
+| C3 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=9 ) | 两者均与局部窗口分支结合，压缩率和候选预算影响信息保留。 |
+| C4 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=8 ) | 数学约束与训练系统开销要分开评估。 |
+| C5 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=21 ) | 报告开销属于其训练实现，不是任意硬件保证。 |
+| C6 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=14 ) | 矩阵级更新依赖完整逻辑权重，不能等同逐元素 AdamW。 |
+| C7 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=5 ) | 预训练、领域训练和模型合并是不同阶段。 |
+| C8 | [原文]( ../../raw/pdf/DeepSeek%20AI%20-%202026%20-%20DeepSeek-V4%20Towards%20Highly%20Efficient%20Million-Token%20Context%20Intelligence.pdf#page=4 ) | 结构的理论节省并非脱离系统即可实现。 |
+
+## 核证范围
+
+从完整 PDF 核读第 1、4–14、21 页的架构、效率口径、mHC、Muon 和训练路线；旧 HTML 不含正文，全文已改为 PDF 提取。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

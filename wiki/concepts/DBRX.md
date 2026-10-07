@@ -3,15 +3,23 @@ type: concept
 ---
 # DBRX
 
+## TL;DR（快速导读）
+
+DBRX 是 Databricks 的开放专家混合模型，了解它应同时看稀疏计算、任务能力与实际部署条件。
+
 ## 简介
 
-DBRX 是当前知识库中 Databricks 开放大模型路线的概念页。它承接的是平台公司把高效开放模型做成企业级产品与生态节点的路径。
+DBRX 是 Databricks 的开放专家混合模型，了解它应同时看稀疏计算、任务能力与实际部署条件。
+
+## 具体怎么理解
+
+总参数量决定要保存多少权重，激活参数量影响每次计算；二者都不足以单独判断服务速度。
 
 ## 关键属性
 
 - 类型：开放语言模型
 - 开放性：`open-weight`
-- 代表来源：[Databricks - 2024 - DBRX A Highly Efficient Open LLM](../../wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)
+- 代表来源：[DBRX：Databricks 官方模型发布说明](../../wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)
 - 当前角色：企业平台型开放模型代表
 
 ## 相关主张
@@ -22,7 +30,7 @@ DBRX 是当前知识库中 Databricks 开放大模型路线的概念页。它承
 
 ## 来源支持
 
-- [Databricks - 2024 - DBRX A Highly Efficient Open LLM](../../wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)
+- [DBRX：Databricks 官方模型发布说明](../../wiki/summaries/Databricks%20-%202024%20-%20DBRX%20A%20Highly%20Efficient%20Open%20LLM.md)
 
 ## 关联页面
 

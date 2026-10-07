@@ -1,5 +1,11 @@
 # AGENTS.md
 
+## TL;DR（快速导读）
+
+把资料变成可以反复阅读、查询和修订的知识库：原文保存在 `raw/`，解释和研究判断写进 `wiki/`。新资料先归档、再读懂和核证，最后更新受影响的页面；回答问题时先查已有 wiki，并把有用的新结论写回来。
+
+所有知识页面都先给人看的快速导读，再展开具体问题、方法、例子和证据。来源状态决定结论能用到什么程度；文字更好读，不代表论文已经精读或结论更确定。
+
 本文件定义当前知识库仓库的固定结构和维护规则。后续会话默认遵守本文件，除非用户明确要求偏离。
 
 ## 来源与定位
@@ -62,6 +68,17 @@
 
 ## 3. 页面职责
 
+### 面向读者的共同写作要求
+
+- 每个 `wiki/` 页面在一级标题之后，第一节必须是 `## TL;DR（快速导读）`。用简短中文直接说明本页的具体对象、最重要的结论或区别，以及读者能用它解决什么问题；不能只写“重要节点”“值得关注”或“本文介绍”。
+- 导读先讲内容。`auto / building` 页在导读末尾用一句话说明尚未精读或仍待建设；`refined / formal` 页也要保留原有证据条件。禁止因为补了导读、翻译或例子就升级页面状态。
+- 正文应回答“为什么需要它、具体怎样做、产生什么结果、条件和代价是什么”。论文 summary 至少有可理解的中文摘要和本篇的实质内容，不能直接贴截断的英文段落或把导入状态当作关键事实。
+- 解释专业词时先给中文含义，再保留英文名。能说“生成一次回答”“候选文档排序”“显存读写”时，不反复堆叠 generation、ranking、IO 等术语。
+- 概念和方法应给一个具体例子或短流程；示意数字明确标为示例，不能写成论文实测。产品 / 模型页说明输入、输出和适用任务；作者 / 机构页说明可从哪些研究方向和已收录来源开始读，不添加未经来源支持的传记。
+- topic 保留专业综述的深度，但先用一个实际问题建立阅读入口，再进入方法分层、争议和证据。通俗表达不能删掉成立条件、局限、冲突或来源。
+- 已经写得充分的正文保留有效细节；只为增加篇幅而反复改写同一句话、复制通用模板或堆砌名词不算改进。
+- `raw/html/`、`raw/pdf/` 和来源全文不是面向读者重写的对象；原始方法文档保留原文，阅读说明可以另加导读。`log.md` 继续只追加。
+
 ### `wiki/summaries/`
 
 单篇资料的结构化 summary 页。它不是原文，也不是全文抽取文本，而是介于两者之间、可被 topic / concept / comparison / timeline 复用的来源摘要层。至少包含：
@@ -78,6 +95,8 @@ summary 状态约定：
 - 待精读自动摘要：只作为整理入口，不应直接支撑正式 topic 的关键结论。
 - summary 页必须带 YAML frontmatter：`type: summary`，并用 `status: refined` 或 `status: auto` 表示上述两种状态。
 - 正文中的来源状态与 frontmatter 必须一致；状态迁移统一通过 `scripts/migrate_wiki_metadata.py` 检查。
+- 新增精修 summary，或重新核证已有 summary 的核心主张时，使用 `evidence_schema: 1` 与 `reviewed: YYYY-MM-DD`，并增加 `证据定位` 表。每个核心主张给出编号、原文章节 / PDF 页码、实验或适用条件，以及指向 `raw/text/` 章节锚点、`raw/html/` 原始锚点或 `raw/pdf/` 的 `#page=N` 链接。
+- `refined` 表示经过实际阅读和核证；正文抽取成功、模板齐全、检索命中或机器检查通过都不能自动提升状态。旧精修页不做机械降级；在相关研究问题需要重新核证时逐篇补证据定位。
 
 ### `wiki/topics/`
 
@@ -197,6 +216,10 @@ ingest 约束：
 - ingest 应默认检查该来源是否会修正、加强、削弱或否定现有 wiki 中的已有说法，并把这种影响写回相关页面。
 - 一个来源可以触及多个 wiki 页面；不应只生成一页 summary 就停止，若它明显影响已有 topic / concept / comparison / timeline，应一并更新。
 - 自动摘要只是 ingest 起点；若某来源后续成为关键证据，应把对应 `wiki/summaries/` 精修到足以支撑正式 topic。
+- 接入前先确定研究问题、阅读范围、与已有来源的重复 / 版本关系及预期影响页面。默认逐篇完成阅读、核证、整合；批量接入时先给出处理队列，并逐篇保持完整来源链。
+- “来源已归档”“待精读 summary”“精修 summary”“受影响 wiki 已整合”是不同进度，记录在追加日志中；保留现有 `auto / refined` 页面状态，不把归档数量当作消化完成数量。
+- 更新时明确新来源对旧说法的影响：新增、加强、削弱、修正、冲突或无影响。矛盾需要保留来源、版本、成立条件与不确定点；跨页结论仍通过 summary 回溯。
+- 原始 HTML / PDF 写入一次后不可覆盖。脚本的 `--force` 只允许重建 `raw/text/`；新版本或新日期快照使用新 stem。优先使用明确的 arXiv 版本号，并保留来源 URL、原始文件 SHA256 与抽取方法。
 
 ### Query
 
@@ -226,6 +249,8 @@ query 约束：
 - 搜索命中后，默认先打开 `wiki/topics/`、`wiki/concepts/`、`wiki/comparisons/`、`wiki/timelines/`；若涉及具体证据，再回到 `wiki/summaries/`。
 - `raw/text/` 只作为全文补查与核对层，不直接替代 `wiki/summaries/` 作为稳定依据。
 - 若查询暴露出现有 wiki 缺口，例如缺 summary、缺 concept、缺 cross-link、缺对比页，应优先补齐相关页面。
+- 查询按任务路由：实体 / 单篇事实优先 concept 与 summary；比较优先 comparison；演进优先 timeline；跨领域综合先拆子问题，再组合 topic 与其 summary。搜索结果必须显示页面成熟度与位置；自动摘要只能用作候选入口。
+- 使用渐进阅读：索引 → 页面摘要 / 目录 → 相关章节 → 必要的原文图表。对截断片段标记范围，不把局部精读写成覆盖全文；长任务把已核证事实和待办写进 wiki / 追加 log 后继续。
 
 ### Lint
 
@@ -254,8 +279,9 @@ query 约束：
 
 机器检查入口：
 
-- `python scripts/lint_wiki.py`：检查来源链、页面 schema、证据成熟度、链接、索引与正文抽取质量；error 必须清零，warning 作为编辑队列处理。
-- `python -m unittest discover -s tests -v`：运行工具链回归测试。
+- `.venv/bin/python scripts/lint_wiki.py`：检查来源链、页面 schema、证据成熟度、定位锚点、原始 SHA256、链接、索引，以及首节 TL;DR、中文摘要与待精读 / 待建设提示；error 必须清零，warning 作为编辑队列处理。机器检查不判断主张是否被原文支持，也不替代综述质量审查。
+- `.venv/bin/python -m unittest discover -s tests -v`：运行工具链回归测试。
+- `.venv/bin/python scripts/evaluate_retrieval.py`：运行本库已知目标页面的候选召回回归；它不测量生成答案真实性或完整语义检索能力。
 - `.github/workflows/wiki-ci.yml`：在 push 与 pull request 上执行同一组结构、测试、迁移幂等性与凭据扫描门禁。
 
 ## 6. 本仓库可用工具
@@ -265,7 +291,7 @@ query 约束：
 - `PyMuPDF`（Python 包名 `pymupdf`，代码中通常以 `fitz` 使用）：用于读取 `raw/pdf/` 中的 PDF，并抽取文本到 `raw/text/`。当前对应脚本是 `scripts/extract_pdf_text.py`。
 - `requests`：用于下载网页、arXiv PDF、arXiv HTML 等原始来源。当前对应脚本包括 `scripts/download_arxiv.py` 与 `scripts/fetch_web_text.py`。
 - `qmd` CLI：本地 markdown 检索工具，用于在 `query` 阶段对 `index.md`、`wiki/` 与 `raw/text/` 做候选页召回；它是检索层，不是事实层。
-- `scripts/search_wiki.py`：当前仓库的 `qmd` 包装入口，统一约束索引范围、结果分层与默认排序。
+- `scripts/search_wiki.py`：优先使用项目独立 qmd 索引，失败时回退本地词面召回；统一约束索引范围、任务路由、页面成熟度与定位，支持 `--backend auto|qmd|local` 和 `--json`。
 - `scripts/fetch_web_text.py`：用于抓取普通网页，并把正文提取成 markdown；提取逻辑基于标准库 `html.parser` 与页面中的 JSON-LD 信息。
 - `scripts/download_arxiv.py`：用于把 arXiv 来源落到 `raw/pdf/`、`raw/html/`、`raw/text/` 三层，适合 arXiv ingest。
 - `scripts/extract_pdf_text.py`：用于把已有 PDF 批量或单篇转换为 `raw/text/` markdown。
@@ -274,6 +300,9 @@ query 约束：
 - `scripts/normalize_raw_text_metadata.py`：把旧机器绝对路径迁移为仓库相对来源路径。
 - `scripts/repair_index_descriptions.py`：清理 index 中被截断的导入摘要，并改用明确的 summary 成熟度说明。
 - `scripts/scan_secrets.py`：扫描受 Git 跟踪的文本；原始快照中的命中仅告警，wiki、脚本与配置中的命中阻断 CI。
+- `scripts/wiki_workbench.py audit`：只读生成成熟度统计、证据依赖驱动的精读队列、导航缺口与同 arXiv ID 的版本候选；启发式优先级不是质量评分，不自动合并或提升状态。
+- `scripts/wiki_workbench.py plan <来源 stem> --question '研究问题'`：准备现有来源的目录、SHA256、相关页面、未解决问题与有范围标记的精读片段；可用 `--section` 定位章节。
+- `scripts/evaluate_retrieval.py`：验证检索改动是否仍能找回本库的已知目标页面。
 
 辅助规则：
 
@@ -282,6 +311,14 @@ query 约束：
 - 若只是为了抓取普通网页正文，优先复用 `scripts/fetch_web_text.py` 的现有提取逻辑，而不是每次从零写抓取代码。
 - 若需要在现有 wiki 中快速定位候选页，优先通过 `scripts/search_wiki.py` 调用 `qmd`，而不是在对话里手工枚举文件。
 - `scripts/search_wiki.py` 默认先执行 qmd 增量更新；只有明确知道索引已刷新时才使用 `--no-update`。
+- 工具命令默认使用项目 `.venv/bin/python`；qmd 的项目状态位于被 Git 忽略的 `.wiki-cache/`，是可重建缓存，事实与任务进度仍保存在三层结构中。
+- 复杂 PDF 的表格、公式、跨栏阅读顺序或扫描件，需要回看原文；PyMuPDF 文本和页码不是版面理解。若常规抽取不足，再评估 Docling / OCR 等专用工具，并用样本验证后启用。
+
+### Agent 执行入口
+
+- 日常执行协议与具体命令见 [LLM Wiki 文档处理流程](./wiki/concepts/LLM%20Wiki%20文档处理流程.md)。该页面是本规则的操作说明；歧义仍按根级 `LLM Wiki` 与本文件的优先级处理。
+- 一次工作按“计划 / 阅读 / 核证 / 整合”四个职责执行；这些是职责阶段，不要求启动多个 agent。分工或并行 agent 工作遵守当前会话的授权。
+- 用户只问选源、平台或方法时，默认进行查询与适度沉淀；不能因此批量下载或接入榜单内的论文。用户要求先优化流程时，先完成流程和工具验证，再进入论文处理。
 
 历史脚本说明：
 

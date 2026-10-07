@@ -1,8 +1,21 @@
 ---
 type: summary
 status: refined
+evidence_schema: 1
+review_scope: core_claims
+reviewed: 2026-10-07
 ---
 # Kwon et al. - 2023 - Efficient Memory Management for Large Language Model Serving with PagedAttention
+
+## TL;DR（快速导读）
+
+PagedAttention 将逐渐增长的键值缓存切成小块，按需分配并允许共享，减少语言模型服务的内存浪费。
+
+阅读重点：先看方法如何解决问题，再看实验条件与适用边界。
+
+## 先看一个例子
+
+一句回答不断变长时，可以按需分配缓存块，而不是先为最大长度占一整段连续空间。
 
 ## 来源信息
 
@@ -15,9 +28,13 @@ status: refined
 - 年份：2023
 - DOI：`10.1145/3600006.3613165`
 - arXiv：`2309.06180`
-- 状态：精修 summary；已交叉核对原始 HTML、PDF 与全文文本
+- 状态：精修摘要；已核证本页核心方法、实验条件与局限。
 
 ## 摘要
+
+每条序列的逻辑块通过映射表指向可不连续的 GPU 内存，vLLM 再结合调度、引用计数和写时复制管理请求。它解决缓存管理问题；吞吐收益受序列长度、并发、共享前缀和调度策略影响。
+
+### 方法与背景细节
 
 这篇论文把高吞吐 LLM serving 的关键瓶颈定位到动态 `KV cache` 的内存管理。自回归生成中，每个请求的 `KV cache` 会随 token 逐步增长，最终长度又无法预知；而当时的 serving system 通常按最大序列长度预留连续内存，从而同时产生未来 token 的预留空间、内部碎片与外部碎片。论文测得，相关既有方案中实际用于保存 token state 的 `KV cache` 容量仅占 `20.4%–38.2%`，这直接压缩了可并发 batch 的规模。
 
@@ -27,30 +44,26 @@ status: refined
 
 ## 关键事实
 
-- **问题规模**：以论文使用的 FP16 OPT-13B 为例，一个 token 的 `KV cache` 约为 `800 KB`，`2048` token 的单请求最多约需 `1.6 GB`。该数字由模型层数、hidden size、attention 结构与精度共同决定，不是所有模型的固定常数。
-- **既有内存浪费**：连续 chunk 预分配包含三类占用——尚未生成 token 的 reserved slots、按最大长度过度配置造成的 internal fragmentation、以及不同 chunk 尺寸造成的 external fragmentation。论文 profiling 中只有 `20.4%–38.2%` 的 `KV cache` 空间保存了真实 token state。
-- **PagedAttention 语义**：逻辑 `KV block` 按固定数量的 token positions 切分 key/value；论文实现为不同层和 attention heads 分别维护 blocks / block tables。kernel 根据映射分块读取非连续物理块，但执行的仍是原有 attention 计算，并未用近似结果换取内存效率。
-- **按需分配**：逻辑块从左到右填充，只有末块可能留有未填 slot；新物理块仅在前一块填满后分配。因此单序列由碎片造成的浪费被限制在一个 block 内，所有请求结束后其物理块可立即回收。
-- **控制面架构**：`vLLM` 使用 centralized scheduler 协调 distributed GPU workers；scheduler 内的 `KV cache manager` 维护每条序列的逻辑块到物理块映射，并通过 CPU/GPU block allocator 管理可用块。
-- **每轮执行**：scheduler 先选择本轮候选序列并分配新块，再把 token IDs 与各请求的 block table 广播给 GPU workers；worker 按映射读取旧 `KV cache`、写入新状态、执行模型并把采样 token 返回 scheduler。
-- **共享与 `copy-on-write`**：parallel sampling 可共享 prompt blocks；beam search 可共享仍相同的候选前缀；预定义 shared prefix 也可映射到预留物理块。共享块由引用计数管理，只有某条序列需要改写仍被多方引用的最后一块时才复制该 block。
-- **统一 decoding 抽象**：实现用 `fork`、`append`、`free` 三个基本操作表示 parallel sampling、beam search 和 prefix sharing，使模型 kernel 只看到物理 block ID，而不直接处理上层共享模式。
-- **调度与抢占**：论文版本采用 `FCFS`；到达最早的请求优先，最新请求优先被抢占。同一请求中的多条序列作为 sequence group 进行 gang scheduling，并采用 all-or-nothing eviction，避免拆散存在共享关系的 blocks。
-- **恢复机制**：被抢占序列可以把全部 blocks swap 到 CPU RAM，或在恢复时把已生成 token 与原 prompt 拼成一次 prompt phase 来 recompute `KV cache`。论文发现小 block 更利于 recomputation，大 block 更利于 swapping，`16–64` 的中等 block size 下两者端到端表现接近。
-- **分布式执行**：论文支持 Megatron-LM 风格 tensor parallelism。各 worker 接收相同的物理 block ID 映射，但只保存其 attention heads 对应的 `KV cache` 分片；模型 shard 之间用 NCCL `all-reduce` 同步中间结果，内存管理不要求 workers 彼此同步。
-- **实现构成**：论文版本以 FastAPI 提供扩展 OpenAI API 的 frontend；控制面 scheduler / block manager 主要用 Python，实现关键 `PagedAttention`、block reshape / write 和 block copy 的 fused CUDA kernels，并以 PyTorch / Transformers 实现 GPT、OPT、LLaMA executor。
-- **基础 sampling 结果**：在 ShareGPT trace 上，vLLM 在相近 normalized latency 下可承受比 `Orca (Oracle)` 高 `1.7–2.7×`、比 `Orca (Max)` 高 `2.7–8×` 的请求率；相对 FasterTransformer 的最高请求率差距可达 `22×`，但这同时包含后者缺乏细粒度调度的影响，不能归因于 PagedAttention 单一因素。
-- **共享收益**：Alpaca 实验中，parallel sampling 节省 `6.1%–9.8%` blocks，beam search 节省 `37.6%–55.2%`；ShareGPT 中相应范围为 `16.2%–30.5%` 与 `44.3%–66.3%`。预定义 one-shot / few-shot prefix sharing 相比 `Orca (Oracle)` 分别报告 `1.67×` / `3.58×` 吞吐。
-- **block size 取舍**：block 越小，碎片更少、共享概率更高，但 GPU 并行读取效率可能下降；block 越大则相反。论文实验选择 `16` tokens 作为默认值，而不是宣称存在适合所有 workload 的固定最优值。
+- **C1**：**问题规模**：以论文使用的 FP16 OPT-13B 为例，一个 token 的 `KV cache` 约为 `800 KB`，`2048` token 的单请求最多约需 `1.6 GB`。该数字由模型层数、hidden size、attention 结构与精度共同决定，不是所有模型的固定常数。
+- **C2**：**既有内存浪费**：连续 chunk 预分配包含三类占用——尚未生成 token 的 reserved slots、按最大长度过度配置造成的 internal fragmentation、以及不同 chunk 尺寸造成的 external fragmentation。论文 profiling 中只有 `20.4%–38.2%` 的 `KV cache` 空间保存了真实 token state。
+- **C3**：**PagedAttention 语义**：逻辑 `KV block` 按固定数量的 token positions 切分 key/value；论文实现为不同层和 attention heads 分别维护 blocks / block tables。kernel 根据映射分块读取非连续物理块，但执行的仍是原有 attention 计算，并未用近似结果换取内存效率。
+- **C4**：**按需分配**：逻辑块从左到右填充，只有末块可能留有未填 slot；新物理块仅在前一块填满后分配。因此单序列由碎片造成的浪费被限制在一个 block 内，所有请求结束后其物理块可立即回收。
+- **C5**：**控制面架构**：`vLLM` 使用 centralized scheduler 协调 distributed GPU workers；scheduler 内的 `KV cache manager` 维护每条序列的逻辑块到物理块映射，并通过 CPU/GPU block allocator 管理可用块。
+- **C6**：**每轮执行**：scheduler 先选择本轮候选序列并分配新块，再把 token IDs 与各请求的 block table 广播给 GPU workers；worker 按映射读取旧 `KV cache`、写入新状态、执行模型并把采样 token 返回 scheduler。
+- **C7**：**共享与 `copy-on-write`**：parallel sampling 可共享 prompt blocks；beam search 可共享仍相同的候选前缀；预定义 shared prefix 也可映射到预留物理块。共享块由引用计数管理，只有某条序列需要改写仍被多方引用的最后一块时才复制该 block。
+- **C8**：**统一 decoding 抽象**：实现用 `fork`、`append`、`free` 三个基本操作表示 parallel sampling、beam search 和 prefix sharing，使模型 kernel 只看到物理 block ID，而不直接处理上层共享模式。
+- **C9**：**调度与抢占**：论文版本采用 `FCFS`；到达最早的请求优先，最新请求优先被抢占。同一请求中的多条序列作为 sequence group 进行 gang scheduling，并采用 all-or-nothing eviction，避免拆散存在共享关系的 blocks。
+- **C10**：**恢复机制**：被抢占序列可以把全部 blocks swap 到 CPU RAM，或在恢复时把已生成 token 与原 prompt 拼成一次 prompt phase 来 recompute `KV cache`。论文发现小 block 更利于 recomputation，大 block 更利于 swapping，`16–64` 的中等 block size 下两者端到端表现接近。
+- **C11**：**分布式执行**：论文支持 Megatron-LM 风格 tensor parallelism。各 worker 接收相同的物理 block ID 映射，但只保存其 attention heads 对应的 `KV cache` 分片；模型 shard 之间用 NCCL `all-reduce` 同步中间结果，内存管理不要求 workers 彼此同步。
+- **C12**：**实现构成**：论文版本以 FastAPI 提供扩展 OpenAI API 的 frontend；控制面 scheduler / block manager 主要用 Python，实现关键 `PagedAttention`、block reshape / write 和 block copy 的 fused CUDA kernels，并以 PyTorch / Transformers 实现 GPT、OPT、LLaMA executor。
+- **C13**：**基础 sampling 结果**：在 ShareGPT trace 上，vLLM 在相近 normalized latency 下可承受比 `Orca (Oracle)` 高 `1.7–2.7×`、比 `Orca (Max)` 高 `2.7–8×` 的请求率；相对 FasterTransformer 的最高请求率差距可达 `22×`，但这同时包含后者缺乏细粒度调度的影响，不能归因于 PagedAttention 单一因素。
+- **C14**：**共享收益**：Alpaca 实验中，parallel sampling 节省 `6.1%–9.8%` blocks，beam search 节省 `37.6%–55.2%`；ShareGPT 中相应范围为 `16.2%–30.5%` 与 `44.3%–66.3%`。预定义 one-shot / few-shot prefix sharing 相比 `Orca (Oracle)` 分别报告 `1.67×` / `3.58×` 吞吐。
+- **C15**：**block size 取舍**：block 越小，碎片更少、共享概率更高，但 GPU 并行读取效率可能下降；block 越大则相反。论文实验选择 `16` tokens 作为默认值，而不是宣称存在适合所有 workload 的固定最优值。
 
 ## 争议与不确定点
 
-- `Orca` 当时没有公开实现，论文中的三种 Orca baseline 均由作者重实现；其中 `Orca (Oracle)` 预先知道真实输出长度，只是不可实现的性能上界。因此跨系统倍数需要结合这一 baseline 构造理解。
-- `PagedAttention` 的动态映射会增加 block table 访问、分支和变长序列处理；论文 microbenchmark 中其 attention kernel latency 比高度优化的 FasterTransformer 高 `20%–26%`。端到端收益来自更大的有效 batch，而不是 kernel 层无条件加速。
-- “near-zero waste” 不等于绝对零浪费：每条活动序列的最后一个 block 仍可能未填满，block size 也会在碎片、共享概率和 GPU 利用率之间产生权衡。
-- 当可用 `KV cache` 空间本来充裕、序列很短或 workload 已转为 compute-bound 时，vLLM 相对优势会缩小；论文也指出，在不具备动态分配且 memory-bound 特征的 GPU workload 中，分页间接寻址甚至可能降低性能。
-- 论文实验基于 2023 年的软件版本、A100、OPT-13B/66B/175B、LLaMA-13B，以及由 ShareGPT / Alpaca 长度分布合成的 Poisson arrival trace。其结果不能直接代表后续 vLLM 版本、其他 attention 结构、更新硬件或真实生产流量。
-- 论文没有把 iteration-level scheduling 归为 vLLM 独创；它明确认为 Orca 的细粒度调度与 PagedAttention 的内存管理是互补技术。系统优势来自两者与 block-level scheduling / sharing 的组合。
+- 论文本身指出paging适合动态KV场景，未保证所有GPU训练工作负载都受益。
+- 混合recurrent/global模型还需要状态一致性扩展，不能直接按此2023版假设管理全部缓存。
 
 ## 关联页面
 
@@ -62,3 +75,41 @@ status: refined
 - 概念：[Transformer](../concepts/Transformer.md)
 - 概念：[FlashAttention](../concepts/FlashAttention.md)
 - 主题：[注意力机制 Attention](../topics/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%20Attention.md)
+
+## 这里的术语是什么意思
+
+- **token**：词元：模型处理文本的基本单位，可能是一个字、一个词或其片段。
+- **KV cache**：键值缓存：保存已经处理过的位置表示，生成新内容时可复用，避免全部重算。
+- **scheduler**：调度器：决定请求何时进入计算、每次处理多少，以及如何共享资源。
+
+## 方法与实验解读
+
+PagedAttention把连续逻辑序列映射为非连续物理KV块，保留计算定义并按需分配；共享与COW进一步让多个候选复用前缀。vLLM把内存管理、持续batch和调度连接起来，所以论文收益是整个服务系统的结果。理解吞吐要同时看输入输出长度、请求率、batch和允许延迟，而不是只测单kernel。
+
+## 证据定位
+
+本页主张按下表回到原文；数字与比较只适用于对应论文版本和评测条件。
+
+| 主张 | 原文定位 | 成立条件与解读范围 |
+| --- | --- | --- |
+| C1 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-8 ) | OPT-13B/FP16实例，数字不通用。 |
+| C2 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-9 ) | profiling对象和最大长度配置限定。 |
+| C3 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-11 ) | 精确attention；非近似结果。 |
+| C4 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-12 ) | 末块仍可浪费未填slots。 |
+| C5 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-10 ) | 论文版centralized控制面。 |
+| C6 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-13 ) | 每轮步骤与prefill/decode区分。 |
+| C7 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-14 ) | 共享前缀、引用计数和COW共同决定节省。 |
+| C8 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-19 ) | 上层解码语义与kernel映射分开。 |
+| C9 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-15 ) | 2023论文版FCFS，不代表当前vLLM所有scheduler。 |
+| C10 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-15 )、[原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-29 ) | 恢复开销比较条件见§7.3。 |
+| C11 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-16 ) | TP分片，通信仍有成本。 |
+| C12 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-17 ) | 历史实现版本，不作当前依赖规范。 |
+| C13 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-22 ) | ShareGPT/Alpaca请求trace与normalized latency条件。 |
+| C14 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-23 ) | 比例分母为不共享时blocks，不是全部GPU显存。 |
+| C15 | [原文]( ../../raw/text/Kwon%20et%20al.%20-%202023%20-%20Efficient%20Memory%20Management%20for%20Large%20Language%20Model%20Serving%20with%20PagedAttention.md#source-section-28 ) | 默认16为该版经验折中，不是全工作负载最优。 |
+
+## 核证范围
+
+保留原有15项系统事实，核读§3–§7的映射、共享、调度、分布式、请求trace、block与恢复消融。
+
+核证日期：2026-10-07。本文是可复用的来源摘要；核证范围限定于本页列出的主张，不表示独立复现实验或审阅了每个附录细节。

@@ -3,9 +3,19 @@ type: author
 ---
 # DeepSeek
 
+## TL;DR（快速导读）
+
+这里集中阅读 DeepSeek 的语言底座、推理训练、长上下文和 OCR 资料，各分支的实验和版本应分别核对。
+
 ## 简介
 
-`DeepSeek` 是当前知识库里开放 MoE、推理强化学习、thinking tool-use、长上下文效率、agent-oriented 模型与 OCR 压缩实验的重要机构入口。
+这里集中阅读 DeepSeek 的语言底座、推理训练、长上下文和 OCR 资料，各分支的实验和版本应分别核对。
+
+## 从哪里开始读
+
+- [Unknown - 2024 - DeepSeek-V3 Technical Report](../summaries/Unknown%20-%202024%20-%20DeepSeek-V3%20Technical%20Report.md)：DeepSeek-V3 的 MLA 将键和值压缩到较小的联合表示，降低生成时缓存的内存与读写压力。
+- [DeepSeek-R1：通过强化学习增强推理能力](../summaries/Unknown%20-%202024%20-%20DeepSeek-R1%20Incentivizing%20Reasoning%20Capability%20in%20LLMs%20via%20Reinforcement%20Learning.md)：待精读：DeepSeek-R1 区分纯强化学习探索的 R1-Zero 与加入冷启动、多阶段训练的 R1，并将推理能力蒸馏到较小模型。
+- [DeepSeek AI - 2025 - DeepSeek-R1-0528 Release](../summaries/DeepSeek%20AI%20-%202025%20-%20DeepSeek-R1-0528%20Release.md)：R1-0528 是 R1 的更新发布页，说明推理模型怎样继续改善交互、结构化输出和工具调用。
 
 ## 当前覆盖
 
@@ -32,3 +42,7 @@ type: author
 - [DeepSeek-OCR](../concepts/DeepSeek-OCR.md)
 - [LLM 预训练](../topics/LLM%20预训练.md)
 - [LLM RL](../topics/LLM%20RL.md)
+
+## 这里的术语是什么意思
+
+- **OCR**：文字识别：从图像读取文字；整页任务还需处理布局和阅读顺序。
